@@ -20,7 +20,7 @@ from .models import Item
 
 log = logging.getLogger("aggrssive.semantic")
 
-STRICTNESS = {"loose": 0.55, "normal": 0.65, "strict": 0.75}  # cosine thresholds for bge-small
+STRICTNESS = {"loose": 0.50, "normal": 0.58, "strict": 0.65}  # cosine thresholds for bge-small, calibrated on real blog posts
 
 _model = None
 _lock = threading.Lock()

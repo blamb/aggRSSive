@@ -251,7 +251,7 @@ class Rule(Base):
     field: Mapped[str] = mapped_column(String(16), default="any")  # any|title|text|author|url|category|semantic|ai
     pattern: Mapped[str] = mapped_column(String(500))
     is_regex: Mapped[bool] = mapped_column(Boolean, default=False)
-    threshold: Mapped[float] = mapped_column(Float, default=0.65)  # semantic rules: minimum cosine similarity
+    threshold: Mapped[float] = mapped_column(Float, default=0.58)  # semantic rules: minimum cosine similarity
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
 
