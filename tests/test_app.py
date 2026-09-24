@@ -96,6 +96,12 @@ def test_signup_add_source_bundle_and_outputs(client):
     assert "Open pedagogy" in client.get(f"/embed/{slug}/frame").text
 
 
+def test_home_stats_render_numbers(client):
+    text = client.get("/").text
+    assert "built-in method" not in text
+    assert "1 sources · 3 items" in text
+
+
 def test_private_bundle_is_hidden_from_strangers(client):
     with SessionLocal() as db:
         sid = db.query(Source).one().id
