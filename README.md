@@ -14,6 +14,15 @@ A second edition of a tool first built at UBC in 2005 with Magpie RSS, Feed2JS a
 - **Outputs** for every public bundle: a `<script>` embed (with iframe fallback), RSS, Atom, JSON Feed, a JSON API, and OPML of the sources.
 - **Accounts**: local email/password; GitHub and Google sign-in when configured. The first account becomes admin.
 
+## Moodle and other LMSs (LTI 1.3 Advantage)
+
+aggRSSive is an LTI 1.3 tool with Deep Linking. An admin registers it once per platform at `/lti`; instructors then add any public aggRSSive to a course with *External tool → Select content*, choosing how many items to show and whether to include descriptions and images. The list stays live.
+
+- **Moodle**: *Site administration → Plugins → External tool → Manage tools*, paste `https://<your-host>/lti/register` into *Tool URL*, click *Add LTI Advantage*. Done.
+- **Other platforms**: `/lti` lists the login, launch, JWKS and deep-linking URLs, and has a form to paste the platform's details back in.
+
+Launch state is kept server-side (one-time, ten-minute TTL) rather than in a cookie, so launches work inside LMS iframes where third-party cookies are blocked. The tool's RSA key is generated on first start at `LTI_KEY_PATH` (`/data/lti_private_key.pem` in Docker).
+
 ## Run it locally
 
 ```bash
@@ -55,7 +64,7 @@ The base image is pinned to Debian 12 (`python:3.13-slim-bookworm`) on purpose: 
 ## Roadmap
 
 1. ~~Sources, tags, bundles, rules, embed and feed outputs~~ (this release)
-2. LTI 1.3 Advantage: Deep Linking picker and live resource inside Moodle; deploy to Reclaim Cloud
+2. ~~LTI 1.3 Advantage: Deep Linking picker and live resource inside Moodle; deploy to Reclaim Cloud~~
 3. Local embeddings for semantic filtering; optional Claude-backed plain-language rules and tag suggestions
 4. Manual bookmarks, platform adapters (YouTube, Mastodon, Bluesky, arXiv, Zotero, Hypothesis...), bundles as sources, WordPress plugin, feedless page watching, email digests
 5. Public bundle export/import, forking, one-click Reclaim Cloud install

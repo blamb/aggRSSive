@@ -20,6 +20,7 @@ dependencies = [
     "apscheduler>=3.10,<4",
     "pydantic-settings>=2.0",
     "nh3>=0.2",
+    "PyJWT[crypto]>=2.8",
 ]
 
 [project.optional-dependencies]

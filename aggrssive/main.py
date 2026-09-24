@@ -11,7 +11,7 @@ from starlette.middleware.sessions import SessionMiddleware
 from . import scheduler
 from .config import get_settings
 from .db import init_db
-from .routes import auth_routes, bundles, outputs, pages, sources, tags
+from .routes import auth_routes, bundles, lti, outputs, pages, sources, tags
 from .templating import templates
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s %(message)s")
@@ -38,6 +38,7 @@ app.include_router(sources.router)
 app.include_router(tags.router)
 app.include_router(bundles.router)
 app.include_router(outputs.router)
+app.include_router(lti.router)
 
 
 @app.exception_handler(StarletteHTTPException)

@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Returning to your course…</title></head>
+<body>
+<form id="f" method="post" action="{{ action }}">
+{% for k, v in fields.items() %}<input type="hidden" name="{{ k }}" value="{{ v }}">{% endfor %}
+<noscript><button>Continue</button></noscript>
+</form>
+<script>document.getElementById("f").submit();</script>
+</body></html>

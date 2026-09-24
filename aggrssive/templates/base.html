@@ -15,6 +15,7 @@
     <a href="/tags">Tags</a>
     <a href="/bundles">aggRSSives</a>
     {% if user %}
+      {% if user.is_admin %}<a href="/lti">LTI</a>{% endif %}
       <a href="/sources/add" class="btn small">+ Add feed</a>
       <form method="post" action="/logout" class="inline"><button class="link">Sign out ({{ user.display_name }})</button></form>
     {% else %}

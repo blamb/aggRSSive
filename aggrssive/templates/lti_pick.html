@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Choose an aggRSSive</title>
+<style>
+:root{--fg:#1d1d1f;--muted:#6b6b6b;--line:#e4e1da;--card:#fff;--bg:#fbfaf7;--accent:#c8102e}
+body{font:15px/1.5 system-ui,sans-serif;margin:0;padding:1rem;color:var(--fg);background:var(--bg)}
+h1{font-size:1.2rem;margin:0 0 .2rem}.muted{color:var(--muted)}
+input[type=search]{width:100%;padding:.5rem .7rem;border:1px solid var(--line);border-radius:6px;font:inherit;margin:.6rem 0}
+.list{display:grid;gap:.5rem;max-height:52vh;overflow:auto;padding:2px}
+label.b{display:grid;grid-template-columns:auto 1fr;gap:.6rem;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:.7rem .8rem;cursor:pointer}
+label.b:has(input:checked){border-color:var(--accent);box-shadow:0 0 0 2px #c8102e33}
+label.b strong{display:block}label.b span{font-size:.85rem;color:var(--muted)}label.b p{margin:.2rem 0 0;font-size:.9rem}
+.opts{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin:1rem 0;font-size:.92rem}.opts label{display:flex;gap:.35rem;align-items:center}
+.opts input[type=number]{width:4.5rem;padding:.3rem;border:1px solid var(--line);border-radius:5px;font:inherit}
+button{font:inherit;padding:.55rem 1.1rem;border-radius:6px;border:0;background:var(--accent);color:#fff;cursor:pointer}button:disabled{opacity:.5}
+.foot{font-size:.8rem;color:var(--muted);margin-top:1rem}
+</style></head>
+<body>
+<h1>Choose an aggRSSive</h1>
+<p class="muted">{% if name %}Hi {{ name }}. {% endif %}The list you pick stays live in your course: as its feeds update, so does the page.</p>
+<form method="post" action="/lti/deeplink" id="pick">
+<input type="hidden" name="token" value="{{ token }}">
+<input type="search" id="q" placeholder="Search aggRSSives…" autofocus>
+<div class="list" id="list">
+{% for b in bundles %}
+<label class="b" data-text="{{ (b.title ~ ' ' ~ b.description ~ ' ' ~ b.owner.display_name)|lower }}">
+  <input type="radio" name="bundle" value="{{ b.slug }}" required>
+  <div><strong>{{ b.title }}</strong><span>{{ b.sources|length }} sources · by {{ b.owner.display_name }}</span>{% if b.description %}<p>{{ b.description[:180] }}</p>{% endif %}</div>
+</label>
+{% else %}
+<p class="muted">No public aggRSSives yet. Make one at <a href="{{ settings.base_url }}" target="_blank">{{ settings.base_url }}</a>, then come back.</p>
+{% endfor %}
+</div>
+<div class="opts">
+  <label>Show <input type="number" name="n" value="10" min="1" max="100"> items</label>
+  <label>Descriptions <select name="desc"><option value="excerpt">short excerpt</option><option value="full">full</option><option value="none">none</option></select></label>
+  <label><input type="checkbox" name="img" value="true" checked> images</label>
+</div>
+<button type="submit">Add to course</button>
+</form>
+<p class="foot">Want your own list here? Create it at <a href="{{ settings.base_url }}" target="_blank">aggRSSive</a> and mark it public.</p>
+<script>
+document.getElementById("q").addEventListener("input", function(){ var q=this.value.toLowerCase(); document.querySelectorAll("#list label.b").forEach(function(l){ l.style.display = l.dataset.text.indexOf(q)>=0 ? "" : "none"; }); });
+</script>
+</body></html>

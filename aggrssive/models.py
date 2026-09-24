@@ -185,6 +185,35 @@ class Rule(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
 
+class Platform(Base):
+    """An LTI 1.3 platform (a Moodle, Canvas, ... site) registered with this tool."""
+
+    __tablename__ = "lti_platforms"
+    __table_args__ = (UniqueConstraint("issuer", "client_id"),)
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String(200), default="")
+    issuer: Mapped[str] = mapped_column(String(500), index=True)
+    client_id: Mapped[str] = mapped_column(String(255))
+    auth_login_url: Mapped[str] = mapped_column(String(1000))  # OIDC authorization endpoint
+    auth_token_url: Mapped[str] = mapped_column(String(1000), default="")
+    jwks_url: Mapped[str] = mapped_column(String(1000))
+    deployment_ids: Mapped[str] = mapped_column(Text, default="")  # newline separated, learned from launches
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    last_launch_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+
+class LtiState(Base):
+    """One-time OIDC state/nonce for a launch in flight. Server-side, so no third-party cookie is needed."""
+
+    __tablename__ = "lti_states"
+
+    state: Mapped[str] = mapped_column(String(64), primary_key=True)
+    nonce: Mapped[str] = mapped_column(String(64))
+    platform_id: Mapped[int] = mapped_column(ForeignKey("lti_platforms.id", ondelete="CASCADE"))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+
 class ItemOverride(Base):
     """Manual curation inside a bundle: pin, hide, annotate a specific item."""
 

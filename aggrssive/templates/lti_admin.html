@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}LTI · aggRSSive{% endblock %}
+{% block content %}
+<div class="with-side">
+<div>
+<h1>LTI: aggRSSive inside Moodle and friends</h1>
+<p>Register this aggRSSive as an LTI 1.3 tool once per platform. Instructors then add any public aggRSSive to a course with <em>External tool → Select content</em>, and the list stays live.</p>
+
+<h2>Registered platforms</h2>
+{% if platforms %}
+<table class="list">
+<thead><tr><th>Platform</th><th>Issuer</th><th>Client ID</th><th>Deployments</th><th>Last launch</th><th></th></tr></thead>
+<tbody>
+{% for p in platforms %}
+<tr><td>{{ p.name }}</td><td class="small">{{ p.issuer }}</td><td class="small"><code>{{ p.client_id }}</code></td><td class="small">{{ p.deployment_ids.replace('\n', ', ') or '—' }}</td><td class="small muted">{{ p.last_launch_at|ago }}</td>
+<td><form method="post" action="/lti/platforms/{{ p.id }}/delete" onsubmit="return confirm('Remove this platform? Launches from it will stop working.')"><button class="link danger">remove</button></form></td></tr>
+{% endfor %}
+</tbody></table>
+{% else %}
+<p class="muted">None yet.</p>
+{% endif %}
+
+<h2>Register with Moodle (dynamic registration)</h2>
+<ol>
+  <li>In Moodle: <em>Site administration → Plugins → Activity modules → External tool → Manage tools</em>.</li>
+  <li>Paste this into <em>Tool URL</em> and click <strong>Add LTI Advantage</strong>:<br><textarea readonly rows="1" class="code" onclick="this.select()">{{ urls['Dynamic registration URL'] }}</textarea></li>
+  <li>A window opens, aggRSSive registers itself and the window closes. If the tool shows as <em>Pending</em>, click <em>Activate</em>.</li>
+  <li>Optionally, in the tool's settings, tick <em>Show in activity chooser and as a preconfigured tool</em> and enable <em>Supports Deep Linking</em>.</li>
+</ol>
+
+<h2>Manual registration (other platforms)</h2>
+<p class="muted small">Give the platform these values, then paste what it gives you back into the form on the right.</p>
+<table class="list">
+{% for k, v in urls.items() %}<tr><th>{{ k }}</th><td><code>{{ v }}</code></td></tr>{% endfor %}
+</table>
+</div>
+<aside>
+  <h3>Add platform manually</h3>
+  <form method="post" action="/lti/platforms" class="stack small">
+    <label>Name <input name="name" placeholder="e.g. TRU Moodle"></label>
+    <label>Platform ID (issuer) <input name="issuer" placeholder="https://moodle.example.edu" required></label>
+    <label>Client ID <input name="client_id" required></label>
+    <label>Authentication request URL <input name="auth_login_url" placeholder="…/mod/lti/auth.php" required></label>
+    <label>Access token URL <input name="auth_token_url" placeholder="…/mod/lti/token.php"></label>
+    <label>Public keyset URL <input name="jwks_url" placeholder="…/mod/lti/certs.php" required></label>
+    <label>Deployment ID <input name="deployment_id"></label>
+    <button class="btn small">Add platform</button>
+  </form>
+</aside>
+</div>
+{% endblock %}

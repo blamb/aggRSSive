@@ -17,6 +17,9 @@ class Settings(BaseSettings):
     google_client_id: str = ""
     google_client_secret: str = ""
 
+    # LTI 1.3. The tool's RSA private key is generated on first start and kept here.
+    lti_key_path: str = "./data/lti_private_key.pem"
+
     # Fetching
     user_agent: str = "aggRSSive/2.0 (+https://github.com/blamb/aggRSSive)"
     fetch_timeout_seconds: float = 20.0
