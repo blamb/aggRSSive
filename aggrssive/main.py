@@ -13,7 +13,7 @@ from .config import get_settings
 
 netfix.install(get_settings().dns_overrides)
 from .db import SessionLocal, init_db
-from .routes import auth_routes, bundles, classify, lti, outputs, pages, sources, tags
+from .routes import auth_routes, bundles, classify, help_routes, lti, outputs, pages, sources, tags
 from .templating import templates
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s %(message)s")
@@ -44,6 +44,7 @@ app.include_router(bundles.router)
 app.include_router(outputs.router)
 app.include_router(lti.router)
 app.include_router(classify.router)
+app.include_router(help_routes.router)
 
 
 @app.exception_handler(StarletteHTTPException)
