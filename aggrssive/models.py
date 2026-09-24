@@ -21,6 +21,13 @@ def utcnow() -> datetime:
     return datetime.now(timezone.utc)
 
 
+def aware(dt: datetime | None) -> datetime | None:
+    """SQLite hands timestamps back naive; treat them as UTC so arithmetic with utcnow() works."""
+    if dt is not None and dt.tzinfo is None:
+        return dt.replace(tzinfo=timezone.utc)
+    return dt
+
+
 def new_slug(n: int = 8) -> str:
     return secrets.token_urlsafe(n)[:n].lower().replace("-", "x").replace("_", "y")
 

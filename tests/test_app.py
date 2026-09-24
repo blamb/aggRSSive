@@ -111,3 +111,19 @@ def test_private_bundle_is_hidden_from_strangers(client):
     anon = TestClient(app)
     assert anon.get(f"/b/{slug}.json").status_code == 404
     assert client.get(f"/b/{slug}.json").status_code == 200
+
+
+def test_poll_all_handles_naive_timestamps_from_sqlite(client):
+    """Regression: SQLite returns naive datetimes; the scheduler must still compare them with utcnow()."""
+    from datetime import datetime
+
+    from aggrssive import scheduler
+
+    with SessionLocal() as db:
+        s = db.query(Source).first()
+        s.last_fetched_at = datetime(2020, 1, 1, 12, 0, 0)  # naive, long ago -> due
+        db.commit()
+    calls = []
+    scheduler.fetch_source = lambda db, s: calls.append(s.id) or 0
+    scheduler.poll_all()
+    assert calls, "due source was not polled"

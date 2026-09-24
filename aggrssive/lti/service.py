@@ -14,7 +14,7 @@ from sqlalchemy.orm import Session
 
 from .. import netfix
 from ..config import get_settings
-from ..models import LtiState, Platform, utcnow
+from ..models import LtiState, Platform, aware, utcnow
 from . import keys
 
 CLAIM = "https://purl.imsglobal.org/spec/lti/claim/"
@@ -91,7 +91,7 @@ def consume_state(db: Session, state: str) -> LtiState:
     s = db.get(LtiState, state)
     if s is None:
         raise LtiError("Launch state is missing or was already used. Please launch again from the course.")
-    created = s.created_at if s.created_at.tzinfo else s.created_at.replace(tzinfo=utcnow().tzinfo)
+    created = aware(s.created_at)
     db.delete(s)
     db.commit()
     if utcnow() - created > STATE_TTL:

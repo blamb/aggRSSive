@@ -12,7 +12,7 @@ from . import classification
 from .config import get_settings
 from .db import SessionLocal
 from .feeds.fetch import fetch_source
-from .models import Source, utcnow
+from .models import Source, aware, utcnow
 from .tagging import refresh_suggestions
 
 log = logging.getLogger("aggrssive.scheduler")
@@ -48,7 +48,8 @@ def poll_all() -> None:
         now = utcnow()
         for s in sources:
             backoff = interval * min(2 ** min(s.error_count, 5), 48)  # up to 48x interval
-            if s.last_fetched_at and now - s.last_fetched_at < backoff:
+            last = aware(s.last_fetched_at)
+            if last and now - last < backoff:
                 continue
             try:
                 n = fetch_source(db, s)

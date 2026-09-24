@@ -16,7 +16,7 @@ from ..auth import current_user
 from ..config import get_settings
 from ..db import get_db
 from ..feeds.opml import OpmlEntry, render_opml
-from ..models import Bundle, User
+from ..models import Bundle, User, aware
 from ..rules import BundleItem, bundle_items
 from ..templating import templates
 from .bundles import can_view, load_bundle
@@ -48,7 +48,7 @@ def _item_dict(bi: BundleItem, with_content: bool) -> dict:
         "summary": i.summary,
         "excerpt": (i.text[:280].rsplit(" ", 1)[0] + "…") if len(i.text) > 280 else i.text,
         "image": i.image_url,
-        "published": i.published_at.isoformat() if i.published_at else None,
+        "published": aware(i.published_at).isoformat() if i.published_at else None,
         "source": {"title": i.source.title, "url": i.source.site_url or i.source.feed_url},
         "pinned": bi.pinned,
         "note": bi.note,
@@ -89,7 +89,7 @@ def bundle_jsonfeed(slug: str, n: int | None = None, db: Session = Depends(get_d
                 "content_html": bi.item.content or bi.item.summary,
                 "summary": bi.item.summary,
                 "image": bi.item.image_url,
-                "date_published": bi.item.published_at.isoformat() if bi.item.published_at else None,
+                "date_published": aware(bi.item.published_at).isoformat() if bi.item.published_at else None,
                 "authors": [{"name": bi.item.author}] if bi.item.author else [],
                 "_aggrssive": {"source": bi.item.source.title, "pinned": bi.pinned, "note": bi.note},
             }
@@ -100,9 +100,7 @@ def bundle_jsonfeed(slug: str, n: int | None = None, db: Session = Depends(get_d
 
 
 def _rfc822(dt) -> str:
-    if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=timezone.utc)
-    return format_datetime(dt)
+    return format_datetime(aware(dt))
 
 
 @router.get("/b/{slug}/feed.rss")
@@ -143,7 +141,7 @@ def bundle_atom(slug: str, n: int | None = None, db: Session = Depends(get_db), 
     b = _public_bundle(db, slug, user)
     items = bundle_items(db, b, limit=_n(n, b.max_items))
     link = f"{settings.base_url}/bundles/{b.slug}"
-    updated = (items[0].item.published_at if items else b.updated_at).isoformat()
+    updated = aware(items[0].item.published_at if items else b.updated_at).isoformat()
     out = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<feed xmlns="http://www.w3.org/2005/Atom">',
@@ -162,7 +160,7 @@ def bundle_atom(slug: str, n: int | None = None, db: Session = Depends(get_db), 
             f"<title>{escape(i.title)}</title>",
             f'<link href="{escape(i.url)}"/>',
             f"<id>{escape(i.source.feed_url + '#' + i.guid)}</id>",
-            f"<updated>{i.published_at.isoformat()}</updated>",
+            f"<updated>{aware(i.published_at).isoformat()}</updated>",
             f"<author><name>{escape(i.author or i.source.title)}</name></author>",
             f"<source><title>{escape(i.source.title)}</title></source>",
             f'<summary type="html">{escape(i.summary)}</summary>',
