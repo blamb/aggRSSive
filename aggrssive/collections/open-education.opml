@@ -2,7 +2,7 @@
 <opml version="2.0">
   <head>
     <title>aggRSSive starter collection: open education, teaching and learning</title>
-    <dateCreated>Thu, 24 Sep 2026 06:45:47 GMT</dateCreated>
+    <dateCreated>Thu, 24 Sep 2026 06:48:04 GMT</dateCreated>
     <ownerName>aggRSSive</ownerName>
   </head>
   <body>
@@ -72,6 +72,10 @@
       <outline type="rss" text="Adrian Roselli" title="Adrian Roselli" xmlUrl="https://adrianroselli.com/feed" htmlUrl="https://adrianroselli.com" category="/lcc/TK"/>
       <outline type="rss" text="feministkilljoys" title="feministkilljoys" xmlUrl="https://feministkilljoys.com/feed/" htmlUrl="https://feministkilljoys.com" category="/lcc/HQ"/>
     </outline>
+    <outline text="british columbia">
+      <outline type="rss" text="Indiginews" title="Indiginews" xmlUrl="https://indiginews.com/feed/" htmlUrl="https://indiginews.com/" category="/lcc/E"/>
+      <outline type="rss" text="Ha-Shilth-Sa Newspaper" title="Ha-Shilth-Sa Newspaper" xmlUrl="https://hashilthsa.com/rss.xml" htmlUrl="https://hashilthsa.com/" category="/lcc/E"/>
+    </outline>
     <outline text="canada">
       <outline type="rss" text="EdTech Factotum" title="EdTech Factotum" xmlUrl="https://edtechfactotum.com/feed/" htmlUrl="https://edtechfactotum.com" category="/lcc/LC"/>
       <outline type="rss" text="Home onD'Arcy Norman, PhD" title="Home onD'Arcy Norman, PhD" xmlUrl="https://darcynorman.net/index.xml" htmlUrl="https://darcynorman.net/" category="/lcc/LB"/>
@@ -81,15 +85,13 @@
       <outline type="rss" text="Yellowhead Institute" title="Yellowhead Institute" xmlUrl="https://yellowheadinstitute.org/feed/" htmlUrl="https://yellowheadinstitute.org/" category="/lcc/E,/lcc/JL"/>
       <outline type="rss" text="Working Effectively with Indigenous Peoples® Blog" title="Working Effectively with Indigenous Peoples® Blog" xmlUrl="https://www.ictinc.ca/blog/rss.xml" htmlUrl="https://www.ictinc.ca/blog" category="/lcc/E,/lcc/HM"/>
       <outline type="rss" text="mediaINDIGENA" title="mediaINDIGENA" xmlUrl="https://mediaindigena.com/feed/" htmlUrl="https://mediaindigena.com" category="/lcc/E"/>
-      <outline type="rss" text="Antidepressants – The Conversation" title="Antidepressants – The Conversation" xmlUrl="https://theconversation.com/topics/antidepressants-1013/articles.atom" htmlUrl="https://theconversation.com" category="/lcc/E"/>
       <outline type="rss" text="Canadian Women's Foundation" title="Canadian Women's Foundation" xmlUrl="https://canadianwomen.org/feed/" htmlUrl="https://canadianwomen.org/" category="/lcc/HQ,/lcc/HV"/>
-    </outline>
-    <outline text="citizen media">
-      <outline type="rss" text="Global Voices" title="Global Voices" xmlUrl="https://globalvoices.org/feed/" htmlUrl="https://globalvoices.org" category="/lcc/PN,/lcc/HM"/>
+      <outline type="rss" text="Indiginews" title="Indiginews" xmlUrl="https://indiginews.com/feed/" htmlUrl="https://indiginews.com/" category="/lcc/E"/>
     </outline>
     <outline text="commentary">
       <outline type="rss" text="Africa Is a Country" title="Africa Is a Country" xmlUrl="https://africasacountry.com/feed" htmlUrl="https://africasacountry.com" category="/lcc/DT"/>
       <outline type="rss" text="openDemocracy" title="openDemocracy" xmlUrl="https://www.opendemocracy.net/en/rss/" htmlUrl="https://www.opendemocracy.net/" category="/lcc/JC"/>
+      <outline type="rss" text="Himal Southasian" title="Himal Southasian" xmlUrl="https://www.himalmag.com/rss/" htmlUrl="https://www.himalmag.com/" category="/lcc/DS"/>
     </outline>
     <outline text="community">
       <outline type="rss" text="HASTAC Commons" title="HASTAC Commons" xmlUrl="https://hastac.hcommons.org/feed/" htmlUrl="https://hastac.hcommons.org" category="/lcc/AZ"/>
@@ -117,6 +119,9 @@
     </outline>
     <outline text="democracy">
       <outline type="rss" text="openDemocracy" title="openDemocracy" xmlUrl="https://www.opendemocracy.net/en/rss/" htmlUrl="https://www.opendemocracy.net/" category="/lcc/JC"/>
+    </outline>
+    <outline text="development">
+      <outline type="rss" text="Global Partnership for Education" title="Global Partnership for Education" xmlUrl="https://www.globalpartnership.org/rss.xml" htmlUrl="https://www.globalpartnership.org/" category="/lcc/LC"/>
     </outline>
     <outline text="digital humanities">
       <outline type="rss" text="Programming Historian" title="Programming Historian" xmlUrl="https://programminghistorian.org/feed.xml" htmlUrl="https://programminghistorian.org" category="/lcc/AZ,/lcc/QA"/>
@@ -178,8 +183,8 @@
     <outline text="explainers">
       <outline type="rss" text="Education – The Conversation" title="Education – The Conversation" xmlUrl="https://theconversation.com/ca/education/articles.atom" htmlUrl="https://theconversation.com" category="/lcc/L"/>
       <outline type="rss" text="Science + Tech – The Conversation" title="Science + Tech – The Conversation" xmlUrl="https://theconversation.com/ca/technology/articles.atom" htmlUrl="https://theconversation.com" category="/lcc/T"/>
-      <outline type="rss" text="Antidepressants – The Conversation" title="Antidepressants – The Conversation" xmlUrl="https://theconversation.com/topics/antidepressants-1013/articles.atom" htmlUrl="https://theconversation.com" category="/lcc/E"/>
       <outline type="rss" text="The Conversation – Articles (AFRICA)" title="The Conversation – Articles (AFRICA)" xmlUrl="https://theconversation.com/africa/articles.atom" htmlUrl="https://theconversation.com" category="/lcc/DT"/>
+      <outline type="rss" text="The Conversation – Articles (GLOBAL)" title="The Conversation – Articles (GLOBAL)" xmlUrl="https://theconversation.com/global/articles.atom" htmlUrl="https://theconversation.com" category="/lcc/AZ"/>
     </outline>
     <outline text="feminism">
       <outline type="rss" text="feministkilljoys" title="feministkilljoys" xmlUrl="https://feministkilljoys.com/feed/" htmlUrl="https://feministkilljoys.com" category="/lcc/HQ"/>
@@ -193,6 +198,7 @@
       <outline type="rss" text="Ms. Magazine" title="Ms. Magazine" xmlUrl="https://msmagazine.com/feed/" htmlUrl="https://msmagazine.com/" category="/lcc/HQ"/>
       <outline type="rss" text="Canadian Women's Foundation" title="Canadian Women's Foundation" xmlUrl="https://canadianwomen.org/feed/" htmlUrl="https://canadianwomen.org/" category="/lcc/HQ,/lcc/HV"/>
       <outline type="rss" text="UNGEI - United Nations Girls' Education Initiative" title="UNGEI - United Nations Girls' Education Initiative" xmlUrl="https://www.ungei.org/rss.xml" htmlUrl="https://www.ungei.org/" category="/lcc/LC,/lcc/HQ"/>
+      <outline type="rss" text="Gender &amp; Society" title="Gender &amp; Society" xmlUrl="https://gendersociety.wordpress.com/feed/" htmlUrl="https://gendersociety.wordpress.com" category="/lcc/HQ,/lcc/HM"/>
     </outline>
     <outline text="gender and education">
       <outline type="rss" text="tandf: Gender and Education: Table of Contents" title="tandf: Gender and Education: Table of Contents" xmlUrl="https://www.tandfonline.com/action/showFeed?type=etoc&amp;feed=rss&amp;jc=cgee20" htmlUrl="https://www.tandfonline.com/loi/cgee20?af=R" category="/lcc/HQ,/lcc/LC"/>
@@ -202,8 +208,14 @@
     </outline>
     <outline text="global">
       <outline type="rss" text="UNGEI - United Nations Girls' Education Initiative" title="UNGEI - United Nations Girls' Education Initiative" xmlUrl="https://www.ungei.org/rss.xml" htmlUrl="https://www.ungei.org/" category="/lcc/LC,/lcc/HQ"/>
-      <outline type="rss" text="Global Voices" title="Global Voices" xmlUrl="https://globalvoices.org/feed/" htmlUrl="https://globalvoices.org" category="/lcc/PN,/lcc/HM"/>
       <outline type="rss" text="openDemocracy" title="openDemocracy" xmlUrl="https://www.opendemocracy.net/en/rss/" htmlUrl="https://www.opendemocracy.net/" category="/lcc/JC"/>
+      <outline type="rss" text="The Conversation – Articles (GLOBAL)" title="The Conversation – Articles (GLOBAL)" xmlUrl="https://theconversation.com/global/articles.atom" htmlUrl="https://theconversation.com" category="/lcc/AZ"/>
+    </outline>
+    <outline text="global education">
+      <outline type="rss" text="Global Partnership for Education" title="Global Partnership for Education" xmlUrl="https://www.globalpartnership.org/rss.xml" htmlUrl="https://www.globalpartnership.org/" category="/lcc/LC"/>
+    </outline>
+    <outline text="global south">
+      <outline type="rss" text="Rest of World -" title="Rest of World -" xmlUrl="https://restofworld.org/feed/latest/" htmlUrl="https://restofworld.org" category="/lcc/HE,/lcc/T"/>
     </outline>
     <outline text="globalisation and education">
       <outline type="rss" text="tandf: Globalisation, Societies and Education: Table of Contents" title="tandf: Globalisation, Societies and Education: Table of Contents" xmlUrl="https://www.tandfonline.com/action/showFeed?type=etoc&amp;feed=rss&amp;jc=cgse20" htmlUrl="https://www.tandfonline.com/loi/cgse20?af=R" category="/lcc/LC"/>
@@ -228,20 +240,28 @@
       <outline type="rss" text="ICT" title="ICT" xmlUrl="https://ictnews.org/feed/" htmlUrl="https://ictnews.org/" category="/lcc/E"/>
       <outline type="rss" text="E-Tangata" title="E-Tangata" xmlUrl="https://e-tangata.co.nz/feed/" htmlUrl="https://e-tangata.co.nz/" category="/lcc/DU"/>
       <outline type="rss" text="mediaINDIGENA" title="mediaINDIGENA" xmlUrl="https://mediaindigena.com/feed/" htmlUrl="https://mediaindigena.com" category="/lcc/E"/>
-      <outline type="rss" text="Antidepressants – The Conversation" title="Antidepressants – The Conversation" xmlUrl="https://theconversation.com/topics/antidepressants-1013/articles.atom" htmlUrl="https://theconversation.com" category="/lcc/E"/>
+      <outline type="rss" text="Indiginews" title="Indiginews" xmlUrl="https://indiginews.com/feed/" htmlUrl="https://indiginews.com/" category="/lcc/E"/>
+      <outline type="rss" text="Ha-Shilth-Sa Newspaper" title="Ha-Shilth-Sa Newspaper" xmlUrl="https://hashilthsa.com/rss.xml" htmlUrl="https://hashilthsa.com/" category="/lcc/E"/>
+      <outline type="rss" text="Native News Online" title="Native News Online" xmlUrl="https://nativenewsonline.net/feed/" htmlUrl="https://nativenewsonline.net/" category="/lcc/E"/>
+      <outline type="rss" text="SAGE Publications Ltd: AlterNative: An International Journal of Indigenous Peoples: Table of Contents" title="SAGE Publications Ltd: AlterNative: An International Journal of Indigenous Peoples: Table of Contents" xmlUrl="https://journals.sagepub.com/action/showFeed?type=etoc&amp;feed=rss&amp;jc=alna" htmlUrl="https://journals.sagepub.com/loi/alna?af=R" category="/lcc/GN,/lcc/E"/>
     </outline>
     <outline text="indigenous education">
       <outline type="rss" text="in education" title="in education" xmlUrl="https://journals.uregina.ca/ineducation/gateway/plugin/WebFeedGatewayPlugin/rss2" htmlUrl="https://journals.uregina.ca/ineducation" category="/lcc/LC,/isced/0111"/>
+    </outline>
+    <outline text="indigenous health">
+      <outline type="rss" text="International Journal of Indigenous Health" title="International Journal of Indigenous Health" xmlUrl="https://jps.library.utoronto.ca/index.php/ijih/gateway/plugin/WebFeedGatewayPlugin/rss2" htmlUrl="https://jps.library.utoronto.ca/index.php/ijih" category="/lcc/RA,/lcc/E"/>
     </outline>
     <outline text="instructional design">
       <outline type="rss" text="Experiencing Elearning" title="Experiencing Elearning" xmlUrl="https://christytuckerlearning.com/feed/" htmlUrl="https://christytuckerlearning.com/" category="/lcc/LB"/>
     </outline>
     <outline text="intercultural">
       <outline type="rss" text="Working Effectively with Indigenous Peoples® Blog" title="Working Effectively with Indigenous Peoples® Blog" xmlUrl="https://www.ictinc.ca/blog/rss.xml" htmlUrl="https://www.ictinc.ca/blog" category="/lcc/E,/lcc/HM"/>
-      <outline type="rss" text="Global Voices" title="Global Voices" xmlUrl="https://globalvoices.org/feed/" htmlUrl="https://globalvoices.org" category="/lcc/PN,/lcc/HM"/>
       <outline type="rss" text="Africa Is a Country" title="Africa Is a Country" xmlUrl="https://africasacountry.com/feed" htmlUrl="https://africasacountry.com" category="/lcc/DT"/>
       <outline type="rss" text="The Conversation – Articles (AFRICA)" title="The Conversation – Articles (AFRICA)" xmlUrl="https://theconversation.com/africa/articles.atom" htmlUrl="https://theconversation.com" category="/lcc/DT"/>
       <outline type="rss" text="Aeon | a world of ideas" title="Aeon | a world of ideas" xmlUrl="https://aeon.co/feed.rss" htmlUrl="https://aeon.co" category="/lcc/B,/lcc/AZ"/>
+      <outline type="rss" text="Rest of World -" title="Rest of World -" xmlUrl="https://restofworld.org/feed/latest/" htmlUrl="https://restofworld.org" category="/lcc/HE,/lcc/T"/>
+      <outline type="rss" text="Himal Southasian" title="Himal Southasian" xmlUrl="https://www.himalmag.com/rss/" htmlUrl="https://www.himalmag.com/" category="/lcc/DS"/>
+      <outline type="rss" text="The Conversation – Articles (GLOBAL)" title="The Conversation – Articles (GLOBAL)" xmlUrl="https://theconversation.com/global/articles.atom" htmlUrl="https://theconversation.com" category="/lcc/AZ"/>
     </outline>
     <outline text="intercultural education">
       <outline type="rss" text="tandf: Intercultural Education: Table of Contents" title="tandf: Intercultural Education: Table of Contents" xmlUrl="https://www.tandfonline.com/action/showFeed?type=etoc&amp;feed=rss&amp;jc=ceji20" htmlUrl="https://www.tandfonline.com/loi/ceji20?af=R" category="/lcc/LC,/isced/0111"/>
@@ -271,10 +291,14 @@
       <outline type="rss" text="tandf: Intercultural Education: Table of Contents" title="tandf: Intercultural Education: Table of Contents" xmlUrl="https://www.tandfonline.com/action/showFeed?type=etoc&amp;feed=rss&amp;jc=ceji20" htmlUrl="https://www.tandfonline.com/loi/ceji20?af=R" category="/lcc/LC,/isced/0111"/>
       <outline type="rss" text="tandf: Comparative Education: Table of Contents" title="tandf: Comparative Education: Table of Contents" xmlUrl="https://www.tandfonline.com/action/showFeed?type=etoc&amp;feed=rss&amp;jc=cced20" htmlUrl="https://www.tandfonline.com/loi/cced20?af=R" category="/lcc/LC,/isced/0111"/>
       <outline type="rss" text="tandf: Globalisation, Societies and Education: Table of Contents" title="tandf: Globalisation, Societies and Education: Table of Contents" xmlUrl="https://www.tandfonline.com/action/showFeed?type=etoc&amp;feed=rss&amp;jc=cgse20" htmlUrl="https://www.tandfonline.com/loi/cgse20?af=R" category="/lcc/LC"/>
+      <outline type="rss" text="SAGE Publications Ltd: AlterNative: An International Journal of Indigenous Peoples: Table of Contents" title="SAGE Publications Ltd: AlterNative: An International Journal of Indigenous Peoples: Table of Contents" xmlUrl="https://journals.sagepub.com/action/showFeed?type=etoc&amp;feed=rss&amp;jc=alna" htmlUrl="https://journals.sagepub.com/loi/alna?af=R" category="/lcc/GN,/lcc/E"/>
+      <outline type="rss" text="International Journal of Indigenous Health" title="International Journal of Indigenous Health" xmlUrl="https://jps.library.utoronto.ca/index.php/ijih/gateway/plugin/WebFeedGatewayPlugin/rss2" htmlUrl="https://jps.library.utoronto.ca/index.php/ijih" category="/lcc/RA,/lcc/E"/>
+      <outline type="rss" text="ScienceDirect Publication: Women's Studies International Forum" title="ScienceDirect Publication: Women's Studies International Forum" xmlUrl="https://rss.sciencedirect.com/publication/science/02775395" htmlUrl="https://www.sciencedirect.com/journal/womens-studies-international-forum" category="/lcc/HQ"/>
     </outline>
     <outline text="journalism">
       <outline type="rss" text="The Hechinger Report" title="The Hechinger Report" xmlUrl="https://hechingerreport.org/feed/" htmlUrl="https://hechingerreport.org/" category="/lcc/L"/>
       <outline type="rss" text="Nieman Lab" title="Nieman Lab" xmlUrl="https://www.niemanlab.org/feed/" htmlUrl="https://www.niemanlab.org" category="/lcc/PN"/>
+      <outline type="rss" text="Indiginews" title="Indiginews" xmlUrl="https://indiginews.com/feed/" htmlUrl="https://indiginews.com/" category="/lcc/E"/>
     </outline>
     <outline text="learning">
       <outline type="rss" text="KQED News" title="KQED News" xmlUrl="https://ww2.kqed.org/news/feed/" htmlUrl="https://ww2.kqed.org/news/" category="/lcc/LB"/>
@@ -302,9 +326,6 @@
     <outline text="metadata">
       <outline type="rss" text="Hanging Together" title="Hanging Together" xmlUrl="https://hangingtogether.org/feed/" htmlUrl="https://hangingtogether.org/" category="/lcc/Z"/>
     </outline>
-    <outline text="multilingual">
-      <outline type="rss" text="Global Voices" title="Global Voices" xmlUrl="https://globalvoices.org/feed/" htmlUrl="https://globalvoices.org" category="/lcc/PN,/lcc/HM"/>
-    </outline>
     <outline text="news">
       <outline type="rss" text="EdSurge Articles" title="EdSurge Articles" xmlUrl="https://www.edsurge.com/articles_rss" htmlUrl="https://edsurge.com/" category="/lcc/LB"/>
       <outline type="rss" text="Inside Higher Ed" title="Inside Higher Ed" xmlUrl="https://www.insidehighered.com/rss.xml" htmlUrl="https://www.insidehighered.com/" category="/lcc/L,/isced/0111"/>
@@ -313,6 +334,8 @@
       <outline type="rss" text="Ars Technica" title="Ars Technica" xmlUrl="https://arstechnica.com/feed/" htmlUrl="https://arstechnica.com" category="/lcc/T"/>
       <outline type="rss" text="ICT" title="ICT" xmlUrl="https://ictnews.org/feed/" htmlUrl="https://ictnews.org/" category="/lcc/E"/>
       <outline type="rss" text="Ms. Magazine" title="Ms. Magazine" xmlUrl="https://msmagazine.com/feed/" htmlUrl="https://msmagazine.com/" category="/lcc/HQ"/>
+      <outline type="rss" text="Ha-Shilth-Sa Newspaper" title="Ha-Shilth-Sa Newspaper" xmlUrl="https://hashilthsa.com/rss.xml" htmlUrl="https://hashilthsa.com/" category="/lcc/E"/>
+      <outline type="rss" text="Native News Online" title="Native News Online" xmlUrl="https://nativenewsonline.net/feed/" htmlUrl="https://nativenewsonline.net/" category="/lcc/E"/>
     </outline>
     <outline text="newsletter">
       <outline type="rss" text="Stephen's Web ~ OLDaily" title="Stephen's Web ~ OLDaily" xmlUrl="https://www.downes.ca/news/OLDaily.xml" htmlUrl="http://www.downes.ca/" category="/lcc/LB"/>
@@ -321,6 +344,10 @@
     </outline>
     <outline text="north america">
       <outline type="rss" text="ICT" title="ICT" xmlUrl="https://ictnews.org/feed/" htmlUrl="https://ictnews.org/" category="/lcc/E"/>
+      <outline type="rss" text="Native News Online" title="Native News Online" xmlUrl="https://nativenewsonline.net/feed/" htmlUrl="https://nativenewsonline.net/" category="/lcc/E"/>
+    </outline>
+    <outline text="nuu-chah-nulth">
+      <outline type="rss" text="Ha-Shilth-Sa Newspaper" title="Ha-Shilth-Sa Newspaper" xmlUrl="https://hashilthsa.com/rss.xml" htmlUrl="https://hashilthsa.com/" category="/lcc/E"/>
     </outline>
     <outline text="online learning">
       <outline type="rss" text="Tony Bates" title="Tony Bates" xmlUrl="https://www.tonybates.ca/feed/" htmlUrl="https://www.tonybates.ca" category="/lcc/LC"/>
@@ -409,6 +436,10 @@
       <outline type="rss" text="tandf: Intercultural Education: Table of Contents" title="tandf: Intercultural Education: Table of Contents" xmlUrl="https://www.tandfonline.com/action/showFeed?type=etoc&amp;feed=rss&amp;jc=ceji20" htmlUrl="https://www.tandfonline.com/loi/ceji20?af=R" category="/lcc/LC,/isced/0111"/>
       <outline type="rss" text="tandf: Comparative Education: Table of Contents" title="tandf: Comparative Education: Table of Contents" xmlUrl="https://www.tandfonline.com/action/showFeed?type=etoc&amp;feed=rss&amp;jc=cced20" htmlUrl="https://www.tandfonline.com/loi/cced20?af=R" category="/lcc/LC,/isced/0111"/>
       <outline type="rss" text="tandf: Globalisation, Societies and Education: Table of Contents" title="tandf: Globalisation, Societies and Education: Table of Contents" xmlUrl="https://www.tandfonline.com/action/showFeed?type=etoc&amp;feed=rss&amp;jc=cgse20" htmlUrl="https://www.tandfonline.com/loi/cgse20?af=R" category="/lcc/LC"/>
+      <outline type="rss" text="SAGE Publications Ltd: AlterNative: An International Journal of Indigenous Peoples: Table of Contents" title="SAGE Publications Ltd: AlterNative: An International Journal of Indigenous Peoples: Table of Contents" xmlUrl="https://journals.sagepub.com/action/showFeed?type=etoc&amp;feed=rss&amp;jc=alna" htmlUrl="https://journals.sagepub.com/loi/alna?af=R" category="/lcc/GN,/lcc/E"/>
+      <outline type="rss" text="International Journal of Indigenous Health" title="International Journal of Indigenous Health" xmlUrl="https://jps.library.utoronto.ca/index.php/ijih/gateway/plugin/WebFeedGatewayPlugin/rss2" htmlUrl="https://jps.library.utoronto.ca/index.php/ijih" category="/lcc/RA,/lcc/E"/>
+      <outline type="rss" text="Gender &amp; Society" title="Gender &amp; Society" xmlUrl="https://gendersociety.wordpress.com/feed/" htmlUrl="https://gendersociety.wordpress.com" category="/lcc/HQ,/lcc/HM"/>
+      <outline type="rss" text="ScienceDirect Publication: Women's Studies International Forum" title="ScienceDirect Publication: Women's Studies International Forum" xmlUrl="https://rss.sciencedirect.com/publication/science/02775395" htmlUrl="https://www.sciencedirect.com/journal/womens-studies-international-forum" category="/lcc/HQ"/>
     </outline>
     <outline text="research impact">
       <outline type="rss" text="LSE Impact" title="LSE Impact" xmlUrl="https://blogs.lse.ac.uk/impactofsocialsciences/feed/" htmlUrl="https://blogs.lse.ac.uk/impactofsocialsciences" category="/lcc/ZA,/lcc/H"/>
@@ -424,8 +455,14 @@
       <outline type="rss" text="The Scholarly Kitchen" title="The Scholarly Kitchen" xmlUrl="https://scholarlykitchen.sspnet.org/feed/" htmlUrl="https://scholarlykitchen.sspnet.org/" category="/lcc/Z"/>
       <outline type="rss" text="LSE Impact" title="LSE Impact" xmlUrl="https://blogs.lse.ac.uk/impactofsocialsciences/feed/" htmlUrl="https://blogs.lse.ac.uk/impactofsocialsciences" category="/lcc/ZA,/lcc/H"/>
     </outline>
+    <outline text="sociology">
+      <outline type="rss" text="Gender &amp; Society" title="Gender &amp; Society" xmlUrl="https://gendersociety.wordpress.com/feed/" htmlUrl="https://gendersociety.wordpress.com" category="/lcc/HQ,/lcc/HM"/>
+    </outline>
     <outline text="south africa">
       <outline type="rss" text="Saide" title="Saide" xmlUrl="https://saide.org.za/feed/" htmlUrl="https://saide.org.za" category="/lcc/LC"/>
+    </outline>
+    <outline text="south asia">
+      <outline type="rss" text="Himal Southasian" title="Himal Southasian" xmlUrl="https://www.himalmag.com/rss/" htmlUrl="https://www.himalmag.com/" category="/lcc/DS"/>
     </outline>
     <outline text="surveys">
       <outline type="rss" text="Pew Research Center" title="Pew Research Center" xmlUrl="https://www.pewresearch.org/feed/" htmlUrl="https://www.pewresearch.org" category="/lcc/HE,/lcc/HM"/>
@@ -443,6 +480,7 @@
     <outline text="technology">
       <outline type="rss" text="Science + Tech – The Conversation" title="Science + Tech – The Conversation" xmlUrl="https://theconversation.com/ca/technology/articles.atom" htmlUrl="https://theconversation.com" category="/lcc/T"/>
       <outline type="rss" text="Ars Technica" title="Ars Technica" xmlUrl="https://arstechnica.com/feed/" htmlUrl="https://arstechnica.com" category="/lcc/T"/>
+      <outline type="rss" text="Rest of World -" title="Rest of World -" xmlUrl="https://restofworld.org/feed/latest/" htmlUrl="https://restofworld.org" category="/lcc/HE,/lcc/T"/>
     </outline>
     <outline text="technology criticism">
       <outline type="rss" text="Pluralistic: Daily links from Cory Doctorow" title="Pluralistic: Daily links from Cory Doctorow" xmlUrl="https://pluralistic.net/feed/" htmlUrl="https://pluralistic.net" category="/lcc/HE,/lcc/K"/>
@@ -470,6 +508,9 @@
     <outline text="wikipedia">
       <outline type="rss" text="Wiki Education" title="Wiki Education" xmlUrl="https://wikiedu.org/feed/" htmlUrl="https://wikiedu.org" category="/lcc/LB,/lcc/ZA"/>
       <outline type="rss" text="Diff" title="Diff" xmlUrl="https://diff.wikimedia.org/feed/" htmlUrl="https://diff.wikimedia.org" category="/lcc/ZA"/>
+    </outline>
+    <outline text="women's studies">
+      <outline type="rss" text="ScienceDirect Publication: Women's Studies International Forum" title="ScienceDirect Publication: Women's Studies International Forum" xmlUrl="https://rss.sciencedirect.com/publication/science/02775395" htmlUrl="https://www.sciencedirect.com/journal/womens-studies-international-forum" category="/lcc/HQ"/>
     </outline>
   </body>
 </opml>
