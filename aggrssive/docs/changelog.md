@@ -11,7 +11,7 @@ Newest first. Dates are when the change reached the main site.
 
 - **Find feeds** replaces the separate Sources, Tags and Classification pages: one search across tags, headings and source names; tag cloud and both classification trees together; *Make an aggRSSive from these* on every tag and heading.
 - **Copy to my aggRSSives** on any public bundle: a private copy with the same sources, rules and settings.
-- **Starter collections** (site admins): curated, verified sets of feeds for open education, teaching and learning, libraries and the open web — imported with their tags and classification.
+- **Starter collections** (site admins): a curated, verified set of feeds for open education, teaching and learning, libraries and the open web, with deliberate room for Indigenous knowledge and media, gender equity, and intercultural and Global South perspectives — imported with their tags and classification.
 - **Roles**: regular users, site admins and full admins; a *Users* page; an *Account* page for changing your name and password; sign-ups can be closed from the Admin page.
 - **Help**: these pages.
 - **Classification**: Library of Congress and ISCED-F 2013 headings alongside tags, with GenAI proposals.
