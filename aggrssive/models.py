@@ -93,7 +93,11 @@ class Source(Base):
     # Tag suggestions awaiting a human decision; newline separated. Rejected ones are remembered so they don't come back.
     suggested_tags: Mapped[str] = mapped_column(Text, default="")
     rejected_tags: Mapped[str] = mapped_column(Text, default="")
+    # Classification proposals awaiting a decision, as "framework:code" lines; rejected ones remembered.
+    suggested_categories: Mapped[str] = mapped_column(Text, default="")
+    rejected_categories: Mapped[str] = mapped_column(Text, default="")
 
+    categories: Mapped[list[Category]] = relationship(secondary="source_categories", back_populates="sources")
     items: Mapped[list[Item]] = relationship(back_populates="source", cascade="all, delete-orphan")
     tags: Mapped[list[Tag]] = relationship(secondary=source_tags, back_populates="sources")
     rules: Mapped[list[Rule]] = relationship(
@@ -132,6 +136,35 @@ class Tag(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
     sources: Mapped[list[Source]] = relationship(secondary=source_tags, back_populates="tags")
+
+
+# --- Classification (controlled vocabularies, alongside free tags) ------------
+
+source_categories = Table(
+    "source_categories",
+    Base.metadata,
+    Column("source_id", ForeignKey("sources.id", ondelete="CASCADE"), primary_key=True),
+    Column("category_id", ForeignKey("categories.id", ondelete="CASCADE"), primary_key=True),
+    Column("user_id", ForeignKey("users.id", ondelete="SET NULL"), nullable=True),
+    Column("created_at", DateTime(timezone=True), default=utcnow),
+)
+
+
+class Category(Base):
+    """One node of a classification framework (LCC subclass, ISCED-F field, ...). Seeded from data files."""
+
+    __tablename__ = "categories"
+    __table_args__ = (UniqueConstraint("framework", "code"),)
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    framework: Mapped[str] = mapped_column(String(16), index=True)  # lcc | isced
+    code: Mapped[str] = mapped_column(String(16))
+    label: Mapped[str] = mapped_column(String(300))
+    parent_code: Mapped[str | None] = mapped_column(String(16))
+    depth: Mapped[int] = mapped_column(Integer, default=0)
+    position: Mapped[int] = mapped_column(Integer, default=0)
+
+    sources: Mapped[list[Source]] = relationship(secondary=source_categories, back_populates="categories")
 
 
 # --- Bundles and rules ------------------------------------------------------
