@@ -1,6 +1,6 @@
 ---
 title: "Moodle and other LMSs: for instructors"
-order: 6
+order: 7
 ---
 
 # Adding an aggRSSive to a course

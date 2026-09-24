@@ -44,7 +44,7 @@ def poll_all() -> None:
     settings = get_settings()
     interval = timedelta(minutes=settings.poll_interval_minutes)
     with SessionLocal() as db:
-        sources = db.execute(select(Source).where(Source.is_active.is_(True))).scalars().all()
+        sources = db.execute(select(Source).where(Source.is_active.is_(True), Source.kind != "bookmarks")).scalars().all()
         now = utcnow()
         for s in sources:
             backoff = interval * min(2 ** min(s.error_count, 5), 48)  # up to 48x interval
@@ -81,7 +81,7 @@ def enrich() -> None:
 def fetch_one(source_id: int) -> None:
     with SessionLocal() as db:
         s = db.get(Source, source_id)
-        if s:
+        if s and s.kind != "bookmarks":
             n = fetch_source(db, s)
             _after_fetch(db, s, n)
 

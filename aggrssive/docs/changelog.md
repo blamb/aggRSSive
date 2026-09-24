@@ -1,6 +1,6 @@
 ---
 title: What's new
-order: 11
+order: 12
 ---
 
 # What's new
@@ -9,6 +9,7 @@ Newest first. Dates are when the change reached the main site.
 
 ## September 2026
 
+- **Bookmarks**: hand-picked pages in lists that bundle, embed and launch like feeds; the page's title, description, author, date and image are read for you; a bookmarklet for one-click saving; your own note on each.
 - **Platform adapters**: paste a YouTube channel or playlist, a Mastodon account or hashtag, a Bluesky profile, a public Zotero group or library, or a Hypothesis user, group or tag search, and aggRSSive finds the feed.
 - **Related posts**: under each item on an aggRSSive's page and in course launches, the closest posts from the whole collection.
 - **Settings for each LTI platform** (site admins): related posts on/off, links in a new tab, Deep Linking response in the URL, frame height, default items and descriptions. Platform quirks are now settings, not code.

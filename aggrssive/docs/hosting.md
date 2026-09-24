@@ -1,6 +1,6 @@
 ---
 title: Hosting
-order: 10
+order: 11
 ---
 
 # Hosting aggRSSive

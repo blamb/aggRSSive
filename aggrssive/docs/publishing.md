@@ -1,6 +1,6 @@
 ---
 title: Publishing
-order: 5
+order: 6
 ---
 
 # Publishing an aggRSSive

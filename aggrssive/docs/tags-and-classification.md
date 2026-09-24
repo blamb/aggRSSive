@@ -1,6 +1,6 @@
 ---
 title: Tags and classification
-order: 3
+order: 4
 ---
 
 # Tags and classification

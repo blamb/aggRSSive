@@ -13,7 +13,7 @@ from .config import get_settings
 
 netfix.install(get_settings().dns_overrides)
 from .db import SessionLocal, init_db
-from .routes import admin, auth_routes, bundles, classify, find, help_routes, lti, outputs, pages, sources, tags
+from .routes import admin, auth_routes, bookmarks, bundles, classify, find, help_routes, lti, outputs, pages, sources, tags
 from .templating import templates
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s %(message)s")
@@ -39,6 +39,7 @@ app.mount("/static", StaticFiles(directory=HERE / "static"), name="static")
 app.include_router(pages.router)
 app.include_router(auth_routes.router)
 app.include_router(sources.router)
+app.include_router(bookmarks.router)
 app.include_router(tags.router)
 app.include_router(bundles.router)
 app.include_router(outputs.router)

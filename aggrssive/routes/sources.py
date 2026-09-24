@@ -202,6 +202,8 @@ def refresh_source(source_id: int, user: User = Depends(require_user), db: Sessi
     s = db.get(Source, source_id)
     if not s:
         raise HTTPException(404)
+    if s.kind == "bookmarks":
+        return RedirectResponse(f"/bookmarks/add?list={s.id}", status_code=303)
     s.etag = None
     s.last_modified = None
     db.commit()

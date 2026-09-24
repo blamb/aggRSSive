@@ -3,7 +3,7 @@
 {% block content %}
 <div class="with-side">
 <div>
-<h1>{{ source.title or source.feed_url }}{% if source.kind in KIND_LABELS %} <span class="pill">{{ KIND_LABELS[source.kind] }}</span>{% endif %}</h1>
+<h1>{{ source.title or source.feed_url }}{% if source.kind in KIND_LABELS %} <span class="pill">{{ KIND_LABELS[source.kind] }}</span>{% elif source.kind == 'bookmarks' %} <span class="pill">bookmarks</span>{% endif %}</h1>
 <p class="muted small"><a href="{{ source.feed_url }}">{{ source.feed_url }}</a>{% if source.site_url %} · <a href="{{ source.site_url }}">site</a>{% endif %}</p>
 {% if source.description %}<p>{{ source.description }}</p>{% endif %}
 <p>
@@ -84,14 +84,18 @@
 </div>
 {% endif %}
 
-<h2>Recent items <span class="muted">({{ items|length }})</span></h2>
+{% set is_bookmarks = source.kind == 'bookmarks' %}
+{% set owns = user and (user.is_site_admin or source.added_by_id == user.id) %}
+<h2>{{ 'Bookmarks' if is_bookmarks else 'Recent items' }} <span class="muted">({{ items|length }})</span></h2>
+{% if is_bookmarks and owns %}<p><a class="btn small" href="/bookmarks/add?list={{ source.id }}">+ Bookmark a page</a> <span class="muted small">or use the bookmarklet from <a href="/bookmarks">Bookmarks</a></span></p>{% endif %}
 {% if source.last_error %}<p class="error">Last fetch failed: {{ source.last_error }}</p>{% endif %}
-{% if not items %}<p class="muted">Nothing fetched yet. {% if user %}<form method="post" action="/sources/{{ source.id }}/refresh" class="inline"><button class="link">Fetch now</button></form>{% endif %}</p>{% endif %}
+{% if not items and not is_bookmarks %}<p class="muted">Nothing fetched yet. {% if user %}<form method="post" action="/sources/{{ source.id }}/refresh" class="inline"><button class="link">Fetch now</button></form>{% endif %}</p>{% endif %}
+{% if not items and is_bookmarks %}<p class="muted">Nothing bookmarked yet.</p>{% endif %}
 <ul class="items">
 {% for i in items %}
 <li>
   <a href="{{ i.url }}" class="item-title">{{ i.title or i.url }}</a>
-  <span class="muted small">{{ i.published_at|datefmt }}{% if i.author %} · {{ i.author }}{% endif %}</span>
+  <span class="muted small">{{ i.published_at|datefmt }}{% if i.author %} · {{ i.author }}{% endif %}{% if is_bookmarks and i.categories %} · {{ i.categories.replace('\n', ', ') }}{% endif %}{% if is_bookmarks and owns %} · <form method="post" action="/bookmarks/items/{{ i.id }}/delete" class="inline"><button class="link" title="remove bookmark">×</button></form>{% endif %}</span>
   {% if i.summary %}<div class="summary">{{ i.summary|safe_html }}</div>{% endif %}
 </li>
 {% endfor %}
@@ -100,8 +104,12 @@
 <aside>
   {% if user %}
   <p><label class="check"><input type="checkbox" class="cart-check" data-id="{{ source.id }}" data-title="{{ source.title or source.feed_url }}"> ♥ Heart-Cart</label></p>
+  {% if not is_bookmarks %}
   <form method="post" action="/sources/{{ source.id }}/refresh"><button class="btn small ghost">Fetch now</button></form>
   <p class="muted small">Last fetched {{ source.last_fetched_at|ago }} · last success {{ source.last_success_at|ago }}</p>
+  {% else %}
+  <p class="muted small">A bookmark list: filled by hand, never polled. Last addition {{ source.last_success_at|ago }}.</p>
+  {% endif %}
 
   <h3>Rules for this source</h3>
   <p class="muted small">Apply everywhere this source is used.</p>
@@ -127,7 +135,7 @@
     <label>Title <input name="title" value="{{ source.title }}"></label>
     <label>Site URL <input name="site_url" value="{{ source.site_url or '' }}"></label>
     <label>Description <textarea name="description" rows="3">{{ source.description }}</textarea></label>
-    <label class="check"><input type="checkbox" name="is_active" value="true" {% if source.is_active %}checked{% endif %}> active (fetch on schedule)</label>
+    <label class="check"><input type="checkbox" name="is_active" value="true" {% if source.is_active %}checked{% endif %}> active{% if not is_bookmarks %} (fetch on schedule){% endif %}</label>
     <button class="btn small">Save</button>
   </form>
   {% if user.is_site_admin or source.added_by_id == user.id %}

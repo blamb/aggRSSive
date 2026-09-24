@@ -21,6 +21,7 @@ aggRSSive collects feeds, lets a group tag and classify them together, and turns
 |---|---|
 | **Find feeds** | Search, tags, classification, and the Heart-Cart |
 | **aggRSSives** | Bundles: yours and everyone's public ones |
+| **Bookmarks** | Hand-picked pages, in lists that bundle like feeds |
 | **+ Add feed** | Add one feed or import many |
 | **Help** | These pages |
 | **Admin** | (site and full admins) LTI platforms, users, settings |

@@ -1,6 +1,6 @@
 ---
 title: GenAI features
-order: 8
+order: 9
 ---
 
 # GenAI features

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Bookmarks · aggRSSive{% endblock %}
+{% block content %}
+<div class="with-side">
+<div>
+<h1>Bookmarks</h1>
+<p class="muted">A bookmark list is a source you fill by hand, one page at a time. It goes into aggRSSives, embeds and courses exactly like a feed.</p>
+
+<h2>My lists</h2>
+{% if lists %}
+<table class="list"><tbody>
+{% for s in lists %}
+<tr><td><input type="checkbox" class="cart-check" data-id="{{ s.id }}" data-title="{{ s.title }}"></td>
+    <td><a href="/sources/{{ s.id }}">{{ s.title }}</a><br><span class="muted small">{{ s.description[:140] }}</span></td>
+    <td class="muted small">{{ counts.get(s.id, 0) }} bookmark{{ 's' if counts.get(s.id, 0) != 1 }}</td>
+    <td><a class="btn small ghost" href="/bookmarks/add?list={{ s.id }}">+ Bookmark a page</a></td></tr>
+{% endfor %}
+</tbody></table>
+{% else %}
+<p class="muted">No lists yet. Make one on the right.</p>
+{% endif %}
+
+{% if others %}
+<h2>Other people's lists</h2>
+<table class="list"><tbody>
+{% for s in others %}
+<tr><td><input type="checkbox" class="cart-check" data-id="{{ s.id }}" data-title="{{ s.title }}"></td><td><a href="/sources/{{ s.id }}">{{ s.title }}</a><br><span class="muted small">{{ s.description[:140] }}</span></td></tr>
+{% endfor %}
+</tbody></table>
+{% endif %}
+
+<h2>Bookmark from anywhere</h2>
+<p class="small">Drag this to your bookmarks bar. On any page, click it: aggRSSive opens with the page described and ready to save.</p>
+<p><a class="btn small" href="javascript:void(window.open('{{ settings.base_url }}/bookmarks/add?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'aggrssive','width=720,height=760'))" onclick="return false" title="Drag me to your bookmarks bar">♥ aggRSSive this</a></p>
+</div>
+<aside>
+  <h3>New list</h3>
+  <form method="post" action="/bookmarks/lists" class="stack small">
+    <label>Name <input name="title" placeholder="e.g. Readings for week 3" required></label>
+    <label>Description <textarea name="description" rows="2"></textarea></label>
+    <button class="btn small">Create list</button>
+  </form>
+  <p class="muted small">Lists are shared like feeds: anyone can bundle them, only you (and site admins) add to them.</p>
+</aside>
+</div>
+<script>window.MY_BUNDLES = []; window.MY_BUNDLE_TITLES = [];</script>
+{% endblock %}
