@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Account · aggRSSive{% endblock %}
+{% block content %}
+<div class="narrow">
+<h1>Your account</h1>
+<p class="muted small">{{ user.email }} · {{ {'user':'regular user','site_admin':'site admin','admin':'full admin'}[user.role] }}</p>
+{% if message %}<p class="notice">{{ message }}</p>{% endif %}
+{% if error %}<p class="error">{{ error }}</p>{% endif %}
+<form method="post" action="/account" class="stack">
+  <label>Name <input name="display_name" value="{{ user.display_name }}" required></label>
+  <h3>Change password</h3>
+  {% if user.password_hash %}<label>Current password <input type="password" name="current_password" autocomplete="current-password"></label>{% endif %}
+  <label>New password <input type="password" name="new_password" minlength="8" autocomplete="new-password" placeholder="leave blank to keep"></label>
+  <button class="btn">Save</button>
+</form>
+</div>
+{% endblock %}

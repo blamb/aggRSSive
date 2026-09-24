@@ -3,7 +3,7 @@ from fastapi.responses import RedirectResponse
 from sqlalchemy import delete, select
 from sqlalchemy.orm import Session, selectinload
 
-from ..auth import current_user, require_user
+from ..auth import can_manage, current_user, require_user
 from ..db import get_db
 from ..models import Bundle, Item, Rule, Source, User, bundle_sources
 from ..rules import FIELDS, bundle_items, get_override
@@ -20,11 +20,11 @@ def load_bundle(db: Session, slug: str) -> Bundle:
 
 
 def can_view(b: Bundle, user: User | None) -> bool:
-    return b.is_public or (user is not None and (user.id == b.owner_id or user.is_admin))
+    return b.is_public or can_manage(user, b.owner_id)
 
 
 def can_edit(b: Bundle, user: User | None) -> bool:
-    return user is not None and (user.id == b.owner_id or user.is_admin)
+    return can_manage(user, b.owner_id)
 
 
 @router.get("/bundles")

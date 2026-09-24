@@ -36,11 +36,30 @@ class User(Base):
     email: Mapped[str] = mapped_column(String(255), unique=True, index=True)
     display_name: Mapped[str] = mapped_column(String(120))
     password_hash: Mapped[str | None] = mapped_column(String(255))
-    is_admin: Mapped[bool] = mapped_column(Boolean, default=False)
+    is_admin: Mapped[bool] = mapped_column(Boolean, default=False)  # legacy flag; `role` is the source of truth
+    role: Mapped[str] = mapped_column(String(16), default="user")  # user | site_admin | admin
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+    @property
+    def is_full_admin(self) -> bool:
+        return self.role == "admin"
+
+    @property
+    def is_site_admin(self) -> bool:
+        return self.role in ("admin", "site_admin")
 
     oauth_accounts: Mapped[list[OAuthAccount]] = relationship(back_populates="user", cascade="all, delete-orphan")
     bundles: Mapped[list[Bundle]] = relationship(back_populates="owner")
+
+
+class Setting(Base):
+    """Site settings a full admin can change without redeploying. Environment variables are the defaults."""
+
+    __tablename__ = "settings"
+
+    key: Mapped[str] = mapped_column(String(64), primary_key=True)
+    value: Mapped[str] = mapped_column(Text, default="")
 
 
 class OAuthAccount(Base):

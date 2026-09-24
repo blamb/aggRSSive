@@ -7,7 +7,7 @@ from fastapi.responses import JSONResponse, RedirectResponse
 from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
 
-from ..auth import current_user, require_user
+from ..auth import current_user, require_site_admin, require_user
 from ..config import get_settings
 from ..db import get_db
 from ..lti import keys, service
@@ -159,9 +159,7 @@ def register(request: Request, openid_configuration: str = "", registration_toke
 
 
 @router.get("/lti")
-def admin(request: Request, db: Session = Depends(get_db), user: User | None = Depends(current_user)):
-    if not (user and user.is_admin):
-        raise HTTPException(403, "Admins only")
+def admin(request: Request, db: Session = Depends(get_db), user: User = Depends(require_site_admin)):
     platforms = db.execute(select(Platform).order_by(Platform.created_at.desc())).scalars().all()
     base = settings.base_url
     urls = {
@@ -176,9 +174,7 @@ def admin(request: Request, db: Session = Depends(get_db), user: User | None = D
 
 
 @router.post("/lti/platforms")
-def add_platform(name: str = Form(""), issuer: str = Form(...), client_id: str = Form(...), auth_login_url: str = Form(...), auth_token_url: str = Form(""), jwks_url: str = Form(...), deployment_id: str = Form(""), user: User = Depends(require_user), db: Session = Depends(get_db)):
-    if not user.is_admin:
-        raise HTTPException(403)
+def add_platform(name: str = Form(""), issuer: str = Form(...), client_id: str = Form(...), auth_login_url: str = Form(...), auth_token_url: str = Form(""), jwks_url: str = Form(...), deployment_id: str = Form(""), user: User = Depends(require_site_admin), db: Session = Depends(get_db)):
     p = Platform(name=name.strip()[:200] or issuer, issuer=issuer.strip(), client_id=client_id.strip(), auth_login_url=auth_login_url.strip(), auth_token_url=auth_token_url.strip(), jwks_url=jwks_url.strip(), deployment_ids=deployment_id.strip())
     db.add(p)
     db.commit()
@@ -186,9 +182,7 @@ def add_platform(name: str = Form(""), issuer: str = Form(...), client_id: str =
 
 
 @router.post("/lti/platforms/{platform_id}/delete")
-def delete_platform(platform_id: int, user: User = Depends(require_user), db: Session = Depends(get_db)):
-    if not user.is_admin:
-        raise HTTPException(403)
+def delete_platform(platform_id: int, user: User = Depends(require_site_admin), db: Session = Depends(get_db)):
     p = db.get(Platform, platform_id)
     if p:
         db.delete(p)

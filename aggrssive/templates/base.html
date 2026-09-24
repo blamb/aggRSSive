@@ -17,9 +17,10 @@
     <a href="/bundles">aggRSSives</a>
     <a href="/help">Help</a>
     {% if user %}
-      {% if user.is_admin %}<a href="/lti">Admin</a>{% endif %}
+      {% if user.is_site_admin %}<a href="/admin">Admin</a>{% endif %}
       <a href="/sources/add" class="btn small">+ Add feed</a>
-      <form method="post" action="/logout" class="inline"><button class="link">Sign out ({{ user.display_name }})</button></form>
+      <a href="/account">{{ user.display_name }}</a>
+      <form method="post" action="/logout" class="inline"><button class="link">Sign out</button></form>
     {% else %}
       <a href="/login">Sign in</a>
     {% endif %}

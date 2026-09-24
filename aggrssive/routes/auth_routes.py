@@ -4,7 +4,7 @@ from fastapi.responses import RedirectResponse
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from ..auth import clear_session, current_user, hash_password, set_session, verify_password
+from ..auth import clear_session, current_user, hash_password, set_session, signup_open, verify_password
 from ..config import get_settings
 from ..db import get_db
 from ..models import OAuthAccount, User
@@ -52,7 +52,7 @@ def login_page(request: Request, next: str = "/", user: User | None = Depends(cu
 @router.post("/login")
 def login(request: Request, email: str = Form(...), password: str = Form(...), next: str = Form("/"), db: Session = Depends(get_db)):
     u = db.execute(select(User).where(User.email == email.strip().lower())).scalar_one_or_none()
-    if not u or not verify_password(password, u.password_hash):
+    if not u or not u.is_active or not verify_password(password, u.password_hash):
         return templates.TemplateResponse(request, "login.html", {"user": None, "next": next, "error": "Wrong email or password."}, status_code=400)
     resp = RedirectResponse(_safe_next(next), status_code=303)
     set_session(resp, u)
@@ -63,7 +63,7 @@ def login(request: Request, email: str = Form(...), password: str = Form(...), n
 def signup_page(request: Request, user: User | None = Depends(current_user), db: Session = Depends(get_db)):
     if user:
         return RedirectResponse("/", status_code=303)
-    if not settings.allow_signup and not _first_user_is_admin(db):
+    if not signup_open(db) and not _first_user_is_admin(db):
         raise HTTPException(403, "Sign-ups are closed on this install. Ask the admin for an account.")
     return templates.TemplateResponse(request, "signup.html", {"user": None, "error": None})
 
@@ -71,14 +71,14 @@ def signup_page(request: Request, user: User | None = Depends(current_user), db:
 @router.post("/signup")
 def signup(request: Request, email: str = Form(...), display_name: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
     first = _first_user_is_admin(db)
-    if not settings.allow_signup and not first:
+    if not signup_open(db) and not first:
         raise HTTPException(403, "Sign-ups are closed on this install.")
     email = email.strip().lower()
     if len(password) < 8:
         return templates.TemplateResponse(request, "signup.html", {"user": None, "error": "Password needs at least 8 characters."}, status_code=400)
     if db.execute(select(User).where(User.email == email)).scalar_one_or_none():
         return templates.TemplateResponse(request, "signup.html", {"user": None, "error": "That email already has an account."}, status_code=400)
-    u = User(email=email, display_name=display_name.strip()[:120] or email, password_hash=hash_password(password), is_admin=first)
+    u = User(email=email, display_name=display_name.strip()[:120] or email, password_hash=hash_password(password), is_admin=first, role="admin" if first else "user")
     db.add(u)
     db.commit()
     resp = RedirectResponse("/", status_code=303)
@@ -135,9 +135,10 @@ async def oauth_callback(request: Request, provider: str, db: Session = Depends(
     else:
         u = db.execute(select(User).where(User.email == email)).scalar_one_or_none()
         if u is None:
-            if not settings.allow_signup and not _first_user_is_admin(db):
+            if not signup_open(db) and not _first_user_is_admin(db):
                 raise HTTPException(403, "Sign-ups are closed on this install.")
-            u = User(email=email, display_name=(name or email)[:120], is_admin=_first_user_is_admin(db))
+            first = _first_user_is_admin(db)
+            u = User(email=email, display_name=(name or email)[:120], is_admin=first, role="admin" if first else "user")
             db.add(u)
             db.flush()
         db.add(OAuthAccount(user_id=u.id, provider=provider, provider_user_id=pid))

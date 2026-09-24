@@ -20,3 +20,7 @@ The first account created on a site is a full admin. Full admins manage everyone
 ## Sign-ups
 
 While sign-ups are open, anyone who finds the site can create an account. Once your group is in, a full admin closes sign-ups; after that, new people are added by an admin.
+
+## Your account
+
+Click your name in the menu to change your display name or password. People created by an admin get an initial password and should change it there.

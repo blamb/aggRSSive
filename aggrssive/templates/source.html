@@ -129,7 +129,7 @@
     <label class="check"><input type="checkbox" name="is_active" value="true" {% if source.is_active %}checked{% endif %}> active (fetch on schedule)</label>
     <button class="btn small">Save</button>
   </form>
-  {% if user.is_admin or source.added_by_id == user.id %}
+  {% if user.is_site_admin or source.added_by_id == user.id %}
   <form method="post" action="/sources/{{ source.id }}/delete" onsubmit="return confirm('Delete this source and its items? Bundles using it will lose it.')"><button class="link danger">Delete source</button></form>
   {% endif %}
   {% endif %}

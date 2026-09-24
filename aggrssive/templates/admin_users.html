@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Users · Admin · aggRSSive{% endblock %}
+{% block content %}
+<p class="muted small"><a href="/admin">← Admin</a></p>
+<div class="with-side">
+<div>
+<h1>Users</h1>
+{% if error %}<p class="error">{{ error }}</p>{% endif %}
+<table class="list">
+<thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Since</th><th></th></tr></thead>
+<tbody>
+{% for u in users %}
+<tr{% if not u.is_active %} class="muted"{% endif %}>
+  <td>{{ u.display_name }}{% if not u.is_active %} <span class="pill">deactivated</span>{% endif %}{% if u.id == user.id %} <span class="pill">you</span>{% endif %}</td>
+  <td class="small">{{ u.email }}</td>
+  <td>
+    <form method="post" action="/admin/users/{{ u.id }}" class="row" style="margin:0">
+      <input type="hidden" name="action" value="role">
+      <select name="role" onchange="this.form.submit()"{% if u.id == user.id %} disabled{% endif %}>
+        {% for r in roles %}<option value="{{ r }}" {% if u.role == r %}selected{% endif %}>{{ {'user':'regular user','site_admin':'site admin','admin':'full admin'}[r] }}</option>{% endfor %}
+      </select>
+    </form>
+  </td>
+  <td class="small muted">{{ u.created_at|datefmt }}</td>
+  <td>{% if u.id != user.id %}<form method="post" action="/admin/users/{{ u.id }}" class="inline">
+    {% if u.is_active %}<button class="link muted" name="action" value="deactivate">deactivate</button>{% else %}<button class="link" name="action" value="activate">reactivate</button>{% endif %}
+  </form>{% endif %}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+<p class="muted small">Deactivated people can't sign in; everything they added stays. Roles are explained in <a href="/help/roles">Help → Roles</a>.</p>
+</div>
+<aside>
+  <h3>Create an account</h3>
+  <form method="post" action="/admin/users" class="stack small">
+    <label>Name <input name="display_name" required></label>
+    <label>Email <input type="email" name="email" required></label>
+    <label>Role <select name="role"><option value="user">regular user</option><option value="site_admin">site admin</option><option value="admin">full admin</option></select></label>
+    <label>Initial password <input type="text" name="password" minlength="8" required placeholder="they change it under their name → Account"></label>
+    <button class="btn small">Create</button>
+  </form>
+</aside>
+</div>
+{% endblock %}

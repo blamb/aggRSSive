@@ -4,7 +4,7 @@ from sqlalchemy import func, or_, select
 from sqlalchemy.orm import Session, selectinload
 
 from .. import classification, scheduler, tagging
-from ..auth import current_user, require_user
+from ..auth import can_manage, current_user, require_user
 from ..config import get_settings
 from ..db import get_db
 from ..feeds.discover import discover, normalize_url
@@ -213,8 +213,8 @@ def delete_source(source_id: int, user: User = Depends(require_user), db: Sessio
     s = db.get(Source, source_id)
     if not s:
         raise HTTPException(404)
-    if not (user.is_admin or s.added_by_id == user.id):
-        raise HTTPException(403, "Only the person who added a source, or an admin, can delete it.")
+    if not can_manage(user, s.added_by_id):
+        raise HTTPException(403, "Only the person who added a source, or a site admin, can delete it.")
     for r in db.execute(select(Rule).where(Rule.owner_type == "source", Rule.owner_id == s.id)).scalars():
         db.delete(r)
     db.delete(s)
@@ -240,7 +240,7 @@ def delete_rule(rule_id: int, request: Request, user: User = Depends(require_use
         back = f"/sources/{r.owner_id}" if r.owner_type == "source" else None
         if r.owner_type == "bundle":
             b = db.get(Bundle, r.owner_id)
-            if b and b.owner_id != user.id and not user.is_admin:
+            if b and not can_manage(user, b.owner_id):
                 raise HTTPException(403)
             back = f"/bundles/{b.slug}/edit" if b else "/bundles"
         db.delete(r)
