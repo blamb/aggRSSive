@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Sign in · aggRSSive{% endblock %}
+{% block content %}
+<div class="narrow">
+<h1>Sign in</h1>
+{% if error %}<p class="error">{{ error }}</p>{% endif %}
+<form method="post" action="/login" class="stack">
+  <input type="hidden" name="next" value="{{ next }}">
+  <label>Email <input type="email" name="email" required autofocus></label>
+  <label>Password <input type="password" name="password" required></label>
+  <button class="btn">Sign in</button>
+</form>
+{% if settings.github_enabled or settings.google_enabled %}
+<p class="muted">or</p>
+<p>
+{% if settings.github_enabled %}<a class="btn ghost" href="/auth/github">Continue with GitHub</a>{% endif %}
+{% if settings.google_enabled %}<a class="btn ghost" href="/auth/google">Continue with Google</a>{% endif %}
+</p>
+{% endif %}
+<p class="muted">No account? <a href="/signup">Create one</a>.</p>
+</div>
+{% endblock %}

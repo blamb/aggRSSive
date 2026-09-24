@@ -1,0 +1,15 @@
+services:
+  aggrssive:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: sqlite:////data/aggrssive.db
+    volumes:
+      - aggrssive-data:/data
+    restart: unless-stopped
+
+volumes:
+  aggrssive-data:

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Sources · aggRSSive{% endblock %}
+{% block content %}
+<div class="with-side">
+<div>
+<h1>Sources <span class="muted">({{ sources|length }})</span></h1>
+{% if request.query_params.get('imported') %}<p class="notice">Imported {{ request.query_params.get('imported') }} new feeds. They're being fetched now.</p>{% endif %}
+<form method="get" class="row">
+  <input name="q" value="{{ q }}" placeholder="Search sources">
+  {% if tag %}<input type="hidden" name="tag" value="{{ tag }}">{% endif %}
+  <button class="btn small">Search</button>
+  {% if q or tag %}<a href="/sources" class="muted">clear</a>{% endif %}
+</form>
+{% if tag %}<p>Tagged <a class="tag" href="/tags/{{ tag }}">{{ tag }}</a></p>{% endif %}
+
+{% if sources %}
+<table class="list">
+<thead><tr><th></th><th>Source</th><th>Tags</th><th class="num">Items</th><th>Fetched</th></tr></thead>
+<tbody>
+{% for s in sources %}
+<tr>
+  <td><input type="checkbox" class="cart-check" data-id="{{ s.id }}" data-title="{{ s.title or s.feed_url }}" title="Add to Heart-Cart"></td>
+  <td><a href="/sources/{{ s.id }}">{{ s.title or s.feed_url }}</a>{% if not s.is_active %} <span class="pill">paused</span>{% endif %}{% if s.last_error %} <span class="pill warn" title="{{ s.last_error }}">error</span>{% endif %}<br><span class="muted small">{{ s.site_url or s.feed_url }}</span></td>
+  <td>{% for t in s.tags %}<a class="tag" href="/sources?tag={{ t.name }}">{{ t.name }}</a> {% endfor %}</td>
+  <td class="num">{{ counts.get(s.id, 0) }}</td>
+  <td class="muted small">{{ s.last_success_at|ago }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% else %}
+<p class="muted">No sources yet. {% if user %}<a href="/sources/add">Add the first one.</a>{% endif %}</p>
+{% endif %}
+</div>
+<aside>
+  {% if user %}
+  <h3>Import OPML</h3>
+  <form method="post" action="/sources/import" enctype="multipart/form-data" class="stack">
+    <input type="file" name="file" accept=".opml,.xml,text/xml,text/x-opml" required>
+    <label class="check"><input type="checkbox" name="use_folders" value="true" checked> Turn folders into tags</label>
+    <button class="btn small">Import</button>
+  </form>
+  {% endif %}
+  <h3>Tags</h3>
+  <p class="tagcloud small">{% for t, n in tags %}{% if n %}<a href="/sources?tag={{ t.name }}">{{ t.name }} <span class="muted">{{ n }}</span></a> {% endif %}{% endfor %}</p>
+  <p class="muted small">Tick sources to collect them in the Heart-Cart, then turn the cart into an aggRSSive.</p>
+</aside>
+</div>
+<script>window.MY_BUNDLES = {{ my_bundles|map(attribute='slug')|list|tojson }}; window.MY_BUNDLE_TITLES = {{ my_bundles|map(attribute='title')|list|tojson }};</script>
+{% endblock %}

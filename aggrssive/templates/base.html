@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}aggRSSive{% endblock %}</title>
+<link rel="stylesheet" href="/static/app.css">
+{% block head %}{% endblock %}
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="/">agg<span>RSS</span>ive</a>
+  <nav>
+    <a href="/sources">Sources</a>
+    <a href="/tags">Tags</a>
+    <a href="/bundles">aggRSSives</a>
+    {% if user %}
+      <a href="/sources/add" class="btn small">+ Add feed</a>
+      <form method="post" action="/logout" class="inline"><button class="link">Sign out ({{ user.display_name }})</button></form>
+    {% else %}
+      <a href="/login">Sign in</a>
+    {% endif %}
+  </nav>
+</header>
+<main class="wrap">
+{% block content %}{% endblock %}
+</main>
+<footer class="foot">
+  <span>aggRSSive · second edition · <a href="https://github.com/brianlamb/aggrssive">source</a></span>
+</footer>
+<div id="cart" class="cart" hidden>
+  <div class="cart-head"><span>♥ Heart-Cart</span> <span id="cart-count">0</span> <button class="link" id="cart-clear">clear</button></div>
+  <ul id="cart-list"></ul>
+  {% if user %}
+  <form method="post" action="/bundles" id="cart-new">
+    <input name="title" placeholder="Name this aggRSSive" required>
+    <button class="btn small">Create</button>
+  </form>
+  <form method="post" id="cart-add">
+    <select name="bundle" id="cart-bundle"><option value="">Add to existing…</option></select>
+    <button class="btn small">Add</button>
+  </form>
+  {% else %}
+  <p class="muted"><a href="/login">Sign in</a> to make a bundle.</p>
+  {% endif %}
+</div>
+<script src="/static/app.js"></script>
+</body>
+</html>

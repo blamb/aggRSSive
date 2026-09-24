@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}{{ bundle.title }} · aggRSSive{% endblock %}
+{% block head %}
+<link rel="alternate" type="application/rss+xml" title="{{ bundle.title }}" href="/b/{{ bundle.slug }}/feed.rss">
+<link rel="alternate" type="application/atom+xml" title="{{ bundle.title }}" href="/b/{{ bundle.slug }}/feed.atom">
+<link rel="alternate" type="application/feed+json" title="{{ bundle.title }}" href="/b/{{ bundle.slug }}/feed.json">
+{% endblock %}
+{% block content %}
+<div class="with-side">
+<div>
+<h1>{{ bundle.title }} {% if not bundle.is_public %}<span class="pill">private</span>{% endif %}</h1>
+{% if bundle.description %}<p>{{ bundle.description }}</p>{% endif %}
+<p class="muted small">by {{ bundle.owner.display_name }} · {{ bundle.sources|length }} sources · {{ items|length }} items{% if editable %} · <a href="/bundles/{{ bundle.slug }}/edit">edit</a>{% endif %}</p>
+<ul class="items">
+{% for bi in items %}
+<li{% if bi.pinned %} class="pinned"{% endif %}>
+  {% if bi.pinned %}<span class="pill pin">pinned</span> {% endif %}
+  <a href="{{ bi.item.url }}" class="item-title">{{ bi.item.title or bi.item.url }}</a>
+  <span class="muted small">{{ bi.item.source.title }} · {{ bi.item.published_at|datefmt }}{% if bi.item.author %} · {{ bi.item.author }}{% endif %}</span>
+  {% if bi.note %}<p class="note">{{ bi.note }}</p>{% endif %}
+  {% if bi.item.summary %}<div class="summary">{{ bi.item.summary|safe_html }}</div>{% endif %}
+</li>
+{% else %}
+<li class="muted">Nothing passes the filters yet.</li>
+{% endfor %}
+</ul>
+</div>
+<aside>
+  <h3>Feed your site</h3>
+  <p class="muted small">Paste this where you want the list to appear:</p>
+  <textarea readonly rows="3" class="code" onclick="this.select()">&lt;script src="{{ settings.base_url }}/embed/{{ bundle.slug }}.js"&gt;&lt;/script&gt;</textarea>
+  <details class="small">
+    <summary>Options</summary>
+    <p>Add attributes to the script tag:</p>
+    <ul class="plain small">
+      <li><code>data-n="10"</code> number of items</li>
+      <li><code>data-desc="0"</code> hide descriptions; <code>data-desc="full"</code> show full HTML instead of a short excerpt</li>
+      <li><code>data-img="0"</code> hide images</li>
+      <li><code>data-src="0"</code> hide source names</li>
+      <li><code>data-date="0"</code> hide dates</li>
+      <li><code>data-theme="dark"</code> or <code>auto</code></li>
+      <li><code>data-target="#my-div"</code> render into an element</li>
+    </ul>
+    <p>Or an iframe, for sites that block scripts:</p>
+    <textarea readonly rows="3" class="code" onclick="this.select()">&lt;iframe src="{{ settings.base_url }}/embed/{{ bundle.slug }}/frame?n=10" width="100%" height="500" style="border:0"&gt;&lt;/iframe&gt;</textarea>
+  </details>
+  <h3>Subscribe</h3>
+  <ul class="plain small">
+    <li><a href="/b/{{ bundle.slug }}/feed.rss">RSS</a> · <a href="/b/{{ bundle.slug }}/feed.atom">Atom</a> · <a href="/b/{{ bundle.slug }}/feed.json">JSON Feed</a></li>
+    <li><a href="/b/{{ bundle.slug }}.json">JSON API</a> · <a href="/b/{{ bundle.slug }}/sources.opml">OPML of sources</a></li>
+  </ul>
+  <h3>Sources</h3>
+  <ul class="plain small">{% for s in bundle.sources %}<li><a href="/sources/{{ s.id }}">{{ s.title or s.feed_url }}</a></li>{% endfor %}</ul>
+</aside>
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}{{ source.title or source.feed_url }} · aggRSSive{% endblock %}
+{% block content %}
+<div class="with-side">
+<div>
+<h1>{{ source.title or source.feed_url }}</h1>
+<p class="muted small"><a href="{{ source.feed_url }}">{{ source.feed_url }}</a>{% if source.site_url %} · <a href="{{ source.site_url }}">site</a>{% endif %}</p>
+{% if source.description %}<p>{{ source.description }}</p>{% endif %}
+<p>
+  {% for t in source.tags %}<span class="tag">{{ t.name }}{% if user %} <form method="post" action="/sources/{{ source.id }}/tags/{{ t.id }}/remove" class="inline"><button class="link" title="remove tag">×</button></form>{% endif %}</span> {% endfor %}
+</p>
+{% if user %}
+<form method="post" action="/sources/{{ source.id }}/tags" class="row">
+  <input name="tags" placeholder="add tags, comma separated" class="tag-input" required>
+  <button class="btn small">Tag</button>
+</form>
+<p class="tagcloud small">{% for t, n in tags %}{% if t not in source.tags %}<a href="#" class="tag-suggest" data-tag="{{ t.name }}">{{ t.name }}</a> {% endif %}{% endfor %}</p>
+{% endif %}
+
+<h2>Recent items <span class="muted">({{ items|length }})</span></h2>
+{% if source.last_error %}<p class="error">Last fetch failed: {{ source.last_error }}</p>{% endif %}
+{% if not items %}<p class="muted">Nothing fetched yet. {% if user %}<form method="post" action="/sources/{{ source.id }}/refresh" class="inline"><button class="link">Fetch now</button></form>{% endif %}</p>{% endif %}
+<ul class="items">
+{% for i in items %}
+<li>
+  <a href="{{ i.url }}" class="item-title">{{ i.title or i.url }}</a>
+  <span class="muted small">{{ i.published_at|datefmt }}{% if i.author %} · {{ i.author }}{% endif %}</span>
+  {% if i.summary %}<div class="summary">{{ i.summary|safe_html }}</div>{% endif %}
+</li>
+{% endfor %}
+</ul>
+</div>
+<aside>
+  {% if user %}
+  <p><label class="check"><input type="checkbox" class="cart-check" data-id="{{ source.id }}" data-title="{{ source.title or source.feed_url }}"> ♥ Heart-Cart</label></p>
+  <form method="post" action="/sources/{{ source.id }}/refresh"><button class="btn small ghost">Fetch now</button></form>
+  <p class="muted small">Last fetched {{ source.last_fetched_at|ago }} · last success {{ source.last_success_at|ago }}</p>
+
+  <h3>Rules for this source</h3>
+  <p class="muted small">Apply everywhere this source is used.</p>
+  <ul class="rules">
+  {% for r in rules %}
+    <li><span class="pill {{ r.kind }}">{{ r.kind }}</span> {{ r.field }} {{ 'matches' if r.is_regex else 'contains' }} <code>{{ r.pattern }}</code>
+      <form method="post" action="/rules/{{ r.id }}/delete" class="inline"><button class="link">×</button></form></li>
+  {% endfor %}
+  </ul>
+  <form method="post" action="/sources/{{ source.id }}/rules" class="stack small">
+    <div class="row">
+      <select name="kind"><option value="exclude">exclude</option><option value="include">include</option></select>
+      <select name="field">{% for f in fields %}<option value="{{ f }}">{{ f }}</option>{% endfor %}</select>
+    </div>
+    <input name="pattern" placeholder="word, phrase or regex" required>
+    <label class="check"><input type="checkbox" name="is_regex" value="true"> regular expression</label>
+    <button class="btn small">Add rule</button>
+  </form>
+
+  <h3>Details</h3>
+  <form method="post" action="/sources/{{ source.id }}/edit" class="stack small">
+    <label>Title <input name="title" value="{{ source.title }}"></label>
+    <label>Site URL <input name="site_url" value="{{ source.site_url or '' }}"></label>
+    <label>Description <textarea name="description" rows="3">{{ source.description }}</textarea></label>
+    <label class="check"><input type="checkbox" name="is_active" value="true" {% if source.is_active %}checked{% endif %}> active (fetch on schedule)</label>
+    <button class="btn small">Save</button>
+  </form>
+  {% if user.is_admin or source.added_by_id == user.id %}
+  <form method="post" action="/sources/{{ source.id }}/delete" onsubmit="return confirm('Delete this source and its items? Bundles using it will lose it.')"><button class="link danger">Delete source</button></form>
+  {% endif %}
+  {% endif %}
+
+  {% if in_bundles %}
+  <h3>In aggRSSives</h3>
+  <ul>{% for b in in_bundles %}<li><a href="/bundles/{{ b.slug }}">{{ b.title }}</a></li>{% endfor %}</ul>
+  {% endif %}
+</aside>
+</div>
+{% endblock %}

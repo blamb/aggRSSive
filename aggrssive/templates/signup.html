@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Create account · aggRSSive{% endblock %}
+{% block content %}
+<div class="narrow">
+<h1>Create an account</h1>
+{% if error %}<p class="error">{{ error }}</p>{% endif %}
+<form method="post" action="/signup" class="stack">
+  <label>Name <input name="display_name" required autofocus></label>
+  <label>Email <input type="email" name="email" required></label>
+  <label>Password <input type="password" name="password" minlength="8" required></label>
+  <button class="btn">Create account</button>
+</form>
+{% if settings.github_enabled or settings.google_enabled %}
+<p class="muted">or</p>
+<p>
+{% if settings.github_enabled %}<a class="btn ghost" href="/auth/github">Continue with GitHub</a>{% endif %}
+{% if settings.google_enabled %}<a class="btn ghost" href="/auth/google">Continue with Google</a>{% endif %}
+</p>
+{% endif %}
+<p class="muted">Already have one? <a href="/login">Sign in</a>.</p>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" data-theme="{{ theme }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ bundle.title }}</title>
+<base target="_blank">
+<style>
+:root{--fg:#1b1b1b;--muted:#666;--link:#0b5fa5;--bg:#fff;--line:#e5e5e5}
+[data-theme=dark]{--fg:#eee;--muted:#aaa;--link:#8ab4f8;--bg:#161616;--line:#333}
+@media (prefers-color-scheme: dark){[data-theme=auto]{--fg:#eee;--muted:#aaa;--link:#8ab4f8;--bg:#161616;--line:#333}}
+body{margin:0;padding:12px;font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--fg);background:var(--bg)}
+ul{list-style:none;margin:0;padding:0}li{padding:10px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:auto 1fr;gap:10px}li:last-child{border:0}
+a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
+.t{font-weight:600}.m{color:var(--muted);font-size:.85em}.d{margin-top:4px;font-size:.92em}.d img{max-width:100%;height:auto}
+img.th{width:72px;height:72px;object-fit:cover;border-radius:6px}.noimg{display:none}
+.note{font-style:italic;color:var(--muted);font-size:.9em;margin:2px 0}
+.foot{margin-top:8px;font-size:.75em;color:var(--muted)}
+</style>
+</head>
+<body>
+<ul>
+{% for bi in items %}
+<li>
+  {% if img and bi.item.image_url %}<a href="{{ bi.item.url }}"><img class="th" src="{{ bi.item.image_url }}" alt="" loading="lazy"></a>{% else %}<span class="noimg"></span>{% endif %}
+  <div>
+    <a class="t" href="{{ bi.item.url }}">{{ bi.item.title or bi.item.url }}</a>
+    {% if src or date %}<div class="m">{% if src %}{{ bi.item.source.title }}{% endif %}{% if src and date %} · {% endif %}{% if date %}{{ bi.item.published_at|datefmt }}{% endif %}</div>{% endif %}
+    {% if bi.note %}<p class="note">{{ bi.note }}</p>{% endif %}
+    {% if desc == 2 and bi.item.summary %}<div class="d">{{ bi.item.summary|safe_html }}</div>{% elif desc and bi.item.text %}<div class="d">{{ bi.item.text[:280] }}{% if bi.item.text|length > 280 %}…{% endif %}</div>{% endif %}
+  </div>
+</li>
+{% endfor %}
+</ul>
+<div class="foot"><a href="{{ settings.base_url }}/bundles/{{ bundle.slug }}">{{ bundle.title }}</a> · via aggRSSive</div>
+</body>
+</html>

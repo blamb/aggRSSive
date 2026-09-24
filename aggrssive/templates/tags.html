@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Tags · aggRSSive{% endblock %}
+{% block content %}
+<h1>Tags</h1>
+<p class="muted">A shared vocabulary. Anyone can tag any source; tags are what make the collection browsable.</p>
+<p class="tagcloud">
+{% for t, n in rows %}<a href="/tags/{{ t.name }}" style="font-size:{{ (0.85 + (n ** 0.5) * 0.25)|round(2) }}rem">{{ t.name }}</a> <span class="muted small">{{ n }}</span> {% endfor %}
+</p>
+{% endblock %}

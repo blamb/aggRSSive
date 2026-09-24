@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Edit {{ bundle.title }} · aggRSSive{% endblock %}
+{% block content %}
+<p class="muted small"><a href="/bundles/{{ bundle.slug }}">← back to {{ bundle.title }}</a></p>
+<div class="with-side">
+<div>
+<h1>Edit: {{ bundle.title }}</h1>
+
+<h2>Sources <span class="muted">({{ bundle.sources|length }})</span></h2>
+<ul class="plain">
+{% for s in bundle.sources %}
+<li><a href="/sources/{{ s.id }}">{{ s.title or s.feed_url }}</a> <form method="post" action="/bundles/{{ bundle.slug }}/sources/{{ s.id }}/remove" class="inline"><button class="link" title="remove">×</button></form></li>
+{% endfor %}
+</ul>
+<p class="muted small">Add more from <a href="/sources">Sources</a> via the Heart-Cart.</p>
+
+<h2>Rules</h2>
+<p class="muted small">Exclude rules always win. {% if bundle.match_mode == 'all' %}An item must match <strong>all</strong> include rules.{% else %}An item must match <strong>any</strong> include rule.{% endif %} No include rules means everything gets in.</p>
+<ul class="rules">
+{% for r in rules %}
+  <li><span class="pill {{ r.kind }}">{{ r.kind }}</span> {{ r.field }} {{ 'matches' if r.is_regex else 'contains' }} <code>{{ r.pattern }}</code>
+    <form method="post" action="/rules/{{ r.id }}/delete" class="inline"><button class="link">×</button></form></li>
+{% else %}
+  <li class="muted">No rules. Everything from these sources is included.</li>
+{% endfor %}
+</ul>
+<form method="post" action="/bundles/{{ bundle.slug }}/rules" class="row wrap">
+  <select name="kind"><option value="include">include</option><option value="exclude">exclude</option></select>
+  <select name="field">{% for f in fields %}<option value="{{ f }}">{{ f }}</option>{% endfor %}</select>
+  <input name="pattern" placeholder="word, phrase or regex" required>
+  <label class="check"><input type="checkbox" name="is_regex" value="true"> regex</label>
+  <button class="btn small">Add rule</button>
+</form>
+
+<h2>Preview: included <span class="muted">({{ included|length }})</span></h2>
+<ul class="items compact">
+{% for bi in included %}
+{% set o = overrides.get(bi.item.id) %}
+<li id="item-{{ bi.item.id }}" class="{% if bi.pinned %}pinned{% endif %}{% if o and o.hidden %} hidden-item{% endif %}">
+  <a href="{{ bi.item.url }}" class="item-title">{{ bi.item.title or bi.item.url }}</a>
+  <span class="muted small">{{ bi.item.source.title }} · {{ bi.item.published_at|datefmt }}</span>
+  <span class="actions">
+    <form method="post" action="/bundles/{{ bundle.slug }}/items/{{ bi.item.id }}" class="inline">
+      {% if bi.pinned %}<button class="link" name="action" value="unpin">unpin</button>{% else %}<button class="link" name="action" value="pin">pin</button>{% endif %}
+      <button class="link" name="action" value="hide">hide</button>
+    </form>
+    <form method="post" action="/bundles/{{ bundle.slug }}/items/{{ bi.item.id }}" class="inline note-form">
+      <input type="hidden" name="action" value="note"><input name="note" value="{{ bi.note }}" placeholder="note for readers"><button class="link">save</button>
+    </form>
+  </span>
+  {% if bi.note %}<p class="note">{{ bi.note }}</p>{% endif %}
+</li>
+{% endfor %}
+</ul>
+
+{% if excluded %}
+<h2>Preview: excluded by rules <span class="muted">(latest {{ excluded|length }})</span></h2>
+<p class="muted small">Recent items from your sources that the rules filtered out. Pin one to force it in.</p>
+<ul class="items compact muted">
+{% for i in excluded %}
+{% set o = overrides.get(i.id) %}
+<li id="item-{{ i.id }}">
+  <a href="{{ i.url }}" class="item-title">{{ i.title or i.url }}</a>
+  <span class="small">{{ i.source.title }} · {{ i.published_at|datefmt }}{% if o and o.hidden %} · hidden{% endif %}</span>
+  <span class="actions"><form method="post" action="/bundles/{{ bundle.slug }}/items/{{ i.id }}" class="inline">
+    {% if o and o.hidden %}<button class="link" name="action" value="unhide">unhide</button>{% else %}<button class="link" name="action" value="pin">pin</button>{% endif %}
+  </form></span>
+</li>
+{% endfor %}
+</ul>
+{% endif %}
+</div>
+
+<aside>
+  <h3>Settings</h3>
+  <form method="post" action="/bundles/{{ bundle.slug }}/edit" class="stack small">
+    <label>Title <input name="title" value="{{ bundle.title }}" required></label>
+    <label>Description <textarea name="description" rows="3">{{ bundle.description }}</textarea></label>
+    <label class="check"><input type="checkbox" name="is_public" value="true" {% if bundle.is_public %}checked{% endif %}> public</label>
+    <label>Include rules must match <select name="match_mode"><option value="any" {% if bundle.match_mode == 'any' %}selected{% endif %}>any</option><option value="all" {% if bundle.match_mode == 'all' %}selected{% endif %}>all</option></select></label>
+    <label>Only items newer than <input name="max_age_days" value="{{ bundle.max_age_days or '' }}" placeholder="days" size="4"> days</label>
+    <label>Max items <input name="max_items" type="number" value="{{ bundle.max_items }}" min="1" max="500"></label>
+    <label class="check"><input type="checkbox" name="dedupe" value="true" {% if bundle.dedupe %}checked{% endif %}> remove duplicates (same URL or title)</label>
+    <button class="btn small">Save</button>
+  </form>
+  <h3>Outputs</h3>
+  <p class="small"><a href="/bundles/{{ bundle.slug }}">Public page</a> with embed code and feeds.</p>
+  <form method="post" action="/bundles/{{ bundle.slug }}/delete" onsubmit="return confirm('Delete this aggRSSive? Its embed code and feeds will stop working.')"><button class="link danger">Delete aggRSSive</button></form>
+</aside>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Add a feed · aggRSSive{% endblock %}
+{% block content %}
+<div class="narrow">
+<h1>Add a feed</h1>
+<p class="muted">Paste any address: a blog, a YouTube channel, a journal, a podcast, a feed URL. aggRSSive will find the feed.</p>
+<form method="post" action="/sources/discover" class="row">
+  <input name="url" value="{{ url }}" placeholder="https://example.edu/blog" required autofocus>
+  <button class="btn">Find feed</button>
+</form>
+{% if error %}<p class="error">{{ error }}</p>{% endif %}
+
+{% if candidates %}
+<h2>Found {{ candidates|length }} feed{{ 's' if candidates|length != 1 }}</h2>
+{% for c in candidates %}
+<form method="post" action="/sources" class="card stack">
+  <input type="hidden" name="feed_url" value="{{ c.url }}">
+  <div><strong>{{ c.title or '(untitled)' }}</strong> <span class="pill">{{ c.kind }}</span><br><span class="muted small">{{ c.url }}</span></div>
+  <label>Title <input name="title" value="{{ c.title }}"></label>
+  <label>Tags <input name="tags" placeholder="comma, separated" class="tag-input"></label>
+  <button class="btn">Add this feed</button>
+</form>
+{% endfor %}
+{% endif %}
+
+<details class="muted small" style="margin-top:2rem">
+<summary>Tag suggestions</summary>
+<p class="tagcloud small">{% for t, n in tags %}<a href="#" class="tag-suggest" data-tag="{{ t.name }}">{{ t.name }}</a> {% endfor %}</p>
+</details>
+</div>
+{% endblock %}
