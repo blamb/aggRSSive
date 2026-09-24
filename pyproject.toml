@@ -21,6 +21,7 @@ dependencies = [
     "pydantic-settings>=2.0",
     "nh3>=0.2",
     "PyJWT[crypto]>=2.8",
+    "anthropic>=1.0",
 ]
 
 [project.optional-dependencies]

@@ -42,6 +42,22 @@ def get_db() -> Iterator[Session]:
 
 
 def init_db() -> None:
+    from sqlalchemy import inspect, text
+
     from . import models  # noqa: F401  (registers tables)
 
     models.Base.metadata.create_all(engine)
+
+    # Lightweight forward migration: add any column the models have that an older database lacks.
+    # Good enough while the schema only ever grows; swap for Alembic if it ever needs more.
+    insp = inspect(engine)
+    with engine.begin() as conn:
+        for table in models.Base.metadata.sorted_tables:
+            existing = {c["name"] for c in insp.get_columns(table.name)}
+            for col in table.columns:
+                if col.name not in existing:
+                    ddl = f'ALTER TABLE "{table.name}" ADD COLUMN "{col.name}" {col.type.compile(engine.dialect)}'
+                    if col.default is not None and getattr(col.default, "is_scalar", False):
+                        v = col.default.arg
+                        ddl += " DEFAULT " + (f"'{v}'" if isinstance(v, str) else str(int(v) if isinstance(v, bool) else v))
+                    conn.execute(text(ddl))

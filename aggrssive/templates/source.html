@@ -14,6 +14,35 @@
   <input name="tags" placeholder="add tags, comma separated" class="tag-input" required>
   <button class="btn small">Tag</button>
 </form>
+
+<div id="suggestions" class="suggestions">
+  <div class="row" style="justify-content:space-between">
+    <strong class="small">Suggested tags</strong>
+    <span class="row" style="margin:0">
+      <form method="post" action="/sources/{{ source.id }}/suggest" class="inline"><button class="link small">refresh</button></form>
+      {% if ai %}<form method="post" action="/sources/{{ source.id }}/suggest" class="inline"><input type="hidden" name="ai" value="true"><button class="link small" title="Uses {{ ai_model }}; a fraction of a cent per click">✨ ask aggRSSive (GenAI)</button></form>{% endif %}
+      {% if suggestions %}<form method="post" action="/sources/{{ source.id }}/suggestions" class="inline"><input type="hidden" name="name" value="*"><button class="link small" name="decision" value="accept">accept all</button></form>
+      <form method="post" action="/sources/{{ source.id }}/suggestions" class="inline"><input type="hidden" name="name" value="*"><button class="link small muted" name="decision" value="reject">reject all</button></form>{% endif %}
+    </span>
+  </div>
+  {% if suggestions %}
+  <ul class="chips">
+  {% for name in suggestions %}
+    <li class="chip">
+      <span>{{ name }}</span>
+      <form method="post" action="/sources/{{ source.id }}/suggestions" class="inline"><input type="hidden" name="name" value="{{ name }}">
+        <button class="link" name="decision" value="accept" title="add this tag">✓</button>
+        <a href="#" class="tag-suggest link" data-tag="{{ name }}" title="edit before adding">✎</a>
+        <button class="link muted" name="decision" value="reject" title="not this one">✕</button>
+      </form>
+    </li>
+  {% endfor %}
+  </ul>
+  <p class="muted small">Nothing is applied until you tick it. ✎ copies a suggestion into the box above so you can change it first.</p>
+  {% else %}
+  <p class="muted small">None pending. Suggestions come from tags already used here that match this feed, and from categories the feed declares{% if ai %}; ✨ asks aggRSSive's GenAI for more{% endif %}.</p>
+  {% endif %}
+</div>
 <p class="tagcloud small">{% for t, n in tags %}{% if t not in source.tags %}<a href="#" class="tag-suggest" data-tag="{{ t.name }}">{{ t.name }}</a> {% endif %}{% endfor %}</p>
 {% endif %}
 

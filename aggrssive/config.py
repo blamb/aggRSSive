@@ -17,6 +17,14 @@ class Settings(BaseSettings):
     google_client_id: str = ""
     google_client_secret: str = ""
 
+    # Optional: Claude-powered tag suggestions. Leave the key empty and the feature simply doesn't appear.
+    anthropic_api_key: str = ""
+    anthropic_model: str = "claude-haiku-4-5"
+
+    @property
+    def ai_enabled(self) -> bool:
+        return bool(self.anthropic_api_key)
+
     # LTI 1.3. The tool's RSA private key is generated on first start and kept here.
     lti_key_path: str = "./data/lti_private_key.pem"
 

@@ -90,6 +90,10 @@ class Source(Base):
     error_count: Mapped[int] = mapped_column(Integer, default=0)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
 
+    # Tag suggestions awaiting a human decision; newline separated. Rejected ones are remembered so they don't come back.
+    suggested_tags: Mapped[str] = mapped_column(Text, default="")
+    rejected_tags: Mapped[str] = mapped_column(Text, default="")
+
     items: Mapped[list[Item]] = relationship(back_populates="source", cascade="all, delete-orphan")
     tags: Mapped[list[Tag]] = relationship(secondary=source_tags, back_populates="sources")
     rules: Mapped[list[Rule]] = relationship(

@@ -3,8 +3,9 @@ from fastapi.responses import RedirectResponse
 from sqlalchemy import func, or_, select
 from sqlalchemy.orm import Session, selectinload
 
-from .. import scheduler
+from .. import scheduler, tagging
 from ..auth import current_user, require_user
+from ..config import get_settings
 from ..db import get_db
 from ..feeds.discover import discover, normalize_url
 from ..feeds.opml import parse_opml
@@ -118,8 +119,11 @@ def show_source(request: Request, source_id: int, db: Session = Depends(get_db),
     items = db.execute(select(Item).where(Item.source_id == s.id).order_by(Item.published_at.desc()).limit(50)).scalars().all()
     rules = db.execute(select(Rule).where(Rule.owner_type == "source", Rule.owner_id == s.id).order_by(Rule.id)).scalars().all()
     in_bundles = db.execute(select(Bundle).join(Bundle.sources).where(Source.id == s.id)).scalars().all()
+    suggestions = [n for n in s.suggested_tags.split("\n") if n]
     return templates.TemplateResponse(
-        request, "source.html", {"user": user, "source": s, "items": items, "rules": rules, "in_bundles": in_bundles, "tags": all_tags(db), "fields": FIELDS}
+        request,
+        "source.html",
+        {"user": user, "source": s, "items": items, "rules": rules, "in_bundles": in_bundles, "tags": all_tags(db), "fields": FIELDS, "suggestions": suggestions, "ai": get_settings().ai_enabled, "ai_model": get_settings().anthropic_model},
     )
 
 
@@ -134,6 +138,28 @@ def tag_source(source_id: int, tags: str = Form(...), user: User = Depends(requi
             s.tags.append(t)
     db.commit()
     return RedirectResponse(f"/sources/{s.id}", status_code=303)
+
+
+@router.post("/sources/{source_id}/suggest")
+def suggest_tags(source_id: int, ai: bool = Form(False), user: User = Depends(require_user), db: Session = Depends(get_db)):
+    s = db.get(Source, source_id)
+    if not s:
+        raise HTTPException(404)
+    tagging.refresh_suggestions(db, s, use_ai=ai and get_settings().ai_enabled)
+    return RedirectResponse(f"/sources/{s.id}#suggestions", status_code=303)
+
+
+@router.post("/sources/{source_id}/suggestions")
+def decide_suggestion(source_id: int, name: str = Form(...), decision: str = Form(...), user: User = Depends(require_user), db: Session = Depends(get_db)):
+    """Accept or reject one suggestion, or all pending ones (name='*')."""
+    s = db.get(Source, source_id)
+    if not s:
+        raise HTTPException(404)
+    accept = decision == "accept"
+    names = [n for n in s.suggested_tags.split("\n") if n] if name == "*" else [name]
+    for n in names:
+        tagging.decide(db, s, n, accept=accept)
+    return RedirectResponse(f"/sources/{s.id}#suggestions", status_code=303)
 
 
 @router.post("/sources/{source_id}/tags/{tag_id}/remove")
