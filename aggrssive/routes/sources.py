@@ -3,13 +3,13 @@ from fastapi.responses import RedirectResponse
 from sqlalchemy import func, or_, select
 from sqlalchemy.orm import Session, selectinload
 
-from .. import scheduler, tagging
+from .. import classification, scheduler, tagging
 from ..auth import current_user, require_user
 from ..config import get_settings
 from ..db import get_db
 from ..feeds.discover import discover, normalize_url
 from ..feeds.opml import parse_opml
-from ..models import Bundle, Item, Rule, Source, Tag, User, source_tags
+from ..models import Bundle, Category, Item, Rule, Source, Tag, User, source_tags
 from ..rules import FIELDS
 from ..templating import templates
 
@@ -46,8 +46,11 @@ def all_tags(db: Session):
 
 
 @router.get("/sources")
-def list_sources(request: Request, q: str = "", tag: str = "", db: Session = Depends(get_db), user: User | None = Depends(current_user)):
-    stmt = select(Source).options(selectinload(Source.tags)).order_by(Source.title, Source.feed_url)
+def list_sources(request: Request, q: str = "", tag: str = "", cat: str = "", db: Session = Depends(get_db), user: User | None = Depends(current_user)):
+    stmt = select(Source).options(selectinload(Source.tags), selectinload(Source.categories)).order_by(Source.title, Source.feed_url)
+    category = classification.get(db, cat) if cat else None
+    if category:
+        stmt = stmt.where(Source.id.in_([x.id for x in classification.sources_under(db, category)]))
     if q:
         like = f"%{q}%"
         stmt = stmt.where(or_(Source.title.ilike(like), Source.feed_url.ilike(like), Source.description.ilike(like)))
@@ -57,13 +60,13 @@ def list_sources(request: Request, q: str = "", tag: str = "", db: Session = Dep
     counts = dict(db.execute(select(Item.source_id, func.count(Item.id)).group_by(Item.source_id)).all())
     my_bundles = db.execute(select(Bundle).where(Bundle.owner_id == user.id).order_by(Bundle.title)).scalars().all() if user else []
     return templates.TemplateResponse(
-        request, "sources.html", {"user": user, "sources": sources, "counts": counts, "q": q, "tag": tag, "tags": all_tags(db), "my_bundles": my_bundles}
+        request, "sources.html", {"user": user, "sources": sources, "counts": counts, "q": q, "tag": tag, "cat": category, "tags": all_tags(db), "my_bundles": my_bundles}
     )
 
 
 @router.get("/sources/add")
 def add_page(request: Request, user: User = Depends(require_user), db: Session = Depends(get_db)):
-    return templates.TemplateResponse(request, "source_add.html", {"user": user, "candidates": None, "url": "", "error": None, "tags": all_tags(db)})
+    return templates.TemplateResponse(request, "source_add.html", {"user": user, "candidates": None, "url": "", "error": None, "tags": all_tags(db), "ai": get_settings().ai_enabled})
 
 
 @router.post("/sources/discover")
@@ -73,12 +76,14 @@ def do_discover(request: Request, url: str = Form(...), user: User = Depends(req
         error = None if candidates else "No feed found at that address. Try pasting the feed URL directly."
     except ValueError as e:
         candidates, error = [], str(e)
-    return templates.TemplateResponse(request, "source_add.html", {"user": user, "candidates": candidates, "url": normalize_url(url), "error": error, "tags": all_tags(db)})
+    return templates.TemplateResponse(request, "source_add.html", {"user": user, "candidates": candidates, "url": normalize_url(url), "error": error, "tags": all_tags(db), "ai": get_settings().ai_enabled})
 
 
 @router.post("/sources")
-def create_source(feed_url: str = Form(...), title: str = Form(""), tags: str = Form(""), user: User = Depends(require_user), db: Session = Depends(get_db)):
+def create_source(feed_url: str = Form(...), title: str = Form(""), tags: str = Form(""), ai_suggest: bool = Form(False), user: User = Depends(require_user), db: Session = Depends(get_db)):
     s, created = add_source(db, normalize_url(feed_url), user, title=title)
+    if ai_suggest and get_settings().ai_enabled:
+        s.ai_pending = True
     for name in tags.replace(";", ",").split(","):
         t = get_or_create_tag(db, name)
         if t and t not in s.tags:
@@ -120,10 +125,16 @@ def show_source(request: Request, source_id: int, db: Session = Depends(get_db),
     rules = db.execute(select(Rule).where(Rule.owner_type == "source", Rule.owner_id == s.id).order_by(Rule.id)).scalars().all()
     in_bundles = db.execute(select(Bundle).join(Bundle.sources).where(Source.id == s.id)).scalars().all()
     suggestions = [n for n in s.suggested_tags.split("\n") if n]
+    cat_suggestions = [c for c in (classification.get(db, k) for k in s.suggested_categories.split("\n") if k) if c]
+    all_categories = db.execute(select(Category).order_by(Category.framework, Category.position)).scalars().all()
     return templates.TemplateResponse(
         request,
         "source.html",
-        {"user": user, "source": s, "items": items, "rules": rules, "in_bundles": in_bundles, "tags": all_tags(db), "fields": FIELDS, "suggestions": suggestions, "ai": get_settings().ai_enabled, "ai_model": get_settings().anthropic_model},
+        {
+            "user": user, "source": s, "items": items, "rules": rules, "in_bundles": in_bundles, "tags": all_tags(db), "fields": FIELDS,
+            "suggestions": suggestions, "cat_suggestions": cat_suggestions, "all_categories": all_categories, "frameworks": classification.FRAMEWORKS,
+            "ai": get_settings().ai_enabled, "ai_model": get_settings().anthropic_model,
+        },
     )
 
 

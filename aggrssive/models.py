@@ -96,6 +96,8 @@ class Source(Base):
     # Classification proposals awaiting a decision, as "framework:code" lines; rejected ones remembered.
     suggested_categories: Mapped[str] = mapped_column(Text, default="")
     rejected_categories: Mapped[str] = mapped_column(Text, default="")
+    # Set when the person adding the source asked for GenAI suggestions; consumed after the first fetch.
+    ai_pending: Mapped[bool] = mapped_column(Boolean, default=False)
 
     categories: Mapped[list[Category]] = relationship(secondary="source_categories", back_populates="sources")
     items: Mapped[list[Item]] = relationship(back_populates="source", cascade="all, delete-orphan")

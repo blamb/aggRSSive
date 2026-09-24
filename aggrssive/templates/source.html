@@ -46,6 +46,44 @@
 <p class="tagcloud small">{% for t, n in tags %}{% if t not in source.tags %}<a href="#" class="tag-suggest" data-tag="{{ t.name }}">{{ t.name }}</a> {% endif %}{% endfor %}</p>
 {% endif %}
 
+<h2 id="classification">Classification</h2>
+<p>
+  {% for c in source.categories %}<span class="tag cat" title="{{ frameworks[c.framework].title }}"><a href="/classification/{{ c.framework }}/{{ c.code }}">{{ c.code }} {{ c.label }}</a>{% if user %} <form method="post" action="/sources/{{ source.id }}/categories/{{ c.id }}/remove" class="inline"><button class="link" title="remove">×</button></form>{% endif %}</span> {% else %}<span class="muted small">Not classified yet.</span>{% endfor %}
+</p>
+{% if user %}
+<form method="post" action="/sources/{{ source.id }}/categories" class="row">
+  <input name="category" list="category-list" placeholder="type a code or subject: LB, 0111, 'open education'…" required>
+  <datalist id="category-list">{% for c in all_categories %}<option value="{{ c.framework }}:{{ c.code }} — {{ c.label }}"></option>{% endfor %}</datalist>
+  <button class="btn small">File it</button>
+</form>
+<div class="suggestions">
+  <div class="row" style="justify-content:space-between">
+    <strong class="small">Suggested classification</strong>
+    <span class="row" style="margin:0">
+      {% if ai %}<form method="post" action="/sources/{{ source.id }}/categories/suggest" class="inline"><button class="link small" title="Uses {{ ai_model }}; a fraction of a cent per click">✨ ask aggRSSive (GenAI)</button></form>{% endif %}
+      {% if cat_suggestions %}<form method="post" action="/sources/{{ source.id }}/category-suggestions" class="inline"><input type="hidden" name="name" value="*"><button class="link small" name="decision" value="accept">accept all</button></form>
+      <form method="post" action="/sources/{{ source.id }}/category-suggestions" class="inline"><input type="hidden" name="name" value="*"><button class="link small muted" name="decision" value="reject">reject all</button></form>{% endif %}
+    </span>
+  </div>
+  {% if cat_suggestions %}
+  <ul class="chips">
+  {% for c in cat_suggestions %}
+    <li class="chip" title="{{ frameworks[c.framework].title }}">
+      <span><code>{{ c.code }}</code> {{ c.label }}</span>
+      <form method="post" action="/sources/{{ source.id }}/category-suggestions" class="inline"><input type="hidden" name="name" value="{{ c.framework }}:{{ c.code }}">
+        <button class="link" name="decision" value="accept" title="file under this">✓</button>
+        <a href="/classification/{{ c.framework }}/{{ c.code }}" class="link" title="see what else is here">?</a>
+        <button class="link muted" name="decision" value="reject" title="not this one">✕</button>
+      </form>
+    </li>
+  {% endfor %}
+  </ul>
+  {% else %}
+  <p class="muted small">None pending.{% if ai %} ✨ asks aggRSSive's GenAI to propose Library of Congress and ISCED-F headings.{% else %} Set an API key to get GenAI proposals; until then, file sources by hand above.{% endif %}</p>
+  {% endif %}
+</div>
+{% endif %}
+
 <h2>Recent items <span class="muted">({{ items|length }})</span></h2>
 {% if source.last_error %}<p class="error">Last fetch failed: {{ source.last_error }}</p>{% endif %}
 {% if not items %}<p class="muted">Nothing fetched yet. {% if user %}<form method="post" action="/sources/{{ source.id }}/refresh" class="inline"><button class="link">Fetch now</button></form>{% endif %}</p>{% endif %}

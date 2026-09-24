@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Classification · aggRSSive{% endblock %}
+{% block content %}
+<h1>Classification</h1>
+<p class="muted">Two controlled frameworks sit alongside the free tags: the Library of Congress outline and UNESCO's ISCED-F fields of education. Counts include everything filed beneath a heading.</p>
+<div class="frameworks">
+{% for fw, meta in frameworks.items() %}
+<section class="framework">
+  <h2>{{ meta.title }}</h2>
+  <ul class="tree">
+  {% for node, n in trees[fw] %}
+    {% if node.depth == 0 or n %}
+    <li class="d{{ node.depth }}{% if not n %} empty{% endif %}"><a href="/classification/{{ fw }}/{{ node.code }}"><code>{{ node.code }}</code> {{ node.label }}</a>{% if n %} <span class="count">{{ n }}</span>{% endif %}</li>
+    {% endif %}
+  {% endfor %}
+  </ul>
+  <p class="muted small">Headings with nothing filed yet are folded away; every heading is still available when classifying a source.</p>
+</section>
+{% endfor %}
+</div>
+{% endblock %}

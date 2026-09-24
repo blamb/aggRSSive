@@ -12,6 +12,7 @@
   {% if q or tag %}<a href="/sources" class="muted">clear</a>{% endif %}
 </form>
 {% if tag %}<p>Tagged <a class="tag" href="/tags/{{ tag }}">{{ tag }}</a></p>{% endif %}
+{% if cat %}<p>Filed under <a class="tag cat" href="/classification/{{ cat.framework }}/{{ cat.code }}">{{ cat.code }} {{ cat.label }}</a> and below</p>{% endif %}
 
 {% if sources %}
 <table class="list">
@@ -21,7 +22,7 @@
 <tr>
   <td><input type="checkbox" class="cart-check" data-id="{{ s.id }}" data-title="{{ s.title or s.feed_url }}" title="Add to Heart-Cart"></td>
   <td><a href="/sources/{{ s.id }}">{{ s.title or s.feed_url }}</a>{% if not s.is_active %} <span class="pill">paused</span>{% endif %}{% if s.last_error %} <span class="pill warn" title="{{ s.last_error }}">error</span>{% endif %}<br><span class="muted small">{{ s.site_url or s.feed_url }}</span></td>
-  <td>{% for t in s.tags %}<a class="tag" href="/sources?tag={{ t.name }}">{{ t.name }}</a> {% endfor %}</td>
+  <td>{% for t in s.tags %}<a class="tag" href="/sources?tag={{ t.name }}">{{ t.name }}</a> {% endfor %}{% for c in s.categories %}<a class="tag cat" href="/sources?cat={{ c.framework }}:{{ c.code }}" title="{{ c.label }}">{{ c.code }}</a> {% endfor %}</td>
   <td class="num">{{ counts.get(s.id, 0) }}</td>
   <td class="muted small">{{ s.last_success_at|ago }}</td>
 </tr>

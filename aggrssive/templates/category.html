@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}{{ category.code }} {{ category.label }} · aggRSSive{% endblock %}
+{% block content %}
+<p class="muted small"><a href="/classification">Classification</a> › {{ meta.short }}{% for a in crumbs %} › <a href="/classification/{{ a.framework }}/{{ a.code }}">{{ a.code }} {{ a.label }}</a>{% endfor %}</p>
+<div class="with-side">
+<div>
+<h1><code>{{ category.code }}</code> {{ category.label }}</h1>
+{% if children %}
+<p class="small">{% for c in children %}<a class="tag" href="/classification/{{ c.framework }}/{{ c.code }}">{{ c.code }} {{ c.label }}</a> {% endfor %}</p>
+{% endif %}
+<h2>Latest from these sources</h2>
+<ul class="items">
+{% for i in items %}
+<li><a href="{{ i.url }}" class="item-title">{{ i.title or i.url }}</a> <span class="muted small">{{ i.source.title }} · {{ i.published_at|datefmt }}</span></li>
+{% else %}
+<li class="muted">No sources filed here yet.</li>
+{% endfor %}
+</ul>
+</div>
+<aside>
+  <h3>{{ sources|length }} source{{ 's' if sources|length != 1 }}</h3>
+  <ul class="plain">
+  {% for s in sources %}
+  <li><label class="check"><input type="checkbox" class="cart-check" data-id="{{ s.id }}" data-title="{{ s.title or s.feed_url }}"> <a href="/sources/{{ s.id }}">{{ s.title or s.feed_url }}</a></label></li>
+  {% endfor %}
+  </ul>
+  {% if user and sources %}<button class="btn small" id="cart-all">♥ Add all to Heart-Cart</button>{% endif %}
+</aside>
+</div>
+{% endblock %}

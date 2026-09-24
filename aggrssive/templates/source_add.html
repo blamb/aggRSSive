@@ -18,6 +18,7 @@
   <div><strong>{{ c.title or '(untitled)' }}</strong> <span class="pill">{{ c.kind }}</span><br><span class="muted small">{{ c.url }}</span></div>
   <label>Title <input name="title" value="{{ c.title }}"></label>
   <label>Tags <input name="tags" placeholder="comma, separated" class="tag-input"></label>
+  {% if ai %}<label class="check"><input type="checkbox" name="ai_suggest" value="true" checked> ✨ Suggest tags and classification (GenAI) once it's fetched; you accept or reject each</label>{% endif %}
   <button class="btn">Add this feed</button>
 </form>
 {% endfor %}

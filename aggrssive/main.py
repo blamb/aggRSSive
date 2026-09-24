@@ -8,12 +8,12 @@ from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.middleware.sessions import SessionMiddleware
 
-from . import netfix, scheduler
+from . import classification, netfix, scheduler
 from .config import get_settings
 
 netfix.install(get_settings().dns_overrides)
-from .db import init_db
-from .routes import auth_routes, bundles, lti, outputs, pages, sources, tags
+from .db import SessionLocal, init_db
+from .routes import auth_routes, bundles, classify, lti, outputs, pages, sources, tags
 from .templating import templates
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s %(message)s")
@@ -24,6 +24,8 @@ HERE = Path(__file__).parent
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     init_db()
+    with SessionLocal() as db:
+        classification.seed(db)
     scheduler.start()
     yield
     scheduler.stop()
@@ -41,6 +43,7 @@ app.include_router(tags.router)
 app.include_router(bundles.router)
 app.include_router(outputs.router)
 app.include_router(lti.router)
+app.include_router(classify.router)
 
 
 @app.exception_handler(StarletteHTTPException)

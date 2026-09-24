@@ -8,6 +8,7 @@ from datetime import timedelta
 from apscheduler.schedulers.background import BackgroundScheduler
 from sqlalchemy import select
 
+from . import classification
 from .config import get_settings
 from .db import SessionLocal
 from .feeds.fetch import fetch_source
@@ -25,6 +26,16 @@ def _after_fetch(db, source: Source, new_items: int) -> None:
         except Exception:
             log.exception("tag suggestions failed for %s", source.feed_url)
             db.rollback()
+    # The person who added it asked for GenAI proposals: one round of tags and classification, then done.
+    if source.ai_pending and get_settings().ai_enabled and source.items:
+        try:
+            refresh_suggestions(db, source, use_ai=True)
+            classification.refresh_suggestions(db, source, use_ai=True)
+        except Exception:
+            log.exception("GenAI suggestions failed for %s", source.feed_url)
+            db.rollback()
+        source.ai_pending = False
+        db.commit()
 scheduler = BackgroundScheduler(timezone="UTC")
 
 
