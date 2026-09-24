@@ -114,7 +114,11 @@ def deeplink_select(request: Request, token: str = Form(...), bundle: str = Form
         desc = "excerpt"
     item = service.resource_link_item(settings.base_url, b.title, b.slug, max(1, min(n, 100)), desc, img)
     jwt_ = service.deep_link_response(platform, t.get("deployment_id", ""), t.get("data"), [item])
-    return templates.TemplateResponse(request, "lti_autopost.html", {"action": t["return_url"], "fields": {"JWT": jwt_}})
+    # The response is a cross-site POST into the platform's frame. Some browsers withhold the platform's
+    # SameSite=Lax session cookie on it; Moodle then bounces through its login and returns to this URL as
+    # a GET, losing the body. Carrying the JWT in the query string as well survives that round trip.
+    action = t["return_url"] + ("&" if "?" in t["return_url"] else "?") + urlencode({"JWT": jwt_})
+    return templates.TemplateResponse(request, "lti_autopost.html", {"action": action, "fields": {"JWT": jwt_}})
 
 
 def _resource(request: Request, db: Session, platform: Platform, claims: dict):

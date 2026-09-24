@@ -94,7 +94,7 @@ def test_deep_linking_round_trip(client):
     token = r.text.split('name="token" value="')[1].split('"')[0]
 
     r = client.post("/lti/deeplink", data={"token": token, "bundle": "picked1", "n": "5", "desc": "none", "img": "true"})
-    assert r.status_code == 200 and 'action="https://moodle.test/return"' in r.text
+    assert r.status_code == 200 and 'action="https://moodle.test/return?JWT=' in r.text  # JWT also in the query string
     resp_jwt = r.text.split('name="JWT" value="')[1].split('"')[0]
     claims = jwt.decode(resp_jwt, keys.public_pem(), algorithms=["RS256"], audience=ISS)
     assert claims["iss"] == CLIENT and claims[CLAIM + "deployment_id"] == "dep-1" and claims[DL_CLAIM + "data"] == "opaque"
