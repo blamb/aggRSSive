@@ -172,7 +172,7 @@ def admin(request: Request, db: Session = Depends(get_db), user: User | None = D
         "Public keyset (JWKS)": f"{base}/lti/jwks.json",
         "Deep linking URL": f"{base}/lti/launch",
     }
-    return templates.TemplateResponse(request, "lti_admin.html", {"user": user, "platforms": platforms, "urls": urls})
+    return templates.TemplateResponse(request, "lti_admin.html", {"user": user, "platforms": platforms, "urls": urls, "public_key": keys.public_pem().decode()})
 
 
 @router.post("/lti/platforms")

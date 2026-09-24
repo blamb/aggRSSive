@@ -28,6 +28,10 @@
   <li>Optionally, in the tool's settings, tick <em>Show in activity chooser and as a preconfigured tool</em> and enable <em>Supports Deep Linking</em>.</li>
 </ol>
 
+<h2>If the platform can't reach this server</h2>
+<p class="small">Moodle verifies aggRSSive's signatures by fetching the keyset URL above. If the two sites live on the same cloud (e.g. both on Reclaim Cloud) that fetch can fail, because the platform resolves this hostname to a private address. Fix: in Moodle, edit the registered tool, set <em>Public key type</em> to <strong>RSA key</strong> and paste this. Nothing else changes.</p>
+<textarea readonly rows="8" class="code" onclick="this.select()">{{ public_key }}</textarea>
+
 <h2>Manual registration (other platforms)</h2>
 <p class="muted small">Give the platform these values, then paste what it gives you back into the form on the right.</p>
 <table class="list">
