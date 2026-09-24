@@ -68,6 +68,11 @@ def looks_like_feed(body: bytes, content_type: str) -> tuple[bool, str, str]:
 
 def discover(url: str) -> list[Candidate]:
     url = normalize_url(url)
+    from .adapters import adapt  # platform pages first: their feeds are not advertised on the page
+
+    a = adapt(url)
+    if a:
+        return [Candidate(url=a.url, title=a.title, kind=a.kind)]
     with client() as c:
         try:
             r = c.get(url)

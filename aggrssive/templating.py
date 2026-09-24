@@ -5,6 +5,7 @@ from fastapi.templating import Jinja2Templates
 from markupsafe import Markup
 
 from .config import get_settings
+from .feeds.adapters import ADAPTER_KINDS
 
 templates = Jinja2Templates(directory=str(Path(__file__).parent / "templates"))
 
@@ -54,3 +55,6 @@ def order_tags(rows, user=None):
 
 
 templates.env.globals["TAG_ORDERS"] = TAG_ORDERS
+
+
+templates.env.globals["KIND_LABELS"] = ADAPTER_KINDS

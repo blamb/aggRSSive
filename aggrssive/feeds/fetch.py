@@ -38,6 +38,19 @@ def to_text(html: str) -> str:
     return _ws.sub(" ", nh3.clean(html, tags=set())).strip()
 
 
+def headline(text: str, limit: int = 100) -> str:
+    """A title for an untitled post: its first sentence, or its first words."""
+    text = text.strip()
+    if len(text) <= limit:
+        return text
+    cut = text[:limit]
+    for sep in (". ", "! ", "? ", "; ", ", ", " "):
+        i = cut.rfind(sep)
+        if i > limit // 3:
+            return cut[: i + (1 if sep[0] in ".!?" else 0)].rstrip() + ("" if sep[0] in ".!?" else "…")
+    return cut.rstrip() + "…"
+
+
 @dataclass
 class ParsedEntry:
     guid: str
@@ -191,12 +204,13 @@ def fetch_source(db: Session, source: Source) -> int:
             continue
         existing.add(e.guid)
         html_for_text = e.content or e.summary
+        title = to_text(e.title) or headline(to_text(html_for_text))  # posts on Mastodon, Bluesky etc. have no title
         db.add(
             Item(
                 source_id=source.id,
                 guid=e.guid[:2048],
                 url=e.url[:2048],
-                title=to_text(e.title)[:1000],
+                title=title[:1000],
                 author=e.author[:255],
                 summary=e.summary,
                 content=e.content,

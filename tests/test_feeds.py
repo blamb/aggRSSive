@@ -65,3 +65,12 @@ def test_opml_roundtrip():
     assert 'xmlUrl="https://x.example/f"' in xml
     assert "&quot;quoted&quot; &amp; odd" in xml
     assert parse_opml(xml.encode())[0].title == 'A "quoted" & odd'
+
+
+def test_headline_for_untitled_posts():
+    from aggrssive.feeds.fetch import headline
+
+    assert headline("Short post") == "Short post"
+    long = "I've just added a reviews plugin to the site. It works on every page and " + "x" * 80
+    assert headline(long) == "I've just added a reviews plugin to the site."
+    assert headline("word " * 40).endswith("…") and len(headline("word " * 40)) <= 101

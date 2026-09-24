@@ -34,7 +34,9 @@ def add_source(db: Session, feed_url: str, user: User, title: str = "", site_url
     existing = db.execute(select(Source).where(Source.feed_url == feed_url)).scalar_one_or_none()
     if existing:
         return existing, False
-    s = Source(feed_url=feed_url[:2048], title=title[:500], site_url=site_url, added_by_id=user.id)
+    from ..feeds.adapters import kind_for_feed_url
+
+    s = Source(feed_url=feed_url[:2048], title=title[:500], site_url=site_url, added_by_id=user.id, kind=kind_for_feed_url(feed_url))
     db.add(s)
     db.flush()
     return s, True

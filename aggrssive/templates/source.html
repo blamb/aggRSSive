@@ -3,7 +3,7 @@
 {% block content %}
 <div class="with-side">
 <div>
-<h1>{{ source.title or source.feed_url }}</h1>
+<h1>{{ source.title or source.feed_url }}{% if source.kind in KIND_LABELS %} <span class="pill">{{ KIND_LABELS[source.kind] }}</span>{% endif %}</h1>
 <p class="muted small"><a href="{{ source.feed_url }}">{{ source.feed_url }}</a>{% if source.site_url %} · <a href="{{ source.site_url }}">site</a>{% endif %}</p>
 {% if source.description %}<p>{{ source.description }}</p>{% endif %}
 <p>

@@ -15,8 +15,22 @@ Works for:
 
 - blogs and news sites (WordPress, Ghost, Substack, Medium…)
 - journals and repositories (arXiv, PubMed, many library discovery systems, OER Commons)
-- YouTube channels, podcasts, Mastodon and Bluesky accounts
 - anything that already is a feed URL
+- the platforms below, by pasting the page you'd normally look at
+
+## Platforms that hide their feeds
+
+Paste the ordinary page address; aggRSSive knows where each platform keeps its feed. Items arrive as normal posts, so they can be tagged, filtered, bundled, embedded and placed in a course like anything else.
+
+| Paste | What you get |
+|---|---|
+| A **YouTube** channel (`youtube.com/@name`, `/channel/UC…`) or a playlist | New videos, with thumbnails |
+| A **Mastodon** account (`https://instance/@name`) or hashtag page (`https://instance/tags/topic`) | Public posts. Works on any Mastodon-compatible server |
+| A **Bluesky** profile (`bsky.app/profile/name`) | Public posts |
+| A public **Zotero** group (`zotero.org/groups/…`) or a person's public library (`zotero.org/username`) | Newest items with a formatted citation. Private groups and libraries can't be read |
+| A **Hypothesis** user (`hypothes.is/users/name`), group, or tag search (`hypothes.is/search?q=tag:topic`) | Public annotations, with the quoted passage and the note |
+
+The source page shows a small badge naming the platform. Because these are public feeds, only public content ever appears; nothing needs an account or a key.
 
 If several feeds are found (a site's posts and its comments, say), pick the one you want. Give it tags as you add it; existing tags are suggested below the form so the vocabulary stays consistent.
 
