@@ -48,6 +48,32 @@ def create_bundle(title: str = Form(...), source_ids: list[int] = Form([]), desc
     return RedirectResponse(f"/bundles/{b.slug}/edit", status_code=303)
 
 
+@router.post("/bundles/from")
+def create_from(tag: str = Form(""), cat: str = Form(""), user: User = Depends(require_user), db: Session = Depends(get_db)):
+    """One click: an aggRSSive from everything under a tag or a classification heading."""
+    from .. import classification
+    from ..models import Tag
+
+    if tag:
+        t = db.execute(select(Tag).where(Tag.name == tag)).scalar_one_or_none()
+        if not t:
+            raise HTTPException(404, "No such tag")
+        sources, title = t.sources, tag
+    elif cat:
+        c = classification.get(db, cat)
+        if not c:
+            raise HTTPException(404, "No such heading")
+        sources, title = classification.sources_under(db, c), f"{c.code} {c.label}"
+    else:
+        raise HTTPException(400, "Say which tag or heading")
+    b = Bundle(owner_id=user.id, title=title[:300], description=f"Everything filed under {title}.")
+    db.add(b)
+    db.flush()
+    _set_sources(db, b, [s.id for s in sources])
+    db.commit()
+    return RedirectResponse(f"/bundles/{b.slug}/edit", status_code=303)
+
+
 def _set_sources(db: Session, b: Bundle, source_ids: list[int], append: bool = False) -> None:
     current = {s.id for s in b.sources}
     if append:

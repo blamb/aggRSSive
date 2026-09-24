@@ -4,12 +4,12 @@
   <h1>Collect. Tag. Filter. Remix. Republish.</h1>
   <p>aggRSSive gathers feeds from anywhere, lets you tag them together, filters them down to what matters, and hands you back a bundle you can embed on any site or subscribe to as a feed of its own.</p>
   <p class="stats">{{ stats['sources'] }} sources · {{ stats['items'] }} items · {{ stats['bundles'] }} aggRSSives</p>
-  {% if not user %}<p><a class="btn" href="/signup">Create an account</a> <a class="btn ghost" href="/login">Sign in</a></p>{% else %}<p><a class="btn" href="/sources/add">Add a feed</a> <a class="btn ghost" href="/sources">Browse sources</a></p>{% endif %}
+  {% if not user %}<p><a class="btn" href="/signup">Create an account</a> <a class="btn ghost" href="/find">Find feeds</a></p>{% else %}<p><a class="btn" href="/find">Find feeds</a> <a class="btn ghost" href="/sources/add">Add a feed</a></p>{% endif %}
 </section>
 
 {% if tag_counts %}
 <section>
-  <h2>Tags</h2>
+  <h2>Tags <span class="muted small"><a href="/find">· browse by subject too</a></span></h2>
   <p class="tagcloud">
   {% for tag, n in tag_counts %}<a href="/tags/{{ tag.name }}" style="font-size:{{ (0.85 + (n ** 0.5) * 0.25)|round(2) }}rem">{{ tag.name }}</a> {% endfor %}
   </p>

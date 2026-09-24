@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Find feeds · aggRSSive{% endblock %}
+{% block content %}
+<h1>Find feeds</h1>
+<form method="get" action="/find" class="row">
+  <input name="q" value="{{ q }}" placeholder="a subject, a tag, a heading code, a site name…" autofocus>
+  <button class="btn">Search</button>
+  <a href="/sources" class="muted small">all {{ total_sources }} sources</a>
+</form>
+
+{% if results %}
+<section>
+  <h2>Tags</h2>
+  {% if results.tags %}<p class="tagcloud">{% for t, n in results.tags %}<a href="/tags/{{ t.name }}">{{ t.name }}</a> <span class="muted small">{{ n }}</span> {% endfor %}</p>{% else %}<p class="muted small">No tags match.</p>{% endif %}
+  <h2>Classification headings</h2>
+  {% if results.categories %}<ul class="plain">{% for c, n in results.categories %}<li><a class="tag cat" href="/classification/{{ c.framework }}/{{ c.code }}">{{ c.code }} {{ c.label }}</a> <span class="muted small">{{ frameworks[c.framework].short }} · {{ n }} source{{ 's' if n != 1 }}</span></li>{% endfor %}</ul>{% else %}<p class="muted small">No headings match.</p>{% endif %}
+  <h2>Sources</h2>
+  {% if results.sources %}
+  <table class="list"><tbody>
+  {% for s in results.sources %}
+  <tr><td>{% if user %}<input type="checkbox" class="cart-check" data-id="{{ s.id }}" data-title="{{ s.title or s.feed_url }}">{% endif %}</td>
+      <td><a href="/sources/{{ s.id }}">{{ s.title or s.feed_url }}</a><br><span class="muted small">{{ s.description[:140] }}</span></td>
+      <td>{% for t in s.tags %}<a class="tag" href="/tags/{{ t.name }}">{{ t.name }}</a> {% endfor %}{% for c in s.categories %}<a class="tag cat" href="/classification/{{ c.framework }}/{{ c.code }}" title="{{ c.label }}">{{ c.code }}</a> {% endfor %}</td></tr>
+  {% endfor %}
+  </tbody></table>
+  {% else %}<p class="muted small">No sources match.{% if user %} <a href="/sources/add">Add one?</a>{% endif %}</p>{% endif %}
+</section>
+{% else %}
+<div class="find-grid">
+<section>
+  <h2>By tag</h2>
+  <p class="muted small">Words people gave feeds. Click one to see its feeds and bundle them.</p>
+  <p class="tagcloud">{% for t, n in tag_counts %}<a href="/tags/{{ t.name }}" style="font-size:{{ (0.85 + (n ** 0.5) * 0.25)|round(2) }}rem">{{ t.name }}</a> {% else %}<span class="muted">No tags yet.</span>{% endfor %}</p>
+</section>
+<section>
+  <h2>By subject</h2>
+  <p class="muted small">Two standard frameworks. Headings with nothing filed are folded away; expand a class to see its subclasses.</p>
+  {% for fw, meta in frameworks.items() %}
+  <h3>{{ meta.title }}</h3>
+  <ul class="tree">
+  {% for node, n in trees[fw] %}{% if node.depth == 0 %}
+    {% if n %}<li class="d0"><details><summary><a href="/classification/{{ fw }}/{{ node.code }}"><code>{{ node.code }}</code> {{ node.label }}</a> <span class="count">{{ n }}</span></summary>
+      <ul class="tree">{% for child, cn in trees[fw] %}{% if child.depth > 0 and child.code.startswith(node.code) and cn %}<li class="d{{ child.depth }}"><a href="/classification/{{ fw }}/{{ child.code }}"><code>{{ child.code }}</code> {{ child.label }}</a> <span class="count">{{ cn }}</span></li>{% endif %}{% endfor %}</ul></details></li>
+    {% else %}<li class="d0 empty"><a href="/classification/{{ fw }}/{{ node.code }}"><code>{{ node.code }}</code> {{ node.label }}</a></li>{% endif %}
+  {% endif %}{% endfor %}
+  </ul>
+  {% endfor %}
+</section>
+</div>
+{% endif %}
+<script>window.MY_BUNDLES = {{ my_bundles|map(attribute='slug')|list|tojson }}; window.MY_BUNDLE_TITLES = {{ my_bundles|map(attribute='title')|list|tojson }};</script>
+{% endblock %}

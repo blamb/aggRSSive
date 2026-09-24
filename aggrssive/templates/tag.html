@@ -18,7 +18,10 @@
   <li><label class="check"><input type="checkbox" class="cart-check" data-id="{{ s.id }}" data-title="{{ s.title or s.feed_url }}"> <a href="/sources/{{ s.id }}">{{ s.title or s.feed_url }}</a></label></li>
   {% endfor %}
   </ul>
-  {% if user %}<button class="btn small" id="cart-all">♥ Add all to Heart-Cart</button>{% endif %}
+  {% if user and sources %}
+  <form method="post" action="/bundles/from" class="stack small"><input type="hidden" name="tag" value="{{ tag.name }}"><button class="btn small">Make an aggRSSive from these</button></form>
+  <button class="btn small ghost" id="cart-all">♥ Add all to Heart-Cart</button>
+  {% endif %}
 </aside>
 </div>
 {% endblock %}
