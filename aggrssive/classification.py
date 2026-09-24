@@ -72,11 +72,14 @@ def seed(db: Session) -> int:
     """Insert any framework nodes missing from the database. Idempotent."""
     added = 0
     for fw in FRAMEWORKS:
-        existing = {c for (c,) in db.execute(select(Category.code).where(Category.framework == fw))}
+        existing = {c.code: c for c in db.execute(select(Category).where(Category.framework == fw)).scalars()}
         for pos, n in enumerate(load(fw)):
-            if n.code not in existing:
+            c = existing.get(n.code)
+            if c is None:
                 db.add(Category(framework=fw, code=n.code, label=n.label, parent_code=n.parent, depth=n.depth, position=pos))
                 added += 1
+            elif (c.label, c.parent_code, c.depth, c.position) != (n.label, n.parent, n.depth, pos):
+                c.label, c.parent_code, c.depth, c.position = n.label, n.parent, n.depth, pos  # data file corrections flow through
     db.commit()
     return added
 
