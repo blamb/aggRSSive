@@ -49,6 +49,11 @@
     <li><a href="/b/{{ bundle.slug }}/feed.rss">RSS</a> · <a href="/b/{{ bundle.slug }}/feed.atom">Atom</a> · <a href="/b/{{ bundle.slug }}/feed.json">JSON Feed</a></li>
     <li><a href="/b/{{ bundle.slug }}.json">JSON API</a> · <a href="/b/{{ bundle.slug }}/sources.opml">OPML of sources</a></li>
   </ul>
+  {% if user %}
+  <h3>Make it yours</h3>
+  <form method="post" action="/bundles/{{ bundle.slug }}/fork"><button class="btn small ghost">Copy to my aggRSSives</button></form>
+  <p class="muted small">A private copy with the same sources, rules and settings, for you to change.</p>
+  {% endif %}
   <h3>Sources</h3>
   <ul class="plain small">{% for s in bundle.sources %}<li><a href="/sources/{{ s.id }}">{{ s.title or s.feed_url }}</a></li>{% endfor %}</ul>
 </aside>

@@ -1,0 +1,126 @@
+# Candidate feeds for the starter collection. One per line: URL | tags (comma) | classification keys (comma).
+# scripts/build_starter_collection.py verifies each one is alive and writes aggrssive/collections/*.opml.
+# A candidate is kept only if a feed is found and it has published within the last two years.
+
+# --- Open education, OER, open practice ---
+https://opencontent.org/blog/ | open education, OER, open pedagogy | lcc:LC, isced:0111
+https://bccampus.ca/feed/ | open education, OER, canada | lcc:LC, isced:0111
+https://www.oeglobal.org/ | open education, OER | lcc:LC, isced:0111
+https://oeru.org/news/feed | open education, universities | lcc:LC
+https://sparcopen.org/news/ | open access, open education, scholarly communication | lcc:ZA, lcc:LC
+https://creativecommons.org/blog/feed/ | open licensing, creative commons, open culture | lcc:ZA, lcc:K
+https://pressbooks.com/feed/ | open textbooks, pressbooks, publishing | lcc:LT, lcc:Z
+https://openstax.org/blog/feed | open textbooks, OER | lcc:LT
+https://open.umn.edu/opentextbooks/feeds/recent_books.rss | open textbooks, OER | lcc:LT
+https://www.oercommons.org/rss/latest | OER, repositories | lcc:LT, lcc:ZA
+https://wikiedu.org/blog/ | wikipedia, open knowledge, teaching | lcc:LB, lcc:ZA
+https://diff.wikimedia.org/ | wikipedia, open knowledge | lcc:ZA
+https://www.ecampusontario.ca/feed/ | open education, canada, online learning | lcc:LC
+https://abject.ca/ | open education, edtech, blog | lcc:LC, lcc:LB
+https://blog.edtechie.net/ | open education, edtech, blog | lcc:LC, lcc:LB
+https://cogdogblog.com/ | open education, edtech, blog, ds106 | lcc:LB
+https://bavatuesdays.com/ | edtech, reclaim, ds106, blog | lcc:LB
+https://edtechfactotum.com/ | open education, canada, blog | lcc:LC
+https://robinderosa.net/ | open pedagogy, blog | lcc:LC, lcc:LB
+https://catherinecronin.net/ | open education, blog | lcc:LC
+https://thatpsychprof.com/ | open education, psychology, blog | lcc:LC, lcc:BF
+https://tannismorgan.com/ | open education, canada, blog | lcc:LC
+https://czernie.weebly.com/ | open education, south africa, blog | lcc:LC
+https://darcynorman.net/ | edtech, canada, blog | lcc:LB
+https://www.tonybates.ca/ | online learning, blog | lcc:LC
+https://davecormier.com/edblog/ | rhizomatic learning, blog | lcc:LB
+https://theory.cribchronicles.com/ | digital scholarship, blog | lcc:LB
+https://oudigitools.blogspot.com/ | open pedagogy, teaching online, blog | lcc:LC, lcc:LB
+https://redpincushion.us/feed/ | digital learning, blog | lcc:LB
+https://readywriting.org/ | higher education, teaching, blog | lcc:LB
+https://musicfordeckchairs.com/ | higher education, australia, blog | lcc:L
+https://www.downes.ca/news/OLDaily.xml | edtech, newsletter | lcc:LB
+https://2ndbreakfast.audreywatters.com/ | edtech criticism, newsletter | lcc:LB
+https://www.oerdigest.org/feed/ | OER, newsletter | lcc:LT, lcc:LC
+
+# --- Critical digital pedagogy, annotation, learning design ---
+https://hybridpedagogy.org/ | critical digital pedagogy, journal | lcc:LB, isced:0111
+https://blog.mahabali.me/ | critical digital pedagogy, blog | lcc:LB, lcc:LC
+https://www.jessestommel.com/ | critical pedagogy, blog | lcc:LB
+https://www.seanmichaelmorris.com/ | critical digital pedagogy, blog | lcc:LB
+https://autumm.edtech.fm/ | critical digital pedagogy, blog | lcc:LB
+https://remikalir.com/ | annotation, blog | lcc:LB
+https://web.hypothes.is/feed/ | annotation, open web | lcc:LB, lcc:ZA
+https://www.christytuckerlearning.com/ | instructional design, blog | lcc:LB
+https://www.learningscientists.org/blog?format=rss | learning science, blog | lcc:LB, lcc:BF
+https://www.facultyfocus.com/ | teaching, higher education | lcc:LB
+https://www.kqed.org/mindshift | learning, education journalism | lcc:LB
+
+# --- Ed-tech analysis and news ---
+https://eliterate.us/ | edtech, analysis, blog | lcc:LB
+https://philonedtech.com/feed/ | edtech, market analysis, blog | lcc:LB
+https://er.educause.edu/rss | edtech, higher education | lcc:LB
+https://www.jisc.ac.uk/rss/blog.xml | edtech, uk | lcc:LB
+https://altc.alt.ac.uk/blog/ | learning technology, uk | lcc:LB
+https://wcet.wiche.edu/frontiers/ | online learning, policy | lcc:LC
+https://www.edsurge.com/ | edtech, news | lcc:LB
+https://hechingerreport.org/ | education, journalism | lcc:L
+https://www.the74million.org/ | K-12, education journalism | lcc:LB
+https://www.leonfurze.com/ | AI in education, blog | lcc:LB, lcc:QA
+https://www.oneusefulthing.org/ | AI, teaching, newsletter | lcc:LB, lcc:QA
+
+# --- Higher education news and policy ---
+https://www.insidehighered.com/ | higher education, news | lcc:L, isced:0111
+https://www.universityaffairs.ca/ | higher education, canada, news | lcc:L
+https://www.universityworldnews.com/rss.php | higher education, international, news | lcc:L
+https://www.caut.ca/rss.xml | academic freedom, canada | lcc:L
+https://wonkhe.com/ | higher education, uk, policy | lcc:L
+https://www.hepi.ac.uk/feed/ | higher education, uk, policy | lcc:L
+https://theconversation.com/ca/education/articles.atom | education, explainers, canada | lcc:L
+https://theconversation.com/ca/technology/articles.atom | technology, explainers, canada | lcc:T
+https://www.timeshighereducation.com/campus/feed | higher education, teaching | lcc:LB
+
+# --- Journals ---
+https://www.irrodl.org/index.php/irrodl/gateway/plugin/WebFeedGatewayPlugin/rss2 | journal, open distance learning, research | lcc:LC, isced:0111
+https://openpraxis.org/api/rss/ | journal, open education, research | lcc:LC, isced:0111
+https://jime.open.ac.uk/feed | journal, open education, research | lcc:LC
+https://firstmonday.org/ojs/index.php/fm/gateway/plugin/WebFeedGatewayPlugin/rss2 | journal, internet studies, research | lcc:HE, lcc:ZA
+https://learning-analytics.info/index.php/JLA/gateway/plugin/WebFeedGatewayPlugin/rss | journal, learning analytics, research | lcc:LB, lcc:QA
+https://www.tandfonline.com/action/showFeed?type=etoc&feed=rss&jc=cdie20 | journal, distance education, research | lcc:LC
+https://www.tandfonline.com/action/showFeed?type=etoc&feed=rss&jc=cjem20 | journal, learning media and technology, research | lcc:LB
+https://www.tandfonline.com/action/showFeed?type=etoc&feed=rss&jc=cthe20 | journal, teaching in higher education, research | lcc:LB
+https://onlinelibrary.wiley.com/feed/14678535/most-recent | journal, educational technology, research | lcc:LB
+https://rss.sciencedirect.com/publication/science/03601315 | journal, computers and education, research | lcc:LB, lcc:QA
+https://rss.sciencedirect.com/publication/science/10967516 | journal, internet and higher education, research | lcc:LC
+
+# --- Libraries, scholarly communication, digital preservation ---
+https://acrlog.org/ | academic libraries, blog | lcc:Z, isced:0322
+https://scholarlykitchen.sspnet.org/ | scholarly communication, publishing | lcc:Z
+https://blogs.lse.ac.uk/impactofsocialsciences/feed/ | scholarly communication, research impact | lcc:ZA, lcc:H
+https://hangingtogether.org/ | libraries, metadata, research | lcc:Z
+https://blogs.loc.gov/thesignal/feed/ | digital preservation, libraries | lcc:Z
+https://www.infodocket.com/ | libraries, news | lcc:Z
+https://www.libraryjournal.com/rss | libraries, news | lcc:Z
+https://blog.archive.org/ | internet archive, digital libraries | lcc:Z, lcc:ZA
+https://www.arl.org/ | research libraries | lcc:Z
+https://programminghistorian.org/ | digital humanities, tutorials | lcc:AZ, lcc:QA
+https://www.hastac.hcommons.org/ | digital scholarship, community | lcc:AZ
+
+# --- Accessibility and the open web ---
+https://webaim.org/blog/ | accessibility, web | lcc:TK
+https://www.a11yproject.com/ | accessibility, web | lcc:TK
+https://adrianroselli.com/ | accessibility, web, blog | lcc:TK
+https://reclaimhosting.com/blog/ | reclaim, web hosting, edtech | lcc:TK, lcc:LB
+https://www.eff.org/deeplinks | digital rights, privacy | lcc:K, lcc:HE
+https://pluralistic.net/ | technology criticism, digital rights | lcc:HE, lcc:K
+https://www.404media.co/ | technology journalism | lcc:HE
+https://www.niemanlab.org/ | journalism, media | lcc:PN
+https://www.pewresearch.org/feed/ | internet research, surveys | lcc:HE, lcc:HM
+https://kottke.org/ | culture, web | lcc:PN
+https://arstechnica.com/ | technology, news | lcc:T
+
+# --- Podcasts ---
+https://teachinginhighered.com/feed/podcast/ | podcast, teaching, higher education | lcc:LB
+https://teaforteaching.com/ | podcast, teaching | lcc:LB
+https://feeds.libsyn.com/107466/rss | podcast, edtech | lcc:LB
+https://voiced.ca/project/gettin-air/ | podcast, open education, canada | lcc:LC
+
+# --- Research preprints ---
+https://export.arxiv.org/rss/cs.CY | research, arxiv, computers and society | lcc:QA, lcc:HM
+https://export.arxiv.org/rss/cs.HC | research, arxiv, human-computer interaction | lcc:QA
+https://export.arxiv.org/rss/cs.DL | research, arxiv, digital libraries | lcc:QA, lcc:Z

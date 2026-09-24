@@ -39,4 +39,4 @@ include = ["aggrssive*"]
 testpaths = ["tests"]
 
 [tool.setuptools.package-data]
-aggrssive = ["data/*.txt", "templates/*.html", "static/*"]
+aggrssive = ["data/*.txt", "templates/*.html", "static/*", "docs/*.md", "collections/*.opml"]

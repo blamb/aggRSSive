@@ -22,7 +22,8 @@ def db():
         db.add(u)
         db.flush()
         for name in ("open education", "edtech", "podcast", "assessment"):
-            db.add(Tag(name=name))
+            if not db.query(Tag).filter_by(name=name).first():  # other test modules share this database
+                db.add(Tag(name=name))
         s = Source(feed_url="https://x.test/feed", title="Notes on Open Education", description="edtech musings", added_by_id=u.id)
         db.add(s)
         db.flush()

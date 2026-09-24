@@ -34,6 +34,10 @@ You land on the bundle's *edit* page.
 
 **Settings** — title, description, public or private, match mode, an age window ("only items newer than 30 days"), the maximum number of items, and duplicate removal (the same link or title from two feeds appears once).
 
+## Start from someone else's
+
+On any public aggRSSive's page, **Copy to my aggRSSives** makes you a private copy with the same sources, rules and settings. Change it however you like; the original is untouched. It's how a curated list travels: someone builds it, others take it and adapt it.
+
 ## Public and private
 
 Public aggRSSives appear on the *aggRSSives* page, can be embedded and subscribed to by anyone, and can be chosen by instructors inside an LMS. Private ones are yours alone: their embed code and feeds return nothing to anyone else.

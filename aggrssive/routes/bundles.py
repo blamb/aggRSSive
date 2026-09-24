@@ -109,6 +109,31 @@ def remove_source(slug: str, source_id: int, user: User = Depends(require_user),
     return RedirectResponse(f"/bundles/{b.slug}/edit", status_code=303)
 
 
+@router.post("/bundles/{slug}/fork")
+def fork_bundle(slug: str, user: User = Depends(require_user), db: Session = Depends(get_db)):
+    """Copy a public aggRSSive (sources, rules, settings) into one of your own. Curation stays with the original."""
+    src = load_bundle(db, slug)
+    if not can_view(src, user):
+        raise HTTPException(404, "No such aggRSSive")
+    b = Bundle(
+        owner_id=user.id,
+        title=f"{src.title} (copy)"[:300],
+        description=src.description,
+        is_public=False,
+        match_mode=src.match_mode,
+        max_age_days=src.max_age_days,
+        max_items=src.max_items,
+        dedupe=src.dedupe,
+    )
+    db.add(b)
+    db.flush()
+    _set_sources(db, b, [s.id for s in src.sources])
+    for r in db.execute(select(Rule).where(Rule.owner_type == "bundle", Rule.owner_id == src.id)).scalars():
+        db.add(Rule(owner_type="bundle", owner_id=b.id, kind=r.kind, field=r.field, pattern=r.pattern, is_regex=r.is_regex))
+    db.commit()
+    return RedirectResponse(f"/bundles/{b.slug}/edit", status_code=303)
+
+
 @router.get("/bundles/{slug}")
 def show_bundle(request: Request, slug: str, db: Session = Depends(get_db), user: User | None = Depends(current_user)):
     b = load_bundle(db, slug)

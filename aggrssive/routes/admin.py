@@ -1,5 +1,8 @@
 """Admin hub, user management (full admins) and site settings."""
 
+import re
+from pathlib import Path
+
 from fastapi import APIRouter, Depends, Form, HTTPException, Request
 from fastapi.responses import RedirectResponse
 from sqlalchemy import func, select
@@ -68,9 +71,43 @@ def update_settings(allow_signup: bool = Form(False), user: User = Depends(requi
     return RedirectResponse("/admin", status_code=303)
 
 
+COLLECTIONS = Path(__file__).parent.parent / "collections"
+
+
+def _collections(db: Session):
+    """Starter OPML files shipped with the app, with how much of each is already imported."""
+    from ..feeds.opml import parse_opml
+
+    have = {u for (u,) in db.execute(select(Source.feed_url))}
+    out = []
+    for path in sorted(COLLECTIONS.glob("*.opml")):
+        entries = parse_opml(path.read_bytes())
+        title = re.search(r"<title>(.*?)</title>", path.read_text(encoding="utf-8"))
+        out.append({
+            "slug": path.stem,
+            "title": title.group(1) if title else path.stem,
+            "entries": entries,
+            "count": len(entries),
+            "imported": sum(1 for e in entries if e.feed_url in have),
+            "tags": sorted({f for e in entries for f in e.folders}),
+        })
+    return out
+
+
 @router.get("/admin/collections")
-def collections_placeholder(request: Request, user: User = Depends(require_site_admin)):
-    return templates.TemplateResponse(request, "error.html", {"user": user, "status": "Starter collections", "detail": "Curated, verified collections are being assembled and will appear here for one-click import."})
+def collections(request: Request, db: Session = Depends(get_db), user: User = Depends(require_site_admin)):
+    return templates.TemplateResponse(request, "admin_collections.html", {"user": user, "collections": _collections(db), "message": request.query_params.get("m")})
+
+
+@router.post("/admin/collections/{slug}/import")
+def import_collection(slug: str, db: Session = Depends(get_db), user: User = Depends(require_site_admin)):
+    from .sources import import_entries
+
+    col = next((c for c in _collections(db) if c["slug"] == slug), None)
+    if not col:
+        raise HTTPException(404, "No such collection")
+    created, seen = import_entries(db, col["entries"], user, use_folders=True)
+    return RedirectResponse(f"/admin/collections?m={created}+new+feeds+added+({seen - created}+already+here);+tags+and+classification+applied", status_code=303)
 
 
 # --- Everyone: own account -------------------------------------------------

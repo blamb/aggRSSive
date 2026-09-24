@@ -67,3 +67,20 @@ def test_quick_bundle_from_tag(client):
     r = client.post("/bundles/from", data={"tag": "critical pedagogy"}, follow_redirects=False)
     assert r.status_code == 303
     assert client.post("/bundles/from", data={"tag": "no-such-tag"}).status_code == 404
+
+
+def test_fork_copies_sources_and_rules_privately(client):
+    r = client.post("/bundles/from", data={"tag": "critical pedagogy"}, follow_redirects=False)
+    slug = r.headers["location"].split("/")[2]
+    client.post(f"/bundles/{slug}/rules", data={"kind": "exclude", "field": "any", "pattern": "webinar"})
+    r = client.post(f"/bundles/{slug}/fork", follow_redirects=False)
+    assert r.status_code == 303
+    copy_slug = r.headers["location"].split("/")[2]
+    with SessionLocal() as db:
+        from aggrssive.models import Rule
+
+        orig = db.query(Bundle).filter_by(slug=slug).one()
+        copy = db.query(Bundle).filter_by(slug=copy_slug).one()
+        assert copy.title == "critical pedagogy (copy)" and copy.is_public is False
+        assert [s.id for s in copy.sources] == [s.id for s in orig.sources]
+        assert [r.pattern for r in db.query(Rule).filter_by(owner_type="bundle", owner_id=copy.id)] == ["webinar"]

@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="2.0">
+  <head>
+    <title>aggRSSive starter collection: open education, teaching and learning</title>
+    <dateCreated>Thu, 24 Sep 2026 06:43:01 GMT</dateCreated>
+    <ownerName>aggRSSive</ownerName>
+  </head>
+  <body>
+    <outline text="AI">
+      <outline type="rss" text="One Useful Thing" title="One Useful Thing" xmlUrl="https://www.oneusefulthing.org/feed" htmlUrl="https://www.oneusefulthing.org" category="/lcc/LB,/lcc/QA"/>
+    </outline>
+    <outline text="AI in education">
+      <outline type="rss" text="Dr Leon Furze" title="Dr Leon Furze" xmlUrl="https://leonfurze.com/feed/" htmlUrl="https://leonfurze.com" category="/lcc/LB,/lcc/QA"/>
+    </outline>
+    <outline text="K-12">
+      <outline type="rss" text="The 74" title="The 74" xmlUrl="https://www.the74million.org/feed/" htmlUrl="https://www.the74million.org" category="/lcc/LB"/>
+    </outline>
+    <outline text="OER">
+      <outline type="rss" text="Blogs on Improving Learning" title="Blogs on Improving Learning" xmlUrl="https://opencontent.org/blog/index.xml" htmlUrl="https://opencontent.org/blog/" category="/lcc/LC,/isced/0111"/>
+      <outline type="rss" text="OEGlobal" title="OEGlobal" xmlUrl="https://www.oeglobal.org/feed/" htmlUrl="https://www.oeglobal.org" category="/lcc/LC,/isced/0111"/>
+    </outline>
+    <outline text="academic libraries">
+      <outline type="rss" text="ACRLog" title="ACRLog" xmlUrl="https://acrlog.org/feed/" htmlUrl="https://acrlog.org" category="/lcc/Z,/isced/0322"/>
+    </outline>
+    <outline text="accessibility">
+      <outline type="rss" text="WebAIM Blog" title="WebAIM Blog" xmlUrl="https://webaim.org/blog/feed" htmlUrl="https://webaim.org/blog" category="/lcc/TK"/>
+      <outline type="rss" text="The A11Y Project" title="The A11Y Project" xmlUrl="https://www.a11yproject.com/feed/feed.xml" htmlUrl="https://a11yproject.com" category="/lcc/TK"/>
+      <outline type="rss" text="Adrian Roselli" title="Adrian Roselli" xmlUrl="https://adrianroselli.com/feed" htmlUrl="https://adrianroselli.com" category="/lcc/TK"/>
+    </outline>
+    <outline text="analysis">
+      <outline type="rss" text="e-Literate" title="e-Literate" xmlUrl="https://eliterate.us/feed/" htmlUrl="https://eliterate.us" category="/lcc/LB"/>
+    </outline>
+    <outline text="annotation">
+      <outline type="rss" text="Remi Kalir" title="Remi Kalir" xmlUrl="https://remikalir.com/feed/" htmlUrl="https://remikalir.com" category="/lcc/LB"/>
+    </outline>
+    <outline text="arxiv">
+      <outline type="rss" text="cs.CY updates on arXiv.org" title="cs.CY updates on arXiv.org" xmlUrl="https://export.arxiv.org/rss/cs.CY" htmlUrl="http://rss.arxiv.org/rss/cs.CY" category="/lcc/QA,/lcc/HM"/>
+      <outline type="rss" text="cs.HC updates on arXiv.org" title="cs.HC updates on arXiv.org" xmlUrl="https://export.arxiv.org/rss/cs.HC" htmlUrl="http://rss.arxiv.org/rss/cs.HC" category="/lcc/QA"/>
+      <outline type="rss" text="cs.DL updates on arXiv.org" title="cs.DL updates on arXiv.org" xmlUrl="https://export.arxiv.org/rss/cs.DL" htmlUrl="http://rss.arxiv.org/rss/cs.DL" category="/lcc/QA,/lcc/Z"/>
+    </outline>
+    <outline text="blog">
+      <outline type="rss" text="Abject" title="Abject" xmlUrl="https://abject.ca/feed/" htmlUrl="https://abject.ca" category="/lcc/LC,/lcc/LB"/>
+      <outline type="rss" text="The Ed Techie" title="The Ed Techie" xmlUrl="https://blog.edtechie.net/feed/" htmlUrl="https://blog.edtechie.net" category="/lcc/LC,/lcc/LB"/>
+      <outline type="rss" text="CogDogBlog" title="CogDogBlog" xmlUrl="https://cogdogblog.com/feed/" htmlUrl="https://cogdogblog.com" category="/lcc/LB"/>
+      <outline type="rss" text="bavatuesdays" title="bavatuesdays" xmlUrl="https://bavatuesdays.com/feed/" htmlUrl="https://bavatuesdays.com" category="/lcc/LB"/>
+      <outline type="rss" text="EdTech Factotum" title="EdTech Factotum" xmlUrl="https://edtechfactotum.com/feed/" htmlUrl="https://edtechfactotum.com" category="/lcc/LC"/>
+      <outline type="rss" text="Robin DeRosa" title="Robin DeRosa" xmlUrl="https://robinderosa.net/feed/" htmlUrl="https://robinderosa.net" category="/lcc/LC,/lcc/LB"/>
+      <outline type="rss" text="Catherine Cronin" title="Catherine Cronin" xmlUrl="https://catherinecronin.net/feed/" htmlUrl="https://catherinecronin.net" category="/lcc/LC"/>
+      <outline type="rss" text="Home onD'Arcy Norman, PhD" title="Home onD'Arcy Norman, PhD" xmlUrl="https://darcynorman.net/index.xml" htmlUrl="https://darcynorman.net/" category="/lcc/LB"/>
+      <outline type="rss" text="Tony Bates" title="Tony Bates" xmlUrl="https://www.tonybates.ca/feed/" htmlUrl="https://www.tonybates.ca" category="/lcc/LC"/>
+      <outline type="rss" text="Dave's Educational Blog" title="Dave's Educational Blog" xmlUrl="https://davecormier.com/edblog/feed/" htmlUrl="https://davecormier.com/edblog" category="/lcc/LB"/>
+      <outline type="rss" text="Reflecting Allowed" title="Reflecting Allowed" xmlUrl="https://blog.mahabali.me/feed/" htmlUrl="https://blog.mahabali.me" category="/lcc/LB,/lcc/LC"/>
+      <outline type="rss" text="Jesse Stommel" title="Jesse Stommel" xmlUrl="https://www.jessestommel.com/rss/" htmlUrl="https://www.jessestommel.com/" category="/lcc/LB"/>
+      <outline type="rss" text="Sean Michael Morris" title="Sean Michael Morris" xmlUrl="https://www.seanmichaelmorris.com/blog/rss/" htmlUrl="https://www.seanmichaelmorris.com/" category="/lcc/LB"/>
+      <outline type="rss" text="Is a Liminal Space" title="Is a Liminal Space" xmlUrl="https://autumm.edtech.fm/feed/" htmlUrl="https://autumm.edtech.fm" category="/lcc/LB"/>
+      <outline type="rss" text="Remi Kalir" title="Remi Kalir" xmlUrl="https://remikalir.com/feed/" htmlUrl="https://remikalir.com" category="/lcc/LB"/>
+      <outline type="rss" text="Experiencing Elearning" title="Experiencing Elearning" xmlUrl="https://christytuckerlearning.com/feed/" htmlUrl="https://christytuckerlearning.com/" category="/lcc/LB"/>
+      <outline type="rss" text="Learning Scientists Blog - The Learning Scientists" title="Learning Scientists Blog - The Learning Scientists" xmlUrl="https://www.learningscientists.org/blog?format=rss" htmlUrl="https://www.learningscientists.org/blog/" category="/lcc/LB,/lcc/BF"/>
+      <outline type="rss" text="e-Literate" title="e-Literate" xmlUrl="https://eliterate.us/feed/" htmlUrl="https://eliterate.us" category="/lcc/LB"/>
+      <outline type="rss" text="Dr Leon Furze" title="Dr Leon Furze" xmlUrl="https://leonfurze.com/feed/" htmlUrl="https://leonfurze.com" category="/lcc/LB,/lcc/QA"/>
+      <outline type="rss" text="ACRLog" title="ACRLog" xmlUrl="https://acrlog.org/feed/" htmlUrl="https://acrlog.org" category="/lcc/Z,/isced/0322"/>
+      <outline type="rss" text="Adrian Roselli" title="Adrian Roselli" xmlUrl="https://adrianroselli.com/feed" htmlUrl="https://adrianroselli.com" category="/lcc/TK"/>
+    </outline>
+    <outline text="canada">
+      <outline type="rss" text="EdTech Factotum" title="EdTech Factotum" xmlUrl="https://edtechfactotum.com/feed/" htmlUrl="https://edtechfactotum.com" category="/lcc/LC"/>
+      <outline type="rss" text="Home onD'Arcy Norman, PhD" title="Home onD'Arcy Norman, PhD" xmlUrl="https://darcynorman.net/index.xml" htmlUrl="https://darcynorman.net/" category="/lcc/LB"/>
+      <outline type="rss" text="University Affairs" title="University Affairs" xmlUrl="https://universityaffairs.ca/feed/" htmlUrl="https://universityaffairs.ca/" category="/lcc/L"/>
+      <outline type="rss" text="Education – The Conversation" title="Education – The Conversation" xmlUrl="https://theconversation.com/ca/education/articles.atom" htmlUrl="https://theconversation.com" category="/lcc/L"/>
+      <outline type="rss" text="Science + Tech – The Conversation" title="Science + Tech – The Conversation" xmlUrl="https://theconversation.com/ca/technology/articles.atom" htmlUrl="https://theconversation.com" category="/lcc/T"/>
+    </outline>
+    <outline text="community">
+      <outline type="rss" text="HASTAC Commons" title="HASTAC Commons" xmlUrl="https://hastac.hcommons.org/feed/" htmlUrl="https://hastac.hcommons.org" category="/lcc/AZ"/>
+    </outline>
+    <outline text="computers and education">
+      <outline type="rss" text="ScienceDirect Publication: Computers &amp; Education" title="ScienceDirect Publication: Computers &amp; Education" xmlUrl="https://rss.sciencedirect.com/publication/science/03601315" htmlUrl="https://www.sciencedirect.com/journal/computers-and-education" category="/lcc/LB,/lcc/QA"/>
+    </outline>
+    <outline text="computers and society">
+      <outline type="rss" text="cs.CY updates on arXiv.org" title="cs.CY updates on arXiv.org" xmlUrl="https://export.arxiv.org/rss/cs.CY" htmlUrl="http://rss.arxiv.org/rss/cs.CY" category="/lcc/QA,/lcc/HM"/>
+    </outline>
+    <outline text="critical digital pedagogy">
+      <outline type="rss" text="Reflecting Allowed" title="Reflecting Allowed" xmlUrl="https://blog.mahabali.me/feed/" htmlUrl="https://blog.mahabali.me" category="/lcc/LB,/lcc/LC"/>
+      <outline type="rss" text="Sean Michael Morris" title="Sean Michael Morris" xmlUrl="https://www.seanmichaelmorris.com/blog/rss/" htmlUrl="https://www.seanmichaelmorris.com/" category="/lcc/LB"/>
+      <outline type="rss" text="Is a Liminal Space" title="Is a Liminal Space" xmlUrl="https://autumm.edtech.fm/feed/" htmlUrl="https://autumm.edtech.fm" category="/lcc/LB"/>
+    </outline>
+    <outline text="critical pedagogy">
+      <outline type="rss" text="Jesse Stommel" title="Jesse Stommel" xmlUrl="https://www.jessestommel.com/rss/" htmlUrl="https://www.jessestommel.com/" category="/lcc/LB"/>
+    </outline>
+    <outline text="culture">
+      <outline type="rss" text="kottke.org" title="kottke.org" xmlUrl="https://feeds.kottke.org/main" htmlUrl="https://kottke.org/" category="/lcc/PN"/>
+    </outline>
+    <outline text="digital humanities">
+      <outline type="rss" text="Programming Historian" title="Programming Historian" xmlUrl="https://programminghistorian.org/feed.xml" htmlUrl="https://programminghistorian.org" category="/lcc/AZ,/lcc/QA"/>
+    </outline>
+    <outline text="digital libraries">
+      <outline type="rss" text="cs.DL updates on arXiv.org" title="cs.DL updates on arXiv.org" xmlUrl="https://export.arxiv.org/rss/cs.DL" htmlUrl="http://rss.arxiv.org/rss/cs.DL" category="/lcc/QA,/lcc/Z"/>
+    </outline>
+    <outline text="digital preservation">
+      <outline type="rss" text="The Signal" title="The Signal" xmlUrl="https://blogs.loc.gov/thesignal/feed/" htmlUrl="https://blogs.loc.gov/thesignal" category="/lcc/Z"/>
+    </outline>
+    <outline text="digital rights">
+      <outline type="rss" text="Electronic Frontier Foundation" title="Electronic Frontier Foundation" xmlUrl="https://www.eff.org/rss.xml" htmlUrl="https://www.eff.org" category="/lcc/K,/lcc/HE"/>
+      <outline type="rss" text="Pluralistic: Daily links from Cory Doctorow" title="Pluralistic: Daily links from Cory Doctorow" xmlUrl="https://pluralistic.net/feed/" htmlUrl="https://pluralistic.net" category="/lcc/HE,/lcc/K"/>
+    </outline>
+    <outline text="digital scholarship">
+      <outline type="rss" text="HASTAC Commons" title="HASTAC Commons" xmlUrl="https://hastac.hcommons.org/feed/" htmlUrl="https://hastac.hcommons.org" category="/lcc/AZ"/>
+    </outline>
+    <outline text="distance education">
+      <outline type="rss" text="tandf: Distance Education: Table of Contents" title="tandf: Distance Education: Table of Contents" xmlUrl="https://www.tandfonline.com/action/showFeed?type=etoc&amp;feed=rss&amp;jc=cdie20" htmlUrl="https://www.tandfonline.com/loi/cdie20?af=R" category="/lcc/LC"/>
+    </outline>
+    <outline text="ds106">
+      <outline type="rss" text="CogDogBlog" title="CogDogBlog" xmlUrl="https://cogdogblog.com/feed/" htmlUrl="https://cogdogblog.com" category="/lcc/LB"/>
+      <outline type="rss" text="bavatuesdays" title="bavatuesdays" xmlUrl="https://bavatuesdays.com/feed/" htmlUrl="https://bavatuesdays.com" category="/lcc/LB"/>
+    </outline>
+    <outline text="edtech">
+      <outline type="rss" text="Abject" title="Abject" xmlUrl="https://abject.ca/feed/" htmlUrl="https://abject.ca" category="/lcc/LC,/lcc/LB"/>
+      <outline type="rss" text="The Ed Techie" title="The Ed Techie" xmlUrl="https://blog.edtechie.net/feed/" htmlUrl="https://blog.edtechie.net" category="/lcc/LC,/lcc/LB"/>
+      <outline type="rss" text="CogDogBlog" title="CogDogBlog" xmlUrl="https://cogdogblog.com/feed/" htmlUrl="https://cogdogblog.com" category="/lcc/LB"/>
+      <outline type="rss" text="bavatuesdays" title="bavatuesdays" xmlUrl="https://bavatuesdays.com/feed/" htmlUrl="https://bavatuesdays.com" category="/lcc/LB"/>
+      <outline type="rss" text="Home onD'Arcy Norman, PhD" title="Home onD'Arcy Norman, PhD" xmlUrl="https://darcynorman.net/index.xml" htmlUrl="https://darcynorman.net/" category="/lcc/LB"/>
+      <outline type="rss" text="Stephen's Web ~ OLDaily" title="Stephen's Web ~ OLDaily" xmlUrl="https://www.downes.ca/news/OLDaily.xml" htmlUrl="http://www.downes.ca/" category="/lcc/LB"/>
+      <outline type="rss" text="e-Literate" title="e-Literate" xmlUrl="https://eliterate.us/feed/" htmlUrl="https://eliterate.us" category="/lcc/LB"/>
+      <outline type="rss" text="EdSurge Articles" title="EdSurge Articles" xmlUrl="https://www.edsurge.com/articles_rss" htmlUrl="https://edsurge.com/" category="/lcc/LB"/>
+      <outline type="rss" text="Reclaim Hosting" title="Reclaim Hosting" xmlUrl="https://www.reclaimhosting.com/feed/" htmlUrl="https://www.reclaimhosting.com" category="/lcc/TK,/lcc/LB"/>
+    </outline>
+    <outline text="edtech criticism">
+      <outline type="rss" text="Second Breakfast" title="Second Breakfast" xmlUrl="https://2ndbreakfast.audreywatters.com/rss/" htmlUrl="https://2ndbreakfast.audreywatters.com/" category="/lcc/LB"/>
+    </outline>
+    <outline text="education">
+      <outline type="rss" text="The Hechinger Report" title="The Hechinger Report" xmlUrl="https://hechingerreport.org/feed/" htmlUrl="https://hechingerreport.org/" category="/lcc/L"/>
+      <outline type="rss" text="Education – The Conversation" title="Education – The Conversation" xmlUrl="https://theconversation.com/ca/education/articles.atom" htmlUrl="https://theconversation.com" category="/lcc/L"/>
+    </outline>
+    <outline text="education journalism">
+      <outline type="rss" text="KQED News" title="KQED News" xmlUrl="https://ww2.kqed.org/news/feed/" htmlUrl="https://ww2.kqed.org/news/" category="/lcc/LB"/>
+      <outline type="rss" text="The 74" title="The 74" xmlUrl="https://www.the74million.org/feed/" htmlUrl="https://www.the74million.org" category="/lcc/LB"/>
+    </outline>
+    <outline text="educational technology">
+      <outline type="rss" text="Wiley: British Journal of Educational Technology: Table of Contents" title="Wiley: British Journal of Educational Technology: Table of Contents" xmlUrl="https://onlinelibrary.wiley.com/feed/14678535/most-recent" htmlUrl="https://bera-journals.onlinelibrary.wiley.com/journal/14678535?af=R" category="/lcc/LB"/>
+    </outline>
+    <outline text="explainers">
+      <outline type="rss" text="Education – The Conversation" title="Education – The Conversation" xmlUrl="https://theconversation.com/ca/education/articles.atom" htmlUrl="https://theconversation.com" category="/lcc/L"/>
+      <outline type="rss" text="Science + Tech – The Conversation" title="Science + Tech – The Conversation" xmlUrl="https://theconversation.com/ca/technology/articles.atom" htmlUrl="https://theconversation.com" category="/lcc/T"/>
+    </outline>
+    <outline text="higher education">
+      <outline type="rss" text="Faculty Focus | Higher Ed Teaching &amp; Learning" title="Faculty Focus | Higher Ed Teaching &amp; Learning" xmlUrl="https://www.facultyfocus.com/feed/" htmlUrl="https://s39613.pcdn.co/" category="/lcc/LB"/>
+      <outline type="rss" text="Inside Higher Ed" title="Inside Higher Ed" xmlUrl="https://www.insidehighered.com/rss.xml" htmlUrl="https://www.insidehighered.com/" category="/lcc/L,/isced/0111"/>
+      <outline type="rss" text="University Affairs" title="University Affairs" xmlUrl="https://universityaffairs.ca/feed/" htmlUrl="https://universityaffairs.ca/" category="/lcc/L"/>
+      <outline type="rss" text="Wonkhe" title="Wonkhe" xmlUrl="https://wonkhe.com/feed/" htmlUrl="https://wonkhe.com/" category="/lcc/L"/>
+      <outline type="rss" text="HEPI" title="HEPI" xmlUrl="https://www.hepi.ac.uk/feed/" htmlUrl="https://www.hepi.ac.uk/" category="/lcc/L"/>
+      <outline type="rss" text="Teaching in Higher Ed" title="Teaching in Higher Ed" xmlUrl="https://feeds.podcastmirror.com/teaching-in-higher-ed" htmlUrl="https://teachinginhighered.com/articles/" category="/lcc/LB"/>
+    </outline>
+    <outline text="human-computer interaction">
+      <outline type="rss" text="cs.HC updates on arXiv.org" title="cs.HC updates on arXiv.org" xmlUrl="https://export.arxiv.org/rss/cs.HC" htmlUrl="http://rss.arxiv.org/rss/cs.HC" category="/lcc/QA"/>
+    </outline>
+    <outline text="instructional design">
+      <outline type="rss" text="Experiencing Elearning" title="Experiencing Elearning" xmlUrl="https://christytuckerlearning.com/feed/" htmlUrl="https://christytuckerlearning.com/" category="/lcc/LB"/>
+    </outline>
+    <outline text="internet and higher education">
+      <outline type="rss" text="ScienceDirect Publication: The Internet and Higher Education" title="ScienceDirect Publication: The Internet and Higher Education" xmlUrl="https://rss.sciencedirect.com/publication/science/10967516" htmlUrl="https://www.sciencedirect.com/journal/the-internet-and-higher-education" category="/lcc/LC"/>
+    </outline>
+    <outline text="internet research">
+      <outline type="rss" text="Pew Research Center" title="Pew Research Center" xmlUrl="https://www.pewresearch.org/feed/" htmlUrl="https://www.pewresearch.org" category="/lcc/HE,/lcc/HM"/>
+    </outline>
+    <outline text="internet studies">
+      <outline type="rss" text="First Monday" title="First Monday" xmlUrl="https://firstmonday.org/ojs/index.php/fm/gateway/plugin/WebFeedGatewayPlugin/rss2" htmlUrl="https://firstmonday.org/ojs/index.php/fm" category="/lcc/HE,/lcc/ZA"/>
+    </outline>
+    <outline text="journal">
+      <outline type="rss" text="The International Review of Research in Open and Distributed Learning" title="The International Review of Research in Open and Distributed Learning" xmlUrl="https://www.irrodl.org/index.php/irrodl/gateway/plugin/WebFeedGatewayPlugin/rss2" htmlUrl="https://www.irrodl.org/index.php/irrodl" category="/lcc/LC,/isced/0111"/>
+      <outline type="rss" text="First Monday" title="First Monday" xmlUrl="https://firstmonday.org/ojs/index.php/fm/gateway/plugin/WebFeedGatewayPlugin/rss2" htmlUrl="https://firstmonday.org/ojs/index.php/fm" category="/lcc/HE,/lcc/ZA"/>
+      <outline type="rss" text="tandf: Distance Education: Table of Contents" title="tandf: Distance Education: Table of Contents" xmlUrl="https://www.tandfonline.com/action/showFeed?type=etoc&amp;feed=rss&amp;jc=cdie20" htmlUrl="https://www.tandfonline.com/loi/cdie20?af=R" category="/lcc/LC"/>
+      <outline type="rss" text="tandf: Learning, Media and Technology: Table of Contents" title="tandf: Learning, Media and Technology: Table of Contents" xmlUrl="https://www.tandfonline.com/action/showFeed?type=etoc&amp;feed=rss&amp;jc=cjem20" htmlUrl="https://www.tandfonline.com/loi/cjem20?af=R" category="/lcc/LB"/>
+      <outline type="rss" text="tandf: Teaching in Higher Education: Table of Contents" title="tandf: Teaching in Higher Education: Table of Contents" xmlUrl="https://www.tandfonline.com/action/showFeed?type=etoc&amp;feed=rss&amp;jc=cthe20" htmlUrl="https://www.tandfonline.com/loi/cthe20?af=R" category="/lcc/LB"/>
+      <outline type="rss" text="Wiley: British Journal of Educational Technology: Table of Contents" title="Wiley: British Journal of Educational Technology: Table of Contents" xmlUrl="https://onlinelibrary.wiley.com/feed/14678535/most-recent" htmlUrl="https://bera-journals.onlinelibrary.wiley.com/journal/14678535?af=R" category="/lcc/LB"/>
+      <outline type="rss" text="ScienceDirect Publication: Computers &amp; Education" title="ScienceDirect Publication: Computers &amp; Education" xmlUrl="https://rss.sciencedirect.com/publication/science/03601315" htmlUrl="https://www.sciencedirect.com/journal/computers-and-education" category="/lcc/LB,/lcc/QA"/>
+      <outline type="rss" text="ScienceDirect Publication: The Internet and Higher Education" title="ScienceDirect Publication: The Internet and Higher Education" xmlUrl="https://rss.sciencedirect.com/publication/science/10967516" htmlUrl="https://www.sciencedirect.com/journal/the-internet-and-higher-education" category="/lcc/LC"/>
+    </outline>
+    <outline text="journalism">
+      <outline type="rss" text="The Hechinger Report" title="The Hechinger Report" xmlUrl="https://hechingerreport.org/feed/" htmlUrl="https://hechingerreport.org/" category="/lcc/L"/>
+      <outline type="rss" text="Nieman Lab" title="Nieman Lab" xmlUrl="https://www.niemanlab.org/feed/" htmlUrl="https://www.niemanlab.org" category="/lcc/PN"/>
+    </outline>
+    <outline text="learning">
+      <outline type="rss" text="KQED News" title="KQED News" xmlUrl="https://ww2.kqed.org/news/feed/" htmlUrl="https://ww2.kqed.org/news/" category="/lcc/LB"/>
+    </outline>
+    <outline text="learning media and technology">
+      <outline type="rss" text="tandf: Learning, Media and Technology: Table of Contents" title="tandf: Learning, Media and Technology: Table of Contents" xmlUrl="https://www.tandfonline.com/action/showFeed?type=etoc&amp;feed=rss&amp;jc=cjem20" htmlUrl="https://www.tandfonline.com/loi/cjem20?af=R" category="/lcc/LB"/>
+    </outline>
+    <outline text="learning science">
+      <outline type="rss" text="Learning Scientists Blog - The Learning Scientists" title="Learning Scientists Blog - The Learning Scientists" xmlUrl="https://www.learningscientists.org/blog?format=rss" htmlUrl="https://www.learningscientists.org/blog/" category="/lcc/LB,/lcc/BF"/>
+    </outline>
+    <outline text="learning technology">
+      <outline type="rss" text="#ALTC Blog" title="#ALTC Blog" xmlUrl="https://altc.alt.ac.uk/blog/feed/" htmlUrl="https://altc.alt.ac.uk/blog" category="/lcc/LB"/>
+    </outline>
+    <outline text="libraries">
+      <outline type="rss" text="Hanging Together" title="Hanging Together" xmlUrl="https://hangingtogether.org/feed/" htmlUrl="https://hangingtogether.org/" category="/lcc/Z"/>
+      <outline type="rss" text="The Signal" title="The Signal" xmlUrl="https://blogs.loc.gov/thesignal/feed/" htmlUrl="https://blogs.loc.gov/thesignal" category="/lcc/Z"/>
+      <outline type="rss" text="Library Journal infoDOCKET" title="Library Journal infoDOCKET" xmlUrl="https://www.infodocket.com/feed/" htmlUrl="https://www.infodocket.com/" category="/lcc/Z"/>
+    </outline>
+    <outline text="media">
+      <outline type="rss" text="Nieman Lab" title="Nieman Lab" xmlUrl="https://www.niemanlab.org/feed/" htmlUrl="https://www.niemanlab.org" category="/lcc/PN"/>
+    </outline>
+    <outline text="metadata">
+      <outline type="rss" text="Hanging Together" title="Hanging Together" xmlUrl="https://hangingtogether.org/feed/" htmlUrl="https://hangingtogether.org/" category="/lcc/Z"/>
+    </outline>
+    <outline text="news">
+      <outline type="rss" text="EdSurge Articles" title="EdSurge Articles" xmlUrl="https://www.edsurge.com/articles_rss" htmlUrl="https://edsurge.com/" category="/lcc/LB"/>
+      <outline type="rss" text="Inside Higher Ed" title="Inside Higher Ed" xmlUrl="https://www.insidehighered.com/rss.xml" htmlUrl="https://www.insidehighered.com/" category="/lcc/L,/isced/0111"/>
+      <outline type="rss" text="University Affairs" title="University Affairs" xmlUrl="https://universityaffairs.ca/feed/" htmlUrl="https://universityaffairs.ca/" category="/lcc/L"/>
+      <outline type="rss" text="Library Journal infoDOCKET" title="Library Journal infoDOCKET" xmlUrl="https://www.infodocket.com/feed/" htmlUrl="https://www.infodocket.com/" category="/lcc/Z"/>
+      <outline type="rss" text="Ars Technica" title="Ars Technica" xmlUrl="https://arstechnica.com/feed/" htmlUrl="https://arstechnica.com" category="/lcc/T"/>
+    </outline>
+    <outline text="newsletter">
+      <outline type="rss" text="Stephen's Web ~ OLDaily" title="Stephen's Web ~ OLDaily" xmlUrl="https://www.downes.ca/news/OLDaily.xml" htmlUrl="http://www.downes.ca/" category="/lcc/LB"/>
+      <outline type="rss" text="Second Breakfast" title="Second Breakfast" xmlUrl="https://2ndbreakfast.audreywatters.com/rss/" htmlUrl="https://2ndbreakfast.audreywatters.com/" category="/lcc/LB"/>
+      <outline type="rss" text="One Useful Thing" title="One Useful Thing" xmlUrl="https://www.oneusefulthing.org/feed" htmlUrl="https://www.oneusefulthing.org" category="/lcc/LB,/lcc/QA"/>
+    </outline>
+    <outline text="online learning">
+      <outline type="rss" text="Tony Bates" title="Tony Bates" xmlUrl="https://www.tonybates.ca/feed/" htmlUrl="https://www.tonybates.ca" category="/lcc/LC"/>
+      <outline type="rss" text="WCET" title="WCET" xmlUrl="https://wcet.wiche.edu/feed/" htmlUrl="https://wcet.wiche.edu/" category="/lcc/LC"/>
+    </outline>
+    <outline text="open access">
+      <outline type="rss" text="SPARC" title="SPARC" xmlUrl="https://sparcopen.org/feed/" htmlUrl="https://sparcopen.org/" category="/lcc/ZA,/lcc/LC"/>
+    </outline>
+    <outline text="open distance learning">
+      <outline type="rss" text="The International Review of Research in Open and Distributed Learning" title="The International Review of Research in Open and Distributed Learning" xmlUrl="https://www.irrodl.org/index.php/irrodl/gateway/plugin/WebFeedGatewayPlugin/rss2" htmlUrl="https://www.irrodl.org/index.php/irrodl" category="/lcc/LC,/isced/0111"/>
+    </outline>
+    <outline text="open education">
+      <outline type="rss" text="Blogs on Improving Learning" title="Blogs on Improving Learning" xmlUrl="https://opencontent.org/blog/index.xml" htmlUrl="https://opencontent.org/blog/" category="/lcc/LC,/isced/0111"/>
+      <outline type="rss" text="OEGlobal" title="OEGlobal" xmlUrl="https://www.oeglobal.org/feed/" htmlUrl="https://www.oeglobal.org" category="/lcc/LC,/isced/0111"/>
+      <outline type="rss" text="SPARC" title="SPARC" xmlUrl="https://sparcopen.org/feed/" htmlUrl="https://sparcopen.org/" category="/lcc/ZA,/lcc/LC"/>
+      <outline type="rss" text="Abject" title="Abject" xmlUrl="https://abject.ca/feed/" htmlUrl="https://abject.ca" category="/lcc/LC,/lcc/LB"/>
+      <outline type="rss" text="The Ed Techie" title="The Ed Techie" xmlUrl="https://blog.edtechie.net/feed/" htmlUrl="https://blog.edtechie.net" category="/lcc/LC,/lcc/LB"/>
+      <outline type="rss" text="CogDogBlog" title="CogDogBlog" xmlUrl="https://cogdogblog.com/feed/" htmlUrl="https://cogdogblog.com" category="/lcc/LB"/>
+      <outline type="rss" text="EdTech Factotum" title="EdTech Factotum" xmlUrl="https://edtechfactotum.com/feed/" htmlUrl="https://edtechfactotum.com" category="/lcc/LC"/>
+      <outline type="rss" text="Catherine Cronin" title="Catherine Cronin" xmlUrl="https://catherinecronin.net/feed/" htmlUrl="https://catherinecronin.net" category="/lcc/LC"/>
+    </outline>
+    <outline text="open knowledge">
+      <outline type="rss" text="Wiki Education" title="Wiki Education" xmlUrl="https://wikiedu.org/feed/" htmlUrl="https://wikiedu.org" category="/lcc/LB,/lcc/ZA"/>
+      <outline type="rss" text="Diff" title="Diff" xmlUrl="https://diff.wikimedia.org/feed/" htmlUrl="https://diff.wikimedia.org" category="/lcc/ZA"/>
+    </outline>
+    <outline text="open pedagogy">
+      <outline type="rss" text="Blogs on Improving Learning" title="Blogs on Improving Learning" xmlUrl="https://opencontent.org/blog/index.xml" htmlUrl="https://opencontent.org/blog/" category="/lcc/LC,/isced/0111"/>
+      <outline type="rss" text="Robin DeRosa" title="Robin DeRosa" xmlUrl="https://robinderosa.net/feed/" htmlUrl="https://robinderosa.net" category="/lcc/LC,/lcc/LB"/>
+    </outline>
+    <outline text="podcast">
+      <outline type="rss" text="Teaching in Higher Ed" title="Teaching in Higher Ed" xmlUrl="https://feeds.podcastmirror.com/teaching-in-higher-ed" htmlUrl="https://teachinginhighered.com/articles/" category="/lcc/LB"/>
+      <outline type="rss" text="tea for teaching" title="tea for teaching" xmlUrl="https://teaforteaching.com/feed/" htmlUrl="https://teaforteaching.com" category="/lcc/LB"/>
+    </outline>
+    <outline text="policy">
+      <outline type="rss" text="WCET" title="WCET" xmlUrl="https://wcet.wiche.edu/feed/" htmlUrl="https://wcet.wiche.edu/" category="/lcc/LC"/>
+      <outline type="rss" text="Wonkhe" title="Wonkhe" xmlUrl="https://wonkhe.com/feed/" htmlUrl="https://wonkhe.com/" category="/lcc/L"/>
+      <outline type="rss" text="HEPI" title="HEPI" xmlUrl="https://www.hepi.ac.uk/feed/" htmlUrl="https://www.hepi.ac.uk/" category="/lcc/L"/>
+    </outline>
+    <outline text="privacy">
+      <outline type="rss" text="Electronic Frontier Foundation" title="Electronic Frontier Foundation" xmlUrl="https://www.eff.org/rss.xml" htmlUrl="https://www.eff.org" category="/lcc/K,/lcc/HE"/>
+    </outline>
+    <outline text="publishing">
+      <outline type="rss" text="The Scholarly Kitchen" title="The Scholarly Kitchen" xmlUrl="https://scholarlykitchen.sspnet.org/feed/" htmlUrl="https://scholarlykitchen.sspnet.org/" category="/lcc/Z"/>
+    </outline>
+    <outline text="reclaim">
+      <outline type="rss" text="bavatuesdays" title="bavatuesdays" xmlUrl="https://bavatuesdays.com/feed/" htmlUrl="https://bavatuesdays.com" category="/lcc/LB"/>
+      <outline type="rss" text="Reclaim Hosting" title="Reclaim Hosting" xmlUrl="https://www.reclaimhosting.com/feed/" htmlUrl="https://www.reclaimhosting.com" category="/lcc/TK,/lcc/LB"/>
+    </outline>
+    <outline text="research">
+      <outline type="rss" text="The International Review of Research in Open and Distributed Learning" title="The International Review of Research in Open and Distributed Learning" xmlUrl="https://www.irrodl.org/index.php/irrodl/gateway/plugin/WebFeedGatewayPlugin/rss2" htmlUrl="https://www.irrodl.org/index.php/irrodl" category="/lcc/LC,/isced/0111"/>
+      <outline type="rss" text="First Monday" title="First Monday" xmlUrl="https://firstmonday.org/ojs/index.php/fm/gateway/plugin/WebFeedGatewayPlugin/rss2" htmlUrl="https://firstmonday.org/ojs/index.php/fm" category="/lcc/HE,/lcc/ZA"/>
+      <outline type="rss" text="tandf: Distance Education: Table of Contents" title="tandf: Distance Education: Table of Contents" xmlUrl="https://www.tandfonline.com/action/showFeed?type=etoc&amp;feed=rss&amp;jc=cdie20" htmlUrl="https://www.tandfonline.com/loi/cdie20?af=R" category="/lcc/LC"/>
+      <outline type="rss" text="tandf: Learning, Media and Technology: Table of Contents" title="tandf: Learning, Media and Technology: Table of Contents" xmlUrl="https://www.tandfonline.com/action/showFeed?type=etoc&amp;feed=rss&amp;jc=cjem20" htmlUrl="https://www.tandfonline.com/loi/cjem20?af=R" category="/lcc/LB"/>
+      <outline type="rss" text="tandf: Teaching in Higher Education: Table of Contents" title="tandf: Teaching in Higher Education: Table of Contents" xmlUrl="https://www.tandfonline.com/action/showFeed?type=etoc&amp;feed=rss&amp;jc=cthe20" htmlUrl="https://www.tandfonline.com/loi/cthe20?af=R" category="/lcc/LB"/>
+      <outline type="rss" text="Wiley: British Journal of Educational Technology: Table of Contents" title="Wiley: British Journal of Educational Technology: Table of Contents" xmlUrl="https://onlinelibrary.wiley.com/feed/14678535/most-recent" htmlUrl="https://bera-journals.onlinelibrary.wiley.com/journal/14678535?af=R" category="/lcc/LB"/>
+      <outline type="rss" text="ScienceDirect Publication: Computers &amp; Education" title="ScienceDirect Publication: Computers &amp; Education" xmlUrl="https://rss.sciencedirect.com/publication/science/03601315" htmlUrl="https://www.sciencedirect.com/journal/computers-and-education" category="/lcc/LB,/lcc/QA"/>
+      <outline type="rss" text="ScienceDirect Publication: The Internet and Higher Education" title="ScienceDirect Publication: The Internet and Higher Education" xmlUrl="https://rss.sciencedirect.com/publication/science/10967516" htmlUrl="https://www.sciencedirect.com/journal/the-internet-and-higher-education" category="/lcc/LC"/>
+      <outline type="rss" text="Hanging Together" title="Hanging Together" xmlUrl="https://hangingtogether.org/feed/" htmlUrl="https://hangingtogether.org/" category="/lcc/Z"/>
+      <outline type="rss" text="cs.CY updates on arXiv.org" title="cs.CY updates on arXiv.org" xmlUrl="https://export.arxiv.org/rss/cs.CY" htmlUrl="http://rss.arxiv.org/rss/cs.CY" category="/lcc/QA,/lcc/HM"/>
+      <outline type="rss" text="cs.HC updates on arXiv.org" title="cs.HC updates on arXiv.org" xmlUrl="https://export.arxiv.org/rss/cs.HC" htmlUrl="http://rss.arxiv.org/rss/cs.HC" category="/lcc/QA"/>
+      <outline type="rss" text="cs.DL updates on arXiv.org" title="cs.DL updates on arXiv.org" xmlUrl="https://export.arxiv.org/rss/cs.DL" htmlUrl="http://rss.arxiv.org/rss/cs.DL" category="/lcc/QA,/lcc/Z"/>
+    </outline>
+    <outline text="research impact">
+      <outline type="rss" text="LSE Impact" title="LSE Impact" xmlUrl="https://blogs.lse.ac.uk/impactofsocialsciences/feed/" htmlUrl="https://blogs.lse.ac.uk/impactofsocialsciences" category="/lcc/ZA,/lcc/H"/>
+    </outline>
+    <outline text="research libraries">
+      <outline type="rss" text="Association of Research Libraries" title="Association of Research Libraries" xmlUrl="https://www.arl.org/feed/" htmlUrl="https://www.arl.org/" category="/lcc/Z"/>
+    </outline>
+    <outline text="rhizomatic learning">
+      <outline type="rss" text="Dave's Educational Blog" title="Dave's Educational Blog" xmlUrl="https://davecormier.com/edblog/feed/" htmlUrl="https://davecormier.com/edblog" category="/lcc/LB"/>
+    </outline>
+    <outline text="scholarly communication">
+      <outline type="rss" text="SPARC" title="SPARC" xmlUrl="https://sparcopen.org/feed/" htmlUrl="https://sparcopen.org/" category="/lcc/ZA,/lcc/LC"/>
+      <outline type="rss" text="The Scholarly Kitchen" title="The Scholarly Kitchen" xmlUrl="https://scholarlykitchen.sspnet.org/feed/" htmlUrl="https://scholarlykitchen.sspnet.org/" category="/lcc/Z"/>
+      <outline type="rss" text="LSE Impact" title="LSE Impact" xmlUrl="https://blogs.lse.ac.uk/impactofsocialsciences/feed/" htmlUrl="https://blogs.lse.ac.uk/impactofsocialsciences" category="/lcc/ZA,/lcc/H"/>
+    </outline>
+    <outline text="surveys">
+      <outline type="rss" text="Pew Research Center" title="Pew Research Center" xmlUrl="https://www.pewresearch.org/feed/" htmlUrl="https://www.pewresearch.org" category="/lcc/HE,/lcc/HM"/>
+    </outline>
+    <outline text="teaching">
+      <outline type="rss" text="Wiki Education" title="Wiki Education" xmlUrl="https://wikiedu.org/feed/" htmlUrl="https://wikiedu.org" category="/lcc/LB,/lcc/ZA"/>
+      <outline type="rss" text="Faculty Focus | Higher Ed Teaching &amp; Learning" title="Faculty Focus | Higher Ed Teaching &amp; Learning" xmlUrl="https://www.facultyfocus.com/feed/" htmlUrl="https://s39613.pcdn.co/" category="/lcc/LB"/>
+      <outline type="rss" text="One Useful Thing" title="One Useful Thing" xmlUrl="https://www.oneusefulthing.org/feed" htmlUrl="https://www.oneusefulthing.org" category="/lcc/LB,/lcc/QA"/>
+      <outline type="rss" text="Teaching in Higher Ed" title="Teaching in Higher Ed" xmlUrl="https://feeds.podcastmirror.com/teaching-in-higher-ed" htmlUrl="https://teachinginhighered.com/articles/" category="/lcc/LB"/>
+      <outline type="rss" text="tea for teaching" title="tea for teaching" xmlUrl="https://teaforteaching.com/feed/" htmlUrl="https://teaforteaching.com" category="/lcc/LB"/>
+    </outline>
+    <outline text="teaching in higher education">
+      <outline type="rss" text="tandf: Teaching in Higher Education: Table of Contents" title="tandf: Teaching in Higher Education: Table of Contents" xmlUrl="https://www.tandfonline.com/action/showFeed?type=etoc&amp;feed=rss&amp;jc=cthe20" htmlUrl="https://www.tandfonline.com/loi/cthe20?af=R" category="/lcc/LB"/>
+    </outline>
+    <outline text="technology">
+      <outline type="rss" text="Science + Tech – The Conversation" title="Science + Tech – The Conversation" xmlUrl="https://theconversation.com/ca/technology/articles.atom" htmlUrl="https://theconversation.com" category="/lcc/T"/>
+      <outline type="rss" text="Ars Technica" title="Ars Technica" xmlUrl="https://arstechnica.com/feed/" htmlUrl="https://arstechnica.com" category="/lcc/T"/>
+    </outline>
+    <outline text="technology criticism">
+      <outline type="rss" text="Pluralistic: Daily links from Cory Doctorow" title="Pluralistic: Daily links from Cory Doctorow" xmlUrl="https://pluralistic.net/feed/" htmlUrl="https://pluralistic.net" category="/lcc/HE,/lcc/K"/>
+    </outline>
+    <outline text="technology journalism">
+      <outline type="rss" text="404 Media" title="404 Media" xmlUrl="https://www.404media.co/rss/" htmlUrl="https://www.404media.co/" category="/lcc/HE"/>
+    </outline>
+    <outline text="tutorials">
+      <outline type="rss" text="Programming Historian" title="Programming Historian" xmlUrl="https://programminghistorian.org/feed.xml" htmlUrl="https://programminghistorian.org" category="/lcc/AZ,/lcc/QA"/>
+    </outline>
+    <outline text="uk">
+      <outline type="rss" text="#ALTC Blog" title="#ALTC Blog" xmlUrl="https://altc.alt.ac.uk/blog/feed/" htmlUrl="https://altc.alt.ac.uk/blog" category="/lcc/LB"/>
+      <outline type="rss" text="Wonkhe" title="Wonkhe" xmlUrl="https://wonkhe.com/feed/" htmlUrl="https://wonkhe.com/" category="/lcc/L"/>
+      <outline type="rss" text="HEPI" title="HEPI" xmlUrl="https://www.hepi.ac.uk/feed/" htmlUrl="https://www.hepi.ac.uk/" category="/lcc/L"/>
+    </outline>
+    <outline text="web">
+      <outline type="rss" text="WebAIM Blog" title="WebAIM Blog" xmlUrl="https://webaim.org/blog/feed" htmlUrl="https://webaim.org/blog" category="/lcc/TK"/>
+      <outline type="rss" text="The A11Y Project" title="The A11Y Project" xmlUrl="https://www.a11yproject.com/feed/feed.xml" htmlUrl="https://a11yproject.com" category="/lcc/TK"/>
+      <outline type="rss" text="Adrian Roselli" title="Adrian Roselli" xmlUrl="https://adrianroselli.com/feed" htmlUrl="https://adrianroselli.com" category="/lcc/TK"/>
+      <outline type="rss" text="kottke.org" title="kottke.org" xmlUrl="https://feeds.kottke.org/main" htmlUrl="https://kottke.org/" category="/lcc/PN"/>
+    </outline>
+    <outline text="web hosting">
+      <outline type="rss" text="Reclaim Hosting" title="Reclaim Hosting" xmlUrl="https://www.reclaimhosting.com/feed/" htmlUrl="https://www.reclaimhosting.com" category="/lcc/TK,/lcc/LB"/>
+    </outline>
+    <outline text="wikipedia">
+      <outline type="rss" text="Wiki Education" title="Wiki Education" xmlUrl="https://wikiedu.org/feed/" htmlUrl="https://wikiedu.org" category="/lcc/LB,/lcc/ZA"/>
+      <outline type="rss" text="Diff" title="Diff" xmlUrl="https://diff.wikimedia.org/feed/" htmlUrl="https://diff.wikimedia.org" category="/lcc/ZA"/>
+    </outline>
+  </body>
+</opml>

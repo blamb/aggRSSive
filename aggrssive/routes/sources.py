@@ -94,12 +94,8 @@ def create_source(feed_url: str = Form(...), title: str = Form(""), tags: str = 
     return RedirectResponse(f"/sources/{s.id}", status_code=303)
 
 
-@router.post("/sources/import")
-def import_opml(file: UploadFile, use_folders: bool = Form(False), user: User = Depends(require_user), db: Session = Depends(get_db)):
-    try:
-        entries = parse_opml(file.file.read())
-    except Exception as e:
-        raise HTTPException(400, f"That doesn't look like OPML: {e}")
+def import_entries(db: Session, entries, user: User, use_folders: bool = True) -> tuple[int, int]:
+    """Add OPML entries as sources, applying folders as tags and any classification keys. Returns (created, seen)."""
     created_ids = []
     for e in entries:
         s, created = add_source(db, e.feed_url, user, title=e.title, site_url=e.site_url)
@@ -108,12 +104,26 @@ def import_opml(file: UploadFile, use_folders: bool = Form(False), user: User = 
                 t = get_or_create_tag(db, folder)
                 if t and t not in s.tags:
                     s.tags.append(t)
+        for k in e.categories:
+            c = classification.get(db, k)
+            if c and c not in s.categories:
+                s.categories.append(c)
         if created:
             created_ids.append(s.id)
     db.commit()
     for sid in created_ids:
         scheduler.fetch_soon(sid)
-    return RedirectResponse(f"/sources?imported={len(created_ids)}", status_code=303)
+    return len(created_ids), len(entries)
+
+
+@router.post("/sources/import")
+def import_opml(file: UploadFile, use_folders: bool = Form(False), user: User = Depends(require_user), db: Session = Depends(get_db)):
+    try:
+        entries = parse_opml(file.file.read())
+    except Exception as e:
+        raise HTTPException(400, f"That doesn't look like OPML: {e}")
+    created, _ = import_entries(db, entries, user, use_folders)
+    return RedirectResponse(f"/sources?imported={created}", status_code=303)
 
 
 @router.get("/sources/{source_id}")

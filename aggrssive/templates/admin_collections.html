@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Starter collections · Admin · aggRSSive{% endblock %}
+{% block content %}
+<p class="muted small"><a href="/admin">← Admin</a></p>
+<h1>Starter collections</h1>
+<p class="muted">Curated sets of feeds that ship with aggRSSive. Every feed was checked to be alive when the collection was built. Importing adds the feeds with their tags and classification; feeds you already have are left alone, so importing again is safe.</p>
+{% if message %}<p class="notice">{{ message }}</p>{% endif %}
+{% for c in collections %}
+<div class="card">
+  <h2 style="margin-top:0">{{ c.title }}</h2>
+  <p class="muted small">{{ c.count }} feeds · {{ c.imported }} already in your collection</p>
+  <p class="tagcloud small">{% for t in c.tags %}<span class="tag">{{ t }}</span> {% endfor %}</p>
+  <details class="small"><summary>What's in it</summary>
+    <ul class="plain">{% for e in c.entries %}<li><a href="{{ e.site_url or e.feed_url }}">{{ e.title }}</a> <span class="muted">{{ e.folders|join(', ') }}{% if e.categories %} · {{ e.categories|join(' ') }}{% endif %}</span></li>{% endfor %}</ul>
+  </details>
+  <form method="post" action="/admin/collections/{{ c.slug }}/import" style="margin-top:.6rem"><button class="btn">Import {{ c.count - c.imported }} new feed{{ 's' if c.count - c.imported != 1 }}</button></form>
+</div>
+{% else %}
+<p class="muted">No collections shipped with this version.</p>
+{% endfor %}
+{% endblock %}

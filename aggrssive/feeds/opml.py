@@ -13,6 +13,17 @@ class OpmlEntry:
     title: str = ""
     site_url: str | None = None
     folders: list[str] = field(default_factory=list)  # nesting path, used as tag suggestions
+    categories: list[str] = field(default_factory=list)  # classification keys like "lcc:LB", from OPML 2.0's category attribute
+
+
+def _categories(attr: str | None) -> list[str]:
+    """OPML 2.0 category: comma-separated, slash-delimited paths. We use "/lcc/LB" for framework:code."""
+    out = []
+    for raw in (attr or "").split(","):
+        parts = [p for p in raw.strip().split("/") if p]
+        if len(parts) == 2:
+            out.append(f"{parts[0].lower()}:{parts[1].upper()}")
+    return out
 
 
 def parse_opml(data: bytes) -> list[OpmlEntry]:
@@ -31,8 +42,9 @@ def parse_opml(data: bytes) -> list[OpmlEntry]:
                 if xml_url in seen:
                     # Same feed listed under several folders: collect all of them as tags.
                     seen[xml_url].folders += [f for f in path if f not in seen[xml_url].folders]
+                    seen[xml_url].categories += [c for c in _categories(outline.get("category")) if c not in seen[xml_url].categories]
                 else:
-                    seen[xml_url] = OpmlEntry(feed_url=xml_url, title=text, site_url=outline.get("htmlUrl"), folders=list(path))
+                    seen[xml_url] = OpmlEntry(feed_url=xml_url, title=text, site_url=outline.get("htmlUrl"), folders=list(path), categories=_categories(outline.get("category")))
                     out.append(seen[xml_url])
             else:
                 walk(outline, path + [text] if text else path)

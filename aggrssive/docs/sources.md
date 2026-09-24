@@ -26,7 +26,7 @@ If **✨ Suggest tags and classification (GenAI)** is ticked, aggRSSive proposes
 
 Feed readers export subscriptions as an OPML file. On *Find feeds*, use **Import OPML** in the sidebar. Folders in the file become tags if you leave *Turn folders into tags* ticked. Importing the same file again is safe: feeds you already have are skipped, new tags are added.
 
-Starter collections curated for education are available to site admins under *Admin → Starter collections*.
+Starter collections curated for education are available to site admins under *Admin → Starter collections*. They carry tags and classification headings with them (in the OPML file's standard `category` attribute), so imported feeds arrive already filed.
 
 ## What happens after adding
 
