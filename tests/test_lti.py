@@ -139,3 +139,39 @@ def test_tool_configuration_shape():
     assert conf["redirect_uris"] == [f"{BASE}/lti/launch"]
     lti = conf["https://purl.imsglobal.org/spec/lti-tool-configuration"]
     assert lti["domain"] == urlparse(BASE).netloc and lti["messages"][0]["type"] == "LtiDeepLinkingRequest"
+
+
+def test_platform_options_change_launches(client):
+    with SessionLocal() as db:
+        pid = db.query(Platform).filter_by(issuer=ISS).one().id
+        assert service.platform_options(db.get(Platform, pid))["related"] is True
+    # Default launch: related posts on, links in a new tab.
+    state, nonce = start_login(client)
+    r = client.post("/lti/launch", data={"id_token": id_token(nonce, service.MSG_RESOURCE, {CLAIM + "custom": {"bundle": "picked1"}}), "state": state})
+    assert "addEventListener('toggle'" in r.text and '<base target="_blank">' in r.text
+    # A site admin turns them off and sets a frame height; the next launch and the next Deep Linking response follow.
+    r = client.post(f"/lti/platforms/{pid}/options", data={"frame_height": "900", "default_n": "7", "default_desc": "none"}, follow_redirects=False)
+    assert r.status_code in (303, 401, 403)  # 303 when the test client is signed in as a site admin
+    with SessionLocal() as db:
+        p = db.get(Platform, pid)
+        service.set_platform_options(p, {"frame_height": "900", "default_n": "7", "default_desc": "none"})
+        db.commit()
+        o = service.platform_options(p)
+        assert o == {"related": False, "links_new_tab": False, "jwt_in_url": False, "frame_height": 900, "default_n": 7, "default_desc": "none"}
+    state, nonce = start_login(client)
+    r = client.post("/lti/launch", data={"id_token": id_token(nonce, service.MSG_RESOURCE, {CLAIM + "custom": {"bundle": "picked1"}}), "state": state})
+    assert "addEventListener('toggle'" not in r.text and "<base " not in r.text
+    state, nonce = start_login(client)
+    tok = id_token(nonce, service.MSG_DEEPLINK, {DL_CLAIM + "deep_linking_settings": {"deep_link_return_url": "https://moodle.test/return"}})
+    r = client.post("/lti/launch", data={"id_token": tok, "state": state})
+    assert 'name="n" value="7"' in r.text
+    token = r.text.split('name="token" value="')[1].split('"')[0]
+    r = client.post("/lti/deeplink", data={"token": token, "bundle": "picked1", "n": "5", "desc": "none"})
+    assert 'action="https://moodle.test/return"' in r.text  # JWT no longer in the URL
+    resp_jwt = r.text.split('name="JWT" value="')[1].split('"')[0]
+    claims = jwt.decode(resp_jwt, keys.public_pem(), algorithms=["RS256"], audience=ISS)
+    assert claims[DL_CLAIM + "content_items"][0]["iframe"]["height"] == 900
+    with SessionLocal() as db:  # restore defaults for any later test
+        p = db.get(Platform, pid)
+        p.options = "{}"
+        db.commit()

@@ -14,6 +14,17 @@
 {% for p in platforms %}
 <tr><td>{{ p.name }}</td><td class="small">{{ p.issuer }}</td><td class="small"><code>{{ p.client_id }}</code></td><td class="small">{{ p.deployment_ids.replace('\n', ', ') or '—' }}</td><td class="small muted">{{ p.last_launch_at|ago }}</td>
 <td><form method="post" action="/lti/platforms/{{ p.id }}/delete" onsubmit="return confirm('Remove this platform? Launches from it will stop working.')"><button class="link danger">remove</button></form></td></tr>
+<tr><td colspan="6"><details class="small"><summary class="muted">Settings for this platform</summary>
+{% set o = options[p.id] %}
+<form method="post" action="/lti/platforms/{{ p.id }}/options" class="stack small" style="max-width:40rem">
+  <label><input type="checkbox" name="related" value="1" {% if o.related %}checked{% endif %}> Show <em>related posts</em> under each item in launches</label>
+  <label><input type="checkbox" name="links_new_tab" value="1" {% if o.links_new_tab %}checked{% endif %}> Open item links in a new tab (off: navigate inside the platform's frame)</label>
+  <label><input type="checkbox" name="jwt_in_url" value="1" {% if o.jwt_in_url %}checked{% endif %}> Also carry the Deep Linking response in the return URL (needed by Moodle; turn off if a platform rejects long URLs)</label>
+  <label>Frame height asked for <input type="number" name="frame_height" value="{{ o.frame_height }}" min="200" max="2000" style="width:6em"> px</label>
+  <label>Default items per launch <input type="number" name="default_n" value="{{ o.default_n }}" min="1" max="100" style="width:5em"></label>
+  <label>Default descriptions <select name="default_desc"><option value="excerpt" {% if o.default_desc == 'excerpt' %}selected{% endif %}>short excerpt</option><option value="full" {% if o.default_desc == 'full' %}selected{% endif %}>full</option><option value="none" {% if o.default_desc == 'none' %}selected{% endif %}>none</option></select></label>
+  <button class="btn small">Save settings</button>
+</form></details></td></tr>
 {% endfor %}
 </tbody></table>
 {% else %}

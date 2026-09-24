@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ bundle.title }}</title>
-<base target="_blank">
+{% if opts.links_new_tab %}<base target="_blank">{% endif %}
 <style>
 :root{--fg:#1b1b1b;--muted:#666;--link:#0b5fa5;--bg:#fff;--line:#e5e5e5;--accent:#c8102e}
 body{margin:0;padding:12px 14px;font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--fg);background:var(--bg)}
@@ -16,6 +16,7 @@ img.th{width:72px;height:72px;object-fit:cover;border-radius:6px}.noimg{display:
 .note{font-style:italic;color:var(--muted);font-size:.9em;margin:2px 0}
 .pin{font-size:.7em;text-transform:uppercase;letter-spacing:.04em;background:#fff1c9;color:#7a5a00;padding:0 .4em;border-radius:3px;vertical-align:middle}
 .foot{margin-top:8px;font-size:.75em;color:var(--muted)}
+details.related{margin-top:4px;font-size:.85em}details.related summary{color:var(--muted);cursor:pointer}details.related ul{margin:4px 0 0 1em;list-style:disc}details.related li{display:list-item;padding:2px 0;border:0}
 </style>
 </head>
 <body>
@@ -33,6 +34,7 @@ img.th{width:72px;height:72px;object-fit:cover;border-radius:6px}.noimg{display:
     <div class="m">{{ bi.item.source.title }} · {{ bi.item.published_at|datefmt }}{% if bi.item.author %} · {{ bi.item.author }}{% endif %}</div>
     {% if bi.note %}<p class="note">{{ bi.note }}</p>{% endif %}
     {% if desc == 'full' and bi.item.summary %}<div class="d">{{ bi.item.summary|safe_html }}</div>{% elif desc == 'excerpt' and bi.item.text %}<div class="d">{{ bi.item.text[:280] }}{% if bi.item.text|length > 280 %}…{% endif %}</div>{% endif %}
+    {% if opts.related %}<details class="related" data-url="{{ base_url }}/items/{{ bi.item.id }}/related"><summary>related posts</summary><div class="related-body"></div></details>{% endif %}
   </div>
 </li>
 {% else %}
@@ -40,5 +42,12 @@ img.th{width:72px;height:72px;object-fit:cover;border-radius:6px}.noimg{display:
 {% endfor %}
 </ul>
 <div class="foot"><a href="{{ base_url }}/bundles/{{ bundle.slug }}">{{ bundle.title }}</a> · via aggRSSive · <a href="{{ base_url }}/b/{{ bundle.slug }}/feed.rss">RSS</a></div>
+{% if opts.related %}<script>
+document.addEventListener('toggle', function (e) {
+  var d = e.target; if (!d.matches || !d.matches('details.related') || !d.open || d.dataset.loaded) return;
+  d.dataset.loaded = '1'; var body = d.querySelector('.related-body'); body.textContent = 'Looking…';
+  fetch(d.dataset.url).then(function (r) { return r.text(); }).then(function (h) { body.innerHTML = h; }).catch(function () { body.textContent = 'Could not load.'; });
+}, true);
+</script>{% endif %}
 </body>
 </html>

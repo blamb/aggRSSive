@@ -282,6 +282,7 @@ class Platform(Base):
     auth_token_url: Mapped[str] = mapped_column(String(1000), default="")
     jwks_url: Mapped[str] = mapped_column(String(1000))
     deployment_ids: Mapped[str] = mapped_column(Text, default="")  # newline separated, learned from launches
+    options: Mapped[str] = mapped_column(Text, default="{}")  # JSON: per-platform quirks and defaults, see lti/service.platform_options
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
     last_launch_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 

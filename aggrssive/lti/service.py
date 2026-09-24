@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import secrets
 import time
 from datetime import timedelta
@@ -155,14 +156,58 @@ def deep_link_response(platform: Platform, deployment_id: str, data: str | None,
     return sign(payload, ttl_seconds=600)
 
 
-def resource_link_item(base_url: str, title: str, slug: str, n: int, desc: str, img: bool) -> dict:
+def resource_link_item(base_url: str, title: str, slug: str, n: int, desc: str, img: bool, frame_height: int = 600) -> dict:
     return {
         "type": "ltiResourceLink",
         "title": title,
         "url": f"{base_url}/lti/launch",
         "custom": {"bundle": slug, "n": str(n), "desc": desc, "img": "1" if img else "0"},
-        "iframe": {"height": 600},
+        "iframe": {"height": frame_height},
     }
+
+
+# --- Per-platform options ----------------------------------------------------
+# Platform quirks and defaults live here, never as assumptions in the code paths.
+
+OPTION_DEFAULTS = {
+    "related": True,  # show "related posts" under each item in a launch
+    "links_new_tab": True,  # open item links outside the platform's iframe
+    "jwt_in_url": True,  # carry the Deep Linking JWT in the return URL as well as the POST body (Moodle needs it)
+    "frame_height": 600,  # iframe height the platform is asked for
+    "default_n": 10,  # items per launch when the resource link doesn't say
+    "default_desc": "excerpt",  # excerpt | full | none
+}
+
+
+def platform_options(platform: Platform | None) -> dict:
+    opts = dict(OPTION_DEFAULTS)
+    if platform is not None and platform.options:
+        try:
+            saved = json.loads(platform.options)
+        except ValueError:
+            saved = {}
+        for k in OPTION_DEFAULTS:
+            if k in saved:
+                opts[k] = saved[k]
+    return opts
+
+
+def set_platform_options(platform: Platform, form: dict) -> dict:
+    """Coerce form values to the option types and store them. Unknown keys are ignored."""
+    out = {}
+    for k, default in OPTION_DEFAULTS.items():
+        v = form.get(k)
+        if isinstance(default, bool):
+            out[k] = str(v).lower() in ("1", "true", "on", "yes")
+        elif isinstance(default, int):
+            try:
+                out[k] = max(1, min(int(v), 2000))
+            except (TypeError, ValueError):
+                out[k] = default
+        else:
+            out[k] = v if v in ("excerpt", "full", "none") else default
+    platform.options = json.dumps(out)
+    return out
 
 
 # --- Dynamic registration ---------------------------------------------------

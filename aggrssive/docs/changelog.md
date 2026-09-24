@@ -9,6 +9,8 @@ Newest first. Dates are when the change reached the main site.
 
 ## September 2026
 
+- **Related posts**: under each item on an aggRSSive's page and in course launches, the closest posts from the whole collection.
+- **Settings for each LTI platform** (site admins): related posts on/off, links in a new tab, Deep Linking response in the URL, frame height, default items and descriptions. Platform quirks are now settings, not code.
 - **Feeds like these**: the bundle edit page suggests feeds not yet in the bundle whose posts resemble what it already includes; tick to add.
 - **Find feeds by what they publish**: a search now also ranks sources by how closely their recent posts match your words, and lists the closest posts. Uses the local meaning model, so it is free and private.
 - **Meaning rules**: filter by a description instead of a keyword, using a local model — free, private, with a strictness setting.

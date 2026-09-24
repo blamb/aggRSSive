@@ -36,6 +36,20 @@ If aggRSSive and the platform are hosted on the same Jelastic-based cloud (Recla
 - On aggRSSive, set `DNS_OVERRIDES` so it reaches the platform over the private network — see [Hosting](hosting).
 - On the platform, give it aggRSSive's public key directly instead of the keyset URL (in Moodle: tool settings → *Public key type: RSA key*, paste the key from *Admin → LTI platforms*).
 
+## Settings for each platform
+
+Platforms differ, so anything that depends on the platform is a setting rather than a rule in the code. Under each registered platform on *Admin → LTI platforms*, open **Settings for this platform**:
+
+| Setting | Default | When to change it |
+|---|---|---|
+| Show *related posts* under items | on | Turn off for a plain list, or if the platform's frame is narrow |
+| Open item links in a new tab | on | Turn off if the platform prefers navigation inside its frame |
+| Carry the Deep Linking response in the return URL | on | Moodle needs it after a login round-trip; turn off if a platform rejects long URLs |
+| Frame height asked for | 600 px | Platforms that honour the request get a taller or shorter list |
+| Default items per launch, default descriptions | 10, short excerpt | Pre-filled in the instructor's picker; also used when a resource link was added by URL and says nothing |
+
+Changes apply to the next launch; nothing already placed in a course needs re-adding.
+
 ## Privacy
 
 aggRSSive receives from the platform a user identifier, name and email (when the platform shares them) and the user's role. It uses the role to decide whether to show the *edit* link, and stores nothing about individual users. Launches don't require an aggRSSive account.

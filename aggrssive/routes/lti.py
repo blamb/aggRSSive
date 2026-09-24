@@ -95,7 +95,7 @@ def _picker(request: Request, db: Session, platform: Platform, claims: dict):
         ttl_seconds=1800,
     )
     bundles = db.execute(select(Bundle).where(Bundle.is_public.is_(True)).options(selectinload(Bundle.owner), selectinload(Bundle.sources)).order_by(Bundle.title)).scalars().all()
-    return templates.TemplateResponse(request, "lti_pick.html", {"bundles": bundles, "token": token, "platform": platform, "name": claims.get("name", "")})
+    return templates.TemplateResponse(request, "lti_pick.html", {"bundles": bundles, "token": token, "platform": platform, "name": claims.get("name", ""), "opts": service.platform_options(platform)})
 
 
 @router.post("/lti/deeplink")
@@ -112,12 +112,15 @@ def deeplink_select(request: Request, token: str = Form(...), bundle: str = Form
         return _err(request, "That aggRSSive is not available.", 404)
     if desc not in ("excerpt", "full", "none"):
         desc = "excerpt"
-    item = service.resource_link_item(settings.base_url, b.title, b.slug, max(1, min(n, 100)), desc, img)
+    opts = service.platform_options(platform)
+    item = service.resource_link_item(settings.base_url, b.title, b.slug, max(1, min(n, 100)), desc, img, opts["frame_height"])
     jwt_ = service.deep_link_response(platform, t.get("deployment_id", ""), t.get("data"), [item])
     # The response is a cross-site POST into the platform's frame. Some browsers withhold the platform's
     # SameSite=Lax session cookie on it; Moodle then bounces through its login and returns to this URL as
     # a GET, losing the body. Carrying the JWT in the query string as well survives that round trip.
-    action = t["return_url"] + ("&" if "?" in t["return_url"] else "?") + urlencode({"JWT": jwt_})
+    action = t["return_url"]
+    if opts["jwt_in_url"]:
+        action += ("&" if "?" in action else "?") + urlencode({"JWT": jwt_})
     return templates.TemplateResponse(request, "lti_autopost.html", {"action": action, "fields": {"JWT": jwt_}})
 
 
@@ -132,17 +135,18 @@ def _resource(request: Request, db: Session, platform: Platform, claims: dict):
     b = db.execute(select(Bundle).where(Bundle.slug == slug).options(selectinload(Bundle.sources), selectinload(Bundle.overrides), selectinload(Bundle.owner))).scalar_one_or_none() if slug else None
     if b is None or not b.is_public:
         return _err(request, "This aggRSSive no longer exists or has been made private.", 404)
+    opts = service.platform_options(platform)
     try:
-        n = max(1, min(int(custom.get("n", 10)), 100))
+        n = max(1, min(int(custom.get("n", opts["default_n"])), 100))
     except ValueError:
-        n = 10
-    desc = custom.get("desc", "excerpt")
+        n = opts["default_n"]
+    desc = custom.get("desc", opts["default_desc"])
     img = str(custom.get("img", "1")) == "1"
     items = bundle_items(db, b, limit=n)
     return templates.TemplateResponse(
         request,
         "lti_resource.html",
-        {"bundle": b, "items": items, "desc": desc, "img": img, "instructor": service.is_instructor(claims), "base_url": settings.base_url},
+        {"bundle": b, "items": items, "desc": desc, "img": img, "instructor": service.is_instructor(claims), "base_url": settings.base_url, "opts": opts},
     )
 
 
@@ -174,7 +178,19 @@ def admin(request: Request, db: Session = Depends(get_db), user: User = Depends(
         "Public keyset (JWKS)": f"{base}/lti/jwks.json",
         "Deep linking URL": f"{base}/lti/launch",
     }
-    return templates.TemplateResponse(request, "lti_admin.html", {"user": user, "platforms": platforms, "urls": urls, "public_key": keys.public_pem().decode()})
+    options = {p.id: service.platform_options(p) for p in platforms}
+    return templates.TemplateResponse(request, "lti_admin.html", {"user": user, "platforms": platforms, "options": options, "urls": urls, "public_key": keys.public_pem().decode()})
+
+
+@router.post("/lti/platforms/{platform_id}/options")
+async def set_options(request: Request, platform_id: int, user: User = Depends(require_site_admin), db: Session = Depends(get_db)):
+    p = db.get(Platform, platform_id)
+    if p is None:
+        raise HTTPException(404)
+    form = await request.form()
+    service.set_platform_options(p, dict(form))
+    db.commit()
+    return RedirectResponse("/lti", status_code=303)
 
 
 @router.post("/lti/platforms")

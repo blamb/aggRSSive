@@ -36,8 +36,8 @@ button{font:inherit;padding:.55rem 1.1rem;border-radius:6px;border:0;background:
 </div>
 <div class="bar">
   <div class="opts" style="margin:0">
-    <label>Show <input type="number" name="n" value="10" min="1" max="100"> items</label>
-    <label>Descriptions <select name="desc"><option value="excerpt">short excerpt</option><option value="full">full</option><option value="none">none</option></select></label>
+    <label>Show <input type="number" name="n" value="{{ opts.default_n }}" min="1" max="100"> items</label>
+    <label>Descriptions <select name="desc"><option value="excerpt" {% if opts.default_desc == 'excerpt' %}selected{% endif %}>short excerpt</option><option value="full" {% if opts.default_desc == 'full' %}selected{% endif %}>full</option><option value="none" {% if opts.default_desc == 'none' %}selected{% endif %}>none</option></select></label>
     <label><input type="checkbox" name="img" value="true" checked> images</label>
   </div>
   <button type="submit">Add to course</button>

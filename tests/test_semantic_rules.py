@@ -153,3 +153,29 @@ def test_similar_sources_suggests_feeds_outside_the_bundle(data):
         r = semantic.similar_sources(db, [seed.id], {data["source_id"]}, floor=0.5)
         assert r and r[0][0] == other.id and r[0][2] == 1  # the grading post, not the hockey one
         assert semantic.similar_sources(db, [], set()) is None
+
+
+def test_related_posts_fragment(data):
+    from fastapi.testclient import TestClient
+
+    from aggrssive import scheduler
+    from aggrssive.main import app
+
+    scheduler.start = lambda: None
+    scheduler.stop = lambda: None
+    with SessionLocal() as db:
+        semantic._index = None
+        seed = db.query(Item).filter_by(title="Assessment and grading with rubrics").one()
+        picks = semantic.related(db, seed, floor=0.5)
+        assert picks and picks[0][0].title == "Rubric design for grading assessment"
+        assert all(p.id != seed.id for p, _ in picks)
+        sid = seed.id
+        hockey = db.query(Item).filter_by(title="Hockey season preview").one()
+        hockey.embedding = None
+        db.commit()
+        hid = hockey.id
+    c = TestClient(app)
+    r = c.get(f"/items/{sid}/related")
+    assert r.status_code == 200 and "Rubric design for grading assessment" in r.text
+    assert "Not analysed yet" in c.get(f"/items/{hid}/related").text
+    assert c.get("/items/999999/related").status_code == 404

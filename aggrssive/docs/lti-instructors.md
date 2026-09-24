@@ -24,6 +24,8 @@ The same flow under different names: add an *External tool* / *LTI app* item, ch
 
 The list is the aggRSSive itself, so change it in aggRSSive: add or remove sources, adjust rules, pin or hide items. The course updates on the next page load. To show a different aggRSSive, edit the activity and use *Select content* again.
 
+Under each item, *related posts* opens the closest posts from the whole collection. Links open in a new tab so students don't lose their place in the course. Your aggRSSive administrator can change both for the platform.
+
 ## Troubleshooting
 
 - **"This aggRSSive no longer exists or has been made private"** — its owner made it private or deleted it. Choose another.
