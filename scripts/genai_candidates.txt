@@ -1,0 +1,78 @@
+# Candidates extracted from the research-bot-prototype source lists (GenAI in higher education).
+# URL | tags | classification keys
+http://rss.arxiv.org/rss/cs.CY | genai in education, research, preprint, research methods, ai ethics, education applications | lcc:LB, lcc:QA
+http://export.arxiv.org/rss/cs.CY+cs.HC | genai in education, research, preprint, hci, ui design, education applications | lcc:LB, lcc:QA
+https://rss.arxiv.org/rss/cs.AI | genai in education, research, preprint, ai research, general ai, research methods | lcc:LB, lcc:QA
+https://criticalai.org/feed/ | genai in education, research, stance: critical, editorial scholarly, humanities critique, ai literacy, design justice | lcc:LB, lcc:QA
+https://bera-journals.onlinelibrary.wiley.com/feed/14678535/most-recent | genai in education, research, stance: neutral, peer reviewed, empirical studies, pedagogy, assessment | lcc:LB, lcc:QA
+https://link.springer.com/search.rss?facet-journal-id=42438 | genai in education, research, stance: critical, peer reviewed, critical theory, philosophy of ed, global south | lcc:LB, lcc:QA
+https://rss.sciencedirect.com/publication/science/26666557 | genai in education, research, stance: adoption-positive, peer reviewed, application studies, effect studies, tool evaluation | lcc:LB, lcc:QA
+https://link.springer.com/search.rss?facet-journal-id=40593 | genai in education, research, stance: neutral, peer reviewed, intelligent tutoring, adaptive learning, ai pedagogy research | lcc:LB, lcc:QA
+https://www.irrodl.org/index.php/irrodl/gateway/plugin/WebFeedGatewayPlugin/atom | genai in education, research, stance: neutral, peer reviewed, open learning, distance education, empirical research | lcc:LB, lcc:QA
+https://www.tandfonline.com/feed/rss/cdie20 | genai in education, research, stance: neutral, peer reviewed, empirical studies, distance ed research, online learning | lcc:LB, lcc:QA
+https://helenbeetham.substack.com/feed | genai in education, practice, stance: critical, editorial expert, critical pedagogy, ai literacy, research methods critique | lcc:LB
+https://codeactsineducation.wordpress.com/feed/ | genai in education, practice, stance: critical, editorial expert, digital sociology, platform governance, data infrastructure | lcc:LB
+https://drphilippahardman.substack.com/feed | genai in education, practice, stance: adoption-positive, editorial practitioner, learning design, instructional design, ai in practice | lcc:LB
+https://donaldclarkplanb.blogspot.com/feeds/posts/default | genai in education, practice, stance: adoption-positive, editorial practitioner, industry framing, ed tech commentary, ai optimism | lcc:LB
+https://biblioracle.substack.com/feed | genai in education, practice, stance: critical, editorial expert, writing pedagogy, assessment, composition | lcc:LB
+https://annamills.substack.com/feed | genai in education, practice, editorial practitioner, writing pedagogy, open education, ai literacy | lcc:LB
+https://marcwatkins.substack.com/feed | genai in education, practice, editorial practitioner, writing pedagogy, institutional implementation, ai policy | lcc:LB
+https://bryanalexander.org/feed/ | genai in education, practice, editorial expert, he futurism, technology trends, broader sector analysis | lcc:LB
+https://philonedtech.com/feed/ | genai in education, practice, stance: neutral, editorial expert, edtech market analysis, lms landscape, institutional strategy | lcc:LB
+https://www.insidehighered.com/rss/artificial-intelligence | genai in education, practice, editorial, us he news, ai coverage, sector news | lcc:LB
+https://darcynorman.net/feed/ | genai in education, practice, editorial expert, vibe coding, lti prototyping, claude code | lcc:LB
+https://er.educause.edu/feed | genai in education, policy, stance: adoption-positive, institutional, us higher ed it, institutional adoption, vendor adjacent | lcc:L, lcc:QA
+https://nationalcentreforai.jiscinvolve.org/wp/feed/ | genai in education, policy, stance: neutral, institutional, uk policy, accessibility, assessment | lcc:L, lcc:QA
+https://www.iesalc.unesco.org/en/feed/ | genai in education, policy, stance: neutral, institutional, global policy, equity, access | lcc:L, lcc:QA
+https://www.jisc.ac.uk/rss | genai in education, policy, stance: neutral, institutional, uk digital infrastructure, practice | lcc:L, lcc:QA
+https://www.unesco.org/en/digital-education/artificial-intelligence/rss.xml | genai in education, policy, stance: neutral, institutional, global policy, equity, international he | lcc:L, lcc:QA
+https://bccampus.ca/feed/ | genai in education, policy, stance: neutral, institutional, bc he, open education, digital learning strategy | lcc:L, lcc:QA
+https://www.timeshighereducation.com/rss | genai in education, policy, editorial, global he news, uk context, sector news | lcc:L, lcc:QA
+https://internet2.edu/feed/ | genai in education, policy, stance: institutional, institutional, research and education networking, ai services, federated identity | lcc:L, lcc:QA
+https://academica.ca/feed | genai in education, canada, stance: neutral, aggregator, canadian he, announcements, policy shifts | lcc:L
+https://www.universityaffairs.ca/feed/ | genai in education, canada, editorial, canadian he, faculty perspective, academic labour, language: en-fr | lcc:L
+https://higheredstrategy.com/feed/ | genai in education, canada, editorial expert, canadian he policy, economics of ed, pragmatic analysis | lcc:L
+https://downes.ca/news/OLDaily.xml | genai in education, canada, stance: critical, editorial expert, open education, oer curation, daily aggregator | lcc:L
+https://www.edcan.ca/feed/ | genai in education, canada, stance: neutral, institutional, canadian ed policy, k12 and he, sector commentary | lcc:L
+https://feeds.buzzsprout.com/2126417.rss | genai in education, community, stance: critical, editorial expert, ai critique, linguistics, hype analysis, podcast | lcc:LB
+https://www.cafepedagogique.net/feed/ | genai in education, non-english, editorial, french ed policy, european he, ai in french schools, language: fr | lcc:LB
+https://www.wheresyoured.at/rss | genai in education, community | lcc:LB
+https://genai.ubc.ca/rss | genai in education, community | lcc:LB
+https://aieducation.trubox.ca/feed/ | genai in education, practice | lcc:LB
+https://horaizon.trubox.ca/feed | genai in education, policy | lcc:L, lcc:QA
+https://creativecommons.org/feed | genai in education, policy, stance: institutional, institutional | lcc:L, lcc:QA
+https://nieuweinstituut.nl/en/projects/api/rss-en.xml | genai in education, practice | lcc:LB
+https://www.uapress.ua.edu/feed/ | genai in education, practice | lcc:LB
+https://networkcultures.org/feed/ | genai in education, practice | lcc:LB
+https://doi.org/10.4000/backend?format=rssnumeros | genai in education, practice | lcc:LB
+https://culturemachine.net/feed/ | genai in education, practice | lcc:LB
+https://spheres-journal.org/feed/ | genai in education, research | lcc:LB, lcc:QA
+https://logicmag.io/rss.xml | genai in education, research | lcc:LB, lcc:QA
+http://computationalculture.net/feed/ | genai in education, research | lcc:LB, lcc:QA
+https://ijoc.org/index.php/ijoc/gateway/plugin/WebFeedGatewayPlugin/atom | genai in education, research | lcc:LB, lcc:QA
+https://journals.law.harvard.edu/ilj/feed/ | genai in education, research | lcc:LB, lcc:QA
+https://sabbaticast.brennaclarkegray.ca/feed/ | genai in education, research | lcc:LB, lcc:QA
+https://bionicteaching.com/feed/ | genai in education, practice | lcc:LB
+https://futurecampus.com.au/feed/ | genai in education, practice | lcc:LB
+https://simonw.substack.com/feed | genai in education, practice | lcc:LB
+https://deadline.com/feed/rss/ | genai in education, practice | lcc:LB
+https://undark.org/feed/ | genai in education, practice | lcc:LB
+https://douglevin.substack.com/feed | genai in education, practice | lcc:LB
+https://futurism.com/feed | genai in education, practice | lcc:LB
+https://www.wired.com/feed/rss | genai in education, practice | lcc:LB
+https://detaresearch.org/feed/ | genai in education, practice | lcc:LB
+https://aieducation.substack.com/feed | genai in education, practice | lcc:LB
+https://www.therobotreport.com/feed/ | genai in education, practice | lcc:LB
+https://keenon.substack.com/feed | genai in education, practice | lcc:LB
+https://simonwillison.net/atom/everything/ | genai in education, practice | lcc:LB
+https://404.feed.press/private?key=7999cfac1b01e071e218bd8be04ed445 | genai in education, practice | lcc:LB
+https://www.solaresearch.org/feed/ | genai in education, practice | lcc:LB
+https://www.luizasnewsletter.com/feed | genai in education, practice | lcc:LB
+https://datasociety.net/feed/ | genai in education, practice | lcc:LB
+https://diamantai.substack.com/feed | genai in education, practice | lcc:LB
+https://blog.n8n.io/rss/ | genai in education, practice | lcc:LB
+https://www.exponentialview.co/feed | genai in education, practice | lcc:LB
+https://developers.openai.com/rss.xml | genai in education, practice | lcc:LB
+https://cognition.ai/rss.xml | genai in education, practice | lcc:LB
+https://er.educause.edu/rss | genai in education, practice | lcc:LB
+https://rss.arxiv.org/rss/cs.CY | genai in education, research | lcc:LB, lcc:QA

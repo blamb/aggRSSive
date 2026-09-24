@@ -1,6 +1,6 @@
 """Verify the candidate feeds and write the starter collection OPML.
 
-    .venv/bin/python scripts/build_starter_collection.py [candidates.txt] [output.opml]
+    .venv/bin/python scripts/build_starter_collection.py [candidates.txt] [output.opml] ["Collection title"]
 
 Every candidate is discovered and fetched. It is kept only if a feed is found and its newest item is
 less than two years old. Tags become OPML folders; classification keys go into the OPML 2.0
@@ -58,7 +58,7 @@ def check(url: str):
     return {"feed_url": cand.url, "title": parsed.title or cand.title or url, "site_url": parsed.site_url or url, "newest": newest}, "ok"
 
 
-def main(cand_path: Path, out_path: Path) -> None:
+def main(cand_path: Path, out_path: Path, title: str) -> None:
     items = list(load_candidates(cand_path))
     print(f"checking {len(items)} candidates…", flush=True)
     kept, dropped = [], []
@@ -80,7 +80,7 @@ def main(cand_path: Path, out_path: Path) -> None:
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<opml version="2.0">',
         "  <head>",
-        "    <title>aggRSSive starter collection: open education, teaching and learning</title>",
+        f"    <title>{escape(title)}</title>",
         f"    <dateCreated>{datetime.now(timezone.utc).strftime('%a, %d %b %Y %H:%M:%S GMT')}</dateCreated>",
         f"    <ownerName>aggRSSive</ownerName>",
         "  </head>",
@@ -106,4 +106,5 @@ if __name__ == "__main__":
     root = Path(__file__).resolve().parents[1]
     cand = Path(sys.argv[1]) if len(sys.argv) > 1 else root / "scripts" / "starter_candidates.txt"
     out = Path(sys.argv[2]) if len(sys.argv) > 2 else root / "aggrssive" / "collections" / "open-education.opml"
-    main(cand, out)
+    title = sys.argv[3] if len(sys.argv) > 3 else "aggRSSive starter collection: open education, teaching and learning"
+    main(cand, out, title)
