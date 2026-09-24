@@ -1,4 +1,6 @@
-FROM python:3.13-slim
+# bookworm (Debian 12) pinned deliberately: Reclaim Cloud / Virtuozzo runs custom
+# containers as system containers and rejects base images newer than it knows.
+FROM python:3.13-slim-bookworm
 
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 DATABASE_URL=sqlite:////data/aggrssive.db
 
