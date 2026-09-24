@@ -185,8 +185,16 @@ def tool_configuration() -> dict:
 
 
 def dynamic_register(db: Session, openid_configuration_url: str, registration_token: str | None) -> Platform:
-    conf = httpx.get(openid_configuration_url, timeout=20, follow_redirects=True)
-    conf.raise_for_status()
+    try:
+        conf = httpx.get(openid_configuration_url, timeout=20, follow_redirects=True)
+        conf.raise_for_status()
+    except httpx.HTTPError as e:
+        host = urlparse(openid_configuration_url).netloc
+        raise LtiError(
+            f"Could not fetch the platform's configuration from {openid_configuration_url} ({e}). "
+            f"The platform at '{host}' must be reachable from this server over the public internet; "
+            "a Moodle on localhost, a private network or a Docker hostname cannot be registered from here."
+        ) from e
     oc = conf.json()
     for k in ("issuer", "authorization_endpoint", "jwks_uri", "registration_endpoint"):
         if k not in oc:
