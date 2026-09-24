@@ -53,7 +53,7 @@ Every push to `main` builds `ghcr.io/blamb/aggrssive:latest` (see `.github/workf
 
 To update after a new push: environment → the container's **Redeploy** action, keep tag `latest`. The `/data` volume, and therefore the database, is kept.
 
-If your Moodle is on the same Reclaim Cloud account, add `DNS_OVERRIDES=<moodle-host>=<its public IP>` to the variables: inside the platform, sibling environments resolve to private addresses that don't serve HTTPS.
+If your Moodle is on the same Reclaim Cloud account, two quirks apply: inside the platform, sibling environments resolve to private addresses that don't serve HTTPS, and the public load balancer is unreachable from inside. Add `DNS_OVERRIDES=<moodle-host>=http://<moodle node's private IP>` to the variables so aggRSSive reaches Moodle over the private network (find the IP in the Moodle node's `MASTER_IP` variable, or with `getent hosts <moodle-host>` from aggRSSive's Web SSH). For the reverse direction, paste aggRSSive's public key into the Moodle tool settings (*Public key type: RSA key*); the key is shown at `/lti`.
 
 The base image is pinned to Debian 12 (`python:3.13-slim-bookworm`) on purpose: Reclaim runs custom containers as system containers and rejects Debian 13.
 

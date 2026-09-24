@@ -12,6 +12,7 @@ import jwt
 from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
 
+from .. import netfix
 from ..config import get_settings
 from ..models import LtiState, Platform, utcnow
 from . import keys
@@ -30,6 +31,13 @@ class LtiError(Exception):
     pass
 
 
+def _request(method: str, url: str, **kw) -> httpx.Response:
+    """HTTP to a platform, honouring DNS_OVERRIDES rewrites (see netfix.py)."""
+    target, extra = netfix.rewrite(url)
+    headers = {**extra, **(kw.pop("headers", None) or {})}
+    return httpx.request(method, target, headers=headers, timeout=kw.pop("timeout", 20), follow_redirects=True, **kw)
+
+
 # --- Platform keys ---------------------------------------------------------
 
 
@@ -38,7 +46,7 @@ def fetch_jwks(url: str) -> dict:
     hit = _jwks_cache.get(url)
     if hit and now - hit[0] < 3600:
         return hit[1]
-    r = httpx.get(url, timeout=15, follow_redirects=True)
+    r = _request("GET", url, timeout=15)
     r.raise_for_status()
     data = r.json()
     _jwks_cache[url] = (now, data)
@@ -186,7 +194,7 @@ def tool_configuration() -> dict:
 
 def dynamic_register(db: Session, openid_configuration_url: str, registration_token: str | None) -> Platform:
     try:
-        conf = httpx.get(openid_configuration_url, timeout=20, follow_redirects=True)
+        conf = _request("GET", openid_configuration_url)
         conf.raise_for_status()
     except httpx.HTTPError as e:
         host = urlparse(openid_configuration_url).netloc
@@ -203,7 +211,10 @@ def dynamic_register(db: Session, openid_configuration_url: str, registration_to
     headers = {"Content-Type": "application/json"}
     if registration_token:
         headers["Authorization"] = f"Bearer {registration_token}"
-    reg = httpx.post(oc["registration_endpoint"], json=tool_configuration(), headers=headers, timeout=20, follow_redirects=True)
+    try:
+        reg = _request("POST", oc["registration_endpoint"], json=tool_configuration(), headers=headers)
+    except httpx.HTTPError as e:
+        raise LtiError(f"Could not reach the platform's registration endpoint {oc['registration_endpoint']} ({e})") from e
     if reg.status_code >= 400:
         raise LtiError(f"Platform refused the registration ({reg.status_code}): {reg.text[:300]}")
     resp = reg.json()
