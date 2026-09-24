@@ -1,0 +1,225 @@
+# Library of Congress Classification Outline: classes and subclasses.
+# Source: Library of Congress, Cataloging and Acquisitions, "Library of Congress Classification Outline" (public domain).
+# Format: CODE|Caption|optional hints for the classifier (not shown as part of the caption).
+# Single-letter codes are classes; longer codes are subclasses of the class they start with.
+A|General Works
+AC|Collections. Series. Collected works
+AE|Encyclopedias
+AG|Dictionaries and other general reference works
+AI|Indexes
+AM|Museums. Collectors and collecting
+AN|Newspapers
+AP|Periodicals
+AS|Academies and learned societies
+AY|Yearbooks. Almanacs. Directories
+AZ|History of scholarship and learning. The humanities
+B|Philosophy. Psychology. Religion
+BC|Logic
+BD|Speculative philosophy
+BF|Psychology
+BH|Aesthetics
+BJ|Ethics
+BL|Religions. Mythology. Rationalism
+BM|Judaism
+BP|Islam. Bahai Faith. Theosophy, etc.
+BQ|Buddhism
+BR|Christianity
+BS|The Bible
+BT|Doctrinal theology
+BV|Practical theology
+BX|Christian denominations
+C|Auxiliary Sciences of History
+CB|History of civilization
+CC|Archaeology
+CD|Diplomatics. Archives. Seals
+CE|Technical chronology. Calendar
+CJ|Numismatics
+CN|Inscriptions. Epigraphy
+CR|Heraldry
+CS|Genealogy
+CT|Biography
+D|World History and History of Europe, Asia, Africa, Australia, New Zealand, etc.
+DA|Great Britain
+DAW|Central Europe
+DB|Austria. Liechtenstein. Hungary. Czechoslovakia
+DC|France. Andorra. Monaco
+DD|Germany
+DE|Greco-Roman world
+DF|Greece
+DG|Italy. Malta
+DH|Low Countries. Benelux Countries
+DJ|Netherlands (Holland)
+DJK|Eastern Europe (General)
+DK|Russia. Soviet Union. Former Soviet Republics. Poland
+DL|Northern Europe. Scandinavia
+DP|Spain. Portugal
+DQ|Switzerland
+DR|Balkan Peninsula
+DS|Asia
+DT|Africa
+DU|Oceania (South Seas)
+DX|Romanies
+E|History of America
+F|History of the Americas (United States local history. Canada. Latin America)
+G|Geography. Anthropology. Recreation
+GA|Mathematical geography. Cartography
+GB|Physical geography
+GC|Oceanography
+GE|Environmental sciences|sustainability, climate
+GF|Human ecology. Anthropogeography
+GN|Anthropology
+GR|Folklore
+GT|Manners and customs (General)
+GV|Recreation. Leisure|sports, games
+H|Social Sciences
+HA|Statistics
+HB|Economic theory. Demography
+HC|Economic history and conditions
+HD|Industries. Land use. Labor|management, work, organizations
+HE|Transportation and communications|media, telecommunications, internet industry
+HF|Commerce|business, marketing, accounting
+HG|Finance
+HJ|Public finance
+HM|Sociology (General)|social theory, social networks
+HN|Social history and conditions. Social problems. Social reform
+HQ|The family. Marriage. Women|gender, sexuality, youth
+HS|Societies: secret, benevolent, etc.
+HT|Communities. Classes. Races|urban studies, rural life
+HV|Social pathology. Social and public welfare. Criminology
+HX|Socialism. Communism. Anarchism
+J|Political Science
+JA|Political science (General)
+JC|Political theory
+JF|Political institutions and public administration (General)
+JJ|Political institutions and public administration (North America)
+JK|Political institutions and public administration (United States)
+JL|Political institutions and public administration (Canada, Latin America, etc.)
+JN|Political institutions and public administration (Europe)
+JQ|Political institutions and public administration (Asia, Africa, Australia, Pacific Area, etc.)
+JS|Local government. Municipal government
+JV|Colonies and colonization. Emigration and immigration. International migration
+JZ|International relations
+K|Law
+KB|Religious law in general. Comparative religious law. Jurisprudence
+KD|Law of the United Kingdom and Ireland
+KE|Law of Canada
+KF|Law of the United States
+KG|Law of Latin America, Mexico, Central America, West Indies
+KH|Law of South America
+KJ|Law of Europe
+KL|Law of Asia and Eurasia
+KZ|Law of nations|international law
+L|Education
+LA|History of education
+LB|Theory and practice of education|teaching, pedagogy, learning, curriculum, instructional design, educational technology, edtech, assessment
+LC|Special aspects of education|open education, distance education, online learning, adult education, higher education policy, literacy
+LD|Individual institutions: United States
+LE|Individual institutions: America (except United States)|Canadian universities and colleges
+LF|Individual institutions: Europe
+LG|Individual institutions: Asia, Africa, Indian Ocean islands, Australia, New Zealand, Pacific islands
+LH|College and school magazines and papers
+LJ|Student fraternities and societies, United States
+LT|Textbooks|open textbooks, OER
+M|Music
+ML|Literature on music
+MT|Instruction and study (music)
+N|Fine Arts
+NA|Architecture
+NB|Sculpture
+NC|Drawing. Design. Illustration|graphic design, visual design
+ND|Painting
+NE|Print media
+NK|Decorative arts
+NX|Arts in general
+P|Language and Literature
+PA|Greek language and literature. Latin language and literature
+PB|Modern languages. Celtic languages
+PC|Romance languages
+PD|Germanic languages. Scandinavian languages
+PE|English language
+PF|West Germanic languages
+PG|Slavic languages. Baltic languages. Albanian language
+PH|Uralic languages. Basque language
+PJ|Oriental languages and literatures
+PK|Indo-Iranian languages and literatures
+PL|Languages and literatures of Eastern Asia, Africa, Oceania
+PM|Hyperborean, Native American, and artificial languages
+PN|Literature (General)|journalism, media studies, film, rhetoric, writing
+PQ|French, Italian, Spanish and Portuguese literature
+PR|English literature
+PS|American literature
+PT|German, Dutch, Flemish, Afrikaans and Scandinavian literature
+PZ|Fiction and juvenile belles lettres
+Q|Science
+QA|Mathematics|computer science, software, programming, artificial intelligence, data science
+QB|Astronomy
+QC|Physics
+QD|Chemistry
+QE|Geology
+QH|Natural history. Biology|ecology, evolution
+QK|Botany
+QL|Zoology
+QM|Human anatomy
+QP|Physiology|neuroscience
+QR|Microbiology
+R|Medicine
+RA|Public aspects of medicine|public health, health policy
+RB|Pathology
+RC|Internal medicine|psychiatry, mental health
+RD|Surgery
+RE|Ophthalmology
+RF|Otorhinolaryngology
+RG|Gynecology and obstetrics
+RJ|Pediatrics
+RK|Dentistry
+RL|Dermatology
+RM|Therapeutics. Pharmacology
+RS|Pharmacy and materia medica
+RT|Nursing
+RV|Botanic, Thomsonian, and eclectic medicine
+RX|Homeopathy
+RZ|Other systems of medicine
+S|Agriculture
+SB|Plant culture|horticulture, gardening
+SD|Forestry
+SF|Animal culture|veterinary, livestock, pets
+SH|Aquaculture. Fisheries. Angling
+SK|Hunting sports
+T|Technology
+TA|Engineering (General). Civil engineering
+TC|Hydraulic engineering. Ocean engineering
+TD|Environmental technology. Sanitary engineering
+TE|Highway engineering. Roads and pavements
+TF|Railroad engineering and operation
+TG|Bridge engineering
+TH|Building construction
+TJ|Mechanical engineering and machinery|robotics
+TK|Electrical engineering. Electronics. Nuclear engineering|computer engineering, networks, web technology, telecommunications
+TL|Motor vehicles. Aeronautics. Astronautics
+TN|Mining engineering. Metallurgy
+TP|Chemical technology
+TR|Photography
+TS|Manufactures
+TT|Handicrafts. Arts and crafts|making, DIY
+TX|Home economics|food, cooking, nutrition
+U|Military Science
+UA|Armies: Organization, distribution, military situation
+UB|Military administration
+UC|Maintenance and transportation
+UD|Infantry
+UE|Cavalry. Armor
+UF|Artillery
+UG|Military engineering. Air forces
+UH|Other military services
+V|Naval Science
+VA|Navies: Organization, distribution, naval situation
+VB|Naval administration
+VC|Naval maintenance
+VD|Naval seamen
+VE|Marines
+VF|Naval ordnance
+VG|Minor services of navies
+VK|Navigation. Merchant marine
+VM|Naval architecture. Shipbuilding. Marine engineering
+Z|Bibliography. Library Science. Information Resources
+ZA|Information resources (General)|information literacy, open access, digital libraries, scholarly communication

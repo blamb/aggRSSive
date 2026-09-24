@@ -36,3 +36,6 @@ include = ["aggrssive*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.setuptools.package-data]
+aggrssive = ["data/*.txt", "templates/*.html", "static/*"]
