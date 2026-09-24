@@ -24,7 +24,14 @@ You land on the bundle's *edit* page.
 - With *include* rules, an item must match **any** of them (the default) or **all** of them — choose under Settings.
 - Regular expressions are for the fussy: `\bAI\b` matches "AI" but not "detail".
 
-**Preview: included** shows what the rules currently let through; **Preview: excluded** shows recent items they kept out. Adjust rules and watch both lists change.
+Two smarter kinds of rule, chosen from the same *field* menu:
+
+- **Meaning (local model)** — write a description instead of a keyword: *"assessment and grading practices in higher education"*. Each item is compared to it by a small language model that runs on the server itself: free, private, no key. *Strictness* sets how close an item has to be: *loose* lets related items through, *strict* wants a close match; *normal* suits most lists. New items take a few minutes to be analysed; until then they show as *pending* in the preview.
+- **Plain language (GenAI)** — write the rule the way you'd tell a colleague: *"only posts about open pedagogy; drop job ads and event announcements"*. aggRSSive's GenAI reads each item once and records its verdict, so a rule costs a fraction of a cent per new item and nothing afterwards. Available when the site has GenAI enabled — see [GenAI features](genai).
+
+Both kinds work as *include* or *exclude*, and combine with keyword rules under the same any/all logic.
+
+**Preview: included** shows what the rules currently let through and, for each item, *which rule* let it in; **Preview: kept out** shows recent items that didn't make it and why — *excluded by…*, *doesn't match…*, *duplicate*, *hidden by you*, or *pending* for items a meaning or plain-language rule hasn't analysed yet. Adjust rules and watch both lists change.
 
 **Curation** — on any item:
 

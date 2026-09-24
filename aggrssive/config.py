@@ -25,6 +25,11 @@ class Settings(BaseSettings):
     def ai_enabled(self) -> bool:
         return bool(self.anthropic_api_key)
 
+    # Local embeddings for "meaning" rules. Free; the model (~64 MB) downloads on first use into
+    # FASTEMBED_CACHE_PATH (set to /data/models in Docker). Set EMBEDDINGS_ENABLED=false to turn off.
+    embeddings_enabled: bool = True
+    embedding_model: str = "BAAI/bge-small-en-v1.5"
+
     # LTI 1.3. The tool's RSA private key is generated on first start and kept here.
     lti_key_path: str = "./data/lti_private_key.pem"
 

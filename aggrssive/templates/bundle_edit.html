@@ -18,7 +18,7 @@
 <p class="muted small">Exclude rules always win. {% if bundle.match_mode == 'all' %}An item must match <strong>all</strong> include rules.{% else %}An item must match <strong>any</strong> include rule.{% endif %} No include rules means everything gets in.</p>
 <ul class="rules">
 {% for r in rules %}
-  <li><span class="pill {{ r.kind }}">{{ r.kind }}</span> {{ r.field }} {{ 'matches' if r.is_regex else 'contains' }} <code>{{ r.pattern }}</code>
+  <li><span class="pill {{ r.kind }}">{{ r.kind }}</span> {{ describe(r) }}
     <form method="post" action="/rules/{{ r.id }}/delete" class="inline"><button class="link">×</button></form></li>
 {% else %}
   <li class="muted">No rules. Everything from these sources is included.</li>
@@ -26,11 +26,13 @@
 </ul>
 <form method="post" action="/bundles/{{ bundle.slug }}/rules" class="row wrap">
   <select name="kind"><option value="include">include</option><option value="exclude">exclude</option></select>
-  <select name="field">{% for f in fields %}<option value="{{ f }}">{{ f }}</option>{% endfor %}</select>
-  <input name="pattern" placeholder="word, phrase or regex" required>
+  <select name="field">{% for f in fields %}{% if (f != 'semantic' or semantic_on) and (f != 'ai' or ai_on) %}<option value="{{ f }}">{{ field_labels[f] }}</option>{% endif %}{% endfor %}</select>
+  <input name="pattern" placeholder="word, phrase, regex — or a description for meaning / plain-language rules" required>
   <label class="check"><input type="checkbox" name="is_regex" value="true"> regex</label>
+  <label class="check">strictness <select name="strictness">{% for s in strictness %}<option value="{{ s }}" {% if s == 'normal' %}selected{% endif %}>{{ s }}</option>{% endfor %}</select></label>
   <button class="btn small">Add rule</button>
 </form>
+<p class="muted small">{% if semantic_on %}<strong>Meaning</strong> rules compare each item to your description with a local model — "assessment and grading practices in higher education" — and take a moment to analyse new items. {% endif %}{% if ai_on %}<strong>Plain-language</strong> rules ask aggRSSive's GenAI once per item — "only posts about open pedagogy; drop job ads and event announcements" — and cost a fraction of a cent each. {% endif %}Strictness applies to meaning rules. See <a href="/help/bundles">Help → Building an aggRSSive</a>.</p>
 
 <h2>Preview: included <span class="muted">({{ included|length }})</span></h2>
 <ul class="items compact">
@@ -38,7 +40,7 @@
 {% set o = overrides.get(bi.item.id) %}
 <li id="item-{{ bi.item.id }}" class="{% if bi.pinned %}pinned{% endif %}{% if o and o.hidden %} hidden-item{% endif %}">
   <a href="{{ bi.item.url }}" class="item-title">{{ bi.item.title or bi.item.url }}</a>
-  <span class="muted small">{{ bi.item.source.title }} · {{ bi.item.published_at|datefmt }}</span>
+  <span class="muted small">{{ bi.item.source.title }} · {{ bi.item.published_at|datefmt }}{% if bi.reason and bi.reason != 'no include rules' %} · <em>{{ bi.reason }}</em>{% endif %}</span>
   <span class="actions">
     <form method="post" action="/bundles/{{ bundle.slug }}/items/{{ bi.item.id }}" class="inline">
       {% if bi.pinned %}<button class="link" name="action" value="unpin">unpin</button>{% else %}<button class="link" name="action" value="pin">pin</button>{% endif %}
@@ -54,14 +56,14 @@
 </ul>
 
 {% if excluded %}
-<h2>Preview: excluded by rules <span class="muted">(latest {{ excluded|length }})</span></h2>
-<p class="muted small">Recent items from your sources that the rules filtered out. Pin one to force it in.</p>
+<h2>Preview: kept out <span class="muted">(latest {{ excluded|length }})</span></h2>
+<p class="muted small">Recent items from your sources that didn't make it, and why. "Pending" means a meaning or plain-language rule hasn't analysed the item yet; it will within a few minutes. Pin one to force it in.</p>
 <ul class="items compact muted">
-{% for i in excluded %}
-{% set o = overrides.get(i.id) %}
+{% for bi in excluded %}
+{% set i = bi.item %}{% set o = overrides.get(i.id) %}
 <li id="item-{{ i.id }}">
   <a href="{{ i.url }}" class="item-title">{{ i.title or i.url }}</a>
-  <span class="small">{{ i.source.title }} · {{ i.published_at|datefmt }}{% if o and o.hidden %} · hidden{% endif %}</span>
+  <span class="small">{{ i.source.title }} · {{ i.published_at|datefmt }} · <em>{{ bi.reason }}</em></span>
   <span class="actions"><form method="post" action="/bundles/{{ bundle.slug }}/items/{{ i.id }}" class="inline">
     {% if o and o.hidden %}<button class="link" name="action" value="unhide">unhide</button>{% else %}<button class="link" name="action" value="pin">pin</button>{% endif %}
   </form></span>

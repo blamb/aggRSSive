@@ -23,6 +23,7 @@ dependencies = [
     "PyJWT[crypto]>=2.8",
     "anthropic>=1.0",
     "markdown>=3.5",
+    "fastembed>=0.4",
 ]
 
 [project.optional-dependencies]

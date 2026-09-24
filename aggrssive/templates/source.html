@@ -107,17 +107,18 @@
   <p class="muted small">Apply everywhere this source is used.</p>
   <ul class="rules">
   {% for r in rules %}
-    <li><span class="pill {{ r.kind }}">{{ r.kind }}</span> {{ r.field }} {{ 'matches' if r.is_regex else 'contains' }} <code>{{ r.pattern }}</code>
+    <li><span class="pill {{ r.kind }}">{{ r.kind }}</span> {{ describe(r) }}
       <form method="post" action="/rules/{{ r.id }}/delete" class="inline"><button class="link">×</button></form></li>
   {% endfor %}
   </ul>
   <form method="post" action="/sources/{{ source.id }}/rules" class="stack small">
     <div class="row">
       <select name="kind"><option value="exclude">exclude</option><option value="include">include</option></select>
-      <select name="field">{% for f in fields %}<option value="{{ f }}">{{ f }}</option>{% endfor %}</select>
+      <select name="field">{% for f in fields %}{% if (f != 'semantic' or semantic_on) and (f != 'ai' or ai_on) %}<option value="{{ f }}">{{ field_labels[f] }}</option>{% endif %}{% endfor %}</select>
     </div>
-    <input name="pattern" placeholder="word, phrase or regex" required>
+    <input name="pattern" placeholder="word, phrase, regex — or a description" required>
     <label class="check"><input type="checkbox" name="is_regex" value="true"> regular expression</label>
+    <label class="check">strictness <select name="strictness">{% for s in strictness %}<option value="{{ s }}" {% if s == 'normal' %}selected{% endif %}>{{ s }}</option>{% endfor %}</select> <span class="muted">(meaning rules)</span></label>
     <button class="btn small">Add rule</button>
   </form>
 

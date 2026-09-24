@@ -9,6 +9,10 @@ Newest first. Dates are when the change reached the main site.
 
 ## September 2026
 
+- **Meaning rules**: filter by a description instead of a keyword, using a local model — free, private, with a strictness setting.
+- **Plain-language rules (GenAI)**: describe what to keep; each item is judged once and remembered.
+- **Why it's here**: the bundle edit preview now says which rule admitted each item and why the rest were kept out.
+
 - **Find feeds** replaces the separate Sources, Tags and Classification pages: one search across tags, headings and source names; tag cloud and both classification trees together; *Make an aggRSSive from these* on every tag and heading.
 - **Copy to my aggRSSives** on any public bundle: a private copy with the same sources, rules and settings.
 - **Starter collections** (site admins): a curated, verified set of feeds for open education, teaching and learning, libraries and the open web, with deliberate room for Indigenous knowledge and media, gender equity, and intercultural and Global South perspectives — imported with their tags and classification.

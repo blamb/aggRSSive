@@ -7,8 +7,10 @@ from sqlalchemy import (
     Boolean,
     Column,
     DateTime,
+    Float,
     ForeignKey,
     Integer,
+    LargeBinary,
     String,
     Table,
     Text,
@@ -153,6 +155,7 @@ class Item(Base):
     categories: Mapped[str] = mapped_column(Text, default="")  # newline separated
     published_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, index=True)
     fetched_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    embedding: Mapped[bytes | None] = mapped_column(LargeBinary)  # float32 vector from the local model; None until analysed
 
     source: Mapped[Source] = relationship(back_populates="items")
 
@@ -245,9 +248,23 @@ class Rule(Base):
     owner_type: Mapped[str] = mapped_column(String(8), index=True)  # source | bundle
     owner_id: Mapped[int] = mapped_column(Integer, index=True)
     kind: Mapped[str] = mapped_column(String(8))  # include | exclude
-    field: Mapped[str] = mapped_column(String(16), default="any")  # any|title|text|author|url|category
+    field: Mapped[str] = mapped_column(String(16), default="any")  # any|title|text|author|url|category|semantic|ai
     pattern: Mapped[str] = mapped_column(String(500))
     is_regex: Mapped[bool] = mapped_column(Boolean, default=False)
+    threshold: Mapped[float] = mapped_column(Float, default=0.65)  # semantic rules: minimum cosine similarity
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+
+class Judgement(Base):
+    """A GenAI verdict on one item for one plain-language rule. Judged once, kept forever."""
+
+    __tablename__ = "judgements"
+    __table_args__ = (UniqueConstraint("rule_id", "item_id"),)
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    rule_id: Mapped[int] = mapped_column(ForeignKey("rules.id", ondelete="CASCADE"), index=True)
+    item_id: Mapped[int] = mapped_column(ForeignKey("items.id", ondelete="CASCADE"), index=True)
+    passes: Mapped[bool] = mapped_column(Boolean)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
 

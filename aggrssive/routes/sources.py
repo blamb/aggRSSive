@@ -10,7 +10,8 @@ from ..db import get_db
 from ..feeds.discover import discover, normalize_url
 from ..feeds.opml import parse_opml
 from ..models import Bundle, Category, Item, Rule, Source, Tag, User, source_tags
-from ..rules import FIELDS
+from .. import judge, semantic
+from ..rules import FIELD_LABELS, FIELDS, describe
 from ..templating import templates
 
 router = APIRouter()
@@ -144,6 +145,7 @@ def show_source(request: Request, source_id: int, db: Session = Depends(get_db),
             "user": user, "source": s, "items": items, "rules": rules, "in_bundles": in_bundles, "tags": all_tags(db), "fields": FIELDS,
             "suggestions": suggestions, "cat_suggestions": cat_suggestions, "all_categories": all_categories, "frameworks": classification.FRAMEWORKS,
             "ai": get_settings().ai_enabled, "ai_model": get_settings().anthropic_model,
+            "field_labels": FIELD_LABELS, "describe": describe, "semantic_on": semantic.enabled(), "ai_on": judge.enabled(), "strictness": list(semantic.STRICTNESS),
         },
     )
 
@@ -233,12 +235,13 @@ def delete_source(source_id: int, user: User = Depends(require_user), db: Sessio
 
 
 @router.post("/sources/{source_id}/rules")
-def add_source_rule(source_id: int, kind: str = Form(...), field: str = Form("any"), pattern: str = Form(...), is_regex: bool = Form(False), user: User = Depends(require_user), db: Session = Depends(get_db)):
+def add_source_rule(source_id: int, kind: str = Form(...), field: str = Form("any"), pattern: str = Form(...), is_regex: bool = Form(False), strictness: str = Form("normal"), user: User = Depends(require_user), db: Session = Depends(get_db)):
+    from .bundles import validate_rule
+
     if not db.get(Source, source_id):
         raise HTTPException(404)
-    if kind not in ("include", "exclude") or field not in FIELDS or not pattern.strip():
-        raise HTTPException(400, "Bad rule")
-    db.add(Rule(owner_type="source", owner_id=source_id, kind=kind, field=field, pattern=pattern.strip()[:500], is_regex=is_regex))
+    threshold = validate_rule(kind, field, pattern, strictness)
+    db.add(Rule(owner_type="source", owner_id=source_id, kind=kind, field=field, pattern=pattern.strip()[:500], is_regex=is_regex and field not in ("semantic", "ai"), threshold=threshold))
     db.commit()
     return RedirectResponse(f"/sources/{source_id}", status_code=303)
 

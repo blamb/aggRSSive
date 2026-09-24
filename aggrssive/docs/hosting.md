@@ -22,7 +22,9 @@ Every push to the project's `main` branch publishes a container image at `ghcr.i
 
 **Updating**: after a new image is published, the layer's **Redeploy Containers** action with tag `latest`. The volume, and so the database, is kept. A redeploy takes about two minutes; changing a variable is a fifteen-second restart.
 
-**Backups**: the whole site is the file `/data/aggrssive.db` plus `/data/lti_private_key.pem`. Copy them.
+**Backups**: the whole site is the file `/data/aggrssive.db` plus `/data/lti_private_key.pem`. Copy them. (`/data/models` holds the downloaded embedding model and can always be re-fetched.)
+
+**Meaning rules** download a small embedding model (about 64 MB) into `/data/models` the first time they're needed, and hold roughly 300 MB of memory while analysing. Set `EMBEDDINGS_ENABLED=false` in the variables to switch the feature off on a very small container.
 
 ## Same-cloud LMS
 

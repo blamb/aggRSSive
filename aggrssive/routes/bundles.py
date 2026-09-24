@@ -6,7 +6,8 @@ from sqlalchemy.orm import Session, selectinload
 from ..auth import can_manage, current_user, require_user
 from ..db import get_db
 from ..models import Bundle, Item, Rule, Source, User, bundle_sources
-from ..rules import FIELDS, bundle_items, get_override
+from .. import judge, semantic
+from ..rules import FIELD_LABELS, FIELDS, bundle_items, describe, get_override, resolve
 from ..templating import templates
 
 router = APIRouter()
@@ -149,17 +150,17 @@ def edit_bundle_page(request: Request, slug: str, db: Session = Depends(get_db),
     if not can_edit(b, user):
         raise HTTPException(403, "Not yours to edit")
     rules = db.execute(select(Rule).where(Rule.owner_type == "bundle", Rule.owner_id == b.id).order_by(Rule.id)).scalars().all()
-    # Preview: what the rules produce, plus what they excluded (so rules can be tuned)
-    included = bundle_items(db, b, include_hidden=True)
-    included_ids = {bi.item.id for bi in included}
-    sids = [s.id for s in b.sources]
-    recent = db.execute(select(Item).where(Item.source_id.in_(sids)).options(selectinload(Item.source)).order_by(Item.published_at.desc()).limit(150)).scalars().all() if sids else []
-    excluded = [i for i in recent if i.id not in included_ids][:40]
+    # Preview: what the rules produce and what they kept out, each with the reason, so rules can be tuned.
+    included, excluded = resolve(db, b, include_hidden=True, with_excluded=True)
     overrides = {o.item_id: o for o in b.overrides}
     return templates.TemplateResponse(
         request,
         "bundle_edit.html",
-        {"user": user, "bundle": b, "rules": rules, "included": included, "excluded": excluded, "overrides": overrides, "fields": FIELDS},
+        {
+            "user": user, "bundle": b, "rules": rules, "included": included, "excluded": excluded[:40], "overrides": overrides,
+            "fields": FIELDS, "field_labels": FIELD_LABELS, "describe": describe, "semantic_on": semantic.enabled(), "ai_on": judge.enabled(),
+            "strictness": list(semantic.STRICTNESS),
+        },
     )
 
 
@@ -190,14 +191,24 @@ def edit_bundle(
     return RedirectResponse(f"/bundles/{b.slug}/edit", status_code=303)
 
 
+def validate_rule(kind: str, field: str, pattern: str, strictness: str) -> float:
+    """Shared by bundle and source rule forms. Returns the threshold to store."""
+    if kind not in ("include", "exclude") or field not in FIELDS or not pattern.strip():
+        raise HTTPException(400, "A rule needs a kind, a field and a pattern.")
+    if field == "semantic" and not semantic.enabled():
+        raise HTTPException(400, "Meaning rules are switched off on this site (EMBEDDINGS_ENABLED).")
+    if field == "ai" and not judge.enabled():
+        raise HTTPException(400, "Plain-language rules need GenAI enabled on this site.")
+    return semantic.STRICTNESS.get(strictness, semantic.STRICTNESS["normal"])
+
+
 @router.post("/bundles/{slug}/rules")
-def add_bundle_rule(slug: str, kind: str = Form(...), field: str = Form("any"), pattern: str = Form(...), is_regex: bool = Form(False), user: User = Depends(require_user), db: Session = Depends(get_db)):
+def add_bundle_rule(slug: str, kind: str = Form(...), field: str = Form("any"), pattern: str = Form(...), is_regex: bool = Form(False), strictness: str = Form("normal"), user: User = Depends(require_user), db: Session = Depends(get_db)):
     b = load_bundle(db, slug)
     if not can_edit(b, user):
         raise HTTPException(403)
-    if kind not in ("include", "exclude") or field not in FIELDS or not pattern.strip():
-        raise HTTPException(400, "Bad rule")
-    db.add(Rule(owner_type="bundle", owner_id=b.id, kind=kind, field=field, pattern=pattern.strip()[:500], is_regex=is_regex))
+    threshold = validate_rule(kind, field, pattern, strictness)
+    db.add(Rule(owner_type="bundle", owner_id=b.id, kind=kind, field=field, pattern=pattern.strip()[:500], is_regex=is_regex and field not in ("semantic", "ai"), threshold=threshold))
     db.commit()
     return RedirectResponse(f"/bundles/{b.slug}/edit", status_code=303)
 

@@ -8,7 +8,7 @@ from datetime import timedelta
 from apscheduler.schedulers.background import BackgroundScheduler
 from sqlalchemy import select
 
-from . import classification
+from . import classification, judge, semantic
 from .config import get_settings
 from .db import SessionLocal
 from .feeds.fetch import fetch_source
@@ -61,6 +61,23 @@ def poll_all() -> None:
                 db.rollback()
 
 
+def enrich() -> None:
+    """Background analysis: embed new items for meaning rules; judge new items for plain-language rules."""
+    with SessionLocal() as db:
+        try:
+            n = semantic.embed_pending(db, 300)
+            if n:
+                log.info("embedded %d items", n)
+        except Exception:
+            log.exception("embedding pass failed")
+            db.rollback()
+        try:
+            judge.judge_pending(db, max_calls=4)
+        except Exception:
+            log.exception("judging pass failed")
+            db.rollback()
+
+
 def fetch_one(source_id: int) -> None:
     with SessionLocal() as db:
         s = db.get(Source, source_id)
@@ -72,6 +89,7 @@ def fetch_one(source_id: int) -> None:
 def start() -> None:
     settings = get_settings()
     scheduler.add_job(poll_all, "interval", minutes=max(1, settings.poll_interval_minutes // 3), id="poll", replace_existing=True, next_run_time=utcnow() + timedelta(seconds=10))
+    scheduler.add_job(enrich, "interval", minutes=3, id="enrich", replace_existing=True, next_run_time=utcnow() + timedelta(seconds=40))
     scheduler.start()
 
 
