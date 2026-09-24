@@ -1,13 +1,13 @@
 """Find feeds: one place to search and browse by tag, by classification heading, or by name."""
 
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy import func, or_, select
 from sqlalchemy.orm import Session, selectinload
 
 from .. import classification, semantic
 from ..auth import current_user
 from ..db import get_db
-from ..models import Bundle, Category, Source, Tag, User, source_tags
+from ..models import Bundle, Category, Item, Source, Tag, User, source_tags
 from ..templating import order_tags, templates
 
 router = APIRouter()
@@ -47,3 +47,15 @@ def find(request: Request, q: str = "", db: Session = Depends(get_db), user: Use
         "find.html",
         {"user": user, "q": q, "results": results, "tag_counts": tag_counts, "trees": trees, "frameworks": classification.FRAMEWORKS, "total_sources": total_sources, "my_bundles": my_bundles},
     )
+
+
+@router.get("/items/{item_id}/related")
+def related_items(request: Request, item_id: int, db: Session = Depends(get_db)):
+    """HTML fragment: posts close in meaning to this one. Fetched on demand under items in published lists."""
+    item = db.get(Item, item_id)
+    if item is None:
+        raise HTTPException(404)
+    picks = semantic.related(db, item)
+    for it, _ in picks or []:
+        it.source  # load for the template
+    return templates.TemplateResponse(request, "related.html", {"item": item, "picks": picks})

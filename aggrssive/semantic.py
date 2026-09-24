@@ -210,3 +210,24 @@ def similar_sources(db: Session, item_ids: list[int], exclude_source_ids: set[in
             continue
         by_source.setdefault(sid, []).append(float(scores[i]))
     return sorted(((sid, float(np.mean(sorted(v, reverse=True)[:3])), len(v)) for sid, v in by_source.items()), key=lambda r: -r[1])[:limit]
+
+
+def related(db: Session, item: Item, limit: int = 4, floor: float | None = None) -> list[tuple[Item, float]] | None:
+    """Other analysed posts closest in meaning to this one, from any feed. None if it isn't analysed yet."""
+    if not enabled() or item.embedding is None:
+        return None
+    idx = _load_index(db)
+    if idx is None:
+        return None
+    floor = STRICTNESS["strict"] if floor is None else floor
+    scores = idx["matrix"] @ from_bytes(item.embedding)
+    picks = []
+    for i in np.argsort(-scores):
+        if scores[i] < floor or len(picks) >= limit:
+            break
+        if int(idx["ids"][i]) != item.id:
+            picks.append((int(idx["ids"][i]), float(scores[i])))
+    if not picks:
+        return []
+    found = {i.id: i for i in db.execute(select(Item).where(Item.id.in_([i for i, _ in picks]))).scalars()}
+    return [(found[i], sc) for i, sc in picks if i in found]

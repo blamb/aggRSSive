@@ -19,6 +19,7 @@
   <span class="muted small">{{ bi.item.source.title }} · {{ bi.item.published_at|datefmt }}{% if bi.item.author %} · {{ bi.item.author }}{% endif %}</span>
   {% if bi.note %}<p class="note">{{ bi.note }}</p>{% endif %}
   {% if bi.item.summary %}<div class="summary">{{ bi.item.summary|safe_html }}</div>{% endif %}
+  {% if semantic_on %}<details class="related small" data-url="/items/{{ bi.item.id }}/related"><summary class="muted">related posts</summary><div class="related-body"></div></details>{% endif %}
 </li>
 {% else %}
 <li class="muted">Nothing passes the filters yet.</li>
@@ -58,4 +59,11 @@
   <ul class="plain small">{% for s in bundle.sources %}<li><a href="/sources/{{ s.id }}">{{ s.title or s.feed_url }}</a></li>{% endfor %}</ul>
 </aside>
 </div>
+<script>
+document.addEventListener('toggle', function (e) {
+  var d = e.target; if (!d.matches || !d.matches('details.related') || !d.open || d.dataset.loaded) return;
+  d.dataset.loaded = '1'; var body = d.querySelector('.related-body'); body.textContent = 'Looking…';
+  fetch(d.dataset.url).then(function (r) { return r.text(); }).then(function (h) { body.innerHTML = h; }).catch(function () { body.textContent = 'Could not load.'; });
+}, true);
+</script>
 {% endblock %}

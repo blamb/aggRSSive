@@ -69,3 +69,5 @@ ul.tree li.d0{margin-top:.5rem;font-weight:600}ul.tree .count{font-size:.75rem;b
 .find-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}@media (max-width:820px){.find-grid{grid-template-columns:1fr}}
 ul.tree details summary{list-style:none;cursor:pointer}ul.tree details summary::-webkit-details-marker{display:none}ul.tree details summary::before{content:"▸ ";color:var(--muted)}ul.tree details[open] summary::before{content:"▾ "}
 ul.tree ul.tree{margin:.2rem 0 .4rem}
+
+ul.items details.related{margin-top:.3rem}ul.items details.related summary{font-size:.85em}ul.related-list{margin:.3rem 0 0 1rem;list-style:disc}ul.related-list li{padding:.15rem 0;border:0}

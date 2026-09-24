@@ -7,6 +7,10 @@ order: 5
 
 Every public aggRSSive has a page — *aggRSSives → its name* — with everything needed to republish it.
 
+## Related posts
+
+Under each item on an aggRSSive's page there is a small *related posts* link. Open it and aggRSSive lists the closest posts in meaning from the whole collection, whatever feed they came from, using the same local model as meaning rules. It is a way to follow a thread across feeds, and a quick check on whether a source you don't have yet is worth adding. Items are analysed a few minutes after they arrive; until then the link says so. The same link appears in course launches, unless the platform's settings turn it off.
+
 ## Feed your site (embed)
 
 Copy the one line under **Feed your site** and paste it into any web page, WordPress post (in a Custom HTML block), or course page that accepts HTML:

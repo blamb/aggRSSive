@@ -141,7 +141,7 @@ def show_bundle(request: Request, slug: str, db: Session = Depends(get_db), user
     if not can_view(b, user):
         raise HTTPException(404, "No such aggRSSive")
     items = bundle_items(db, b)
-    return templates.TemplateResponse(request, "bundle.html", {"user": user, "bundle": b, "items": items, "editable": can_edit(b, user)})
+    return templates.TemplateResponse(request, "bundle.html", {"user": user, "bundle": b, "items": items, "editable": can_edit(b, user), "semantic_on": semantic.enabled()})
 
 
 @router.get("/bundles/{slug}/edit")

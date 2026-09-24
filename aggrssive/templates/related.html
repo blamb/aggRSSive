@@ -1,0 +1,5 @@
+{% if picks is none %}<span class="muted small">Not analysed yet; try again in a few minutes.</span>
+{% elif not picks %}<span class="muted small">Nothing close enough in the collection yet.</span>
+{% else %}<ul class="plain small related-list">
+{% for it, score in picks %}<li><a href="{{ it.url }}" rel="noopener">{{ it.title or it.url }}</a> <span class="muted">{{ it.source.title or it.source.feed_url }} · {{ it.published_at|ago }}</span></li>
+{% endfor %}</ul>{% endif %}
