@@ -47,6 +47,16 @@ def test_sanitize_strips_dangerous_markup():
     assert to_text("<p>Hello   <b>world</b></p>") == "Hello world"
 
 
+def test_opml_by_folder_roundtrip_keeps_all_tags():
+    entries = [OpmlEntry(feed_url="https://a.example/feed", title="A", folders=["edtech", "open"]), OpmlEntry(feed_url="https://b.example/feed", title="B")]
+    xml = render_opml("out", entries, by_folder=True)
+    assert xml.count("https://a.example/feed") == 2  # listed under each tag
+    back = {e.feed_url: e for e in parse_opml(xml.encode())}
+    assert len(back) == 2
+    assert back["https://a.example/feed"].folders == ["edtech", "open"]
+    assert back["https://b.example/feed"].folders == []
+
+
 def test_opml_roundtrip():
     entries = parse_opml(OPML)
     assert [e.feed_url for e in entries] == ["https://b.example/feed", "https://l.example/rss"]
