@@ -124,3 +124,84 @@ https://voiced.ca/project/gettin-air/ | podcast, open education, canada | lcc:LC
 https://export.arxiv.org/rss/cs.CY | research, arxiv, computers and society | lcc:QA, lcc:HM
 https://export.arxiv.org/rss/cs.HC | research, arxiv, human-computer interaction | lcc:QA
 https://export.arxiv.org/rss/cs.DL | research, arxiv, digital libraries | lcc:QA, lcc:Z
+
+# --- Indigenous knowledge, education and media ---
+https://yellowheadinstitute.org/ | indigenous, canada, policy | lcc:E, lcc:JL
+https://nctr.ca/ | indigenous, truth and reconciliation, canada | lcc:E, lcc:LC
+https://www.ictinc.ca/blog/rss.xml | indigenous, canada, intercultural | lcc:E, lcc:HM
+https://www.aptnnews.ca/ | indigenous, news, canada | lcc:E
+https://ictnews.org/ | indigenous, news, north america | lcc:E
+https://www.cbc.ca/webfeed/rss/rss-indigenous | indigenous, news, canada | lcc:E
+https://muskratmagazine.com/ | indigenous, arts, culture | lcc:E, lcc:NX
+https://chelseavowel.com/ | indigenous, blog, language, canada | lcc:E, lcc:PM
+https://www.fnesc.ca/ | indigenous, education, british columbia | lcc:LC, lcc:E
+https://journals.uregina.ca/ineducation/gateway/plugin/WebFeedGatewayPlugin/rss2 | journal, indigenous education, research | lcc:LC, isced:0111
+https://e-tangata.co.nz/ | indigenous, maori, pasifika, aotearoa | lcc:DU
+https://www.teaomaori.news/ | indigenous, maori, news, aotearoa | lcc:DU
+https://www.sbs.com.au/nitv/feed | indigenous, aboriginal, news, australia | lcc:DU
+https://aiatsis.gov.au/ | indigenous, aboriginal, research, australia | lcc:DU, lcc:GN
+https://www.allmyrelationspodcast.com/ | indigenous, podcast | lcc:E
+https://mediaindigena.com/ | indigenous, podcast, canada | lcc:E
+https://www.cbc.ca/podcasting/includes/secretlifeofcanada.xml | podcast, canada, history | lcc:F
+
+# --- Gender equity in education, technology and academia ---
+https://www.genderit.org/ | gender, technology, feminism, global south | lcc:HQ, lcc:HE
+https://www.wihe.com/ | gender, higher education, women | lcc:HQ, lcc:L
+https://feministkilljoys.com/ | gender, feminism, academia, blog | lcc:HQ
+https://www.genderandeducation.com/ | gender, education, research | lcc:HQ, lcc:LC
+https://blogs.lse.ac.uk/gender/ | gender, feminism, research | lcc:HQ
+https://msmagazine.com/feed/ | gender, feminism, news | lcc:HQ
+https://www.canadianwomen.org/blog/ | gender, canada, equity | lcc:HQ, lcc:HV
+https://www.ungei.org/ | gender, girls' education, global | lcc:LC, lcc:HQ
+https://digitalcommons.calpoly.edu/fpiop/recent.rss | journal, feminist pedagogy, research | lcc:LB, lcc:HQ
+https://www.tandfonline.com/action/showFeed?type=etoc&feed=rss&jc=cgee20 | journal, gender and education, research | lcc:HQ, lcc:LC
+https://www.tandfonline.com/action/showFeed?type=etoc&feed=rss&jc=rfms20 | journal, feminist media studies, research | lcc:HQ, lcc:PN
+https://www.aauw.org/ | gender, women, equity, united states | lcc:HQ, lcc:LC
+
+# --- Intercultural, international and anti-racist perspectives ---
+https://globalvoices.org/feed/ | intercultural, citizen media, multilingual, global | lcc:PN, lcc:HM
+https://africasacountry.com/feed | africa, intercultural, commentary | lcc:DT
+https://www.scidev.net/ | global south, science, development | lcc:Q, lcc:HC
+https://www.col.org/ | open education, commonwealth, distance learning, global | lcc:LC
+https://ela-newsportal.com/feed/ | africa, edtech, elearning | lcc:LB, lcc:DT
+https://theconversation.com/africa/articles.atom | africa, explainers, intercultural | lcc:DT
+https://daily.jstor.org/feed/ | humanities, intercultural, scholarship | lcc:AZ
+https://aeon.co/feed.rss | essays, ideas, intercultural | lcc:B, lcc:AZ
+https://www.opendemocracy.net/en/feed/ | democracy, global, commentary | lcc:JC
+https://www.learningforjustice.org/ | anti-racism, education, equity | lcc:LC, lcc:HT
+https://www.blackpast.org/feed/ | black history, intercultural | lcc:E
+https://feeds.npr.org/510312/podcast.xml | podcast, race, culture | lcc:HT
+https://www.tandfonline.com/action/showFeed?type=etoc&feed=rss&jc=cree20 | journal, race ethnicity and education, research | lcc:LC, lcc:HT
+https://www.tandfonline.com/action/showFeed?type=etoc&feed=rss&jc=ceji20 | journal, intercultural education, research | lcc:LC, isced:0111
+https://www.tandfonline.com/action/showFeed?type=etoc&feed=rss&jc=cced20 | journal, comparative education, research | lcc:LC, isced:0111
+https://www.tandfonline.com/action/showFeed?type=etoc&feed=rss&jc=cgse20 | journal, globalisation and education, research | lcc:LC
+https://www.brookings.edu/topic/global-education/feed/ | global education, policy | lcc:LC
+https://www.saide.org.za/ | open education, distance learning, south africa | lcc:LC
+
+# --- Third pass: alternates for the perspective sections ---
+https://windspeaker.com/ | indigenous, news, canada | lcc:E
+https://indiginews.com/ | indigenous, journalism, british columbia, canada | lcc:E
+https://hashilthsa.com/ | indigenous, news, nuu-chah-nulth, british columbia | lcc:E
+https://nativenewsonline.net/ | indigenous, news, north america | lcc:E
+https://indigenousx.com.au/ | indigenous, aboriginal, commentary, australia | lcc:DU
+https://www.culturalsurvival.org/ | indigenous, rights, global | lcc:GN, lcc:K
+https://www.teaonews.co.nz/ | indigenous, maori, news, aotearoa | lcc:DU
+https://www.cbc.ca/webfeed/rss/rss-canada-indigenous | indigenous, news, canada | lcc:E
+https://rss.cbc.ca/lineup/canada-indigenous.xml | indigenous, news, canada | lcc:E
+https://www.cbc.ca/podcasting/includes/unreserved.xml | indigenous, podcast, canada | lcc:E
+https://journals.sagepub.com/action/showFeed?type=etoc&feed=rss&jc=alna | journal, indigenous, research | lcc:GN, lcc:E
+https://jps.library.utoronto.ca/index.php/ijih/gateway/plugin/WebFeedGatewayPlugin/rss2 | journal, indigenous health, research | lcc:RA, lcc:E
+https://jps.library.utoronto.ca/index.php/des/gateway/plugin/WebFeedGatewayPlugin/rss2 | journal, decolonization, indigenous education | lcc:LC, lcc:E
+https://www.genderit.org/feed | gender, technology, feminism, global south | lcc:HQ, lcc:HE
+https://gendersociety.wordpress.com/ | gender, sociology, research | lcc:HQ, lcc:HM
+https://www.awid.org/ | gender, feminism, global, rights | lcc:HQ
+https://www.unwomen.org/en/news-stories/rss | gender, global, united nations | lcc:HQ
+https://www.tandfonline.com/action/showFeed?type=etoc&feed=rss&jc=uwgh20 | journal, women and gender in higher education, research | lcc:HQ, lcc:L
+https://rss.sciencedirect.com/publication/science/02775395 | journal, women's studies, research | lcc:HQ
+https://restofworld.org/feed/ | technology, global south, intercultural | lcc:HE, lcc:T
+https://www.himalmag.com/feed/ | south asia, commentary, intercultural | lcc:DS
+https://newint.org/ | global justice, intercultural, magazine | lcc:HN
+https://www.globalpartnership.org/blog | global education, development | lcc:LC
+https://blogs.worldbank.org/en/education | global education, development, policy | lcc:LC
+https://www.brookings.edu/feed/ | policy, research, united states | lcc:H
+https://theconversation.com/global/articles.atom | explainers, global, intercultural | lcc:AZ

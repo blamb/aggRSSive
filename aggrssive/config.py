@@ -32,7 +32,7 @@ class Settings(BaseSettings):
     dns_overrides: str = ""
 
     # Fetching
-    user_agent: str = "aggRSSive/2.0 (+https://github.com/blamb/aggRSSive)"
+    user_agent: str = "Mozilla/5.0 (compatible; aggRSSive/2.0; +https://github.com/blamb/aggRSSive)"
     fetch_timeout_seconds: float = 20.0
     max_items_per_source: int = 500  # keep the newest N per source
 
