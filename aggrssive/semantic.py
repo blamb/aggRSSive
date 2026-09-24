@@ -177,3 +177,36 @@ def search(db: Session, query: str, limit: int = 12, source_limit: int = 10, flo
     items = {i.id: i for i in db.execute(select(Item).where(Item.id.in_([i for i, _ in top_items]))).scalars()} if top_items else {}
     pending = db.scalar(select(func.count(Item.id)).where(Item.embedding.is_(None))) or 0
     return {"posts": [(items[i], s) for i, s in top_items if i in items], "sources": ranked, "analysed": idx["n"], "pending": pending}
+
+
+def similar_sources(db: Session, item_ids: list[int], exclude_source_ids: set[int], limit: int = 8, floor: float | None = None) -> list[tuple[int, float, int]] | None:
+    """Feeds not yet in a bundle whose posts resemble the posts the bundle already includes.
+
+    The bundle's included items are averaged into one "what this list is about" vector; every other
+    analysed post is scored against it and sources are ranked by the mean of their best three posts.
+    Returns [(source_id, score, hits)] or None when nothing can be compared yet.
+    """
+    if not enabled() or not item_ids:
+        return None
+    idx = _load_index(db)
+    if idx is None:
+        return None
+    mask = np.isin(idx["ids"], np.array(item_ids))
+    if not mask.any():
+        return None
+    centroid = idx["matrix"][mask].mean(axis=0)
+    n = np.linalg.norm(centroid)
+    if not n:
+        return None
+    centroid = centroid / n
+    floor = STRICTNESS["loose"] if floor is None else floor
+    scores = idx["matrix"] @ centroid
+    by_source: dict[int, list[float]] = {}
+    for i in np.argsort(-scores):
+        if scores[i] < floor:
+            break
+        sid = int(idx["sources"][i])
+        if sid in exclude_source_ids:
+            continue
+        by_source.setdefault(sid, []).append(float(scores[i]))
+    return sorted(((sid, float(np.mean(sorted(v, reverse=True)[:3])), len(v)) for sid, v in by_source.items()), key=lambda r: -r[1])[:limit]

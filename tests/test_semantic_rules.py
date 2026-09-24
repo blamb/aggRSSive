@@ -136,3 +136,20 @@ def test_meaning_search_ranks_sources_by_their_posts(data):
         assert [i.title for i, _ in r["posts"]][:1] == ["Assessment and grading with rubrics"]
         assert r["sources"][0][0] == data["source_id"] and r["sources"][0][2] >= 1
         assert not [i for i, _ in r["posts"] if "Hockey" in i.title]
+
+
+def test_similar_sources_suggests_feeds_outside_the_bundle(data):
+    with SessionLocal() as db:
+        u = db.query(User).filter_by(email="sem@example.edu").one()
+        other = Source(feed_url="https://sem.test/other", title="Other grading blog", added_by_id=u.id)
+        db.add(other)
+        db.flush()
+        db.add(Item(source_id=other.id, guid="o1", url="https://sem.test/o1", title="Rubric design for grading assessment", text="rubric grading assessment"))
+        db.add(Item(source_id=other.id, guid="o2", url="https://sem.test/o2", title="Hockey", text="hockey"))
+        db.commit()
+        semantic.embed_pending(db)
+        semantic._index = None
+        seed = db.query(Item).filter_by(title="Assessment and grading with rubrics").one()
+        r = semantic.similar_sources(db, [seed.id], {data["source_id"]}, floor=0.5)
+        assert r and r[0][0] == other.id and r[0][2] == 1  # the grading post, not the hockey one
+        assert semantic.similar_sources(db, [], set()) is None

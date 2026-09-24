@@ -153,11 +153,16 @@ def edit_bundle_page(request: Request, slug: str, db: Session = Depends(get_db),
     # Preview: what the rules produce and what they kept out, each with the reason, so rules can be tuned.
     included, excluded = resolve(db, b, include_hidden=True, with_excluded=True)
     overrides = {o.item_id: o for o in b.overrides}
+    # Grow the list: feeds not in the bundle whose posts resemble what it already includes.
+    similar = semantic.similar_sources(db, [bi.item.id for bi in included], {s.id for s in b.sources}) or []
+    if similar:
+        srcs = {s.id: s for s in db.execute(select(Source).where(Source.id.in_([sid for sid, _, _ in similar]))).scalars()}
+        similar = [(srcs[sid], score, hits) for sid, score, hits in similar if sid in srcs]
     return templates.TemplateResponse(
         request,
         "bundle_edit.html",
         {
-            "user": user, "bundle": b, "rules": rules, "included": included, "excluded": excluded[:40], "overrides": overrides,
+            "user": user, "bundle": b, "rules": rules, "included": included, "excluded": excluded[:40], "overrides": overrides, "similar": similar,
             "fields": FIELDS, "field_labels": FIELD_LABELS, "describe": describe, "semantic_on": semantic.enabled(), "ai_on": judge.enabled(),
             "strictness": list(semantic.STRICTNESS),
         },

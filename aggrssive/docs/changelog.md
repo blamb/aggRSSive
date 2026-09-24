@@ -9,6 +9,7 @@ Newest first. Dates are when the change reached the main site.
 
 ## September 2026
 
+- **Feeds like these**: the bundle edit page suggests feeds not yet in the bundle whose posts resemble what it already includes; tick to add.
 - **Find feeds by what they publish**: a search now also ranks sources by how closely their recent posts match your words, and lists the closest posts. Uses the local meaning model, so it is free and private.
 - **Meaning rules**: filter by a description instead of a keyword, using a local model — free, private, with a strictness setting.
 - **Plain-language rules (GenAI)**: describe what to keep; each item is judged once and remembered.

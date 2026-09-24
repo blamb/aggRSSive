@@ -17,6 +17,8 @@ You land on the bundle's *edit* page.
 
 **Sources** — what's in the bundle. Remove with ×; add more via the Heart-Cart.
 
+**Feeds like these** — feeds not yet in the bundle whose posts resemble the items it currently includes, worked out by the same local model as meaning rules. It follows the bundle: tighten the rules and the suggestions tighten with them. Tick the ones you want and click *Add ticked feeds*. The list appears once the bundle includes some analysed items.
+
 **Rules** — filters. Each rule says *include* or *exclude*, which part of an item to look at (title, text, author, URL, category, or any), and a word, phrase or regular expression.
 
 - *Exclude* rules always win.

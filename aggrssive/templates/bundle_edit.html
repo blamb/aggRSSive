@@ -12,7 +12,19 @@
 <li><a href="/sources/{{ s.id }}">{{ s.title or s.feed_url }}</a> <form method="post" action="/bundles/{{ bundle.slug }}/sources/{{ s.id }}/remove" class="inline"><button class="link" title="remove">×</button></form></li>
 {% endfor %}
 </ul>
-<p class="muted small">Add more from <a href="/sources">Sources</a> via the Heart-Cart.</p>
+<p class="muted small">Add more from <a href="/find">Find feeds</a> via the Heart-Cart.</p>
+{% if similar %}
+<h3>Feeds like these</h3>
+<p class="muted small">Not in this aggRSSive yet, but writing about the same things as the items it includes. Tick to add.</p>
+<form method="post" action="/bundles/{{ bundle.slug }}/sources">
+<ul class="plain">
+{% for s, score, hits in similar %}
+<li><label><input type="checkbox" name="source_ids" value="{{ s.id }}"> <a href="/sources/{{ s.id }}">{{ s.title or s.feed_url }}</a> <span class="muted small">{{ hits }} similar post{{ 's' if hits != 1 }}</span></label></li>
+{% endfor %}
+</ul>
+<button class="btn small">Add ticked feeds</button>
+</form>
+{% endif %}
 
 <h2>Rules</h2>
 <p class="muted small">Exclude rules always win. {% if bundle.match_mode == 'all' %}An item must match <strong>all</strong> include rules.{% else %}An item must match <strong>any</strong> include rule.{% endif %} No include rules means everything gets in.</p>
