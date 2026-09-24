@@ -126,3 +126,13 @@ def test_rule_form_validation_and_describe(data):
     r = Rule(owner_type="bundle", owner_id=1, kind="include", field="semantic", pattern="open pedagogy", threshold=0.75)
     assert rules.describe(r) == "meaning ≈ “open pedagogy” (strict)"
     assert scheduler.enrich  # background job exists
+
+
+def test_meaning_search_ranks_sources_by_their_posts(data):
+    with SessionLocal() as db:
+        semantic._index = None
+        r = semantic.search(db, "assessment grading rubric", floor=0.5)
+        assert r and r["analysed"] >= 4
+        assert [i.title for i, _ in r["posts"]][:1] == ["Assessment and grading with rubrics"]
+        assert r["sources"][0][0] == data["source_id"] and r["sources"][0][2] >= 1
+        assert not [i for i, _ in r["posts"] if "Hockey" in i.title]

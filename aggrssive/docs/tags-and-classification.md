@@ -16,6 +16,12 @@ aggRSSive has two ways to describe a source, and they're deliberately different.
 
 You can't invent a classification heading, which is the point: two people filing similar sources will land in the same place.
 
+## Finding feeds by what they publish
+
+Names, tags and headings only go so far: a feed called *Hybrid Teaching Notes* may write mostly about assessment. So a search on *Find feeds* also looks at the posts themselves. Under **Feeds writing about this** you get sources ranked by how closely their recent posts match what you typed (the same local model that powers [meaning rules](bundles)), each with a count of matching posts; under **Posts about this** are the closest individual posts. Tick sources straight into the Heart-Cart from there.
+
+Try whole phrases rather than single words: *students using generative AI to write essays* finds more than *AI*. The note under the heading says how many posts have been analysed so far; new posts are analysed a few minutes after they arrive.
+
 ## Finding feeds by either
 
 *Find feeds* shows the tag cloud and both classification trees side by side. Click any tag or heading to see its sources and their latest items, tick sources into the Heart-Cart, or use **Make an aggRSSive from these** to bundle everything under it in one click. A heading includes everything filed beneath it: *L Education* covers LA, LB, LC and so on.

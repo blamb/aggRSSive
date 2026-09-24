@@ -14,7 +14,28 @@
   {% if results.tags %}<p class="tagcloud">{% for t, n in results.tags %}<a href="/tags/{{ t.name }}">{{ t.name }}</a> <span class="muted small">{{ n }}</span> {% endfor %}</p>{% else %}<p class="muted small">No tags match.</p>{% endif %}
   <h2>Classification headings</h2>
   {% if results.categories %}<ul class="plain">{% for c, n in results.categories %}<li><a class="tag cat" href="/classification/{{ c.framework }}/{{ c.code }}">{{ c.code }} {{ c.label }}</a> <span class="muted small">{{ frameworks[c.framework].short }} · {{ n }} source{{ 's' if n != 1 }}</span></li>{% endfor %}</ul>{% else %}<p class="muted small">No headings match.</p>{% endif %}
-  <h2>Sources</h2>
+  {% if results.meaning %}
+  <h2>Feeds writing about this</h2>
+  <p class="muted small">Ranked by what they actually publish, not by their name or tags. {{ results.meaning.analysed }} posts analysed{% if results.meaning.pending %}, {{ results.meaning.pending }} still to go{% endif %}.</p>
+  {% if results.meaning.sources %}
+  <table class="list"><tbody>
+  {% for s, score, hits in results.meaning.sources %}
+  <tr><td>{% if user %}<input type="checkbox" class="cart-check" data-id="{{ s.id }}" data-title="{{ s.title or s.feed_url }}">{% endif %}</td>
+      <td><a href="/sources/{{ s.id }}">{{ s.title or s.feed_url }}</a> <span class="muted small">{{ hits }} post{{ 's' if hits != 1 }} about this</span></td>
+      <td>{% for t in s.tags %}<a class="tag" href="/tags/{{ t.name }}">{{ t.name }}</a> {% endfor %}{% for c in s.categories %}<a class="tag cat" href="/classification/{{ c.framework }}/{{ c.code }}" title="{{ c.label }}">{{ c.code }}</a> {% endfor %}</td></tr>
+  {% endfor %}
+  </tbody></table>
+  {% else %}<p class="muted small">No analysed posts are about this yet.</p>{% endif %}
+  {% if results.meaning.posts %}
+  <h2>Posts about this</h2>
+  <ul class="plain">
+  {% for item, score in results.meaning.posts %}
+  <li><a href="{{ item.url }}" rel="noopener">{{ item.title or item.url }}</a> <span class="muted small">{{ item.source.title or item.source.feed_url }} · {{ item.published_at|ago }}</span></li>
+  {% endfor %}
+  </ul>
+  {% endif %}
+  {% endif %}
+  <h2>Sources by name</h2>
   {% if results.sources %}
   <table class="list"><tbody>
   {% for s in results.sources %}

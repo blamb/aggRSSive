@@ -84,3 +84,17 @@ def test_fork_copies_sources_and_rules_privately(client):
         assert copy.title == "critical pedagogy (copy)" and copy.is_public is False
         assert [s.id for s in copy.sources] == [s.id for s in orig.sources]
         assert [r.pattern for r in db.query(Rule).filter_by(owner_type="bundle", owner_id=copy.id)] == ["webinar"]
+
+
+def test_search_page_shows_feeds_writing_about_this(client, monkeypatch):
+    from aggrssive import semantic
+    from aggrssive.models import Item
+
+    with SessionLocal() as db:
+        s = db.query(Source).filter_by(title="Library Signals").one()
+        db.add(Item(source_id=s.id, guid="m1", url="https://find2.test/m1", title="Weeding the reference collection", text=""))
+        db.commit()
+        sid = s.id
+    monkeypatch.setattr(semantic, "search", lambda db, q, **kw: {"posts": [(db.query(Item).filter_by(guid="m1").one(), 0.7)], "sources": [(sid, 0.7, 1)], "analysed": 1, "pending": 0})
+    r = client.get("/find", params={"q": "library collections"})
+    assert "Feeds writing about this" in r.text and "1 post about this" in r.text and "Weeding the reference collection" in r.text

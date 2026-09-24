@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from sqlalchemy import func, or_, select
 from sqlalchemy.orm import Session, selectinload
 
-from .. import classification
+from .. import classification, semantic
 from ..auth import current_user
 from ..db import get_db
 from ..models import Bundle, Category, Source, Tag, User, source_tags
@@ -33,6 +33,14 @@ def find(request: Request, q: str = "", db: Session = Depends(get_db), user: Use
                 select(Source).where(or_(Source.title.ilike(like), Source.description.ilike(like), Source.feed_url.ilike(like))).options(selectinload(Source.tags), selectinload(Source.categories)).order_by(Source.title).limit(40)
             ).scalars().all(),
         }
+        meaning = semantic.search(db, q)
+        if meaning:
+            sids = [sid for sid, _, _ in meaning["sources"]]
+            srcs = {s.id: s for s in db.execute(select(Source).where(Source.id.in_(sids)).options(selectinload(Source.tags), selectinload(Source.categories))).scalars()} if sids else {}
+            meaning["sources"] = [(srcs[sid], score, hits) for sid, score, hits in meaning["sources"] if sid in srcs]
+            for item, _ in meaning["posts"]:
+                item.source  # load for the template
+            results["meaning"] = meaning
     total_sources = db.scalar(select(func.count(Source.id)))
     return templates.TemplateResponse(
         request,
