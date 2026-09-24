@@ -8,8 +8,10 @@ from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.middleware.sessions import SessionMiddleware
 
-from . import scheduler
+from . import netfix, scheduler
 from .config import get_settings
+
+netfix.install(get_settings().dns_overrides)
 from .db import init_db
 from .routes import auth_routes, bundles, lti, outputs, pages, sources, tags
 from .templating import templates

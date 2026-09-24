@@ -53,6 +53,8 @@ Every push to `main` builds `ghcr.io/blamb/aggrssive:latest` (see `.github/workf
 
 To update after a new push: environment → the container's **Redeploy** action, keep tag `latest`. The `/data` volume, and therefore the database, is kept.
 
+If your Moodle is on the same Reclaim Cloud account, add `DNS_OVERRIDES=<moodle-host>=<its public IP>` to the variables: inside the platform, sibling environments resolve to private addresses that don't serve HTTPS.
+
 The base image is pinned to Debian 12 (`python:3.13-slim-bookworm`) on purpose: Reclaim runs custom containers as system containers and rejects Debian 13.
 
 ## Tests

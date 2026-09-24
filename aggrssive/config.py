@@ -28,6 +28,9 @@ class Settings(BaseSettings):
     # LTI 1.3. The tool's RSA private key is generated on first start and kept here.
     lti_key_path: str = "./data/lti_private_key.pem"
 
+    # Pin hostnames to IPs, e.g. "moodle.example.cloud=51.222.48.161". See netfix.py for why.
+    dns_overrides: str = ""
+
     # Fetching
     user_agent: str = "aggRSSive/2.0 (+https://github.com/blamb/aggRSSive)"
     fetch_timeout_seconds: float = 20.0
