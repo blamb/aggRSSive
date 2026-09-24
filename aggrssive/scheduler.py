@@ -65,7 +65,7 @@ def enrich() -> None:
     """Background analysis: embed new items for meaning rules; judge new items for plain-language rules."""
     with SessionLocal() as db:
         try:
-            n = semantic.embed_pending(db, 300)
+            n = semantic.embed_pending(db, 100)
             if n:
                 log.info("embedded %d items", n)
         except Exception:

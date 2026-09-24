@@ -45,7 +45,8 @@ def _get_model():
         try:
             from fastembed import TextEmbedding
 
-            _model = TextEmbedding(get_settings().embedding_model)
+            # Two threads and small batches: this runs beside the web app on a small container.
+            _model = TextEmbedding(get_settings().embedding_model, threads=2)
             log.info("embedding model loaded: %s", get_settings().embedding_model)
         except Exception as e:  # download or runtime failure
             _failed_at = time.time()
@@ -61,7 +62,9 @@ def embed_texts(texts: list[str]) -> list[np.ndarray] | None:
     if model is None:
         return None
     out = []
-    for v in model.embed(texts):
+    # Batch size and input length bound the attention buffer: 256 x 512 tokens needs ~1.2 GB and
+    # crashed a 1-2 GB container; 16 x ~150 tokens needs a few MB.
+    for v in model.embed(texts, batch_size=16):
         v = np.asarray(v, dtype=np.float32)
         n = np.linalg.norm(v)
         out.append(v / n if n else v)
@@ -77,10 +80,10 @@ def from_bytes(b: bytes) -> np.ndarray:
 
 
 def item_text(item: Item) -> str:
-    return f"{item.title}\n{item.text[:1000]}"
+    return f"{item.title}\n{item.text[:500]}"
 
 
-def embed_pending(db: Session, limit: int = 200) -> int:
+def embed_pending(db: Session, limit: int = 100) -> int:
     """Embed items that don't have a vector yet. Returns how many were done."""
     if not enabled():
         return 0
@@ -100,7 +103,7 @@ def rule_vector(pattern: str) -> np.ndarray | None:
     key = pattern.strip().lower()
     if key in _rule_cache:
         return _rule_cache[key]
-    vs = embed_texts([pattern])
+    vs = embed_texts([pattern[:500]])
     if not vs:
         return None
     _rule_cache[key] = vs[0]
