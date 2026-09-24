@@ -33,6 +33,19 @@ docker compose up -d --build
 
 The database lives in the `aggrssive-data` volume at `/data/aggrssive.db`. Back it up by copying that one file.
 
+## Run it on Reclaim Cloud
+
+Every push to `main` builds `ghcr.io/blamb/aggrssive:latest` (see `.github/workflows/image.yml`). In the Reclaim Cloud dashboard:
+
+1. **New Environment → Custom** (Docker), **Select Image → Custom → Add New Image**, name `ghcr.io/blamb/aggrssive`, tag `latest`.
+2. **Variables**: `SECRET_KEY` (long random string), `BASE_URL` (`https://<env>.<region>.reclaim.cloud`), `JELASTIC_EXPOSE=8000`.
+3. Turn on **Built-In SSL**; leave Public IPv4 off. The `/data` volume is picked up from the image automatically.
+4. Name the environment and **Create**.
+
+To update after a new push: environment → the container's **Redeploy** action, keep tag `latest`. The `/data` volume, and therefore the database, is kept.
+
+The base image is pinned to Debian 12 (`python:3.13-slim-bookworm`) on purpose: Reclaim runs custom containers as system containers and rejects Debian 13.
+
 ## Tests
 
 ```bash
