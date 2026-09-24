@@ -13,6 +13,7 @@ Newest first. Dates are when the change reached the main site.
 - **Copy to my aggRSSives** on any public bundle: a private copy with the same sources, rules and settings.
 - **Starter collections** (site admins): a curated, verified set of feeds for open education, teaching and learning, libraries and the open web, with deliberate room for Indigenous knowledge and media, gender equity, and intercultural and Global South perspectives — imported with their tags and classification.
 - **Roles**: regular users, site admins and full admins; a *Users* page; an *Account* page for changing your name and password; sign-ups can be closed from the Admin page.
+- **Fixes**: feeds are polled on schedule again; the LTI signing key now lives on the data volume so it survives redeploys (platforms holding an older key need the new one pasted once); Deep Linking responses survive a platform login round-trip.
 - **Second starter collection**: *GenAI in higher education*, 55 verified feeds tagged by stance and credibility tier.
 - **Tag clouds** are alphabetical by default, sized by use; switch to most-used first under your name → Account.
 - **Help**: these pages.

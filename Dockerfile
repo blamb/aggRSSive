@@ -2,7 +2,7 @@
 # containers as system containers and rejects base images newer than it knows.
 FROM python:3.13-slim-bookworm
 
-ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 DATABASE_URL=sqlite:////data/aggrssive.db
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 DATABASE_URL=sqlite:////data/aggrssive.db LTI_KEY_PATH=/data/lti_private_key.pem
 
 WORKDIR /app
 COPY pyproject.toml README.md ./

@@ -5,6 +5,7 @@
 - **Docs move with code.** Any change to what a person sees or does updates the matching page in `aggrssive/docs/` in the same commit. The Help section (`/help`) renders those files; there is no other user documentation.
 - **LTI interoperability.** Anything an instructor or student sees must work through a standard LTI 1.3 launch on any platform, not just Moodle. Platform quirks become per-platform settings, never assumptions in the code.
 - **Proposals, not actions.** GenAI features propose; a person accepts, edits or rejects. Nothing is applied automatically.
+- **Everything persistent goes under `/data`.** The database and the LTI signing key both live there (set via `ENV` in the Dockerfile); anything written elsewhere in the container is lost on redeploy.
 - **One container, one volume.** Keep SQLite and the in-process scheduler unless there's a concrete reason. New files the app needs at runtime go under `aggrssive/` and must be listed in `[tool.setuptools.package-data]` — and never under a path that `.gitignore` swallows (`/data/` is the local database folder; `aggrssive/data/` is shipped framework data).
 
 ## Conventions
