@@ -23,4 +23,4 @@ While sign-ups are open, anyone who finds the site can create an account. Once y
 
 ## Your account
 
-Click your name in the menu to change your display name or password. People created by an admin get an initial password and should change it there.
+Click your name in the menu to change your display name or password, and display preferences: tag clouds are alphabetical by default; choose *most-used first* if you'd rather see the busiest tags at the top. Size always shows how many sources carry a tag. People created by an admin get an initial password and should change it there.

@@ -8,7 +8,7 @@ from .. import classification
 from ..auth import current_user
 from ..db import get_db
 from ..models import Bundle, Category, Source, Tag, User, source_tags
-from ..templating import templates
+from ..templating import order_tags, templates
 
 router = APIRouter()
 
@@ -19,6 +19,7 @@ def find(request: Request, q: str = "", db: Session = Depends(get_db), user: Use
     tag_counts = db.execute(
         select(Tag, func.count(source_tags.c.source_id)).join(source_tags, Tag.id == source_tags.c.tag_id).group_by(Tag.id).order_by(func.count(source_tags.c.source_id).desc(), Tag.name)
     ).all()
+    tag_counts = order_tags(tag_counts, user)
     trees = {fw: [(n, c) for n, c in classification.tree(db, fw)] for fw in classification.FRAMEWORKS}
     my_bundles = db.execute(select(Bundle).where(Bundle.owner_id == user.id).order_by(Bundle.title)).scalars().all() if user else []
 

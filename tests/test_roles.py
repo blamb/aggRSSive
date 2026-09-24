@@ -92,3 +92,18 @@ def test_signup_toggle_and_admin_created_accounts(clients):
     assert TestClient(app).post("/login", data={"email": "invited@example.edu", "password": "newpassword9"}, follow_redirects=False).status_code == 303
     first.post("/admin/settings", data={"allow_signup": "true"})
     assert TestClient(app).get("/signup").status_code == 200
+
+
+def test_tag_cloud_order_preference(clients):
+    from aggrssive.models import Tag
+    from aggrssive.templating import order_tags
+
+    a, b, c = Tag(name="zebra"), Tag(name="apple"), Tag(name="mango")
+    rows = [(a, 5), (b, 1), (c, 9)]
+    assert [t.name for t, _ in order_tags(rows, None)] == ["apple", "mango", "zebra"]
+    first, _ = clients
+    first.post("/account", data={"display_name": "First", "tag_order": "count"})
+    assert role_of("first-roles@example.edu").tag_order == "count"
+    assert [t.name for t, _ in order_tags(rows, role_of("first-roles@example.edu"))] == ["mango", "zebra", "apple"]
+    first.post("/account", data={"display_name": "First", "tag_order": "bogus"})
+    assert role_of("first-roles@example.edu").tag_order == "alpha"

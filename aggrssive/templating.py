@@ -40,3 +40,17 @@ templates.env.filters["ago"] = ago
 templates.env.filters["datefmt"] = datefmt
 templates.env.filters["safe_html"] = safe
 templates.env.globals["settings"] = get_settings()
+
+
+TAG_ORDERS = {"alpha": "alphabetical", "count": "most-used first"}
+
+
+def order_tags(rows, user=None):
+    """Sort (tag, count) rows for a tag cloud by the viewer's preference; alphabetical unless they chose otherwise."""
+    pref = getattr(user, "tag_order", None) or "alpha"
+    if pref == "count":
+        return sorted(rows, key=lambda r: (-r[1], r[0].name))
+    return sorted(rows, key=lambda r: r[0].name)
+
+
+templates.env.globals["TAG_ORDERS"] = TAG_ORDERS

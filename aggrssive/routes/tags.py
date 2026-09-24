@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session, selectinload
 from ..auth import current_user
 from ..db import get_db
 from ..models import Item, Source, Tag, User, source_tags
-from ..templating import templates
+from ..templating import order_tags, templates
 
 router = APIRouter()
 
@@ -15,7 +15,7 @@ def list_tags(request: Request, db: Session = Depends(get_db), user: User | None
     rows = db.execute(
         select(Tag, func.count(source_tags.c.source_id)).outerjoin(source_tags, Tag.id == source_tags.c.tag_id).group_by(Tag.id).order_by(Tag.name)
     ).all()
-    return templates.TemplateResponse(request, "tags.html", {"user": user, "rows": rows})
+    return templates.TemplateResponse(request, "tags.html", {"user": user, "rows": order_tags(rows, user)})
 
 
 @router.get("/tags/{name}")

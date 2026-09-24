@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from ..auth import current_user
 from ..db import get_db
 from ..models import Bundle, Item, Source, Tag, User, source_tags
-from ..templating import templates
+from ..templating import order_tags, templates
 
 router = APIRouter()
 
@@ -21,4 +21,4 @@ def home(request: Request, db: Session = Depends(get_db), user: User | None = De
         "items": db.scalar(select(func.count(Item.id))),
         "bundles": db.scalar(select(func.count(Bundle.id))),
     }
-    return templates.TemplateResponse(request, "home.html", {"user": user, "bundles": bundles, "tag_counts": tag_counts, "stats": stats})
+    return templates.TemplateResponse(request, "home.html", {"user": user, "bundles": bundles, "tag_counts": order_tags(tag_counts, user), "stats": stats})
