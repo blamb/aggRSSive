@@ -67,6 +67,7 @@ def init_db() -> None:
         conn.execute(text("UPDATE users SET is_active=1 WHERE is_active IS NULL"))
         conn.execute(text("UPDATE users SET show_tips=1 WHERE show_tips IS NULL"))
         conn.execute(text("UPDATE users SET is_anonymous=0 WHERE is_anonymous IS NULL"))
+        conn.execute(text("UPDATE bundles SET all_sources=0 WHERE all_sources IS NULL"))
         # Enclosures arrived after the first items did: read every feed in full once so episodes get their audio.
         if not conn.execute(text("SELECT 1 FROM settings WHERE key='enclosure_backfill'")).first():
             conn.execute(text("UPDATE sources SET etag=NULL, last_modified=NULL, last_fetched_at=NULL"))

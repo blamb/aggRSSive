@@ -23,7 +23,7 @@ details.related{margin-top:4px;font-size:.85em}details.related summary{color:var
 <body>
 <header>
   <h1>{{ bundle.title }}</h1>
-  <span class="m">{{ bundle.sources|length }} sources{% if edit_url %} · <a href="{{ edit_url }}">{{ 'edit in aggRSSive' if can_edit_it else 'open in aggRSSive' }}</a>{% elif instructor %} · <a href="{{ base_url }}/bundles/{{ bundle.slug }}">open in aggRSSive</a>{% endif %}</span>
+  <span class="m">{% if bundle.all_sources %}every source{% else %}{{ bundle.sources|length }} sources{% endif %}{% if edit_url %} · <a href="{{ edit_url }}">{{ 'edit in aggRSSive' if can_edit_it else 'open in aggRSSive' }}</a>{% elif instructor %} · <a href="{{ base_url }}/bundles/{{ bundle.slug }}">open in aggRSSive</a>{% endif %}</span>
 </header>
 {% if bundle.description %}<p class="m">{{ bundle.description }}</p>{% endif %}
 {% if opts.search_box and items|length > 6 %}<input type="search" id="filter" placeholder="Filter this list" aria-label="Filter this list" style="width:100%;box-sizing:border-box;padding:.4rem .6rem;border:1px solid var(--line);border-radius:6px;font:inherit;margin:.2rem 0 .4rem">{% endif %}

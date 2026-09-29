@@ -13,6 +13,14 @@ Tick sources anywhere — *Find feeds*, a tag page, a classification heading, a 
 
 You land on the bundle's *edit* page.
 
+## Topic aggRSSives
+
+Most aggRSSives are a chosen set of sources. A **topic aggRSSive** has no list: it draws on every active source in the collection and is defined by its rules alone. "Everything here about assessment" is one include rule, and it stays true as sources come and go, including sources nobody has added yet.
+
+The quickest way to make one is from a search: on *Find feeds*, search for the topic and click **Make a topic aggRSSive from this search**. It starts with a meaning rule made from your words (a keyword rule when meaning rules are off); tighten it on the edit page, add exclude rules, pin and hide as usual. Any aggRSSive can be switched to or from a topic aggRSSive under *Settings*. A topic aggRSSive with no include rule shows nothing, on purpose; it would otherwise be the whole collection.
+
+Because it sifts everything, a topic aggRSSive looks further back for candidates than an ordinary one, and a plain-language (GenAI) rule on it judges more items. Meaning and keyword rules cost nothing either way.
+
 ## The edit page
 
 **Sources** — what's in the bundle: feeds, platform accounts and [bookmark lists](bookmarks) alike. Remove with ×; add more via the Heart-Cart.

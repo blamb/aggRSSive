@@ -179,3 +179,42 @@ def test_related_posts_fragment(data):
     assert r.status_code == 200 and "Rubric design for grading assessment" in r.text
     assert "Not analysed yet" in c.get(f"/items/{hid}/related").text
     assert c.get("/items/999999/related").status_code == 404
+
+
+def test_topic_bundle_draws_on_every_source(data):
+    from fastapi.testclient import TestClient
+
+    from aggrssive import scheduler
+    from aggrssive.main import app
+
+    scheduler.start = lambda: None
+    scheduler.stop = lambda: None
+    with SessionLocal() as db:
+        u = db.query(User).filter_by(email="sem@example.edu").one()
+        elsewhere = Source(feed_url="https://sem.test/elsewhere", title="Elsewhere", added_by_id=u.id)
+        db.add(elsewhere)
+        db.flush()
+        db.add(Item(source_id=elsewhere.id, guid="t1", url="https://sem.test/t1", title="Grading with rubrics elsewhere", text="rubric grading assessment"))
+        db.commit()
+        semantic.embed_pending(db)
+        semantic._index = None
+        t = Bundle(owner_id=u.id, title="About: assessment", slug="topicb1", all_sources=True)
+        db.add(t)
+        db.flush()
+        assert rules.bundle_items(db, t) == []  # no include rule: nothing, on purpose
+        db.add(Rule(owner_type="bundle", owner_id=t.id, kind="include", field="semantic", pattern="assessment grading rubric", threshold=0.5))
+        db.commit()
+        got = titles(rules.bundle_items(db, t))
+        assert "Grading with rubrics elsewhere" in got and "Assessment and grading with rubrics" in got and "Hockey season preview" not in got
+        db.query(Rule).filter_by(owner_id=t.id).delete()
+        db.commit()
+    c = TestClient(app)
+    c.post("/signup", data={"email": "topic@example.edu", "display_name": "Topic", "password": "password123"})
+    r = c.post("/bundles/topic", data={"q": "assessment grading rubric"}, follow_redirects=False)
+    assert r.status_code == 303
+    slug = r.headers["location"].split("/")[2]
+    with SessionLocal() as db:
+        b = db.query(Bundle).filter_by(slug=slug).one()
+        assert b.all_sources and b.title == "About: assessment grading rubric"
+        assert db.query(Rule).filter_by(owner_type="bundle", owner_id=b.id, kind="include").count() == 1
+    assert "every active source in the collection" in c.get(f"/bundles/{slug}/edit").text

@@ -35,6 +35,7 @@ TIPS: tuple[Tip, ...] = (
     Tip("For a feed that mixes what you want with what you don't, put an <em>exclude</em> rule on the source itself. It applies everywhere that feed is used.", ("sources",), "/help/bundles"),
     Tip("Suggested tags are proposals: ✓ adds, ✎ lets you edit first, ✕ rejects for good. Nothing is applied until you click.", ("sources",), "/help/tags-and-classification"),
     # Podcasts
+    Tip("Search <em>Find feeds</em>, then <em>Make a topic aggRSSive from this search</em>: a live list of everything in the collection about it, from every source, including ones added next year.", ("find", "bundles", "any"), "/help/bundles"),
     Tip("A bundle of podcasts is itself a show: copy its RSS address into any podcast app and the episodes arrive with their audio.", ("bundles", "any"), "/help/podcasters"),
     Tip("Podcast episodes get a player wherever an aggRSSive is embedded, including inside a course. Rules work on episodes too: drop the trailers, keep the interviews.", ("bundles", "sources"), "/help/podcasters"),
     Tip("Searching <em>Find feeds</em> for a subject finds podcast episodes about it, not just shows named after it.", ("find",), "/help/podcasters"),
@@ -87,6 +88,7 @@ KEY_TIPS: dict[str, str] = {
     "embed": "<strong>Embed options go on the script tag:</strong> <code>data-n</code> items, <code>data-desc</code> (<code>0</code>, <code>full</code>), <code>data-img</code>, <code>data-src</code>, <code>data-date</code>, <code>data-theme</code>, <code>data-target</code>. Sites that strip scripts (many LMS editors) take the iframe instead.",
     "opml": "<strong>Folders become tags</strong> when the box is ticked; the file's <code>category</code> attributes become classification headings. Re-importing is safe: existing feeds are skipped, new tags are added.",
     "watch": "<strong>No feed on the page: watch it instead.</strong> <em>New links</em> treats the page as a list and reports each article-like link once, when it first appears. <em>Changes</em> reports what was added or removed in the page's own text. Both are checked on the normal schedule; the first check only takes a snapshot.",
+    "topic": "<strong>A topic aggRSSive has no source list.</strong> Its include rules are the list: every active source in the collection is sifted through them, and sources added later join automatically. Keep at least one include rule, or nothing shows; add exclude rules to trim.",
     "heart-cart": "<strong>Tick sources anywhere</strong> (Find feeds, a tag, a heading, a source page, Bookmarks) and they collect in the ♥ Heart-Cart at the bottom right. Name the cart to create an aggRSSive, or add it to one you already have.",
 }
 

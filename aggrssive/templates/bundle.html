@@ -10,7 +10,7 @@
 <div>
 <h1>{{ bundle.title }} {% if not bundle.is_public %}<span class="pill">private</span>{% endif %}</h1>
 {% if bundle.description %}<p>{{ bundle.description }}</p>{% endif %}
-<p class="muted small">by {{ bundle.owner.display_name }} · {{ bundle.sources|length }} sources · {{ items|length }} items{% if editable %} · <a href="/bundles/{{ bundle.slug }}/edit">edit</a>{% endif %}</p>
+<p class="muted small">by {{ bundle.owner.display_name }} · {% if bundle.all_sources %}every source in the collection{% else %}{{ bundle.sources|length }} sources{% endif %} · {{ items|length }} items{% if editable %} · <a href="/bundles/{{ bundle.slug }}/edit">edit</a>{% endif %}</p>
 <ul class="items">
 {% for bi in items %}
 <li{% if bi.pinned %} class="pinned"{% endif %}>
@@ -72,7 +72,7 @@
   <h3>Take it elsewhere</h3>
   <p class="small"><a href="/bundles/{{ bundle.slug }}/export.json" download>Export this aggRSSive</a> <span class="muted">as a file for another aggRSSive install, or as a backup.</span></p>
   <h3>Sources</h3>
-  <ul class="plain small">{% for s in bundle.sources %}<li><a href="/sources/{{ s.id }}">{{ s.title or s.feed_url }}</a></li>{% endfor %}</ul>
+  {% if bundle.all_sources %}<p class="small">A topic aggRSSive: every source in the collection, sifted by its rules. New sources join it as they are added.</p>{% else %}<ul class="plain small">{% for s in bundle.sources %}<li><a href="/sources/{{ s.id }}">{{ s.title or s.feed_url }}</a></li>{% endfor %}</ul>{% endif %}
 </aside>
 </div>
 <script>

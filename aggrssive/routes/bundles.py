@@ -49,6 +49,23 @@ def create_bundle(title: str = Form(...), source_ids: list[int] = Form([]), desc
     return RedirectResponse(f"/bundles/{b.slug}/edit", status_code=303)
 
 
+@router.post("/bundles/topic")
+def create_topic(q: str = Form(...), user: User = Depends(require_user), db: Session = Depends(get_db)):
+    """One click from a search: a topic aggRSSive over every source, defined by a rule made from the words."""
+    q = q.strip()[:500]
+    if not q:
+        raise HTTPException(400, "Say what the topic is")
+    b = Bundle(owner_id=user.id, title=f"About: {q}"[:300], description=f"Everything in the collection about {q}.", all_sources=True)
+    db.add(b)
+    db.flush()
+    if semantic.enabled():
+        db.add(Rule(owner_type="bundle", owner_id=b.id, kind="include", field="semantic", pattern=q, threshold=semantic.STRICTNESS["normal"]))
+    else:
+        db.add(Rule(owner_type="bundle", owner_id=b.id, kind="include", field="any", pattern=q))
+    db.commit()
+    return RedirectResponse(f"/bundles/{b.slug}/edit", status_code=303)
+
+
 @router.post("/bundles/from")
 def create_from(tag: str = Form(""), cat: str = Form(""), user: User = Depends(require_user), db: Session = Depends(get_db)):
     """One click: an aggRSSive from everything under a tag or a classification heading."""
@@ -222,6 +239,7 @@ def edit_bundle(
     max_age_days: str = Form(""),
     max_items: int = Form(50),
     dedupe: bool = Form(False),
+    all_sources: bool = Form(False),
     user: User = Depends(require_user),
     db: Session = Depends(get_db),
 ):
@@ -235,6 +253,7 @@ def edit_bundle(
     b.max_age_days = int(max_age_days) if max_age_days.strip().isdigit() and int(max_age_days) > 0 else None
     b.max_items = max(1, min(max_items, 500))
     b.dedupe = dedupe
+    b.all_sources = all_sources
     db.commit()
     return RedirectResponse(f"/bundles/{b.slug}/edit", status_code=303)
 

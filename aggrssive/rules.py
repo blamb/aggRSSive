@@ -21,7 +21,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
 
 from . import judge, semantic
-from .models import Bundle, Item, ItemOverride, Rule, utcnow
+from .models import Source, Bundle, Item, ItemOverride, Rule, utcnow
 
 FIELDS = ("any", "title", "text", "author", "url", "category", "semantic", "ai")
 FIELD_LABELS = {
@@ -167,16 +167,22 @@ def _context(db: Session, items: list[Item], rules: list[Rule], source_rules: di
 
 def resolve(db: Session, bundle: Bundle, limit: int | None = None, include_hidden: bool = False, with_excluded: bool = False) -> tuple[list[BundleItem], list[BundleItem]]:
     """Resolve a bundle into (included, excluded) lists with reasons. `excluded` is only filled when asked."""
-    source_ids = [s.id for s in bundle.sources if s.is_active]
+    if bundle.all_sources:
+        source_ids = [sid for (sid,) in db.execute(select(Source.id).where(Source.is_active.is_(True)))]
+    else:
+        source_ids = [s.id for s in bundle.sources if s.is_active]
     if not source_ids:
         return [], []
     rules, source_rules = _load_rules(db, bundle, source_ids)
+    if bundle.all_sources and not any(r.kind == "include" for r in rules):
+        return [], []  # a topic aggRSSive is its include rules; without one it would be the whole collection
 
     q = select(Item).where(Item.source_id.in_(source_ids)).options(selectinload(Item.source)).order_by(Item.published_at.desc())
     if bundle.max_age_days:
         q = q.where(Item.published_at >= utcnow() - timedelta(days=bundle.max_age_days))
     cap = limit or bundle.max_items or 50
-    candidates = db.execute(q.limit(max(cap * 5, 200))).scalars().all()
+    # A topic aggRSSive sifts the whole collection, so it looks further back for candidates.
+    candidates = db.execute(q.limit(max(cap * 5, 1500 if bundle.all_sources else 200))).scalars().all()
     ctx = _context(db, candidates, rules, source_rules)
     overrides = {o.item_id: o for o in bundle.overrides}
 

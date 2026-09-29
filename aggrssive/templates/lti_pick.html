@@ -28,7 +28,7 @@ button{font:inherit;padding:.55rem 1.1rem;border-radius:6px;border:0;background:
 {% for b in bundles %}
 <label class="b" data-text="{{ (b.title ~ ' ' ~ b.description ~ ' ' ~ b.owner.display_name)|lower }}">
   <input type="radio" name="bundle" value="{{ b.slug }}" required>
-  <div><strong>{{ b.title }}</strong><span>{{ b.sources|length }} sources · by {{ b.owner.display_name }}{% if me and b.owner_id == me.id %} · yours{% endif %}</span>{% if b.description %}<p>{{ b.description[:180] }}</p>{% endif %}</div>
+  <div><strong>{{ b.title }}</strong><span>{% if b.all_sources %}topic · every source{% else %}{{ b.sources|length }} sources{% endif %} · by {{ b.owner.display_name }}{% if me and b.owner_id == me.id %} · yours{% endif %}</span>{% if b.description %}<p>{{ b.description[:180] }}</p>{% endif %}</div>
 </label>
 {% else %}
 <p class="muted">No public aggRSSives yet. Make one at <a href="{{ settings.base_url }}" target="_blank">{{ settings.base_url }}</a>, then come back.</p>

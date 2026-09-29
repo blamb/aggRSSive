@@ -39,6 +39,7 @@ def export_bundle(db: Session, b: Bundle) -> dict:
             "max_age_days": b.max_age_days,
             "max_items": b.max_items,
             "dedupe": b.dedupe,
+            "all_sources": b.all_sources,
         },
         "sources": [_export_source(db, s) for s in b.sources],
         "rules": [{"kind": r.kind, "field": r.field, "pattern": r.pattern, "is_regex": r.is_regex, "threshold": r.threshold} for r in rules],
@@ -162,6 +163,7 @@ def import_bundle(db: Session, doc: dict, user: User) -> tuple[Bundle, list[int]
         max_age_days=int(meta["max_age_days"]) if str(meta.get("max_age_days") or "").isdigit() else None,
         max_items=max(1, min(int(meta.get("max_items") or 50), 500)),
         dedupe=bool(meta.get("dedupe", True)),
+        all_sources=bool(meta.get("all_sources", False)),
     )
     db.add(b)
     db.flush()
