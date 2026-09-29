@@ -51,6 +51,14 @@
     <li><a href="/b/{{ bundle.slug }}/feed.rss">RSS</a> · <a href="/b/{{ bundle.slug }}/feed.atom">Atom</a> · <a href="/b/{{ bundle.slug }}/feed.json">JSON Feed</a></li>
     <li><a href="/b/{{ bundle.slug }}.json">JSON API</a> · <a href="/b/{{ bundle.slug }}/sources.opml">OPML of sources</a></li>
   </ul>
+  {% if user and mail_on %}
+  <h3>By email</h3>
+  <form method="post" action="/bundles/{{ bundle.slug }}/digest" class="row small">
+    <select name="frequency"><option value="off" {% if not my_digest %}selected{% endif %}>no digest</option>{% for k, v in frequencies.items() %}<option value="{{ k }}" {% if my_digest and my_digest.frequency == k %}selected{% endif %}>{{ v }}</option>{% endfor %}</select>
+    <button class="btn small ghost">Save</button>
+  </form>
+  <p class="muted small">{% if my_digest %}New items go to {{ user.email }} {{ frequencies[my_digest.frequency] }}; quiet periods send nothing.{% else %}New items to {{ user.email }}, only when there are some.{% endif %}</p>
+  {% endif %}
   {% if user %}
   <h3>Make it yours</h3>
   <form method="post" action="/bundles/{{ bundle.slug }}/fork"><button class="btn small ghost">Copy to my aggRSSives</button></form>

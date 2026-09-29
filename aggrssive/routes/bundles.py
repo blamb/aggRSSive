@@ -141,7 +141,15 @@ def show_bundle(request: Request, slug: str, db: Session = Depends(get_db), user
     if not can_view(b, user):
         raise HTTPException(404, "No such aggRSSive")
     items = bundle_items(db, b)
-    return templates.TemplateResponse(request, "bundle.html", {"user": user, "bundle": b, "items": items, "editable": can_edit(b, user), "semantic_on": semantic.enabled()})
+    from .. import digest
+    from ..models import Digest
+
+    my_digest = db.execute(select(Digest).where(Digest.user_id == user.id, Digest.bundle_id == b.id)).scalar_one_or_none() if user else None
+    return templates.TemplateResponse(
+        request,
+        "bundle.html",
+        {"user": user, "bundle": b, "items": items, "editable": can_edit(b, user), "semantic_on": semantic.enabled(), "mail_on": digest.enabled(), "my_digest": my_digest, "frequencies": digest.FREQUENCIES},
+    )
 
 
 @router.get("/bundles/{slug}/edit")

@@ -271,6 +271,23 @@ class Judgement(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
 
+class Digest(Base):
+    """Someone asked to be emailed new items from a bundle, daily or weekly."""
+
+    __tablename__ = "digests"
+    __table_args__ = (UniqueConstraint("user_id", "bundle_id"),)
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
+    bundle_id: Mapped[int] = mapped_column(ForeignKey("bundles.id", ondelete="CASCADE"), index=True)
+    frequency: Mapped[str] = mapped_column(String(16), default="weekly")  # daily | weekly
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    last_sent_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+    user: Mapped[User] = relationship()
+    bundle: Mapped[Bundle] = relationship()
+
+
 class Platform(Base):
     """An LTI 1.3 platform (a Moodle, Canvas, ... site) registered with this tool."""
 

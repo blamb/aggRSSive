@@ -9,6 +9,7 @@ Newest first. Dates are when the change reached the main site.
 
 ## September 2026
 
+- **Email digests**: new items from any aggRSSive, daily or weekly, chosen per person on its page, with one-click unsubscribe. Needs outgoing mail configured by a site admin.
 - **Watched pages**: a page with no feed can be a source, reporting either its new links or changes to its text.
 - **Tips**: a rotating, dismissible tip on each page, fitted to where you are, and always-on key tips beside the forms people ask about most; off/on under Account.
 - **Bookmarks**: hand-picked pages in lists that bundle, embed and launch like feeds; the page's title, description, author, date and image are read for you; a bookmarklet for one-click saving; your own note on each.

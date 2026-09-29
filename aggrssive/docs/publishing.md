@@ -37,6 +37,10 @@ If a site strips scripts, use the **iframe** version shown under *Options* inste
 
 Each aggRSSive is itself a feed — **RSS**, **Atom** and **JSON Feed** links are on its page — so anyone can follow it in a reader, and anyone can add it to *their* aggRSSive as a source. There's also an **OPML** of its sources, for people who'd rather take the feeds than the bundle.
 
+## By email
+
+Signed in, any aggRSSive's page offers **By email**: choose *every day* or *every week* and new items arrive at your account's address, with each item's source, your notes, and a short excerpt. Nothing is sent for a period with no new items, so a quiet list is a quiet inbox. Daily digests go out in the morning (UTC), weekly ones on Mondays; every mail has a one-click unsubscribe link, and the choice can be changed on the aggRSSive's page any time. The feature appears once a site admin has set up outgoing mail (see [Hosting](hosting)).
+
 ## In a course (LTI)
 
 Instructors add an aggRSSive to a course from inside their platform: see [Moodle and other LMSs: for instructors](lti-instructors). Nothing is copied; the course shows the live list.

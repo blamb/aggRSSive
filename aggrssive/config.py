@@ -30,6 +30,19 @@ class Settings(BaseSettings):
     embeddings_enabled: bool = True
     embedding_model: str = "BAAI/bge-small-en-v1.5"
 
+    # Email digests. Off until SMTP_HOST and SMTP_FROM are set.
+    smtp_host: str = ""
+    smtp_port: int = 587
+    smtp_user: str = ""
+    smtp_password: str = ""
+    smtp_from: str = ""
+    smtp_starttls: bool = True
+    digest_hour_utc: int = 13  # daily digests go out during this UTC hour; weekly ones on Mondays
+
+    @property
+    def mail_enabled(self) -> bool:
+        return bool(self.smtp_host and self.smtp_from)
+
     # LTI 1.3. The tool's RSA private key is generated on first start and kept here.
     lti_key_path: str = "./data/lti_private_key.pem"
 

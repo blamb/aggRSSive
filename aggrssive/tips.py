@@ -44,6 +44,7 @@ TIPS: tuple[Tip, ...] = (
     Tip("Pinning an item forces it in regardless of rules and keeps it at the top. Hiding removes it even if rules would include it.", ("bundles",), "/help/bundles"),
     Tip("Choose <em>all</em> match mode when include rules should combine (“about assessment <em>and</em> mentions rubrics”); <em>any</em> when they are alternatives.", ("bundles",), "/help/bundles"),
     Tip("Like someone's aggRSSive? <em>Copy to my aggRSSives</em> gives you a private copy with the same sources and rules to adapt.", ("bundles", "any"), "/help/bundles"),
+    Tip("Prefer email? <em>By email</em> on an aggRSSive's page sends you its new items daily or weekly, and nothing at all when there is nothing new.", ("bundles",), "/help/publishing"),
     Tip("Every aggRSSive is itself a feed. Add one aggRSSive as a source of another to build lists of lists.", ("bundles",), "/help/publishing"),
     Tip("An age window (“items newer than 30 days”) keeps a course page current without anyone touching it.", ("bundles",), "/help/bundles"),
     Tip("Under each item, <em>related posts</em> shows the closest posts from the whole collection. It is a quick way to spot a feed worth adding.", ("bundles", "any"), "/help/publishing"),

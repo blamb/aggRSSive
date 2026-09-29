@@ -78,6 +78,18 @@ def enrich() -> None:
             db.rollback()
 
 
+def send_digests() -> None:
+    from . import digest
+
+    with SessionLocal() as db:
+        try:
+            n = digest.run(db)
+            if n:
+                log.info("sent %d digests", n)
+        except Exception:
+            log.exception("digest pass failed")
+
+
 def fetch_one(source_id: int) -> None:
     with SessionLocal() as db:
         s = db.get(Source, source_id)
@@ -90,6 +102,7 @@ def start() -> None:
     settings = get_settings()
     scheduler.add_job(poll_all, "interval", minutes=max(1, settings.poll_interval_minutes // 3), id="poll", replace_existing=True, next_run_time=utcnow() + timedelta(seconds=10))
     scheduler.add_job(enrich, "interval", minutes=3, id="enrich", replace_existing=True, next_run_time=utcnow() + timedelta(seconds=40))
+    scheduler.add_job(send_digests, "interval", minutes=20, id="digests", replace_existing=True)
     scheduler.start()
 
 

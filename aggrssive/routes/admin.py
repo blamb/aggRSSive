@@ -26,7 +26,7 @@ def hub(request: Request, db: Session = Depends(get_db), user: User = Depends(re
         "bundles": db.scalar(select(func.count(Bundle.id))),
         "platforms": db.scalar(select(func.count(Platform.id))),
     }
-    return templates.TemplateResponse(request, "admin.html", {"user": user, "stats": stats, "signup_open": signup_open(db), "ai": get_settings().ai_enabled})
+    return templates.TemplateResponse(request, "admin.html", {"user": user, "stats": stats, "signup_open": signup_open(db), "ai": get_settings().ai_enabled, "mail": get_settings().mail_enabled, "mail_result": request.query_params.get("mail", "")})
 
 
 @router.get("/admin/users")
