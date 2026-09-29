@@ -18,11 +18,11 @@ Revision pass run on every proposal: warm-up sentences cut, bow-tying last sente
 |---|---|---|---|
 | 4 | Collect. Tag. Filter. Remix. Republish. | *keep* | keep |
 | 5 | aggRSSive gathers feeds from anywhere, lets you tag them together, filters them down to what matters, and hands you back a bundle you can embed on any site or subscribe to as a feed of its own. | Feeds from anywhere, tagged by everyone here, filtered to what matters, and handed back as a bundle: embed it, subscribe to it, or drop it into a course. | voice |
-| 5 (new, after it) | *(none)* | A rebuild of the 2005 UBC original: Novak Rogic's architecture, Magpie RSS, Alan Levine's Feed2JS, Freetag, and two co-op students, T. and E., who have since gone on to more respectable careers. *(the page's one wry line)* | voice |
+| 5 (new, after it) | *(none)* | A rebuild of the 2005 UBC original: Novak Rogic's architecture, Magpie RSS, Alan Levine's Feed2JS, Freetag, and two co-op students, Tyler P and Enej B, who have since gone on to more respectable careers. *(the page's one wry line)* | voice |
 | 12 | · browse by subject too | · or browse by subject | cosmetic |
 | 21 | Recent aggRSSives | *keep* | keep |
 
-The credit line is the only place the site names the 2005 lineage. Novak Rogic is named as the original architect and Alan Levine for Feed2JS; the two co-op students appear as initials, T. and E., at your request that their full identities stay private. If initials still feel like too much, "two co-op students" alone reads fine.
+The credit line is the only place the site names the 2005 lineage. Novak Rogic is named as the original architect and Alan Levine for Feed2JS; the two co-op students are named as Tyler P and Enej B, first name and initial, at your request.
 
 ## Footer and Heart-Cart (`aggrssive/templates/base.html`)
 
@@ -280,7 +280,7 @@ All other tips and key tips: keep.
 | Line | Before | After | Type |
 |---|---|---|---|
 | 8 | aggRSSive collects feeds, lets a group tag and classify them together, and turns any selection into an aggRSSive: a live, filtered bundle you can embed on a web page, subscribe to as a feed, or drop into a course in Moodle, Canvas or any other LTI platform. | aggRSSive collects feeds, lets a group tag and classify them together, and turns any selection into an aggRSSive: a live, filtered bundle to embed on a web page, subscribe to as a feed, or drop into a course in Moodle, Canvas or any other LTI platform. | cosmetic |
-| 8 (new) | *(none)* | It is a rebuild of a tool from UBC in 2005. Novak Rogic was its architect, it ran on Magpie RSS, Alan Levine's Feed2JS and Freetag, and two co-op students, T. and E., did much of the building. That one collected and republished; this one also filters, which is the part we never got working. *(the page's one wry line)* | voice |
+| 8 (new) | *(none)* | It is a rebuild of a tool from UBC in 2005. Novak Rogic was its architect, it ran on Magpie RSS, Alan Levine's Feed2JS and Freetag, and two co-op students, Tyler P and Enej B, did much of the building. That one collected and republished; this one also filters, which is the part we never got working. *(the page's one wry line)* | voice |
 | 10 | The five-minute tour | *keep* | keep |
 | 12 | Find feeds. Find feeds in the menu shows every source anyone has added, browsable by tag and by classification heading, and searchable by what feeds actually publish (type a subject; aggRSSive ranks feeds by their posts). Tick the ones you want; they collect in the ♥ Heart-Cart at the bottom right. | Find feeds. Find feeds in the menu shows every source anyone has added, browsable by tag and by classification heading, and searchable by what feeds publish: type a subject and aggRSSive ranks feeds by their posts. Tick the ones you want; they collect in the ♥ Heart-Cart at the bottom right. | cosmetic |
 | 13 | Add feeds. + Add feed takes any web address — a blog, a journal, a podcast, a YouTube channel, a Mastodon or Bluesky account, a Zotero group, a Hypothesis user — and finds its feed. Or import an OPML file from your feed reader. For single pages, keep a Bookmarks list: hand-picked, described automatically, bundled like a feed. | Add feeds. + Add feed takes any web address (a blog, a journal, a podcast, a YouTube channel, a Mastodon or Bluesky account, a Zotero group, a Hypothesis user) and finds its feed. Or import an OPML file from your feed reader. For single pages, keep a Bookmarks list: hand-picked, described for you, bundled like a feed. A page with no feed can be watched for new links or changes. | clearer |

@@ -7,7 +7,7 @@ order: 1
 
 aggRSSive collects feeds, lets a group tag and classify them together, and turns any selection into an **aggRSSive**: a live, filtered bundle to embed on a web page, subscribe to as a feed, or drop into a course in Moodle, Canvas or any other LTI platform.
 
-It is a rebuild of a tool from UBC in 2005. Novak Rogic was its architect, it ran on Magpie RSS, Alan Levine's Feed2JS and Freetag, and two co-op students, T. and E., did much of the building. That one collected and republished; this one also filters, which is the part we never got working.
+It is a rebuild of a tool from UBC in 2005. Novak Rogic was its architect, it ran on Magpie RSS, Alan Levine's Feed2JS and Freetag, and two co-op students, Tyler P and Enej B, did much of the building. That one collected and republished; this one also filters, which is the part we never got working.
 
 ## The five-minute tour
 
