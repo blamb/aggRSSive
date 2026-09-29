@@ -1,0 +1,13 @@
+{#- One feed or OPML address: an icon, the link, and a copy button that puts the absolute address on the clipboard. -#}
+{% macro feedlink(label, path, kind='rss') -%}
+<span class="feedlink">
+{%- if kind == 'opml' -%}
+<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M2 3h2v2H2zM2 7h2v2H2zM2 11h2v2H2zM6 3.5h8v1H6zM6 7.5h8v1H6zM6 11.5h8v1H6z" fill="currentColor"/></svg>
+{%- elif kind == 'json' -%}
+<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><text x="1" y="12.5" font-size="11" font-family="monospace" font-weight="700" fill="currentColor">{}</text></svg>
+{%- else -%}
+<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><circle cx="3" cy="13" r="2" fill="currentColor"/><path d="M1 6.5a8.5 8.5 0 0 1 8.5 8.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M1 1.5A13.5 13.5 0 0 1 14.5 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+{%- endif -%}
+<a href="{{ path }}">{{ label }}</a><button type="button" class="copy" data-copy="{{ settings.base_url }}{{ path }}" title="Copy the address" aria-label="Copy the {{ label }} address"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><rect x="5" y="5" width="9" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 11V3a1 1 0 0 1 1-1h8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+</span>
+{%- endmacro %}

@@ -75,3 +75,7 @@ ul.items details.related{margin-top:.3rem}ul.items details.related summary{font-
 .tipbar{display:flex;gap:.5rem;align-items:baseline;flex-wrap:wrap;background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--accent);border-radius:6px;padding:.45rem .8rem;margin:0 0 1rem;font-size:.9rem}
 .tipbar .tip-icon{color:var(--accent);flex:0 0 auto;position:relative;top:1px}.tipbar .tip-text{flex:1 1 20rem}.tipbar .tip-actions{margin-left:auto;white-space:nowrap}.tipbar .tip-more[hidden]{display:none}
 .keytip{background:var(--card);border-left:3px solid var(--link);padding:.45rem .8rem;margin:.6rem 0;font-size:.88rem;color:var(--fg);border-radius:0 6px 6px 0}.keytip code{font-size:.85em}
+
+.feedlink{display:inline-flex;align-items:center;gap:.25rem;white-space:nowrap;margin-right:.6rem}.feedlink svg{color:var(--accent);flex:0 0 auto}
+.feedlink .copy{border:0;background:none;color:var(--muted);cursor:pointer;padding:0 .15rem;line-height:1;border-radius:3px}.feedlink .copy:hover{color:var(--link);background:var(--line)}.feedlink .copy.done{color:var(--ok)}
+.feedlist{line-height:1.9}

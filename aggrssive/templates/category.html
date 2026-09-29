@@ -8,6 +8,8 @@
 {% if children %}
 <p class="small">{% for c in children %}<a class="tag" href="/classification/{{ c.framework }}/{{ c.code }}">{{ c.code }} {{ c.label }}</a> {% endfor %}</p>
 {% endif %}
+{% from "_feeds.html" import feedlink %}
+{% if sources %}<p class="small feedlist">{{ feedlink('OPML of these sources', '/classification/' ~ category.framework ~ '/' ~ category.code ~ '.opml', 'opml') }}</p>{% endif %}
 <h2>Latest from these sources</h2>
 <ul class="items">
 {% for i in items %}

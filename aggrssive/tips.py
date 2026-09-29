@@ -29,6 +29,7 @@ TIPS: tuple[Tip, ...] = (
     Tip("Paste the page you would normally look at: a YouTube channel, a Mastodon or Bluesky account, a Zotero group or a Hypothesis user. aggRSSive knows where each platform hides its feed.", ("sources", "any"), "/help/sources"),
     Tip("A page with no feed can still be a source: when discovery finds nothing, <em>Watch the page instead</em> reports new links on it, or changes to its text.", ("sources", "any"), "/help/sources"),
     Tip("A Mastodon hashtag page (<code>https://instance/tags/opened</code>) works as a source: every public post with that tag, from that server.", ("sources",), "/help/sources"),
+    Tip("Any tag page or heading offers <em>OPML of these sources</em>, and every feed address has a copy button beside it. Take a slice of the collection to your own reader in two clicks.", ("find", "sources", "any"), "/help/publishing"),
     Tip("Import an OPML file from your feed reader and its folders become tags. Importing the same file again is safe: nothing is duplicated.", ("sources", "find"), "/help/sources"),
     Tip("For a feed that mixes what you want with what you don't, put an <em>exclude</em> rule on the source itself. It applies everywhere that feed is used.", ("sources",), "/help/bundles"),
     Tip("Suggested tags are proposals: ✓ adds, ✎ lets you edit first, ✕ rejects for good. Nothing is applied until you click.", ("sources",), "/help/tags-and-classification"),

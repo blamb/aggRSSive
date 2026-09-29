@@ -105,23 +105,19 @@ def _rfc822(dt) -> str:
     return format_datetime(aware(dt))
 
 
-@router.get("/b/{slug}/feed.rss")
-def bundle_rss(slug: str, n: int | None = None, db: Session = Depends(get_db), user: User | None = Depends(current_user)):
-    b = _public_bundle(db, slug, user)
-    items = bundle_items(db, b, limit=_n(n, b.max_items))
-    link = f"{settings.base_url}/bundles/{b.slug}"
+def rss_document(title: str, link: str, self_url: str, description: str, items) -> Response:
+    """An RSS 2.0 document for any list of items: a bundle, or one source re-served."""
     out = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">',
         "<channel>",
-        f"<title>{escape(b.title)}</title>",
+        f"<title>{escape(title)}</title>",
         f"<link>{escape(link)}</link>",
-        f"<description>{escape(b.description)}</description>",
-        f'<atom:link href="{escape(settings.base_url)}/b/{b.slug}/feed.rss" rel="self" type="application/rss+xml"/>',
+        f"<description>{escape(description or '')}</description>",
+        f'<atom:link href="{escape(self_url)}" rel="self" type="application/rss+xml"/>',
         "<generator>aggRSSive</generator>",
     ]
-    for bi in items:
-        i = bi.item
+    for i in items:
         out += [
             "<item>",
             f"<title>{escape(i.title)}</title>",
@@ -136,6 +132,13 @@ def bundle_rss(slug: str, n: int | None = None, db: Session = Depends(get_db), u
         ]
     out += ["</channel>", "</rss>"]
     return Response("\n".join(o for o in out if o), media_type="application/rss+xml", headers={"Cache-Control": "public, max-age=300"})
+
+
+@router.get("/b/{slug}/feed.rss")
+def bundle_rss(slug: str, n: int | None = None, db: Session = Depends(get_db), user: User | None = Depends(current_user)):
+    b = _public_bundle(db, slug, user)
+    items = bundle_items(db, b, limit=_n(n, b.max_items))
+    return rss_document(b.title, f"{settings.base_url}/bundles/{b.slug}", f"{settings.base_url}/b/{b.slug}/feed.rss", b.description, [bi.item for bi in items])
 
 
 @router.get("/b/{slug}/feed.atom")

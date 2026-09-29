@@ -51,6 +51,10 @@ Feed readers export subscriptions as an OPML file. On *Find feeds*, use **Import
 
 Starter collections curated for education are available to site admins under *Admin → Starter collections*. The shipped collection spans open education and OER, teaching and learning, ed-tech analysis, higher-education news, journals, libraries and scholarly communication, accessibility and the open web, podcasts, and — on purpose — Indigenous knowledge and media, gender equity, and intercultural and Global South perspectives. A second collection, **GenAI in higher education**, gathers the research, practitioner, policy and Canadian sources tracked by a companion research project: its tags carry each source's stance (critical, adoption-positive, institutional…) and credibility tier (peer-reviewed, preprint, editorial…), so a bundle can be built for one perspective or one rigour level. Every feed was alive when the collections were built; they are starting points, and pruning is expected. They carry tags and classification headings with them (in the OPML file's standard `category` attribute), so imported feeds arrive already filed.
 
+## Taking feeds out again
+
+Every list of sources can leave as OPML: **OPML of everything** on *Find feeds* and *Sources*, **OPML of these sources** on any tag page or classification heading, and the OPML of an aggRSSive's sources on its page. The copy button beside each address puts it on your clipboard. Feed readers import OPML directly, and another aggRSSive install imports it with its tags.
+
 ## What happens after adding
 
 The feed is fetched within a few seconds, then polled on a schedule (every 30 minutes by default). Feeds that fail repeatedly are polled less often, and marked with an *error* badge you can hover for the reason. Use **Fetch now** on the source's page to force a refresh.

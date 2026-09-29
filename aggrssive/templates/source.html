@@ -4,7 +4,8 @@
 <div class="with-side">
 <div>
 <h1>{{ source.title or source.feed_url }}{% if source.kind in KIND_LABELS %} <span class="pill">{{ KIND_LABELS[source.kind] }}</span>{% elif source.kind == 'bookmarks' %} <span class="pill">bookmarks</span>{% endif %}</h1>
-<p class="muted small"><a href="{{ source.feed_url }}">{{ source.feed_url }}</a>{% if source.site_url %} · <a href="{{ source.site_url }}">site</a>{% endif %}</p>
+{% from "_feeds.html" import feedlink %}
+<p class="muted small feedlist">{% if source.kind in ('bookmarks', 'page', 'pagediff') %}{{ feedlink('RSS of this ' ~ ('list' if source.kind == 'bookmarks' else 'page'), '/sources/' ~ source.id ~ '/feed.rss') }}{% else %}<span class="feedlink"><a href="{{ source.feed_url }}">{{ source.feed_url }}</a><button type="button" class="copy" data-copy="{{ source.feed_url }}" title="Copy the feed address" aria-label="Copy the feed address"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><rect x="5" y="5" width="9" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 11V3a1 1 0 0 1 1-1h8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></span>{% endif %}{% if source.site_url %} · <a href="{{ source.site_url }}">site</a>{% endif %}</p>
 {% if source.description %}<p>{{ source.description }}</p>{% endif %}
 <p>
   {% for t in source.tags %}<span class="tag">{{ t.name }}{% if user %} <form method="post" action="/sources/{{ source.id }}/tags/{{ t.id }}/remove" class="inline"><button class="link" title="remove tag">×</button></form>{% endif %}</span> {% endfor %}

@@ -29,6 +29,10 @@ Tick a list into the Heart-Cart from *Bookmarks* or *Find feeds*, or add it on a
 
 A bookmark's date is the page's published date when the page states one, otherwise the moment you saved it, so lists sort sensibly with feed items.
 
+## A list is a feed
+
+A bookmark list has an RSS address of its own, shown at the top of its page and on *Bookmarks*, with a copy button. Anyone can follow a list in a reader, and any other aggRSSive install can add it as a source. The same is true of watched pages.
+
 ## Removing
 
 On the list's page, × next to a bookmark removes it. Deleting the list itself (under *Details*) removes all its bookmarks.

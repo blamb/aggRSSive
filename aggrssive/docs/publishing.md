@@ -44,7 +44,11 @@ The plugin adds no styling of its own beyond the list's; it emits the same scrip
 
 ## Subscribe
 
-Each aggRSSive is itself a feed — **RSS**, **Atom** and **JSON Feed** links are on its page — so anyone can follow it in a reader, and anyone can add it to *their* aggRSSive as a source. There's also an **OPML** of its sources, for people who'd rather take the feeds than the bundle.
+Each aggRSSive is itself a feed. **RSS**, **Atom** and **JSON Feed** links are on its page, so anyone can follow it in a reader or a podcast app, and anyone can add it to *their* aggRSSive as a source. There is also an **OPML** of its sources, for people who would rather take the feeds than the bundle.
+
+Beside every feed and OPML address on the site there is a small copy button. Click it and the full address is on your clipboard, ready to paste into a reader, a podcast app or another aggRSSive. The icon beside the link says what it is: the feed glyph for RSS and Atom, a list for OPML, braces for JSON.
+
+OPML is available for more than bundles. Any tag page and any classification heading offers **OPML of these sources**, *Find feeds* and *Sources* offer **OPML of everything**, and a bookmark list or a watched page has an **RSS** of its own, since it has no feed elsewhere. In OPML exports, sources that have no feed of their own are listed by their aggRSSive feed address, so the file works in any reader.
 
 ## By email
 

@@ -6,6 +6,7 @@
   <input name="q" value="{{ q }}" placeholder="a subject, a tag, a heading code, a site name" autofocus>
   <button class="btn">Search</button>
   <a href="/sources" class="muted small">all {{ total_sources }} sources</a>
+  {% from "_feeds.html" import feedlink %}<span class="small feedlist">{{ feedlink('OPML of everything', '/sources.opml', 'opml') }}</span>
 </form>
 
 {% if results %}

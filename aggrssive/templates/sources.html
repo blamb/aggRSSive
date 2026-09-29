@@ -10,6 +10,7 @@
   {% if tag %}<input type="hidden" name="tag" value="{{ tag }}">{% endif %}
   <button class="btn small">Search</button>
   {% if q or tag %}<a href="/sources" class="muted">clear</a>{% endif %}
+  {% from "_feeds.html" import feedlink %}<span class="small feedlist">{{ feedlink('OPML', '/sources.opml', 'opml') }}</span>
 </form>
 {% if tag %}<p>Tagged <a class="tag" href="/tags/{{ tag }}">{{ tag }}</a></p>{% endif %}
 {% if cat %}<p>Filed under <a class="tag cat" href="/classification/{{ cat.framework }}/{{ cat.code }}">{{ cat.code }} {{ cat.label }}</a> and below</p>{% endif %}

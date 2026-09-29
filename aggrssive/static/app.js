@@ -65,3 +65,14 @@
     input.focus();
   });
 })();
+
+
+/* Copy buttons beside feed and OPML addresses. */
+document.addEventListener("click", function (e) {
+  var b = e.target.closest && e.target.closest("button.copy[data-copy]");
+  if (!b) return;
+  var text = b.dataset.copy;
+  function done() { b.classList.add("done"); var t = b.title; b.title = "Copied"; setTimeout(function () { b.classList.remove("done"); b.title = t; }, 1500); }
+  if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).then(done, function () { window.prompt("Copy this address:", text); }); }
+  else { window.prompt("Copy this address:", text); }
+});
