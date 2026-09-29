@@ -13,7 +13,7 @@
 <tbody>
 {% for p in platforms %}
 <tr><td>{{ p.name }}</td><td class="small">{{ p.issuer }}</td><td class="small"><code>{{ p.client_id }}</code></td><td class="small">{{ p.deployment_ids.replace('\n', ', ') or '—' }}</td><td class="small muted">{{ p.last_launch_at|ago }}</td>
-<td><form method="post" action="/lti/platforms/{{ p.id }}/delete" onsubmit="return confirm('Remove this platform? Launches from it will stop working.')"><button class="link danger">remove</button></form></td></tr>
+<td><form method="post" action="/lti/platforms/{{ p.id }}/delete" onsubmit="return confirm('Remove this platform? Launches from it stop working.')"><button class="link danger">remove</button></form></td></tr>
 <tr><td colspan="6"><details class="small"><summary class="muted">Settings for this platform</summary>
 <p class="keytip">{{ key_tip("platform-settings") }}</p>
 {% set o = options[p.id] %}
@@ -42,7 +42,7 @@
 
 <h2>If the platform can't reach this server</h2>
 <p class="keytip">{{ key_tip("same-cloud") }}</p>
-<p class="small">Moodle verifies aggRSSive's signatures by fetching the keyset URL above. If the two sites live on the same cloud (e.g. both on Reclaim Cloud) that fetch can fail, because the platform resolves this hostname to a private address. Fix: in Moodle, edit the registered tool, set <em>Public key type</em> to <strong>RSA key</strong> and paste this. Nothing else changes.</p>
+<p class="small">Moodle checks aggRSSive's signatures by fetching the keyset URL above. When both sites live on the same cloud, Reclaim Cloud for instance, that fetch can fail because the platform resolves this hostname to a private address. The fix: in Moodle, edit the registered tool, set <em>Public key type</em> to <strong>RSA key</strong>, and paste this. Nothing else changes.</p>
 <textarea readonly rows="8" class="code" onclick="this.select()">{{ public_key }}</textarea>
 
 <h2>Manual registration (other platforms)</h2>
@@ -54,7 +54,7 @@
 <aside>
   <h3>Add platform manually</h3>
   <form method="post" action="/lti/platforms" class="stack small">
-    <label>Name <input name="name" placeholder="e.g. TRU Moodle"></label>
+    <label>Name <input name="name" placeholder="TRU Moodle"></label>
     <label>Platform ID (issuer) <input name="issuer" placeholder="https://moodle.example.edu" required></label>
     <label>Client ID <input name="client_id" required></label>
     <label>Authentication request URL <input name="auth_login_url" placeholder="…/mod/lti/auth.php" required></label>

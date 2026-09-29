@@ -5,7 +5,7 @@ order: 9
 
 # GenAI features
 
-aggRSSive can use a language model for the judgement calls that simple rules can't make: what a feed is about, which tags fit it, where it belongs in a classification. The features are **off** until a site admin adds an API key, and every one of them makes **proposals only** — a person accepts, edits or rejects each.
+aggRSSive can use a language model for the judgement calls simple rules can't make: what a feed is about, which tags fit it, where it belongs in a classification. The features are **off** until a site admin adds an API key, and every one of them only **proposes**. A person accepts, edits or rejects each.
 
 ## What's available
 

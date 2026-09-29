@@ -76,7 +76,7 @@ def add_page(request: Request, user: User = Depends(require_user), db: Session =
 def do_discover(request: Request, url: str = Form(...), user: User = Depends(require_user), db: Session = Depends(get_db)):
     try:
         candidates = discover(url)
-        error = None if candidates else "No feed found at that address. You can paste the feed URL directly, or watch the page itself (below)."
+        error = None if candidates else "No feed at that address. Paste the feed URL directly, or watch the page itself, below."
     except ValueError as e:
         candidates, error = [], str(e)
     return templates.TemplateResponse(request, "source_add.html", {"user": user, "candidates": candidates, "url": normalize_url(url), "error": error, "tags": all_tags(db), "ai": get_settings().ai_enabled})

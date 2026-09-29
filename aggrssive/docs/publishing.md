@@ -5,7 +5,7 @@ order: 6
 
 # Publishing an aggRSSive
 
-Every public aggRSSive has a page — *aggRSSives → its name* — with everything needed to republish it.
+Every public aggRSSive has a page, under *aggRSSives*, with everything needed to republish it.
 
 ## Related posts
 

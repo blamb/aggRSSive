@@ -38,9 +38,9 @@
     </li>
   {% endfor %}
   </ul>
-  <p class="muted small">Nothing is applied until you tick it. ✎ copies a suggestion into the box above so you can change it first.</p>
+  <p class="muted small">Nothing is applied until you tick it. ✎ copies a suggestion into the box so you can change it first.</p>
   {% else %}
-  <p class="muted small">None pending. Suggestions come from tags already used here that match this feed, and from categories the feed declares{% if ai %}; ✨ asks aggRSSive's GenAI for more{% endif %}.</p>
+  <p class="muted small">None pending. Suggestions come from tags already in use here that fit this feed, and from categories the feed declares.{% if ai %} ✨ asks aggRSSive's GenAI for more.{% endif %}</p>
   {% endif %}
 </div>
 <p class="tagcloud small">{% for t, n in tags %}{% if t not in source.tags %}<a href="#" class="tag-suggest" data-tag="{{ t.name }}">{{ t.name }}</a> {% endif %}{% endfor %}</p>
@@ -53,7 +53,7 @@
 </p>
 {% if user %}
 <form method="post" action="/sources/{{ source.id }}/categories" class="row">
-  <input name="category" list="category-list" placeholder="type a code or subject: LB, 0111, 'open education'…" required>
+  <input name="category" list="category-list" placeholder="a code or a subject: LB, 0111, open education" required>
   <datalist id="category-list">{% for c in all_categories %}<option value="{{ c.framework }}:{{ c.code }} — {{ c.label }}"></option>{% endfor %}</datalist>
   <button class="btn small">File it</button>
 </form>
@@ -80,7 +80,7 @@
   {% endfor %}
   </ul>
   {% else %}
-  <p class="muted small">None pending.{% if ai %} ✨ asks aggRSSive's GenAI to propose Library of Congress and ISCED-F headings.{% else %} Set an API key to get GenAI proposals; until then, file sources by hand above.{% endif %}</p>
+  <p class="muted small">None pending.{% if ai %} ✨ asks aggRSSive's GenAI to propose Library of Congress and ISCED-F headings.{% else %} GenAI is off on this site, so file sources by hand above.{% endif %}</p>
   {% endif %}
 </div>
 {% endif %}
@@ -105,7 +105,7 @@
 <aside>
   {% if user %}
   <p><label class="check"><input type="checkbox" class="cart-check" data-id="{{ source.id }}" data-title="{{ source.title or source.feed_url }}"> ♥ Heart-Cart</label></p>
-  {% if source.kind in ("page", "pagediff") %}<p class="muted small">A watched page ({{ "new links" if source.kind == "page" else "changes" }}), checked on the normal schedule.</p>{% endif %}
+  {% if source.kind in ("page", "pagediff") %}<p class="muted small">A watched page, {{ "new links" if source.kind == "page" else "changes" }}, checked on the normal schedule.</p>{% endif %}
   {% if not is_bookmarks %}
   <form method="post" action="/sources/{{ source.id }}/refresh"><button class="btn small ghost">Fetch now</button></form>
   <p class="muted small">Last fetched {{ source.last_fetched_at|ago }} · last success {{ source.last_success_at|ago }}</p>
@@ -126,9 +126,9 @@
       <select name="kind"><option value="exclude">exclude</option><option value="include">include</option></select>
       <select name="field">{% for f in fields %}{% if (f != 'semantic' or semantic_on) and (f != 'ai' or ai_on) %}<option value="{{ f }}">{{ field_labels[f] }}</option>{% endif %}{% endfor %}</select>
     </div>
-    <input name="pattern" placeholder="word, phrase, regex — or a description" required>
+    <input name="pattern" placeholder="word, phrase, regex, or a description" required>
     <label class="check"><input type="checkbox" name="is_regex" value="true"> regular expression</label>
-    <label class="check">strictness <select name="strictness">{% for s in strictness %}<option value="{{ s }}" {% if s == 'normal' %}selected{% endif %}>{{ s }}</option>{% endfor %}</select> <span class="muted">(meaning rules)</span></label>
+    <label class="check">strictness <select name="strictness">{% for s in strictness %}<option value="{{ s }}" {% if s == 'normal' %}selected{% endif %}>{{ s }}</option>{% endfor %}</select> <span class="muted">for meaning rules</span></label>
     <button class="btn small">Add rule</button>
   </form>
 
@@ -141,7 +141,7 @@
     <button class="btn small">Save</button>
   </form>
   {% if user.is_site_admin or source.added_by_id == user.id %}
-  <form method="post" action="/sources/{{ source.id }}/delete" onsubmit="return confirm('Delete this source and its items? Bundles using it will lose it.')"><button class="link danger">Delete source</button></form>
+  <form method="post" action="/sources/{{ source.id }}/delete" onsubmit="return confirm('Delete this source and its items? aggRSSives using it lose it.')"><button class="link danger">Delete source</button></form>
   {% endif %}
   {% endif %}
 

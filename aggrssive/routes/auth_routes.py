@@ -64,7 +64,7 @@ def signup_page(request: Request, user: User | None = Depends(current_user), db:
     if user:
         return RedirectResponse("/", status_code=303)
     if not signup_open(db) and not _first_user_is_admin(db):
-        raise HTTPException(403, "Sign-ups are closed on this install. Ask the admin for an account.")
+        raise HTTPException(403, "Sign-ups are closed here. Ask an admin for an account.")
     return templates.TemplateResponse(request, "signup.html", {"user": None, "error": None})
 
 
@@ -72,7 +72,7 @@ def signup_page(request: Request, user: User | None = Depends(current_user), db:
 def signup(request: Request, email: str = Form(...), display_name: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
     first = _first_user_is_admin(db)
     if not signup_open(db) and not first:
-        raise HTTPException(403, "Sign-ups are closed on this install.")
+        raise HTTPException(403, "Sign-ups are closed here.")
     email = email.strip().lower()
     if len(password) < 8:
         return templates.TemplateResponse(request, "signup.html", {"user": None, "error": "Password needs at least 8 characters."}, status_code=400)
@@ -126,7 +126,7 @@ async def oauth_callback(request: Request, provider: str, db: Session = Depends(
         name = info.get("name")
         email = info.get("email")
     if not email:
-        raise HTTPException(400, "Your account did not share an email address.")
+        raise HTTPException(400, "GitHub or Google did not share an email address, and aggRSSive needs one. Sign up with email instead.")
     email = email.lower()
 
     acct = db.execute(select(OAuthAccount).where(OAuthAccount.provider == provider, OAuthAccount.provider_user_id == pid)).scalar_one_or_none()
@@ -136,7 +136,7 @@ async def oauth_callback(request: Request, provider: str, db: Session = Depends(
         u = db.execute(select(User).where(User.email == email)).scalar_one_or_none()
         if u is None:
             if not signup_open(db) and not _first_user_is_admin(db):
-                raise HTTPException(403, "Sign-ups are closed on this install.")
+                raise HTTPException(403, "Sign-ups are closed here.")
             first = _first_user_is_admin(db)
             u = User(email=email, display_name=(name or email)[:120], is_admin=first, role="admin" if first else "user")
             db.add(u)

@@ -23,7 +23,7 @@ def overview(request: Request, db: Session = Depends(get_db), user: User | None 
 def show_category(request: Request, framework: str, code: str, db: Session = Depends(get_db), user: User | None = Depends(current_user)):
     c = classification.get(db, f"{framework}:{code}")
     if not c:
-        raise HTTPException(404, "No such category")
+        raise HTTPException(404, "No such heading")
     sources = classification.sources_under(db, c)
     children = db.execute(select(Category).where(Category.framework == c.framework, Category.parent_code == c.code).order_by(Category.position)).scalars().all()
     sids = [s.id for s in sources]

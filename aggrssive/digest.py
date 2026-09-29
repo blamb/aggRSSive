@@ -80,12 +80,12 @@ def render(d: Digest, items, base_url: str) -> tuple[str, str, str]:
             + (f'<div style="font-size:14px;margin-top:2px">{escape(excerpt)}</div>' if excerpt else "")
             + "</li>"
         )
-    lines += [f"You get this {FREQUENCIES[d.frequency]} because you asked for it on aggRSSive.", f"Unsubscribe: {unsub}"]
+    lines += [f"You asked for this {FREQUENCIES[d.frequency]} on aggRSSive.", f"Unsubscribe: {unsub}"]
     html = (
         '<div style="font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#1b1b1b;max-width:640px">'
         f'<h1 style="font-size:20px;border-bottom:2px solid #c8102e;padding-bottom:6px"><a href="{escape(page)}" style="color:#1b1b1b;text-decoration:none">{escape(b.title)}</a></h1>'
         f'<p style="color:#666">{n} new item{"s" if n != 1 else ""}</p><ul style="list-style:none;padding:0;margin:0">' + "".join(rows) + "</ul>"
-        f'<p style="color:#888;font-size:12px;margin-top:24px">You get this {FREQUENCIES[d.frequency]} because you asked for it on aggRSSive. <a href="{escape(unsub)}" style="color:#888">Unsubscribe</a>.</p></div>'
+        f'<p style="color:#888;font-size:12px;margin-top:24px">You asked for this {FREQUENCIES[d.frequency]} on aggRSSive. <a href="{escape(unsub)}" style="color:#888">Unsubscribe</a>.</p></div>'
     )
     return subject, "\n".join(lines), html
 

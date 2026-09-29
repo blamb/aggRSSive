@@ -39,7 +39,7 @@ def users(request: Request, db: Session = Depends(get_db), user: User = Depends(
 def create_user(display_name: str = Form(...), email: str = Form(...), role: str = Form("user"), password: str = Form(...), user: User = Depends(require_full_admin), db: Session = Depends(get_db)):
     email = email.strip().lower()
     if role not in ROLES or len(password) < 8:
-        return RedirectResponse("/admin/users?error=Role+must+be+valid+and+password+at+least+8+characters", status_code=303)
+        return RedirectResponse("/admin/users?error=Choose+a+role+and+a+password+of+at+least+8+characters", status_code=303)
     if db.execute(select(User).where(User.email == email)).scalar_one_or_none():
         return RedirectResponse("/admin/users?error=That+email+already+has+an+account", status_code=303)
     db.add(User(email=email, display_name=display_name.strip()[:120] or email, password_hash=hash_password(password), role=role, is_admin=role == "admin"))

@@ -4,7 +4,7 @@
 <div class="with-side">
 <div>
 <h1>Sources <span class="muted">({{ sources|length }})</span></h1>
-{% if request.query_params.get('imported') %}<p class="notice">Imported {{ request.query_params.get('imported') }} new feeds. They're being fetched now.</p>{% endif %}
+{% if request.query_params.get('imported') %}<p class="notice">Imported {{ request.query_params.get('imported') }} new feeds. Fetching them now.</p>{% endif %}
 <form method="get" class="row">
   <input name="q" value="{{ q }}" placeholder="Search sources">
   {% if tag %}<input type="hidden" name="tag" value="{{ tag }}">{% endif %}

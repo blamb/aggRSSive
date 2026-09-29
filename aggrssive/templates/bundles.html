@@ -8,7 +8,7 @@
 {% if mine %}
 <ul class="cards">{% for b in mine %}<li><a href="/bundles/{{ b.slug }}"><strong>{{ b.title }}</strong></a> {% if not b.is_public %}<span class="pill">private</span>{% endif %}<br><span class="muted small">{{ b.sources|length }} sources · <a href="/bundles/{{ b.slug }}/edit">edit</a></span></li>{% endfor %}</ul>
 {% else %}
-<p class="muted">None yet. Go to <a href="/sources">Sources</a>, tick a few, and create one from the Heart-Cart.</p>
+<p class="muted">None yet. Go to <a href="/find">Find feeds</a>, tick a few sources, and create one from the Heart-Cart.</p>
 {% endif %}
 <h2>Everyone's</h2>
 {% endif %}

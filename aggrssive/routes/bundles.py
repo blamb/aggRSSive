@@ -209,7 +209,7 @@ def validate_rule(kind: str, field: str, pattern: str, strictness: str) -> float
     if kind not in ("include", "exclude") or field not in FIELDS or not pattern.strip():
         raise HTTPException(400, "A rule needs a kind, a field and a pattern.")
     if field == "semantic" and not semantic.enabled():
-        raise HTTPException(400, "Meaning rules are switched off on this site (EMBEDDINGS_ENABLED).")
+        raise HTTPException(400, "Meaning rules are switched off on this site. An admin can turn them on with EMBEDDINGS_ENABLED.")
     if field == "ai" and not judge.enabled():
         raise HTTPException(400, "Plain-language rules need GenAI enabled on this site.")
     return semantic.STRICTNESS.get(strictness, semantic.STRICTNESS["normal"])

@@ -5,7 +5,7 @@ order: 12
 
 # What's new
 
-Newest first. Dates are when the change reached the main site.
+Newest first.
 
 ## September 2026
 

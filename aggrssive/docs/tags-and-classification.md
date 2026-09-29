@@ -5,9 +5,9 @@ order: 4
 
 # Tags and classification
 
-aggRSSive has two ways to describe a source, and they're deliberately different.
+aggRSSive has two ways to describe a source, and they are different on purpose.
 
-**Tags** are free words, shared by everyone: `open education`, `ds106`, `podcast`, `research`. Anyone can add any tag to any source. Tags are quick, personal, and grow into the collection's own vocabulary.
+**Tags** are free words, shared by everyone: `open education`, `ds106`, `podcast`, `research`. Anyone can add any tag to any source. Tags are quick, and they grow into the collection's own vocabulary.
 
 **Classification** is controlled. Two published frameworks are built in:
 

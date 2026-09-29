@@ -12,10 +12,10 @@
 <li><a href="/sources/{{ s.id }}">{{ s.title or s.feed_url }}</a> <form method="post" action="/bundles/{{ bundle.slug }}/sources/{{ s.id }}/remove" class="inline"><button class="link" title="remove">×</button></form></li>
 {% endfor %}
 </ul>
-<p class="muted small">Add more from <a href="/find">Find feeds</a> via the Heart-Cart.</p>
+<p class="muted small">Add more from <a href="/find">Find feeds</a>, via the Heart-Cart.</p>
 {% if similar %}
 <h3>Feeds like these</h3>
-<p class="muted small">Not in this aggRSSive yet, but writing about the same things as the items it includes. Tick to add.</p>
+<p class="muted small">Not in this aggRSSive, but writing about the same things as the items it includes. Tick to add.</p>
 <form method="post" action="/bundles/{{ bundle.slug }}/sources">
 <ul class="plain">
 {% for s, score, hits in similar %}
@@ -41,12 +41,12 @@
 <form method="post" action="/bundles/{{ bundle.slug }}/rules" class="row wrap">
   <select name="kind"><option value="include">include</option><option value="exclude">exclude</option></select>
   <select name="field">{% for f in fields %}{% if (f != 'semantic' or semantic_on) and (f != 'ai' or ai_on) %}<option value="{{ f }}">{{ field_labels[f] }}</option>{% endif %}{% endfor %}</select>
-  <input name="pattern" placeholder="word, phrase, regex — or a description for meaning / plain-language rules" required>
+  <input name="pattern" placeholder="word, phrase, regex, or a description for a meaning or plain-language rule" required>
   <label class="check"><input type="checkbox" name="is_regex" value="true"> regex</label>
   <label class="check">strictness <select name="strictness" title="loose / normal / strict">{% for s in strictness %}<option value="{{ s }}" {% if s == 'normal' %}selected{% endif %}>{{ s }}</option>{% endfor %}</select></label>
   <button class="btn small">Add rule</button>
 </form>
-<p class="muted small">{% if semantic_on %}<strong>Meaning</strong> rules compare each item to your description with a local model — "assessment and grading practices in higher education" — and take a moment to analyse new items. {% endif %}{% if ai_on %}<strong>Plain-language</strong> rules ask aggRSSive's GenAI once per item — "only posts about open pedagogy; drop job ads and event announcements" — and cost a fraction of a cent each. {% endif %}Strictness applies to meaning rules. See <a href="/help/bundles">Help → Building an aggRSSive</a>.</p>
+<p class="muted small">{% if semantic_on %}<strong>Meaning</strong> rules compare each item to a description ("assessment and grading practices in higher education") with a model that runs on this server, and take a few minutes to catch up with new items. {% endif %}{% if ai_on %}<strong>Plain-language</strong> rules ask aggRSSive's GenAI once per item ("only posts about open pedagogy; drop job ads and event announcements") and cost a fraction of a cent each. {% endif %}Strictness applies to meaning rules. See <a href="/help/bundles">Help → Building an aggRSSive</a>.</p>
 
 <h2>Preview: included <span class="muted">({{ included|length }})</span></h2>
 <ul class="items compact">
@@ -72,7 +72,7 @@
 {% if excluded %}
 <h2>Preview: kept out <span class="muted">(latest {{ excluded|length }})</span></h2>
 <p class="keytip">{{ key_tip("pending") }}</p>
-<p class="muted small">Recent items from your sources that didn't make it, and why. "Pending" means a meaning or plain-language rule hasn't analysed the item yet; it will within a few minutes. Pin one to force it in.</p>
+<p class="muted small">Recent items from these sources that didn't make it, and why.</p>
 <ul class="items compact muted">
 {% for bi in excluded %}
 {% set i = bi.item %}{% set o = overrides.get(i.id) %}
@@ -102,7 +102,7 @@
   </form>
   <h3>Outputs</h3>
   <p class="small"><a href="/bundles/{{ bundle.slug }}">Public page</a> with embed code and feeds.</p>
-  <form method="post" action="/bundles/{{ bundle.slug }}/delete" onsubmit="return confirm('Delete this aggRSSive? Its embed code and feeds will stop working.')"><button class="link danger">Delete aggRSSive</button></form>
+  <form method="post" action="/bundles/{{ bundle.slug }}/delete" onsubmit="return confirm('Delete this aggRSSive? Its embed code and feeds stop working.')"><button class="link danger">Delete aggRSSive</button></form>
 </aside>
 </div>
 {% endblock %}

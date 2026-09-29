@@ -136,8 +136,8 @@ def extract(url: str, fetch=_fetch) -> Extracted:
     try:
         html, final = fetch(url)
     except (httpx.HTTPError, ValueError) as e:
-        return Extracted(url=url, error=f"Could not read the page ({e}). Fill in the details yourself.")
+        return Extracted(url=url, error=f"Could not read the page: {e}. Fill in the details yourself.")
     try:
         return parse_page(html, final)
     except Exception as e:  # odd markup must not block a bookmark
-        return Extracted(url=final, error=f"Could not make sense of the page ({e}).")
+        return Extracted(url=final, error=f"Could not make sense of the page: {e}. Fill in the details yourself.")

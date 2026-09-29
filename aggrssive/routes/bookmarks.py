@@ -35,7 +35,7 @@ def _list_for(db: Session, user: User, list_id: int) -> Source:
     if s is None or s.kind != BOOKMARKS_KIND:
         raise HTTPException(404, "No such bookmark list")
     if not can_manage(user, s.added_by_id):
-        raise HTTPException(403, "Only the list's owner (or a site admin) can change it")
+        raise HTTPException(403, "Only the list's owner or a site admin can change it")
     return s
 
 

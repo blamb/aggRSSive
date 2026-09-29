@@ -48,7 +48,7 @@ def unsubscribe(request: Request, token: str, db: Session = Depends(get_db)):
 @router.post("/admin/digest-test")
 def digest_test(user: User = Depends(require_site_admin), db: Session = Depends(get_db)):
     if not digest.enabled():
-        raise HTTPException(400, "Email is not configured")
+        raise HTTPException(400, "Email is not configured on this site")
     b = db.execute(select(Bundle).where(Bundle.is_public.is_(True)).order_by(Bundle.id)).scalars().first()
     if b is None:
         return RedirectResponse("/admin?mail=nobundle", status_code=303)

@@ -4,7 +4,7 @@
 <div class="with-side">
 <div>
 <h1>Bookmarks</h1>
-<p class="muted">A bookmark list is a source you fill by hand, one page at a time. It goes into aggRSSives, embeds and courses exactly like a feed.</p>
+<p class="muted">A bookmark list is a source you fill by hand, one page at a time. It goes into aggRSSives, embeds and courses like any feed.</p>
 
 <h2>My lists</h2>
 {% if lists %}
@@ -36,11 +36,11 @@
 <aside>
   <h3>New list</h3>
   <form method="post" action="/bookmarks/lists" class="stack small">
-    <label>Name <input name="title" placeholder="e.g. Readings for week 3" required></label>
+    <label>Name <input name="title" placeholder="Readings for week 3" required></label>
     <label>Description <textarea name="description" rows="2"></textarea></label>
     <button class="btn small">Create list</button>
   </form>
-  <p class="muted small">Lists are shared like feeds: anyone can bundle them, only you (and site admins) add to them.</p>
+  <p class="muted small">Lists are shared like feeds. Anyone can bundle them; only you and site admins can add to them.</p>
 </aside>
 </div>
 <script>window.MY_BUNDLES = []; window.MY_BUNDLE_TITLES = [];</script>

@@ -5,7 +5,7 @@ order: 2
 
 # Adding feeds
 
-A **source** is a feed: RSS, Atom or JSON Feed. Sources are shared — once anyone adds one, everyone can tag it, classify it and put it in a bundle.
+A **source** is a feed: RSS, Atom or JSON Feed. Sources are shared. Once anyone adds one, everyone can tag it, classify it and put it in a bundle.
 
 ## Add one feed
 

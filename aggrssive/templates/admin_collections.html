@@ -3,12 +3,12 @@
 {% block content %}
 <p class="muted small"><a href="/admin">← Admin</a></p>
 <h1>Starter collections</h1>
-<p class="muted">Curated sets of feeds that ship with aggRSSive. Every feed was checked to be alive when the collection was built. Importing adds the feeds with their tags and classification; feeds you already have are left alone, so importing again is safe.</p>
+<p class="muted">Sets of feeds that ship with aggRSSive, every one checked alive when the set was built. Importing adds them with their tags and classification. Feeds already in the collection are left alone, so importing twice is safe.</p>
 {% if message %}<p class="notice">{{ message }}</p>{% endif %}
 {% for c in collections %}
 <div class="card">
   <h2 style="margin-top:0">{{ c.title }}</h2>
-  <p class="muted small">{{ c.count }} feeds · {{ c.imported }} already in your collection</p>
+  <p class="muted small">{{ c.count }} feeds · {{ c.imported }} already here</p>
   <p class="tagcloud small">{% for t in c.tags %}<span class="tag">{{ t }}</span> {% endfor %}</p>
   <details class="small"><summary>What's in it</summary>
     <ul class="plain">{% for e in c.entries %}<li><a href="{{ e.site_url or e.feed_url }}">{{ e.title }}</a> <span class="muted">{{ e.folders|join(', ') }}{% if e.categories %} · {{ e.categories|join(' ') }}{% endif %}</span></li>{% endfor %}</ul>

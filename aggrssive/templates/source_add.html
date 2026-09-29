@@ -3,7 +3,7 @@
 {% block content %}
 <div class="narrow">
 <h1>Add a feed</h1>
-<p class="muted">Paste any address: a blog, a journal, a podcast, a feed URL, or a YouTube channel or playlist, a Mastodon or Bluesky account, a Mastodon hashtag, a public Zotero group or library, or a Hypothesis user, group or tag. aggRSSive will find the feed.</p>
+<p class="muted">Paste an address and aggRSSive finds the feed: a blog, a journal, a podcast, a YouTube channel or playlist, a Mastodon or Bluesky account, a Mastodon hashtag, a public Zotero group or library, a Hypothesis user, group or tag.</p>
 <form method="post" action="/sources/discover" class="row">
   <input name="url" value="{{ url }}" placeholder="https://example.edu/blog" required autofocus>
   <button class="btn">Find feed</button>
@@ -15,14 +15,14 @@
 <p class="keytip">{{ key_tip("watch") }}</p>
 <form method="post" action="/sources" class="card stack">
   <input type="hidden" name="feed_url" value="{{ url }}">
-  <label class="check"><input type="radio" name="kind" value="page" checked> <strong>New links</strong> — each article-like link on the page becomes an item the first time it appears (news pages, publication lists, event listings)</label>
-  <label class="check"><input type="radio" name="kind" value="pagediff"> <strong>Changes</strong> — one item each time the page's text changes, saying what was added and removed (policies, syllabi, calls for papers)</label>
+  <label class="check"><input type="radio" name="kind" value="page" checked> <strong>New links</strong>: each article-like link on the page becomes an item the first time it appears. For news pages, publication lists and event listings.</label>
+  <label class="check"><input type="radio" name="kind" value="pagediff"> <strong>Changes</strong>: one item each time the page's text changes, saying what was added and removed. For policies, syllabi and calls for papers.</label>
   <label>Title <input name="title" placeholder="leave blank to use the page's own"></label>
   <label>Tags <input name="tags" placeholder="comma, separated" class="tag-input"></label>
   <button class="btn">Watch this page</button>
 </form>
 {% endif %}
-<p class="muted small">Just one page, not a whole site? <a href="/bookmarks/add?url={{ url|urlencode }}">Bookmark it</a> instead.</p>
+<p class="muted small">For a single page rather than a site, <a href="/bookmarks/add?url={{ url|urlencode }}">bookmark it</a> instead.</p>
 
 {% if candidates %}
 <h2>Found {{ candidates|length }} feed{{ 's' if candidates|length != 1 }}</h2>

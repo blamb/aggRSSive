@@ -4,8 +4,8 @@
 <h1>Admin</h1>
 <p class="stats">{{ stats.users }} accounts · {{ stats.sources }} sources · {{ stats.bundles }} aggRSSives · {{ stats.platforms }} LTI platform{{ 's' if stats.platforms != 1 }}</p>
 <ul class="cards">
-  <li><a href="/lti"><strong>LTI platforms</strong></a><p>Register Moodle and other learning platforms; registration URLs and keys.</p></li>
-  <li><a href="/admin/collections"><strong>Starter collections</strong></a><p>Curated feed collections you can import in one click.</p></li>
+  <li><a href="/lti"><strong>LTI platforms</strong></a><p>Register Moodle and other learning platforms, and change what each one gets.</p></li>
+  <li><a href="/admin/collections"><strong>Starter collections</strong></a><p>Curated, checked collections of feeds, imported in one click.</p></li>
   {% if user.is_full_admin %}
   <li><a href="/admin/users"><strong>Users</strong></a><p>Create accounts, change roles, deactivate.</p></li>
   <li>
@@ -15,10 +15,10 @@
       <button class="btn small">Save</button>
     </form>
   </li>
-  <li><strong>Email digests</strong><p>{% if mail %}Configured ({{ settings.smtp_host }}). People subscribe on any aggRSSive's page.{% else %}Off. Set <code>SMTP_HOST</code> and <code>SMTP_FROM</code> in the environment to enable — see <a href="/help/hosting">Hosting</a>.{% endif %}</p>
+  <li><strong>Email digests</strong><p>{% if mail %}Configured, via {{ settings.smtp_host }}. People subscribe on any aggRSSive's page.{% else %}Off. Set <code>SMTP_HOST</code> and <code>SMTP_FROM</code> in the environment; see <a href="/help/hosting">Hosting</a>.{% endif %}</p>
     {% if mail %}<form method="post" action="/admin/digest-test"><button class="btn small ghost">Send me a test digest</button></form>{% endif %}
     {% if mail_result == 'sent' %}<p class="notice small">Test digest sent to {{ user.email }}.</p>{% elif mail_result.startswith('error:') %}<p class="error small">{{ mail_result[6:] }}</p>{% elif mail_result == 'nobundle' %}<p class="muted small">No public aggRSSive to send yet.</p>{% endif %}</li>
-  <li><strong>GenAI</strong><p>{% if ai %}Enabled. The ✨ buttons are live.{% else %}Off. Set <code>ANTHROPIC_API_KEY</code> in the environment to enable — see <a href="/help/genai">Help</a>.{% endif %}</p></li>
+  <li><strong>GenAI</strong><p>{% if ai %}On. The ✨ buttons are live.{% else %}Off. Set <code>ANTHROPIC_API_KEY</code> in the environment; see <a href="/help/genai">Help</a>.{% endif %}</p></li>
   {% endif %}
 </ul>
 <p class="muted small">What each role can do: <a href="/help/roles">Help → Roles</a>.</p>

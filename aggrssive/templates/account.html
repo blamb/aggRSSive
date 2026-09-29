@@ -9,8 +9,8 @@
 <form method="post" action="/account" class="stack">
   <label>Name <input name="display_name" value="{{ user.display_name }}" required></label>
   <h3>Display</h3>
-  <label>Tag clouds <select name="tag_order">{% for k, v in TAG_ORDERS.items() %}<option value="{{ k }}" {% if (user.tag_order or 'alpha') == k %}selected{% endif %}>{{ v }}</option>{% endfor %}</select><span class="muted small">Bigger tags are used by more sources either way.</span></label>
-  <label class="check"><input type="checkbox" name="show_tips" value="true" {% if user.show_tips %}checked{% endif %}> Show a rotating tip on each page <span class="muted small">(key tips beside forms stay either way)</span></label>
+  <label>Tag clouds <select name="tag_order">{% for k, v in TAG_ORDERS.items() %}<option value="{{ k }}" {% if (user.tag_order or 'alpha') == k %}selected{% endif %}>{{ v }}</option>{% endfor %}</select><span class="muted small">Size still shows how many sources carry a tag.</span></label>
+  <label class="check"><input type="checkbox" name="show_tips" value="true" {% if user.show_tips %}checked{% endif %}> Show a tip on each page. <span class="muted small">Key tips beside forms stay either way.</span></label>
   <h3>Change password</h3>
   {% if user.password_hash %}<label>Current password <input type="password" name="current_password" autocomplete="current-password"></label>{% endif %}
   <label>New password <input type="password" name="new_password" minlength="8" autocomplete="new-password" placeholder="leave blank to keep"></label>
