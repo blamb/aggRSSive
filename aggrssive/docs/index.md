@@ -30,7 +30,7 @@ It is a rebuild of a tool from UBC in 2005. Novak Rogic was its architect, it ra
 
 ## Tips
 
-A dashed **Tip** box near the top of most pages offers a hint that fits where you are: ↻ shows another, × hides tips on that page for a month, and *more* opens the help page behind it. Turn them off under your name → Account. Blue-edged **key tips** beside the trickier forms (rules, strictness, classification, the bookmarklet, LTI settings) are always shown. Those are the places people ask about.
+A dashed box near the top of most pages, marked with a small feed icon, offers a hint that fits where you are: ↻ shows another, × hides tips on that page for a month, and *more* opens the help page behind it. Turn them off under your name → Account. Blue-edged **key tips** beside the trickier forms (rules, strictness, classification, the bookmarklet, LTI settings) are always shown. Those are the places people ask about.
 
 ## Accounts
 

@@ -28,7 +28,7 @@
 <main class="wrap">
 {% if user is not defined or user is none or user.show_tips %}{% set page_tips = tips_for(request.url.path) %}{% if page_tips %}
 <div class="tipbar" id="tipbar" hidden data-tips='{{ page_tips|map(attribute="text")|list|tojson|forceescape }}' data-links='{{ page_tips|map(attribute="link")|list|tojson|forceescape }}'>
-  <span class="tip-label">Tip</span> <span class="tip-text"></span> <a class="tip-more small" href="#">more</a>
+  <svg class="tip-icon" viewBox="0 0 16 16" width="14" height="14" aria-label="tip" role="img"><circle cx="3" cy="13" r="2" fill="currentColor"/><path d="M1 6.5a8.5 8.5 0 0 1 8.5 8.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M1 1.5A13.5 13.5 0 0 1 14.5 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg> <span class="tip-text"></span> <a class="tip-more small" href="#">more</a>
   <span class="tip-actions"><button class="link small" id="tip-next" title="another tip">↻</button> <button class="link small" id="tip-hide" title="hide tips on this page for a month">×</button></span>
 </div>
 {% endif %}{% endif %}
