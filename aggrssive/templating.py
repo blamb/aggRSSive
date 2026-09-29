@@ -58,3 +58,8 @@ templates.env.globals["TAG_ORDERS"] = TAG_ORDERS
 
 
 templates.env.globals["KIND_LABELS"] = ADAPTER_KINDS
+
+from . import tips as _tips  # noqa: E402
+
+templates.env.globals["tips_for"] = _tips.tips_for
+templates.env.globals["key_tip"] = lambda slug: Markup(_tips.key_tip(slug))

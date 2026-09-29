@@ -119,10 +119,11 @@ def account(request: Request, user: User = Depends(require_user)):
 
 
 @router.post("/account")
-def update_account(display_name: str = Form(...), tag_order: str = Form("alpha"), current_password: str = Form(""), new_password: str = Form(""), user: User = Depends(require_user), db: Session = Depends(get_db)):
+def update_account(display_name: str = Form(...), tag_order: str = Form("alpha"), show_tips: bool = Form(False), current_password: str = Form(""), new_password: str = Form(""), user: User = Depends(require_user), db: Session = Depends(get_db)):
     u = db.get(User, user.id)
     u.display_name = display_name.strip()[:120] or u.display_name
     u.tag_order = tag_order if tag_order in ("alpha", "count") else "alpha"
+    u.show_tips = show_tips
     if new_password:
         if len(new_password) < 8:
             return RedirectResponse("/account?error=New+password+needs+at+least+8+characters", status_code=303)

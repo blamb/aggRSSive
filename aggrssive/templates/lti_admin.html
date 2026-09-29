@@ -15,6 +15,7 @@
 <tr><td>{{ p.name }}</td><td class="small">{{ p.issuer }}</td><td class="small"><code>{{ p.client_id }}</code></td><td class="small">{{ p.deployment_ids.replace('\n', ', ') or '—' }}</td><td class="small muted">{{ p.last_launch_at|ago }}</td>
 <td><form method="post" action="/lti/platforms/{{ p.id }}/delete" onsubmit="return confirm('Remove this platform? Launches from it will stop working.')"><button class="link danger">remove</button></form></td></tr>
 <tr><td colspan="6"><details class="small"><summary class="muted">Settings for this platform</summary>
+<p class="keytip">{{ key_tip("platform-settings") }}</p>
 {% set o = options[p.id] %}
 <form method="post" action="/lti/platforms/{{ p.id }}/options" class="stack small" style="max-width:40rem">
   <label><input type="checkbox" name="related" value="1" {% if o.related %}checked{% endif %}> Show <em>related posts</em> under each item in launches</label>
@@ -40,6 +41,7 @@
 </ol>
 
 <h2>If the platform can't reach this server</h2>
+<p class="keytip">{{ key_tip("same-cloud") }}</p>
 <p class="small">Moodle verifies aggRSSive's signatures by fetching the keyset URL above. If the two sites live on the same cloud (e.g. both on Reclaim Cloud) that fetch can fail, because the platform resolves this hostname to a private address. Fix: in Moodle, edit the registered tool, set <em>Public key type</em> to <strong>RSA key</strong> and paste this. Nothing else changes.</p>
 <textarea readonly rows="8" class="code" onclick="this.select()">{{ public_key }}</textarea>
 

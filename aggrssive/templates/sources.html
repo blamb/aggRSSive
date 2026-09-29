@@ -36,6 +36,7 @@
 <aside>
   {% if user %}
   <h3>Import OPML</h3>
+  <p class="keytip">{{ key_tip("opml") }}</p>
   <form method="post" action="/sources/import" enctype="multipart/form-data" class="stack">
     <input type="file" name="file" accept=".opml,.xml,text/xml,text/x-opml" required>
     <label class="check"><input type="checkbox" name="use_folders" value="true" checked> Turn folders into tags</label>

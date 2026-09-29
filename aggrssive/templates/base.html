@@ -26,8 +26,24 @@
   </nav>
 </header>
 <main class="wrap">
+{% if user is not defined or user is none or user.show_tips %}{% set page_tips = tips_for(request.url.path) %}{% if page_tips %}
+<div class="tipbar" id="tipbar" hidden data-tips='{{ page_tips|map(attribute="text")|list|tojson|forceescape }}' data-links='{{ page_tips|map(attribute="link")|list|tojson|forceescape }}'>
+  <span class="tip-label">Tip</span> <span class="tip-text"></span> <a class="tip-more small" href="#">more</a>
+  <span class="tip-actions"><button class="link small" id="tip-next" title="another tip">↻</button> <button class="link small" id="tip-hide" title="hide tips on this page for a month">×</button></span>
+</div>
+{% endif %}{% endif %}
 {% block content %}{% endblock %}
 </main>
+<script>
+(function(){var bar=document.getElementById('tipbar');if(!bar)return;var key='tips-hidden:'+location.pathname.split('/')[1];
+try{var until=localStorage.getItem(key);if(until&&Date.now()<+until)return;}catch(e){}
+var tips=JSON.parse(bar.dataset.tips),links=JSON.parse(bar.dataset.links),i=0,t=bar.querySelector('.tip-text'),m=bar.querySelector('.tip-more');
+function show(){t.innerHTML=tips[i];if(links[i]){m.href=links[i];m.hidden=false;}else{m.hidden=true;}}
+show();bar.hidden=false;
+document.getElementById('tip-next').onclick=function(){i=(i+1)%tips.length;show();};
+document.getElementById('tip-hide').onclick=function(){try{localStorage.setItem(key,Date.now()+30*864e5);}catch(e){}bar.hidden=true;};
+})();
+</script>
 <footer class="foot">
   <span>aggRSSive · second edition · <a href="https://github.com/blamb/aggRSSive">source</a></span>
 </footer>

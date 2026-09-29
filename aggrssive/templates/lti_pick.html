@@ -20,7 +20,7 @@ button{font:inherit;padding:.55rem 1.1rem;border-radius:6px;border:0;background:
 </style></head>
 <body>
 <h1>Choose an aggRSSive</h1>
-<p class="muted intro">{% if name %}Hi {{ name }}. {% endif %}The list you pick stays live in your course: as its feeds update, so does the page.</p>
+<p class="muted intro">{% if name %}Hi {{ name }}. {% endif %}{{ key_tip("picker") }}</p>
 <form method="post" action="/lti/deeplink" id="pick">
 <input type="hidden" name="token" value="{{ token }}">
 <input type="search" id="q" placeholder="Search aggRSSives…" autofocus>

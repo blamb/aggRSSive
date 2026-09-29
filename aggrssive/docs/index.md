@@ -26,6 +26,10 @@ aggRSSive collects feeds, lets a group tag and classify them together, and turns
 | **Help** | These pages |
 | **Admin** | (site and full admins) LTI platforms and their settings, starter collections, users, sign-ups |
 
+## Tips
+
+A dashed **Tip** box near the top of most pages offers a short hint that fits where you are; ↻ shows another, × hides tips on that page for a month, and *more* opens the help page behind it. Turn them off altogether under your name → Account. Blue-edged **key tips** beside the trickier forms (rules, strictness, classification, the bookmarklet, LTI settings) are always shown, because those are the places people most often ask about.
+
 ## Accounts
 
 Anyone with an account can add sources, tag and classify them, and build and publish aggRSSives. Everything shared — sources, tags, classification — belongs to the collection, not to one person. Your aggRSSives are yours to edit; others can see and reuse the public ones.

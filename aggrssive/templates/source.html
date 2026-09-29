@@ -47,6 +47,7 @@
 {% endif %}
 
 <h2 id="classification">Classification</h2>
+<p class="keytip">{{ key_tip("classification") }}</p>
 <p>
   {% for c in source.categories %}<span class="tag cat" title="{{ frameworks[c.framework].title }}"><a href="/classification/{{ c.framework }}/{{ c.code }}">{{ c.code }} {{ c.label }}</a>{% if user %} <form method="post" action="/sources/{{ source.id }}/categories/{{ c.id }}/remove" class="inline"><button class="link" title="remove">×</button></form>{% endif %}</span> {% else %}<span class="muted small">Not classified yet.</span>{% endfor %}
 </p>
@@ -112,7 +113,7 @@
   {% endif %}
 
   <h3>Rules for this source</h3>
-  <p class="muted small">Apply everywhere this source is used.</p>
+  <p class="keytip">{{ key_tip("source-rules") }}</p>
   <ul class="rules">
   {% for r in rules %}
     <li><span class="pill {{ r.kind }}">{{ r.kind }}</span> {{ describe(r) }}

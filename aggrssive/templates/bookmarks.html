@@ -30,7 +30,7 @@
 {% endif %}
 
 <h2>Bookmark from anywhere</h2>
-<p class="small">Drag this to your bookmarks bar. On any page, click it: aggRSSive opens with the page described and ready to save.</p>
+<p class="keytip">{{ key_tip("bookmarklet") }}</p>
 <p><a class="btn small" href="javascript:void(window.open('{{ settings.base_url }}/bookmarks/add?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'aggrssive','width=720,height=760'))" onclick="return false" title="Drag me to your bookmarks bar">♥ aggRSSive this</a></p>
 </div>
 <aside>

@@ -27,6 +27,8 @@
 {% endif %}
 
 <h2>Rules</h2>
+<p class="keytip">{{ key_tip("rules") }}</p>
+{% if semantic_on %}<p class="keytip">{{ key_tip("strictness") }}</p>{% endif %}
 <p class="muted small">Exclude rules always win. {% if bundle.match_mode == 'all' %}An item must match <strong>all</strong> include rules.{% else %}An item must match <strong>any</strong> include rule.{% endif %} No include rules means everything gets in.</p>
 <ul class="rules">
 {% for r in rules %}
@@ -41,7 +43,7 @@
   <select name="field">{% for f in fields %}{% if (f != 'semantic' or semantic_on) and (f != 'ai' or ai_on) %}<option value="{{ f }}">{{ field_labels[f] }}</option>{% endif %}{% endfor %}</select>
   <input name="pattern" placeholder="word, phrase, regex — or a description for meaning / plain-language rules" required>
   <label class="check"><input type="checkbox" name="is_regex" value="true"> regex</label>
-  <label class="check">strictness <select name="strictness">{% for s in strictness %}<option value="{{ s }}" {% if s == 'normal' %}selected{% endif %}>{{ s }}</option>{% endfor %}</select></label>
+  <label class="check">strictness <select name="strictness" title="loose / normal / strict">{% for s in strictness %}<option value="{{ s }}" {% if s == 'normal' %}selected{% endif %}>{{ s }}</option>{% endfor %}</select></label>
   <button class="btn small">Add rule</button>
 </form>
 <p class="muted small">{% if semantic_on %}<strong>Meaning</strong> rules compare each item to your description with a local model — "assessment and grading practices in higher education" — and take a moment to analyse new items. {% endif %}{% if ai_on %}<strong>Plain-language</strong> rules ask aggRSSive's GenAI once per item — "only posts about open pedagogy; drop job ads and event announcements" — and cost a fraction of a cent each. {% endif %}Strictness applies to meaning rules. See <a href="/help/bundles">Help → Building an aggRSSive</a>.</p>
@@ -69,6 +71,7 @@
 
 {% if excluded %}
 <h2>Preview: kept out <span class="muted">(latest {{ excluded|length }})</span></h2>
+<p class="keytip">{{ key_tip("pending") }}</p>
 <p class="muted small">Recent items from your sources that didn't make it, and why. "Pending" means a meaning or plain-language rule hasn't analysed the item yet; it will within a few minutes. Pin one to force it in.</p>
 <ul class="items compact muted">
 {% for bi in excluded %}

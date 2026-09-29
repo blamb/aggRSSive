@@ -65,3 +65,4 @@ def init_db() -> None:
         conn.execute(text("UPDATE users SET role='admin' WHERE is_admin=1 AND (role IS NULL OR role='user')"))
         conn.execute(text("UPDATE users SET role='user' WHERE role IS NULL"))
         conn.execute(text("UPDATE users SET is_active=1 WHERE is_active IS NULL"))
+        conn.execute(text("UPDATE users SET show_tips=1 WHERE show_tips IS NULL"))

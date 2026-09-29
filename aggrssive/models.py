@@ -49,6 +49,7 @@ class User(Base):
     role: Mapped[str] = mapped_column(String(16), default="user")  # user | site_admin | admin
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     tag_order: Mapped[str] = mapped_column(String(16), default="alpha")  # display preference: alpha | count
+    show_tips: Mapped[bool] = mapped_column(Boolean, default=True)  # rotating tips on pages
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
     @property

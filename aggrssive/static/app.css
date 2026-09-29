@@ -71,3 +71,7 @@ ul.tree details summary{list-style:none;cursor:pointer}ul.tree details summary::
 ul.tree ul.tree{margin:.2rem 0 .4rem}
 
 ul.items details.related{margin-top:.3rem}ul.items details.related summary{font-size:.85em}ul.related-list{margin:.3rem 0 0 1rem;list-style:disc}ul.related-list li{padding:.15rem 0;border:0}
+
+.tipbar{display:flex;gap:.5rem;align-items:baseline;flex-wrap:wrap;background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--accent);border-radius:6px;padding:.45rem .8rem;margin:0 0 1rem;font-size:.9rem}
+.tipbar .tip-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);font-weight:600}.tipbar .tip-text{flex:1 1 20rem}.tipbar .tip-actions{margin-left:auto;white-space:nowrap}.tipbar .tip-more[hidden]{display:none}
+.keytip{background:var(--card);border-left:3px solid var(--link);padding:.45rem .8rem;margin:.6rem 0;font-size:.88rem;color:var(--fg);border-radius:0 6px 6px 0}.keytip code{font-size:.85em}
