@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import io
 import json
+import zipfile
 from datetime import timezone
 from email.utils import format_datetime
 from pathlib import Path
@@ -195,6 +197,20 @@ def embed_frame(request: Request, slug: str, n: int | None = None, desc: int = 1
         {"bundle": b, "items": items, "desc": desc, "img": img, "src": src, "date": date, "theme": theme if theme in ("light", "dark", "auto") else "light"},
         headers={"Cache-Control": "public, max-age=300"},
     )
+
+
+WP_DIR = Path(__file__).parent.parent / "wordpress" / "aggrssive-embed"
+
+
+@router.get("/wordpress/aggrssive-embed.zip")
+def wordpress_plugin():
+    """The WordPress block plugin, zipped on the fly from the files shipped with the app."""
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
+        for f in sorted(WP_DIR.iterdir()):
+            if f.is_file():
+                z.write(f, f"aggrssive-embed/{f.name}")
+    return Response(buf.getvalue(), media_type="application/zip", headers={"Content-Disposition": 'attachment; filename="aggrssive-embed.zip"', "Cache-Control": "public, max-age=3600"})
 
 
 @router.get("/b/{slug}", response_class=HTMLResponse)

@@ -9,6 +9,7 @@ Newest first. Dates are when the change reached the main site.
 
 ## September 2026
 
+- **WordPress block**: a small plugin (block + shortcode), downloadable from any aggRSSive's page, for sites that would rather not paste script tags.
 - **Email digests**: new items from any aggRSSive, daily or weekly, chosen per person on its page, with one-click unsubscribe. Needs outgoing mail configured by a site admin.
 - **Watched pages**: a page with no feed can be a source, reporting either its new links or changes to its text.
 - **Tips**: a rotating, dismissible tip on each page, fitted to where you are, and always-on key tips beside the forms people ask about most; off/on under Account.

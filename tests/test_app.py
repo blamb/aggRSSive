@@ -127,3 +127,16 @@ def test_poll_all_handles_naive_timestamps_from_sqlite(client):
     scheduler.fetch_source = lambda db, s: calls.append(s.id) or 0
     scheduler.poll_all()
     assert calls, "due source was not polled"
+
+
+def test_wordpress_plugin_zip_ships_with_the_app(client):
+    import io
+    import zipfile
+
+    r = client.get("/wordpress/aggrssive-embed.zip")
+    assert r.status_code == 200 and r.headers["content-type"] == "application/zip"
+    z = zipfile.ZipFile(io.BytesIO(r.content))
+    names = z.namelist()
+    assert "aggrssive-embed/aggrssive-embed.php" in names and "aggrssive-embed/block.js" in names and "aggrssive-embed/readme.txt" in names
+    php = z.read("aggrssive-embed/aggrssive-embed.php").decode()
+    assert php.startswith("<?php") and "Plugin Name: aggRSSive Embed" in php and "add_shortcode( 'aggrssive'" in php and "register_block_type" in php

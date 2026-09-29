@@ -43,6 +43,7 @@
       <li><code>data-theme="dark"</code> or <code>auto</code></li>
       <li><code>data-target="#my-div"</code> render into an element</li>
     </ul>
+    <p><strong>WordPress?</strong> Install the <a href="/wordpress/aggrssive-embed.zip">aggRSSive block plugin</a> once, set the site address under <em>Settings → aggRSSive</em>, then add the <em>aggRSSive</em> block with the code <code>{{ bundle.slug }}</code>, or the shortcode <code>[aggrssive slug="{{ bundle.slug }}"]</code>.</p>
     <p>Or an iframe, for sites that block scripts:</p>
     <textarea readonly rows="3" class="code" onclick="this.select()">&lt;iframe src="{{ settings.base_url }}/embed/{{ bundle.slug }}/frame?n=10" width="100%" height="500" style="border:0"&gt;&lt;/iframe&gt;</textarea>
   </details>

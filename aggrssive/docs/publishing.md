@@ -33,6 +33,15 @@ The list renders where the tag sits and updates itself. Attributes on the tag ad
 
 If a site strips scripts, use the **iframe** version shown under *Options* instead.
 
+## WordPress
+
+Download the **aggRSSive block plugin** (the link is under *Options* on any aggRSSive's page, or at `/wordpress/aggrssive-embed.zip`), upload it under *Plugins → Add New → Upload Plugin*, and set your aggRSSive site's address once under *Settings → aggRSSive*. After that:
+
+- add the **aggRSSive** block to any post or page and enter the aggRSSive's code (the part after `/bundles/` in its address); the block settings cover item count, descriptions, images, dates, theme and script-or-iframe, with a live preview in the editor;
+- or use the shortcode anywhere shortcodes work: `[aggrssive slug="abcd1234" n="8" desc="none" theme="auto"]`.
+
+The plugin adds no styling of its own beyond the list's; it emits the same script tag as *Feed your site*, so anything that works there works in WordPress. Multisite networks can network-activate it and set the site address per site.
+
 ## Subscribe
 
 Each aggRSSive is itself a feed — **RSS**, **Atom** and **JSON Feed** links are on its page — so anyone can follow it in a reader, and anyone can add it to *their* aggRSSive as a source. There's also an **OPML** of its sources, for people who'd rather take the feeds than the bundle.

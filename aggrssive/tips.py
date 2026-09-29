@@ -49,6 +49,7 @@ TIPS: tuple[Tip, ...] = (
     Tip("An age window (“items newer than 30 days”) keeps a course page current without anyone touching it.", ("bundles",), "/help/bundles"),
     Tip("Under each item, <em>related posts</em> shows the closest posts from the whole collection. It is a quick way to spot a feed worth adding.", ("bundles", "any"), "/help/publishing"),
     # Publishing and LTI
+    Tip("On WordPress, install the aggRSSive block plugin once (link under <em>Options</em> on any aggRSSive) and editors add lists by code, with a live preview.", ("bundles",), "/help/publishing"),
     Tip("The embed's script tag takes attributes: <code>data-n=\"8\"</code>, <code>data-desc=\"0\"</code>, <code>data-theme=\"dark\"</code>. Sites that strip scripts can use the iframe version.", ("bundles",), "/help/publishing"),
     Tip("In Moodle, add an aggRSSive with <em>External tool → Select content</em>. The course shows the live list; edit the aggRSSive and the course follows.", ("bundles", "any"), "/help/lti-instructors"),
     Tip("A platform without a content picker can still launch an aggRSSive from a plain URL: <code>…/lti/launch?bundle=CODE</code>.", ("lti",), "/help/lti-instructors"),
