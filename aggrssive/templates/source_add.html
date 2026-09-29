@@ -3,15 +3,16 @@
 {% block content %}
 <div class="narrow">
 <h1>Add a feed</h1>
-<p class="muted">Paste an address and aggRSSive finds the feed: a blog, a journal, a podcast, a YouTube channel or playlist, a Mastodon or Bluesky account, a Mastodon hashtag, a public Zotero group or library, a Hypothesis user, group or tag.</p>
+<p class="muted">Paste a site's address, or type a podcast's name. aggRSSive finds the feed.</p>
 <form method="post" action="/sources/discover" class="row">
-  <input name="url" value="{{ url }}" placeholder="https://example.edu/blog" required autofocus>
+  <input name="url" value="{{ url or term or '' }}" placeholder="https://example.edu/blog, or a podcast's name" required autofocus>
   <button class="btn">Find feed</button>
 </form>
+<details class="muted small"><summary>What can I paste?</summary><p>Any blog, journal, news site or feed address; a podcast's name or its Apple Podcasts page; a YouTube channel or playlist; a Mastodon or Bluesky account, or a Mastodon hashtag page; a public Zotero group or library; a Hypothesis user, group or tag search. Only public content is ever read. Spotify pages carry no feed; use the show's name instead.</p></details>
 {% if error %}<p class="error">{{ error }}</p>{% endif %}
-<p class="keytip">{{ key_tip("platforms") }}</p>
 {% if shows %}
 <h2>Podcasts matching “{{ term }}”</h2>
+<p class="muted small">From Apple's podcast directory, each with its feed. Not what you meant? Paste the site's address instead.</p>
 {% for s in shows %}
 <form method="post" action="/sources" class="card stack">
   <input type="hidden" name="feed_url" value="{{ s.feed_url }}">
@@ -23,12 +24,6 @@
 </form>
 {% endfor %}
 {% endif %}
-<h2 id="podcast">Find a podcast by name</h2>
-<form method="post" action="/sources/podcasts" class="row">
-  <input name="term" value="{{ term or '' }}" placeholder="a show's name, or a subject: feminist history">
-  <button class="btn ghost">Search podcasts</button>
-</form>
-<p class="muted small">Searches Apple's podcast directory, which lists most shows with their feeds. Spotify-only shows have no feed anywhere.</p>
 {% if error and url and not candidates and not no_feed_ever %}
 <h2>Watch the page instead</h2>
 <p class="keytip">{{ key_tip("watch") }}</p>

@@ -60,7 +60,7 @@ def test_quick_bundle_from_heading_includes_descendants(client):
     with SessionLocal() as db:
         b = db.query(Bundle).filter_by(slug=slug).one()
         urls = {s.feed_url for s in b.sources}  # other test modules may have filed sources under L too
-        assert b.title == "L Education" and "https://find1.test/feed" in urls and "https://find2.test/feed" not in urls
+        assert b.title == "Everything under Education" and "https://find1.test/feed" in urls and "https://find2.test/feed" not in urls
 
 
 def test_quick_bundle_from_tag(client):
@@ -81,7 +81,7 @@ def test_fork_copies_sources_and_rules_privately(client):
 
         orig = db.query(Bundle).filter_by(slug=slug).one()
         copy = db.query(Bundle).filter_by(slug=copy_slug).one()
-        assert copy.title == "critical pedagogy (copy)" and copy.is_public is False
+        assert copy.title == "Everything tagged critical pedagogy (copy)" and copy.is_public is False
         assert [s.id for s in copy.sources] == [s.id for s in orig.sources]
         assert [r.pattern for r in db.query(Rule).filter_by(owner_type="bundle", owner_id=copy.id)] == ["webinar"]
 
@@ -128,3 +128,11 @@ def test_add_page_podcast_search_and_spotify_message(client, monkeypatch):
     assert r.status_code == 200 and "Feminist Frequency" in r.text and 'value="https://ff.test/feed"' in r.text and 'value="podcast"' in r.text
     r = client.post("/sources/discover", data={"url": "https://open.spotify.com/show/abc"})
     assert "Spotify pages don" in r.text and "<h2>Watch the page instead</h2>" not in r.text
+
+
+def test_add_box_treats_a_name_as_a_podcast_search(client, monkeypatch):
+    from aggrssive.feeds import adapters
+
+    monkeypatch.setattr(adapters, "search_podcasts", lambda term, **kw: [{"title": "Named Show", "author": "A", "feed_url": "https://ns.test/feed", "site_url": None, "image": None, "genres": []}])
+    r = client.post("/sources/discover", data={"url": "feminist history"})
+    assert r.status_code == 200 and "Named Show" in r.text and "Podcasts matching" in r.text

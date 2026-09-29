@@ -34,7 +34,7 @@ A tag page, signed in, opens with **Feeds that might belong here**: sources not 
 
 On the source page, type tags into the box (commas between them) or click one from the suggestions below it. Remove a tag with its ×.
 
-**Suggested tags** appear automatically after each fetch: vocabulary already in use here that matches the feed, plus categories the feed itself declares on its items. Each suggestion has three buttons:
+**Suggested tags** appear automatically after each fetch, five at most: vocabulary already in use here that matches the feed first, then categories the feed itself declares on its items. Each suggestion has three buttons:
 
 - **✓** adds it
 - **✎** copies it into the box so you can change it first

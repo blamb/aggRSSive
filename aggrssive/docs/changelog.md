@@ -9,6 +9,7 @@ Newest first.
 
 ## September 2026
 
+- **First-visit pass**: bundles are called bundles; tips sit under the heading; search results lead with feeds and posts; headings show their names instead of codes in lists; the home cloud shows shared tags only; one Add feed box takes an address or a podcast's name; fewer tag suggestions with a legend; a glossary in Getting started.
 - **Privacy page**: exactly what the site keeps and what leaves the server, in the footer and Help. Bookmark notes are no longer part of the text rules and the GenAI see.
 - **Podcasts by name**: search Apple's podcast directory from + Add feed and add a show in one click; Apple Podcasts page addresses work; Spotify addresses get a plain explanation.
 - **Topic bundles**: a bundle over every source in the collection, defined by its rules alone; one click from any search on Find feeds.

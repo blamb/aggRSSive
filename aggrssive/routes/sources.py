@@ -84,6 +84,9 @@ def find_podcasts(request: Request, term: str = Form(...), user: User = Depends(
 
 @router.post("/sources/discover")
 def do_discover(request: Request, url: str = Form(...), user: User = Depends(require_user), db: Session = Depends(get_db)):
+    raw = url.strip()
+    if raw and (" " in raw or "." not in raw):  # not an address: treat it as a podcast's name
+        return find_podcasts(request, term=raw, user=user, db=db)
     try:
         candidates = discover(url)
         error = None if candidates else "No feed at that address. Paste the feed URL directly, or watch the page itself, below."

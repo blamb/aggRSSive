@@ -1,6 +1,6 @@
 # First-visit review: what a casual visitor can do, and where they stall
 
-Walked on 2026-09-29 against the live site (signed out, desktop and phone width) and against a local copy of the same code as a fresh anonymous account. **Status (2026-09-29):** items 1, 2, 3 (noun: bundle), 4, 5, 6, 10, 11, 13, 15, 16 and the collapsing part of 9 are applied in commit ff973a2. Still open: 7 (codes without labels), 8 (odd tags), 9 (rule explanation wording), 12 (Add feed as one box), 14 (source-page suggestions), and the glossary.
+Walked on 2026-09-29 against the live site (signed out, desktop and phone width) and against a local copy of the same code as a fresh anonymous account. **Status (2026-09-29):** items 1, 2, 3 (noun: bundle), 4, 5, 6, 10, 11, 13, 15, 16 and the collapsing part of 9 are applied in commit ff973a2. Second batch (commit 1aedf14, amended): 7, 8, 12, 14 and the glossary. Still open: 9 (a further wording pass on the rule kinds, if wanted).
 
 ## What works today
 

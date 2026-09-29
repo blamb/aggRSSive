@@ -76,12 +76,12 @@ def create_from(tag: str = Form(""), cat: str = Form(""), user: User = Depends(r
         t = db.execute(select(Tag).where(Tag.name == tag)).scalar_one_or_none()
         if not t:
             raise HTTPException(404, "No such tag")
-        sources, title = t.sources, tag
+        sources, title = t.sources, f"Everything tagged {tag}"
     elif cat:
         c = classification.get(db, cat)
         if not c:
             raise HTTPException(404, "No such heading")
-        sources, title = classification.sources_under(db, c), f"{c.code} {c.label}"
+        sources, title = classification.sources_under(db, c), f"Everything under {c.label}"
     else:
         raise HTTPException(400, "Say which tag or heading")
     b = Bundle(owner_id=user.id, title=title[:300], description=f"Everything filed under {title}.")

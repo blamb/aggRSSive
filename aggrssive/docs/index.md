@@ -17,6 +17,17 @@ It is a rebuild of a tool from UBC in 2005. Novak Rogic was its architect, it ra
 4. **Filter and curate.** On the bundle's *edit* page, add rules: keywords, a *meaning* ("assessment and grading practices"), or *plain language* for the GenAI to judge. Pin the items that matter, hide the ones that don't, add a note. *Feeds like these* suggests more sources that fit.
 5. **Publish.** Every public bundle has embed code, RSS, Atom and JSON feeds, an email digest, and a place in any course via *External tool → Select content*. A bundle of podcasts is itself a show, with episodes that play wherever it is embedded; see [For podcasters](podcasters).
 
+## Words used here
+
+- **Feed**: a source of posts that updates itself (RSS, Atom, JSON Feed). Podcasts, YouTube channels and Mastodon accounts are feeds too.
+- **Bundle**: a set of feeds you choose, filtered by rules, with a page, a feed and embed code of its own. Around here also called an aggRSSive.
+- **Topic bundle**: a bundle with no fixed feeds; its rules sift every feed in the collection.
+- **Tag**: a word anyone can put on a feed. **Heading**: a fixed classification (Library of Congress or ISCED-F) a feed is filed under.
+- **Rule**: a filter on a bundle or a feed. **Meaning rule**: a description the local model compares posts to. **Plain-language rule**: a sentence the GenAI judges each post by.
+- **Heart-Cart**: the box at the bottom right where ticked feeds collect until you name them as a bundle.
+- **Bookmark list**: a feed you fill by hand, one page at a time. **Watched page**: a page with no feed, checked for new links or changes.
+- **Embed**: the one-line script or iframe that shows a bundle on any web page. **OPML**: the file format feed readers use to swap lists of feeds.
+
 ## Where things are
 
 | Menu item | What's there |

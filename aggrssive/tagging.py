@@ -21,7 +21,7 @@ from .models import Item, Source, Tag
 log = logging.getLogger("aggrssive.tagging")
 
 GENERIC = {"uncategorized", "uncategorised", "general", "misc", "miscellaneous", "blog", "posts", "post", "articles", "article", "featured", "news", "home"}
-MAX_SUGGESTIONS = 8
+MAX_SUGGESTIONS = 5
 
 
 def _lines(s: str | None) -> list[str]:
