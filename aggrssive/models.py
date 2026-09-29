@@ -236,6 +236,8 @@ class Bundle(Base):
     max_age_days: Mapped[int | None] = mapped_column(Integer)
     max_items: Mapped[int] = mapped_column(Integer, default=50)
     dedupe: Mapped[bool] = mapped_column(Boolean, default=True)
+    # Curation from an import (pins, hides, notes by item URL) waiting for the items to be fetched. JSON list or NULL.
+    pending_curation: Mapped[str | None] = mapped_column(Text)
 
     owner: Mapped[User] = relationship(back_populates="bundles")
     sources: Mapped[list[Source]] = relationship(secondary=bundle_sources, order_by=bundle_sources.c.position)

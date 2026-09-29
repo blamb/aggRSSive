@@ -9,6 +9,7 @@ Newest first.
 
 ## September 2026
 
+- **Portable aggRSSives**: export any aggRSSive, or all of yours from the Account page, as one file; import it on any install. Sources, tags, headings, rules and curation travel; bookmark lists bring their bookmarks.
 - **Feeds that might belong here**: a tag page suggests sources for the tag, by name, by what they publish and by the tags they share, with ✓ and ✕.
 - **Podcasts**: episodes keep their audio; players on aggRSSive pages, in embeds and in courses; a bundle's RSS carries the enclosures, so a bundle of shows subscribes as one show. A help page for podcasters.
 - **Feeds and OPML everywhere**: OPML for any tag, heading or the whole collection; RSS for bookmark lists and watched pages; a copy button with an icon beside every feed address.

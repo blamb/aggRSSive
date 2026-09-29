@@ -1,12 +1,12 @@
-from fastapi import APIRouter, Depends, Form, HTTPException, Request
-from fastapi.responses import RedirectResponse
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile
+from fastapi.responses import JSONResponse, RedirectResponse
 from sqlalchemy import delete, select
 from sqlalchemy.orm import Session, selectinload
 
 from ..auth import can_manage, current_user, require_user
 from ..db import get_db
 from ..models import Bundle, Item, Rule, Source, User, bundle_sources
-from .. import judge, semantic
+from .. import judge, scheduler, semantic
 from ..rules import FIELD_LABELS, FIELDS, bundle_items, describe, get_override, resolve
 from ..templating import templates
 
@@ -135,6 +135,37 @@ def fork_bundle(slug: str, user: User = Depends(require_user), db: Session = Dep
     return RedirectResponse(f"/bundles/{b.slug}/edit", status_code=303)
 
 
+@router.get("/bundles/{slug}/export.json")
+def export_bundle(slug: str, db: Session = Depends(get_db), user: User | None = Depends(current_user)):
+    """The aggRSSive as a portable file: settings, sources with tags and headings, rules, curation."""
+    from .. import portable
+
+    b = load_bundle(db, slug)
+    if not can_view(b, user):
+        raise HTTPException(404, "No such aggRSSive")
+    return JSONResponse(portable.export_bundle(db, b), headers={"Content-Disposition": f'attachment; filename="aggrssive-{b.slug}.json"'})
+
+
+@router.post("/bundles/import")
+async def import_bundles(file: UploadFile = File(...), user: User = Depends(require_user), db: Session = Depends(get_db)):
+    """Import one exported aggRSSive, or a whole set from an account export. New bundles are private."""
+    from .. import portable
+
+    try:
+        docs = portable.parse(await file.read())
+    except ValueError as e:
+        raise HTTPException(400, f"That file isn't an aggRSSive export: {e}")
+    made = []
+    for doc in docs:
+        b, new_ids = portable.import_bundle(db, doc, user)
+        made.append(b)
+        for sid in new_ids:
+            scheduler.fetch_soon(sid)
+    if len(made) == 1:
+        return RedirectResponse(f"/bundles/{made[0].slug}/edit", status_code=303)
+    return RedirectResponse(f"/bundles?imported={len(made)}", status_code=303)
+
+
 @router.get("/bundles/{slug}")
 def show_bundle(request: Request, slug: str, db: Session = Depends(get_db), user: User | None = Depends(current_user)):
     b = load_bundle(db, slug)
@@ -157,6 +188,10 @@ def edit_bundle_page(request: Request, slug: str, db: Session = Depends(get_db),
     b = load_bundle(db, slug)
     if not can_edit(b, user):
         raise HTTPException(403, "Not yours to edit")
+    if b.pending_curation:  # an import's pins and notes, applied as the items arrive
+        from .. import portable
+
+        portable.apply_pending_curation(db, b)
     rules = db.execute(select(Rule).where(Rule.owner_type == "bundle", Rule.owner_id == b.id).order_by(Rule.id)).scalars().all()
     # Preview: what the rules produce and what they kept out, each with the reason, so rules can be tuned.
     included, excluded = resolve(db, b, include_hidden=True, with_excluded=True)

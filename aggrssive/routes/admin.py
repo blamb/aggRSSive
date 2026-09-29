@@ -114,8 +114,18 @@ def import_collection(slug: str, db: Session = Depends(get_db), user: User = Dep
 
 
 @router.get("/account")
-def account(request: Request, user: User = Depends(require_user)):
-    return templates.TemplateResponse(request, "account.html", {"user": user, "message": request.query_params.get("m"), "error": request.query_params.get("error")})
+def account(request: Request, user: User = Depends(require_user), db: Session = Depends(get_db)):
+    n_bundles = db.scalar(select(func.count(Bundle.id)).where(Bundle.owner_id == user.id))
+    return templates.TemplateResponse(request, "account.html", {"user": user, "message": request.query_params.get("m"), "error": request.query_params.get("error"), "n_bundles": n_bundles})
+
+
+@router.get("/account/export.json")
+def account_export(user: User = Depends(require_user), db: Session = Depends(get_db)):
+    """Every aggRSSive you own, in one portable file: a backup, or a way to move to another install."""
+    from .. import portable
+    from fastapi.responses import JSONResponse
+
+    return JSONResponse(portable.export_all(db, user), headers={"Content-Disposition": 'attachment; filename="my-aggrssives.json"'})
 
 
 @router.post("/account")

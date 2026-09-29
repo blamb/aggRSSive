@@ -47,6 +47,12 @@ Both kinds work as *include* or *exclude*, and combine with keyword rules under 
 
 On any public aggRSSive's page, **Copy to my aggRSSives** makes you a private copy with the same sources, rules and settings. Change it however you like; the original is untouched. It's how a curated list travels: someone builds it, others take it and adapt it.
 
+## Take it elsewhere
+
+Every aggRSSive's page has **Export this aggRSSive**: one JSON file with its settings, its sources (with their tags and classification headings), its rules, and its curation (pins, hides and notes). Under your name → Account, **Export all of mine** does the same for everything you own, in one file. Keep it as a backup, or take it to any other aggRSSive install.
+
+**Importing** is on the Account page: choose the file and the aggRSSive is re-created for you, private until you publish it. Sources the site already has are re-used; new ones are added and fetched. A bookmark list comes with its bookmarks. Pins, hides and notes are matched to items by address as the feeds are fetched, so they appear over the first few minutes rather than instantly.
+
 ## Public and private
 
 Public aggRSSives appear on the *aggRSSives* page, can be embedded and subscribed to by anyone, and can be chosen by instructors inside an LMS. Private ones are yours alone: their embed code and feeds return nothing to anyone else.

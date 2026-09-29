@@ -69,6 +69,8 @@
   <form method="post" action="/bundles/{{ bundle.slug }}/fork"><button class="btn small ghost">Copy to my aggRSSives</button></form>
   <p class="muted small">A private copy with the same sources, rules and settings. Change it however you like; the original is untouched.</p>
   {% endif %}
+  <h3>Take it elsewhere</h3>
+  <p class="small"><a href="/bundles/{{ bundle.slug }}/export.json" download>Export this aggRSSive</a> <span class="muted">as a file for another aggRSSive install, or as a backup.</span></p>
   <h3>Sources</h3>
   <ul class="plain small">{% for s in bundle.sources %}<li><a href="/sources/{{ s.id }}">{{ s.title or s.feed_url }}</a></li>{% endfor %}</ul>
 </aside>

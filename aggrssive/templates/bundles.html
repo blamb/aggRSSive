@@ -3,6 +3,7 @@
 {% block content %}
 <h1>aggRSSives</h1>
 <p class="muted">Bundles of sources, filtered and curated, each with its own feed and embed code.</p>
+{% if request.query_params.get('imported') %}<p class="notice">Imported {{ request.query_params.get('imported') }} aggRSSives, all private until you publish them.</p>{% endif %}
 {% if user %}
 <h2>Mine</h2>
 {% if mine %}

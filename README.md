@@ -76,7 +76,7 @@ The base image is pinned to Debian 12 (`python:3.13-slim-bookworm`) on purpose: 
 4. ~~Meaning rules (local embeddings) and plain-language rules (GenAI), with reasons; meaning search, related posts, "feeds like these"; per-platform LTI settings~~
 5. ~~Bookmarks with metadata extraction; platform adapters (YouTube, Mastodon, Bluesky, Zotero, Hypothesis)~~
 6. ~~Feedless page watching (a page that changes but has no feed), email digests, a WordPress block for embeds~~
-7. Public bundle export/import between sites, one-click Reclaim Cloud install, LTI Names and Roles / grade pass-back if a use appears
+7. ~~Public bundle export/import between sites~~, one-click Reclaim Cloud install, LTI Names and Roles / grade pass-back if a use appears
 
 ## Licence
 
