@@ -9,6 +9,7 @@ Newest first.
 
 ## September 2026
 
+- **Anonymous accounts**: a secret link instead of an email and password, claimable later; removable without notice if abused; a switch on the Admin page.
 - **Portable aggRSSives**: export any aggRSSive, or all of yours from the Account page, as one file; import it on any install. Sources, tags, headings, rules and curation travel; bookmark lists bring their bookmarks.
 - **Feeds that might belong here**: a tag page suggests sources for the tag, by name, by what they publish and by the tags they share, with ✓ and ✕.
 - **Podcasts**: episodes keep their audio; players on aggRSSive pages, in embeds and in courses; a bundle's RSS carries the enclosures, so a bundle of shows subscribes as one show. A help page for podcasters.

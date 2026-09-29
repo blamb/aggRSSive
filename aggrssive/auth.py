@@ -95,6 +95,11 @@ def set_setting(db: Session, key: str, value: str) -> None:
     db.commit()
 
 
+def anonymous_open(db: Session) -> bool:
+    """Anonymous (token-link) accounts are allowed when sign-ups are open and the admin hasn't switched them off."""
+    return signup_open(db) and get_setting(db, "allow_anonymous", "true") == "true"
+
+
 def signup_open(db: Session) -> bool:
     v = get_setting(db, "allow_signup")
     return (v == "true") if v else get_settings().allow_signup

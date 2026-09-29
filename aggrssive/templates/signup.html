@@ -17,6 +17,6 @@
 {% if settings.google_enabled %}<a class="btn ghost" href="/auth/google">Continue with Google</a>{% endif %}
 </p>
 {% endif %}
-<p class="muted">Already have an account: <a href="/login">sign in</a>.</p>
+<p class="muted">Already have an account: <a href="/login">sign in</a>.{% if anon_open %} Rather not give an email: <a href="/anonymous">try it without one</a>.{% endif %}</p>
 </div>
 {% endblock %}

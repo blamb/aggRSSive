@@ -26,7 +26,7 @@ def hub(request: Request, db: Session = Depends(get_db), user: User = Depends(re
         "bundles": db.scalar(select(func.count(Bundle.id))),
         "platforms": db.scalar(select(func.count(Platform.id))),
     }
-    return templates.TemplateResponse(request, "admin.html", {"user": user, "stats": stats, "signup_open": signup_open(db), "ai": get_settings().ai_enabled, "mail": get_settings().mail_enabled, "mail_result": request.query_params.get("mail", "")})
+    return templates.TemplateResponse(request, "admin.html", {"user": user, "stats": stats, "signup_open": signup_open(db), "anon_open": get_setting(db, "allow_anonymous", "true") == "true", "ai": get_settings().ai_enabled, "mail": get_settings().mail_enabled, "mail_result": request.query_params.get("mail", "")})
 
 
 @router.get("/admin/users")
@@ -61,13 +61,19 @@ def update_user(user_id: int, action: str = Form(...), role: str = Form("user"),
         target.is_active = False
     elif action == "activate":
         target.is_active = True
+    elif action == "delete" and target.is_anonymous:
+        for b in list(target.bundles):  # their aggRSSives go with them (and their curation); sources they added stay, unowned
+            db.delete(b)
+        db.flush()
+        db.delete(target)
     db.commit()
     return RedirectResponse("/admin/users", status_code=303)
 
 
 @router.post("/admin/settings")
-def update_settings(allow_signup: bool = Form(False), user: User = Depends(require_full_admin), db: Session = Depends(get_db)):
+def update_settings(allow_signup: bool = Form(False), allow_anonymous: bool = Form(False), user: User = Depends(require_full_admin), db: Session = Depends(get_db)):
     set_setting(db, "allow_signup", "true" if allow_signup else "false")
+    set_setting(db, "allow_anonymous", "true" if allow_anonymous else "false")
     return RedirectResponse("/admin", status_code=303)
 
 

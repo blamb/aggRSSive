@@ -50,6 +50,9 @@ class User(Base):
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     tag_order: Mapped[str] = mapped_column(String(16), default="alpha")  # display preference: alpha | count
     show_tips: Mapped[bool] = mapped_column(Boolean, default=True)  # rotating tips on pages
+    # Anonymous accounts: no email or password, just a secret link. Removable without notice if abused.
+    is_anonymous: Mapped[bool] = mapped_column(Boolean, default=False)
+    login_token: Mapped[str | None] = mapped_column(String(64), unique=True, index=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
     @property

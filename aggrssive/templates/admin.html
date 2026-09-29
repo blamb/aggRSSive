@@ -12,6 +12,7 @@
     <strong>Sign-ups</strong>
     <form method="post" action="/admin/settings" class="stack small">
       <label class="check"><input type="checkbox" name="allow_signup" value="true" {% if signup_open %}checked{% endif %}> anyone can create an account</label>
+      <label class="check"><input type="checkbox" name="allow_anonymous" value="true" {% if anon_open %}checked{% endif %}> anonymous accounts too (a secret link, no email; removable without notice)</label>
       <button class="btn small">Save</button>
     </form>
   </li>
