@@ -89,7 +89,7 @@
 {% set is_bookmarks = source.kind == 'bookmarks' %}
 {% set owns = user and (user.is_site_admin or source.added_by_id == user.id) %}
 <h2>{{ 'Bookmarks' if is_bookmarks else 'Recent items' }} <span class="muted">({{ items|length }})</span></h2>
-{% if is_bookmarks and owns %}<p><a class="btn small" href="/bookmarks/add?list={{ source.id }}">+ Bookmark a page</a> <span class="muted small">or use the bookmarklet from <a href="/bookmarks">Bookmarks</a></span></p>{% endif %}
+{% if is_bookmarks and owns %}<p><a class="btn small ghost" href="/bookmarks/add?list={{ source.id }}">+ Bookmark a page</a> <span class="muted small">or use the bookmarklet from <a href="/bookmarks">Bookmarks</a></span></p>{% endif %}
 {% if source.last_error %}<p class="error">Last fetch failed: {{ source.last_error }}</p>{% endif %}
 {% if not items and not is_bookmarks %}<p class="muted">Nothing fetched yet. {% if user %}<form method="post" action="/sources/{{ source.id }}/refresh" class="inline"><button class="link">Fetch now</button></form>{% endif %}</p>{% endif %}
 {% if not items and is_bookmarks %}<p class="muted">Nothing bookmarked yet.</p>{% endif %}

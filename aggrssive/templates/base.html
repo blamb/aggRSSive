@@ -17,7 +17,7 @@
     {% if user %}
       {% if user.is_site_admin %}<a href="/admin">Admin</a>{% endif %}
       <a href="/bookmarks">Bookmarks</a>
-      <a href="/sources/add" class="btn small">+ Add feed</a>
+      <a href="/sources/add">+ Add feed</a>
       <a href="/account">{{ user.display_name }}</a>
       <form method="post" action="/logout" class="inline"><button class="link">Sign out</button></form>
     {% else %}
