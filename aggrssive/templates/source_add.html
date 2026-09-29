@@ -10,7 +10,26 @@
 </form>
 {% if error %}<p class="error">{{ error }}</p>{% endif %}
 <p class="keytip">{{ key_tip("platforms") }}</p>
-{% if error and url and not candidates %}
+{% if shows %}
+<h2>Podcasts matching “{{ term }}”</h2>
+{% for s in shows %}
+<form method="post" action="/sources" class="card stack">
+  <input type="hidden" name="feed_url" value="{{ s.feed_url }}">
+  <div class="row"><img src="{{ s.image }}" alt="" width="56" height="56" style="border-radius:6px"><div><strong>{{ s.title }}</strong><br><span class="muted small">{{ s.author }}{% if s.genres %} · {{ s.genres|join(', ') }}{% endif %}</span></div></div>
+  <input type="hidden" name="title" value="{{ s.title }}">
+  <label>Tags <input name="tags" value="podcast" class="tag-input"></label>
+  {% if ai %}<label class="check"><input type="checkbox" name="ai_suggest" value="true" checked> ✨ Suggest tags and classification (GenAI) once it's fetched</label>{% endif %}
+  <button class="btn">Add this show</button>
+</form>
+{% endfor %}
+{% endif %}
+<h2 id="podcast">Find a podcast by name</h2>
+<form method="post" action="/sources/podcasts" class="row">
+  <input name="term" value="{{ term or '' }}" placeholder="a show's name, or a subject: feminist history">
+  <button class="btn ghost">Search podcasts</button>
+</form>
+<p class="muted small">Searches Apple's podcast directory, which lists most shows with their feeds. Spotify-only shows have no feed anywhere.</p>
+{% if error and url and not candidates and not no_feed_ever %}
 <h2>Watch the page instead</h2>
 <p class="keytip">{{ key_tip("watch") }}</p>
 <form method="post" action="/sources" class="card stack">

@@ -116,3 +116,15 @@ def test_tag_page_offers_suggestions_with_decide_buttons(client, monkeypatch):
     assert r.status_code == 303
     r = client.get("/tags/critical%20pedagogy")
     assert "Feeds that might belong here" not in r.text and r.text.count("Critical Pedagogy Weekly") >= 1
+
+
+def test_add_page_podcast_search_and_spotify_message(client, monkeypatch):
+    from aggrssive.feeds import adapters
+    from aggrssive.routes import sources as srcroutes
+
+    monkeypatch.setattr(adapters, "search_podcasts", lambda term, **kw: [{"title": "Feminist Frequency", "author": "FF", "feed_url": "https://ff.test/feed", "site_url": None, "image": None, "genres": ["Society"]}])
+    monkeypatch.setattr(srcroutes, "discover", lambda url: (_ for _ in ()).throw(ValueError("Spotify pages don't carry a feed, and Spotify-only shows have none.")))
+    r = client.post("/sources/podcasts", data={"term": "feminist"})
+    assert r.status_code == 200 and "Feminist Frequency" in r.text and 'value="https://ff.test/feed"' in r.text and 'value="podcast"' in r.text
+    r = client.post("/sources/discover", data={"url": "https://open.spotify.com/show/abc"})
+    assert "Spotify pages don" in r.text and "<h2>Watch the page instead</h2>" not in r.text

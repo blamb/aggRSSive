@@ -25,6 +25,7 @@ class Adapted:
 
 
 ADAPTER_KINDS = {
+    "podcast": "Podcast",
     "youtube": "YouTube",
     "mastodon": "Mastodon",
     "bluesky": "Bluesky",
@@ -38,6 +39,63 @@ def _fetch_text(url: str) -> str:
         r = c.get(url, headers={"Accept": "text/html"})
         r.raise_for_status()
         return r.text
+
+
+# --- Podcast directories ----------------------------------------------------
+# Apple's catalogue is the one directory that hands back the show's own feed, and its search needs no key.
+
+
+class NoFeedHere(ValueError):
+    """The page is a real thing but can never yield a feed; the message says what to do instead."""
+
+
+def _fetch_json(url: str) -> dict:
+    with client() as c:
+        r = c.get(url, headers={"Accept": "application/json"})
+        r.raise_for_status()
+        return r.json()
+
+
+def apple_podcasts(url: str, fetch_json=_fetch_json) -> Adapted | None:
+    u = urlparse(url)
+    if u.netloc.lower() not in ("podcasts.apple.com", "itunes.apple.com"):
+        return None
+    m = re.search(r"/id(\d+)", u.path)
+    if not m:
+        return None
+    try:
+        data = fetch_json(f"https://itunes.apple.com/lookup?id={m.group(1)}&entity=podcast")
+    except httpx.HTTPError:
+        return None
+    for r in data.get("results", []):
+        if r.get("feedUrl"):
+            return Adapted(r["feedUrl"], r.get("collectionName") or "Podcast", "podcast")
+    return None
+
+
+def spotify(url: str) -> Adapted | None:
+    u = urlparse(url)
+    if u.netloc.lower().endswith("spotify.com") and "/show/" in u.path:
+        raise NoFeedHere("Spotify pages don't carry a feed, and Spotify-only shows have none. Most shows also live in Apple Podcasts: paste the show's Apple Podcasts address, or search for it by name below.")
+    return None
+
+
+def search_podcasts(term: str, limit: int = 12, fetch_json=_fetch_json) -> list[dict]:
+    """Shows matching a name or subject, each with its feed: [{"title", "author", "feed_url", "site_url", "image", "genres"}]."""
+    from urllib.parse import quote
+
+    term = term.strip()
+    if not term:
+        return []
+    try:
+        data = fetch_json(f"https://itunes.apple.com/search?media=podcast&entity=podcast&limit={min(limit, 25)}&term={quote(term)}")
+    except (httpx.HTTPError, ValueError):
+        return []
+    out = []
+    for r in data.get("results", []):
+        if r.get("feedUrl"):
+            out.append({"title": r.get("collectionName", ""), "author": r.get("artistName", ""), "feed_url": r["feedUrl"], "site_url": r.get("collectionViewUrl"), "image": r.get("artworkUrl100"), "genres": [g for g in r.get("genres", []) if g != "Podcasts"][:3]})
+    return out
 
 
 # --- YouTube ---------------------------------------------------------------
@@ -166,14 +224,19 @@ def hypothesis(url: str) -> Adapted | None:
     return None
 
 
-ADAPTERS = (youtube, mastodon, bluesky, zotero, hypothesis)
+ADAPTERS = (apple_podcasts, spotify, youtube, mastodon, bluesky, zotero, hypothesis)
 
 
 def adapt(url: str) -> Adapted | None:
-    """The first adapter that recognises the URL wins. None means: use generic discovery."""
+    """The first adapter that recognises the URL wins. None means: use generic discovery.
+
+    Raises NoFeedHere for pages that can never yield a feed, so the person gets told what to do instead.
+    """
     for fn in ADAPTERS:
         try:
             a = fn(url)
+        except NoFeedHere:
+            raise
         except Exception:  # an adapter must never break discovery
             a = None
         if a:
@@ -190,6 +253,8 @@ def kind_for_feed_url(feed_url: str) -> str:
         return "bluesky"
     if host == "api.zotero.org":
         return "zotero"
+    if "podcast" in feed_url.lower() or host in ("feeds.npr.org", "feeds.megaphone.fm", "feeds.simplecast.com", "anchor.fm", "feeds.buzzsprout.com", "feeds.transistor.fm", "feeds.libsyn.com", "rss.art19.com", "feeds.acast.com"):
+        return "podcast"
     if host.endswith("hypothes.is"):
         return "hypothesis"
     if feed_url.endswith(".rss") and re.search(r"/(@[\w.-]+|tags/[\w-]+)\.rss$", feed_url):

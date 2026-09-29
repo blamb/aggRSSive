@@ -61,3 +61,17 @@ def test_kind_for_feed_url():
     assert kind_for_feed_url("https://api.zotero.org/groups/1/items/top?format=atom") == "zotero"
     assert kind_for_feed_url("https://hypothes.is/stream.atom?user=x") == "hypothesis"
     assert kind_for_feed_url("https://example.com/feed/") == "feed"
+
+
+def test_apple_podcasts_lookup_and_search_and_spotify_refusal():
+    import pytest
+
+    lookup = {"results": [{"collectionName": "Code Switch", "feedUrl": "https://feeds.npr.org/510312/podcast.xml"}]}
+    a = adapters.apple_podcasts("https://podcasts.apple.com/us/podcast/code-switch/id1112190608", fetch_json=lambda u: lookup)
+    assert a.url == "https://feeds.npr.org/510312/podcast.xml" and a.title == "Code Switch" and a.kind == "podcast"
+    assert adapters.apple_podcasts("https://podcasts.apple.com/us/browse") is None
+    shows = adapters.search_podcasts("feminist", fetch_json=lambda u: {"results": [{"collectionName": "S", "artistName": "A", "feedUrl": "https://x/feed", "genres": ["Podcasts", "History"]}, {"collectionName": "no feed"}]})
+    assert shows == [{"title": "S", "author": "A", "feed_url": "https://x/feed", "site_url": None, "image": None, "genres": ["History"]}]
+    with pytest.raises(adapters.NoFeedHere):
+        adapters.adapt("https://open.spotify.com/show/1zxw4rOdLDMpO0S02Yd5fh")
+    assert kind_for_feed_url("https://feeds.npr.org/510312/podcast.xml") == "podcast"

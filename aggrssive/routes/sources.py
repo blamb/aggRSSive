@@ -72,14 +72,26 @@ def add_page(request: Request, user: User = Depends(require_user), db: Session =
     return templates.TemplateResponse(request, "source_add.html", {"user": user, "candidates": None, "url": "", "error": None, "tags": all_tags(db), "ai": get_settings().ai_enabled})
 
 
+@router.post("/sources/podcasts")
+def find_podcasts(request: Request, term: str = Form(...), user: User = Depends(require_user), db: Session = Depends(get_db)):
+    """Find a podcast by name or subject; each result comes with its feed, ready to add."""
+    from ..feeds.adapters import search_podcasts
+
+    shows = search_podcasts(term)
+    error = None if shows else "No podcasts found for that. Try the show's name, or a broader subject."
+    return templates.TemplateResponse(request, "source_add.html", {"user": user, "candidates": None, "url": "", "error": error, "tags": all_tags(db), "ai": get_settings().ai_enabled, "shows": shows, "term": term})
+
+
 @router.post("/sources/discover")
 def do_discover(request: Request, url: str = Form(...), user: User = Depends(require_user), db: Session = Depends(get_db)):
     try:
         candidates = discover(url)
         error = None if candidates else "No feed at that address. Paste the feed URL directly, or watch the page itself, below."
+        no_feed_ever = False
     except ValueError as e:
         candidates, error = [], str(e)
-    return templates.TemplateResponse(request, "source_add.html", {"user": user, "candidates": candidates, "url": normalize_url(url), "error": error, "tags": all_tags(db), "ai": get_settings().ai_enabled})
+        no_feed_ever = "Spotify" in str(e)
+    return templates.TemplateResponse(request, "source_add.html", {"user": user, "candidates": candidates, "url": normalize_url(url), "error": error, "tags": all_tags(db), "ai": get_settings().ai_enabled, "no_feed_ever": no_feed_ever})
 
 
 @router.post("/sources")
