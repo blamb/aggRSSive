@@ -11,7 +11,7 @@ Once an admin has connected aggRSSive to your platform (see [the admin guide](lt
 
 1. In your course, turn **Edit mode** on and click **Add an activity or resource**.
 2. Choose **External tool**, then pick **aggRSSive** as the preconfigured tool. (On some sites the tool appears directly in the activity chooser under its own name.)
-3. Click **Select content**. A picker opens listing every public aggRSSive. Search, choose one, and set how many items to show and whether to include descriptions and images.
+3. Click **Select content**. A picker opens listing every public aggRSSive. Search, choose one, and set how many items to show and whether to include descriptions and images (the starting values are your platform's defaults, set by the aggRSSive admin).
 4. Click **Add to course**, then **Save and return to course**.
 
 The activity shows the live list. As the feeds update, so does the page. Students see the list only; instructors also get an **edit in aggRSSive** link.

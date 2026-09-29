@@ -10,9 +10,9 @@ Three kinds of account.
 | | Regular user | Site admin | Full admin |
 |---|---|---|---|
 | Add sources, tag, classify, build and publish aggRSSives, deploy to courses | ✓ | ✓ | ✓ |
-| Edit and delete own sources and aggRSSives | ✓ | ✓ | ✓ |
-| Edit and delete anyone's sources and aggRSSives; tidy tags | | ✓ | ✓ |
-| Register LTI platforms; import starter collections | | ✓ | ✓ |
+| Edit and delete own sources and aggRSSives; add to and remove from own bookmark lists | ✓ | ✓ | ✓ |
+| Edit and delete anyone's sources and aggRSSives; add to anyone's bookmark lists; tidy tags | | ✓ | ✓ |
+| Register LTI platforms and change their settings; import starter collections | | ✓ | ✓ |
 | Create and disable accounts, change roles, open or close sign-ups | | | ✓ |
 
 The first account created on a site is a full admin. Full admins manage everyone else at **Admin → Users**.

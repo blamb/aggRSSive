@@ -24,7 +24,9 @@ Every push to the project's `main` branch publishes a container image at `ghcr.i
 
 **Backups**: the whole site is the file `/data/aggrssive.db` plus `/data/lti_private_key.pem`. Copy them. (`/data/models` holds the downloaded embedding model and can always be re-fetched.)
 
-**Meaning rules** download a small embedding model (about 64 MB) into `/data/models` the first time they're needed, and hold roughly 300 MB of memory while analysing. Set `EMBEDDINGS_ENABLED=false` in the variables to switch the feature off on a very small container.
+**Meaning rules**, meaning search, *related posts* and *feeds like these* share one small embedding model (about 64 MB), downloaded into `/data/models` the first time it's needed. Analysis runs in the background, 100 posts every three minutes, and peaks at roughly 400 MB of memory; a 1 GB container is enough. Set `EMBEDDINGS_ENABLED=false` in the variables to switch all four off on a smaller one.
+
+**Platform feeds and bookmarks** need no keys: YouTube, Mastodon, Bluesky, Zotero and Hypothesis are read through their public feeds, and bookmarked pages are fetched once when saved.
 
 ## Same-cloud LMS
 

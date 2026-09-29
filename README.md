@@ -73,9 +73,10 @@ The base image is pinned to Debian 12 (`python:3.13-slim-bookworm`) on purpose: 
 1. ~~Sources, tags, bundles, rules, embed and feed outputs~~
 2. ~~LTI 1.3 Advantage: Deep Linking picker and live resource inside Moodle; deploy to Reclaim Cloud~~
 3. ~~Classification frameworks, GenAI tag and classification proposals, roles, in-app help, starter collections, forking~~
-3b. Local embeddings for semantic filtering; plain-language item-level rules
-4. Manual bookmarks, platform adapters (YouTube, Mastodon, Bluesky, arXiv, Zotero, Hypothesis...), bundles as sources, WordPress plugin, feedless page watching, email digests
-5. Public bundle export/import, forking, one-click Reclaim Cloud install
+4. ~~Meaning rules (local embeddings) and plain-language rules (GenAI), with reasons; meaning search, related posts, "feeds like these"; per-platform LTI settings~~
+5. ~~Bookmarks with metadata extraction; platform adapters (YouTube, Mastodon, Bluesky, Zotero, Hypothesis)~~
+6. Feedless page watching (a page that changes but has no feed), email digests, a WordPress block for embeds
+7. Public bundle export/import between sites, one-click Reclaim Cloud install, LTI Names and Roles / grade pass-back if a use appears
 
 ## Licence
 

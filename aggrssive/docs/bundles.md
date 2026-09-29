@@ -9,13 +9,13 @@ An **aggRSSive** is a bundle: a set of sources, rules that decide which of their
 
 ## Create one
 
-Tick sources anywhere — the sources list, a tag page, a classification heading, a source's own page — and they collect in the **♥ Heart-Cart** at the bottom right. Give it a name and click **Create**, or choose one of your existing aggRSSives and click **Add**. Tag and heading pages also offer **Make an aggRSSive from these** to bundle everything listed.
+Tick sources anywhere — *Find feeds*, a tag page, a classification heading, a source's own page, the *Bookmarks* page — and they collect in the **♥ Heart-Cart** at the bottom right. Give it a name and click **Create**, or choose one of your existing aggRSSives and click **Add**. Tag and heading pages also offer **Make an aggRSSive from these** to bundle everything listed.
 
 You land on the bundle's *edit* page.
 
 ## The edit page
 
-**Sources** — what's in the bundle. Remove with ×; add more via the Heart-Cart.
+**Sources** — what's in the bundle: feeds, platform accounts and [bookmark lists](bookmarks) alike. Remove with ×; add more via the Heart-Cart.
 
 **Feeds like these** — feeds not yet in the bundle whose posts resemble the items it currently includes, worked out by the same local model as meaning rules. It follows the bundle: tighten the rules and the suggestions tighten with them. Tick the ones you want and click *Add ticked feeds*. The list appears once the bundle includes some analysed items.
 
