@@ -9,9 +9,9 @@ Three kinds of account.
 
 | | Regular user | Site admin | Full admin |
 |---|---|---|---|
-| Add sources, tag, classify, build and publish aggRSSives, deploy to courses | ✓ | ✓ | ✓ |
-| Edit and delete own sources and aggRSSives; add to and remove from own bookmark lists | ✓ | ✓ | ✓ |
-| Edit and delete anyone's sources and aggRSSives; add to anyone's bookmark lists; tidy tags | | ✓ | ✓ |
+| Add sources, tag, classify, build and publish bundles, deploy to courses | ✓ | ✓ | ✓ |
+| Edit and delete own sources and bundles; add to and remove from own bookmark lists | ✓ | ✓ | ✓ |
+| Edit and delete anyone's sources and bundles; add to anyone's bookmark lists; tidy tags | | ✓ | ✓ |
 | Register LTI platforms and change their settings; import starter collections | | ✓ | ✓ |
 | Create and disable accounts, change roles, open or close sign-ups | | | ✓ |
 
@@ -25,7 +25,7 @@ While sign-ups are open, anyone who finds the site can create an account. Once y
 
 Someone who would rather not give an email can **try it without an account**: the link is on the sign-in page, the sign-up page and the home page. An anonymous account has a secret link instead of a password; the Account page shows it, and opening it in any browser signs that browser in. It can do everything a regular account can. On the Account page it can be **claimed** with an email and a password, and becomes a regular account with everything it built.
 
-An anonymous account stores nothing but its secret link (see [Privacy](privacy)). Two conditions, agreed to when it is created: the link is the only way back in, and an anonymous account can be removed without notice if it is used for spam or abuse of any kind. Full admins remove one from *Admin → Users*; its aggRSSives go with it, sources it added stay with the collection. Full admins can also switch anonymous accounts off on the Admin page, and they are off automatically while sign-ups are closed.
+An anonymous account stores nothing but its secret link (see [Privacy](privacy)). Two conditions, agreed to when it is created: the link is the only way back in, and an anonymous account can be removed without notice if it is used for spam or abuse of any kind. Full admins remove one from *Admin → Users*; its bundles go with it, sources it added stay with the collection. Full admins can also switch anonymous accounts off on the Admin page, and they are off automatically while sign-ups are closed.
 
 ## Your account
 

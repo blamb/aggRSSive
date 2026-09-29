@@ -5,7 +5,7 @@ order: 3
 
 # Bookmarks: hand-picked pages
 
-Not everything worth sharing comes from a feed. A **bookmark list** is a source you fill by hand, one page at a time, and it behaves like any feed afterwards: tag it, put it in an aggRSSive alongside feeds, embed it, place it in a course. A reading list for a week, a set of examples for an assignment, or the ten best things you read this month all fit.
+Not everything worth sharing comes from a feed. A **bookmark list** is a source you fill by hand, one page at a time, and it behaves like any feed afterwards: tag it, put it in a bundle alongside feeds, embed it, place it in a course. A reading list for a week, a set of examples for an assignment, or the ten best things you read this month all fit.
 
 ## Make a list
 
@@ -21,11 +21,11 @@ Three ways in:
 
 aggRSSive reads the page and fills in what it says about itself: title, description, author, date, image and site name, taken from the page's Open Graph and Twitter cards, its structured data, and its ordinary meta tags. Everything is editable before you save. If a page can't be read (paywalls, sites that block robots), the form is blank and you fill it in yourself.
 
-Add **your note**: a line on why this matters. It is shown with the bookmark wherever the list is published, so write it for readers. It is never sent to the GenAI and rules do not match on it. **Tags** on a bookmark join the shared vocabulary and travel with the item into aggRSSives, where a keyword or category rule can pick them up.
+Add **your note**: a line on why this matters. It is shown with the bookmark wherever the list is published, so write it for readers. It is never sent to the GenAI and rules do not match on it. **Tags** on a bookmark join the shared vocabulary and travel with the item into bundles, where a keyword or category rule can pick them up.
 
-## Using lists in aggRSSives
+## Using lists in bundles
 
-Tick a list into the Heart-Cart from *Bookmarks* or *Find feeds*, or add it on an aggRSSive's edit page like any other source. Rules apply to bookmarks too, and so do pinning and hiding. A common pattern: one list of hand-picked readings pinned at the top, with feeds filling in below.
+Tick a list into the Heart-Cart from *Bookmarks* or *Find feeds*, or add it on a bundle's edit page like any other source. Rules apply to bookmarks too, and so do pinning and hiding. A common pattern: one list of hand-picked readings pinned at the top, with feeds filling in below.
 
 A bookmark's date is the page's published date when the page states one, otherwise the moment you saved it, so lists sort sensibly with feed items.
 

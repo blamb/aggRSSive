@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Choose an aggRSSive</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Choose a bundle</title>
 <style>
 :root{--fg:#1d1d1f;--muted:#6b6b6b;--line:#e4e1da;--card:#fff;--bg:#fbfaf7;--accent:#c8102e}
 html,body{height:100%}
@@ -19,11 +19,11 @@ button{font:inherit;padding:.55rem 1.1rem;border-radius:6px;border:0;background:
 .foot{font-size:.8rem;color:var(--muted);margin-top:1rem}
 </style></head>
 <body>
-<h1>Choose an aggRSSive</h1>
+<h1>Choose a bundle</h1>
 <p class="muted intro">{% if name %}Hi {{ name }}. {% endif %}{{ key_tip("picker") }}</p>
 <form method="post" action="/lti/deeplink" id="pick">
 <input type="hidden" name="token" value="{{ token }}">
-<input type="search" id="q" placeholder="Search aggRSSives" autofocus>
+<input type="search" id="q" placeholder="Search bundles" autofocus>
 <div class="list" id="list">
 {% for b in bundles %}
 <label class="b" data-text="{{ (b.title ~ ' ' ~ b.description ~ ' ' ~ b.owner.display_name)|lower }}">
@@ -31,7 +31,7 @@ button{font:inherit;padding:.55rem 1.1rem;border-radius:6px;border:0;background:
   <div><strong>{{ b.title }}</strong><span>{% if b.all_sources %}topic · every source{% else %}{{ b.sources|length }} sources{% endif %} · by {{ b.owner.display_name }}{% if me and b.owner_id == me.id %} · yours{% endif %}</span>{% if b.description %}<p>{{ b.description[:180] }}</p>{% endif %}</div>
 </label>
 {% else %}
-<p class="muted">No public aggRSSives yet. Make one at <a href="{{ settings.base_url }}" target="_blank">{{ settings.base_url }}</a>, then come back.</p>
+<p class="muted">No public bundles yet. Make one at <a href="{{ settings.base_url }}" target="_blank">{{ settings.base_url }}</a>, then come back.</p>
 {% endfor %}
 </div>
 <div class="bar">
@@ -43,7 +43,7 @@ button{font:inherit;padding:.55rem 1.1rem;border-radius:6px;border:0;background:
   <button type="submit">Add to course</button>
 </div>
 </form>
-<p class="foot">{% if make_url %}Nothing that fits? <a href="{{ make_url }}" target="_blank">Make a new aggRSSive</a> (opens aggRSSive signed in as you), mark it public, then come back here and pick it.{% else %}To offer your own list here, create it at <a href="{{ settings.base_url }}" target="_blank">aggRSSive</a> and mark it public.{% endif %}</p>
+<p class="foot">{% if make_url %}Nothing that fits? <a href="{{ make_url }}" target="_blank">Make a new bundle</a> (opens aggRSSive signed in as you), mark it public, then come back here and pick it.{% else %}To offer your own list here, create it at <a href="{{ settings.base_url }}" target="_blank">aggRSSive</a> and mark it public.{% endif %}</p>
 <script>
 document.getElementById("q").addEventListener("input", function(){ var q=this.value.toLowerCase(); document.querySelectorAll("#list label.b").forEach(function(l){ l.style.display = l.dataset.text.indexOf(q)>=0 ? "" : "none"; }); });
 </script>

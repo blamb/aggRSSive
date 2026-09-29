@@ -30,13 +30,13 @@
   <button class="btn">Save</button>
 </form>
 
-<h3>Your aggRSSives, portable</h3>
-<p class="small">An export is one file with everything your aggRSSives are made of: settings, sources with their tags and headings, rules, pins, hides and notes. Keep it as a backup, or import it on any other aggRSSive install; bookmark lists travel with their bookmarks.</p>
-<p><a class="btn small ghost" href="/account/export.json" download>Export all {{ n_bundles }} of mine</a> <span class="muted small">Each aggRSSive's page also has its own export.</span></p>
+<h3>Your bundles, portable</h3>
+<p class="small">An export is one file with everything your bundles are made of: settings, sources with their tags and headings, rules, pins, hides and notes. Keep it as a backup, or import it on any other aggRSSive install; bookmark lists travel with their bookmarks.</p>
+{% if n_bundles %}<p><a class="btn small ghost" href="/account/export.json" download>Export all {{ n_bundles }} of mine</a> <span class="muted small">Each bundle's page also has its own export.</span></p>{% else %}<p class="muted small">Once you have a bundle, an export link appears here.</p>{% endif %}
 <form method="post" action="/bundles/import" enctype="multipart/form-data" class="row small">
   <input type="file" name="file" accept=".json,application/json" required>
   <button class="btn small">Import a file</button>
 </form>
-<p class="muted small">Imported aggRSSives start private, for you to look over before publishing.</p>
+<p class="muted small">Imported bundles start private, for you to look over before publishing.</p>
 </div>
 {% endblock %}

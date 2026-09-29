@@ -11,20 +11,20 @@ Newest first.
 
 - **Privacy page**: exactly what the site keeps and what leaves the server, in the footer and Help. Bookmark notes are no longer part of the text rules and the GenAI see.
 - **Podcasts by name**: search Apple's podcast directory from + Add feed and add a show in one click; Apple Podcasts page addresses work; Spotify addresses get a plain explanation.
-- **Topic aggRSSives**: an aggRSSive over every source in the collection, defined by its rules alone; one click from any search on Find feeds.
-- **Inside the course**: instructors get an aggRSSive account tied to their LMS identity, so *edit* and *make a new aggRSSive* open aggRSSive signed in; the picker lists your own aggRSSives first; students get a filter box on longer lists and a podcast-app link where there is audio. The instructor help page now covers what you can do from the course.
+- **Topic bundles**: a bundle over every source in the collection, defined by its rules alone; one click from any search on Find feeds.
+- **Inside the course**: instructors get an aggRSSive account tied to their LMS identity, so *edit* and *make a new bundle* open aggRSSive signed in; the picker lists your own bundles first; students get a filter box on longer lists and a podcast-app link where there is audio. The instructor help page now covers what you can do from the course.
 - **Anonymous accounts**: a secret link instead of an email and password, claimable later; removable without notice if abused; a switch on the Admin page.
-- **Portable aggRSSives**: export any aggRSSive, or all of yours from the Account page, as one file; import it on any install. Sources, tags, headings, rules and curation travel; bookmark lists bring their bookmarks.
+- **Portable bundles**: export any bundle, or all of yours from the Account page, as one file; import it on any install. Sources, tags, headings, rules and curation travel; bookmark lists bring their bookmarks.
 - **Feeds that might belong here**: a tag page suggests sources for the tag, by name, by what they publish and by the tags they share, with ✓ and ✕.
 - **Podcasts**: episodes keep their audio; players on aggRSSive pages, in embeds and in courses; a bundle's RSS carries the enclosures, so a bundle of shows subscribes as one show. A help page for podcasters.
 - **Feeds and OPML everywhere**: OPML for any tag, heading or the whole collection; RSS for bookmark lists and watched pages; a copy button with an icon beside every feed address.
-- **WordPress block**: a small plugin (block + shortcode), downloadable from any aggRSSive's page, for sites that would rather not paste script tags.
-- **Email digests**: new items from any aggRSSive, daily or weekly, chosen per person on its page, with one-click unsubscribe. Needs outgoing mail configured by a site admin.
+- **WordPress block**: a small plugin (block + shortcode), downloadable from any bundle's page, for sites that would rather not paste script tags.
+- **Email digests**: new items from any bundle, daily or weekly, chosen per person on its page, with one-click unsubscribe. Needs outgoing mail configured by a site admin.
 - **Watched pages**: a page with no feed can be a source, reporting either its new links or changes to its text.
 - **Tips**: a rotating, dismissible tip on each page, fitted to where you are, and always-on key tips beside the forms people ask about most; off/on under Account.
 - **Bookmarks**: hand-picked pages in lists that bundle, embed and launch like feeds; the page's title, description, author, date and image are read for you; a bookmarklet for one-click saving; your own note on each.
 - **Platform adapters**: paste a YouTube channel or playlist, a Mastodon account or hashtag, a Bluesky profile, a public Zotero group or library, or a Hypothesis user, group or tag search, and aggRSSive finds the feed.
-- **Related posts**: under each item on an aggRSSive's page and in course launches, the closest posts from the whole collection.
+- **Related posts**: under each item on a bundle's page and in course launches, the closest posts from the whole collection.
 - **Settings for each LTI platform** (site admins): related posts on/off, links in a new tab, Deep Linking response in the URL, frame height, default items and descriptions. Platform quirks are now settings, not code.
 - **Feeds like these**: the bundle edit page suggests feeds not yet in the bundle whose posts resemble what it already includes; tick to add.
 - **Find feeds by what they publish**: a search now also ranks sources by how closely their recent posts match your words, and lists the closest posts. Uses the local meaning model, so it is free and private.
@@ -32,8 +32,8 @@ Newest first.
 - **Plain-language rules (GenAI)**: describe what to keep; each item is judged once and remembered.
 - **Why it's here**: the bundle edit preview now says which rule admitted each item and why the rest were kept out.
 
-- **Find feeds** replaces the separate Sources, Tags and Classification pages: one search across tags, headings and source names; tag cloud and both classification trees together; *Make an aggRSSive from these* on every tag and heading.
-- **Copy to my aggRSSives** on any public bundle: a private copy with the same sources, rules and settings.
+- **Find feeds** replaces the separate Sources, Tags and Classification pages: one search across tags, headings and source names; tag cloud and both classification trees together; *Make a bundle from these* on every tag and heading.
+- **Copy to my bundles** on any public bundle: a private copy with the same sources, rules and settings.
 - **Starter collections** (site admins): a curated, verified set of feeds for open education, teaching and learning, libraries and the open web, with deliberate room for Indigenous knowledge and media, gender equity, and intercultural and Global South perspectives — imported with their tags and classification.
 - **Roles**: regular users, site admins and full admins; a *Users* page; an *Account* page for changing your name and password; sign-ups can be closed from the Admin page.
 - **Fixes**: feeds are polled on schedule again; the LTI signing key now lives on the data volume so it survives redeploys (platforms holding an older key need the new one pasted once); Deep Linking responses survive a platform login round-trip.

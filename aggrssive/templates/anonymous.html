@@ -4,9 +4,10 @@
 <div class="narrow">
 <h1>Try it without an account</h1>
 <p>An anonymous account has no email and no password. It has a secret link instead: keep the link and you keep the account, with everything you build in it. Lose the link and the account is gone.</p>
-<p>Nothing about you is stored beyond the link itself; the <a href="/help/privacy">privacy page</a> lists what the site keeps. It works like any account here: add feeds, tag them, build and publish aggRSSives. You can turn it into a regular account later, from the Account page, and keep everything.</p>
+<p>Nothing about you is stored beyond the link itself; the <a href="/help/privacy">privacy page</a> lists what the site keeps. It works like any account here: add feeds, tag them, build and publish bundles. You can turn it into a regular account later, from the Account page, and keep everything.</p>
 {% if error %}<p class="error">{{ error }}</p>{% endif %}
 <form method="post" action="/anonymous" class="stack">
+  <label>What should we call you? <span class="muted small">optional; shown on bundles you publish</span> <input name="display_name" maxlength="120" placeholder="Anonymous"></label>
   <label class="check"><input type="checkbox" name="acknowledge" value="true"> I understand that an anonymous account can be removed without notice if it is used for spam or abuse of any kind, and that the secret link is my only way back in.</label>
   <button class="btn">Create an anonymous account</button>
 </form>

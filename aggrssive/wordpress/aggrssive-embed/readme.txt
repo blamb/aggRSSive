@@ -16,11 +16,11 @@ aggRSSive collects feeds, lets a group tag and filter them, and publishes the re
 * an **aggRSSive block** in the editor, with a live preview and settings for item count, descriptions, images, theme and method;
 * a shortcode: `[aggrssive slug="abcd1234" n="8" desc="none" theme="dark" mode="iframe"]`.
 
-Set your aggRSSive site's address once under Settings → aggRSSive; after that each block only needs an aggRSSive's code (the part after /bundles/ in its address).
+Set your aggRSSive site's address once under Settings → aggRSSive; after that each block only needs a bundle's code (the part after /bundles/ in its address).
 
 == Installation ==
 
-1. Download the zip from your aggRSSive site (any aggRSSive's page → Feed your site → WordPress).
+1. Download the zip from your aggRSSive site (any bundle's page → Feed your site → WordPress).
 2. Plugins → Add New → Upload Plugin, choose the zip, Activate.
 3. Settings → aggRSSive: enter your aggRSSive site's address.
 4. Add the aggRSSive block to a post or page, or use the shortcode.

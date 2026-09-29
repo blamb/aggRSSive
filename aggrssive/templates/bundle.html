@@ -16,7 +16,7 @@
 <li{% if bi.pinned %} class="pinned"{% endif %}>
   {% if bi.pinned %}<span class="pill pin">pinned</span> {% endif %}
   <a href="{{ bi.item.url }}" class="item-title">{{ bi.item.title or bi.item.url }}</a>
-  <span class="muted small">{{ bi.item.source.title }} · {{ bi.item.published_at|datefmt }}{% if bi.item.author %} · {{ bi.item.author }}{% endif %}</span>
+  <span class="muted small">{{ bi.item.source.title }} · {{ bi.item.published_at|datefmt }}{% if bi.item.author and bi.item.author|lower != (bi.item.source.title or '')|lower %} · {{ bi.item.author }}{% endif %}</span>
   {% if bi.note %}<p class="note">{{ bi.note }}</p>{% endif %}
   {% if bi.item.enclosure_url %}{% from "_feeds.html" import player %}{{ player(bi.item) }}{% endif %}
   {% if bi.item.summary %}<div class="summary">{{ bi.item.summary|safe_html }}</div>{% endif %}
@@ -66,13 +66,13 @@
   {% endif %}
   {% if user %}
   <h3>Make it yours</h3>
-  <form method="post" action="/bundles/{{ bundle.slug }}/fork"><button class="btn small ghost">Copy to my aggRSSives</button></form>
+  <form method="post" action="/bundles/{{ bundle.slug }}/fork"><button class="btn small ghost">Copy to my bundles</button></form>
   <p class="muted small">A private copy with the same sources, rules and settings. Change it however you like; the original is untouched.</p>
   {% endif %}
   <h3>Take it elsewhere</h3>
-  <p class="small"><a href="/bundles/{{ bundle.slug }}/export.json" download>Export this aggRSSive</a> <span class="muted">as a file for another aggRSSive install, or as a backup.</span></p>
+  <p class="small"><a href="/bundles/{{ bundle.slug }}/export.json" download>Export this bundle</a> <span class="muted">as a file for another aggRSSive install, or as a backup.</span></p>
   <h3>Sources</h3>
-  {% if bundle.all_sources %}<p class="small">A topic aggRSSive: every source in the collection, sifted by its rules. New sources join it as they are added.</p>{% else %}<ul class="plain small">{% for s in bundle.sources %}<li><a href="/sources/{{ s.id }}">{{ s.title or s.feed_url }}</a></li>{% endfor %}</ul>{% endif %}
+  {% if bundle.all_sources %}<p class="small">A topic bundle: every source in the collection, sifted by its rules. New sources join it as they are added.</p>{% else %}<ul class="plain small">{% for s in bundle.sources %}<li><a href="/sources/{{ s.id }}">{{ s.title or s.feed_url }}</a></li>{% endfor %}</ul>{% endif %}
 </aside>
 </div>
 <script>

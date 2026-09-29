@@ -62,7 +62,7 @@ def update_user(user_id: int, action: str = Form(...), role: str = Form("user"),
     elif action == "activate":
         target.is_active = True
     elif action == "delete" and target.is_anonymous:
-        for b in list(target.bundles):  # their aggRSSives go with them (and their curation); sources they added stay, unowned
+        for b in list(target.bundles):  # their bundles go with them (and their curation); sources they added stay, unowned
             db.delete(b)
         db.flush()
         db.delete(target)
@@ -127,7 +127,7 @@ def account(request: Request, user: User = Depends(require_user), db: Session = 
 
 @router.get("/account/export.json")
 def account_export(user: User = Depends(require_user), db: Session = Depends(get_db)):
-    """Every aggRSSive you own, in one portable file: a backup, or a way to move to another install."""
+    """Every bundle you own, in one portable file: a backup, or a way to move to another install."""
     from .. import portable
     from fastapi.responses import JSONResponse
 

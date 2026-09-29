@@ -1,4 +1,4 @@
-"""Portable aggRSSives: export one (or all of yours) as a JSON file; import it on any aggRSSive install.
+"""Portable bundles: export one (or all of yours) as a JSON file; import it on any aggRSSive install.
 
 The file carries everything a bundle is made of: its settings, its sources with their tags and classification
 (bookmark lists travel with their bookmarks, since they exist nowhere else), its rules, and its curation
@@ -156,7 +156,7 @@ def import_bundle(db: Session, doc: dict, user: User) -> tuple[Bundle, list[int]
     meta = doc.get("bundle", {}) or {}
     b = Bundle(
         owner_id=user.id,
-        title=str(meta.get("title") or "Imported aggRSSive")[:300],
+        title=str(meta.get("title") or "Imported bundle")[:300],
         description=str(meta.get("description") or "")[:5000],
         is_public=False,
         match_mode="all" if meta.get("match_mode") == "all" else "any",

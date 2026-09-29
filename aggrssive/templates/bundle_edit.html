@@ -17,40 +17,7 @@
 {% endfor %}
 </ul>
 <p class="muted small">Add more from <a href="/find">Find feeds</a>, via the Heart-Cart.</p>
-{% if similar %}
-<h3>Feeds like these</h3>
-<p class="muted small">Not in this aggRSSive, but writing about the same things as the items it includes. Tick to add.</p>
-<form method="post" action="/bundles/{{ bundle.slug }}/sources">
-<ul class="plain">
-{% for s, score, hits in similar %}
-<li><label><input type="checkbox" name="source_ids" value="{{ s.id }}"> <a href="/sources/{{ s.id }}">{{ s.title or s.feed_url }}</a> <span class="muted small">{{ hits }} similar post{{ 's' if hits != 1 }}</span></label></li>
-{% endfor %}
-</ul>
-<button class="btn small">Add ticked feeds</button>
-</form>
-{% endif %}
 
-<h2>Rules</h2>
-<p class="keytip">{{ key_tip("rules") }}</p>
-{% if semantic_on %}<p class="keytip">{{ key_tip("strictness") }}</p>{% endif %}
-<p class="muted small">Exclude rules always win. {% if bundle.match_mode == 'all' %}An item must match <strong>all</strong> include rules.{% else %}An item must match <strong>any</strong> include rule.{% endif %} No include rules means everything gets in.</p>
-<ul class="rules">
-{% for r in rules %}
-  <li><span class="pill {{ r.kind }}">{{ r.kind }}</span> {{ describe(r) }}
-    <form method="post" action="/rules/{{ r.id }}/delete" class="inline"><button class="link">×</button></form></li>
-{% else %}
-  <li class="muted">No rules. Everything from these sources is included.</li>
-{% endfor %}
-</ul>
-<form method="post" action="/bundles/{{ bundle.slug }}/rules" class="row wrap">
-  <select name="kind"><option value="include">include</option><option value="exclude">exclude</option></select>
-  <select name="field">{% for f in fields %}{% if (f != 'semantic' or semantic_on) and (f != 'ai' or ai_on) %}<option value="{{ f }}">{{ field_labels[f] }}</option>{% endif %}{% endfor %}</select>
-  <input name="pattern" placeholder="word, phrase, regex, or a description for a meaning or plain-language rule" required>
-  <label class="check"><input type="checkbox" name="is_regex" value="true"> regex</label>
-  <label class="check">strictness <select name="strictness" title="loose / normal / strict">{% for s in strictness %}<option value="{{ s }}" {% if s == 'normal' %}selected{% endif %}>{{ s }}</option>{% endfor %}</select></label>
-  <button class="btn small">Add rule</button>
-</form>
-<p class="muted small">{% if semantic_on %}<strong>Meaning</strong> rules compare each item to a description ("assessment and grading practices in higher education") with a model that runs on this server, and take a few minutes to catch up with new items. {% endif %}{% if ai_on %}<strong>Plain-language</strong> rules ask aggRSSive's GenAI once per item ("only posts about open pedagogy; drop job ads and event announcements") and cost a fraction of a cent each. {% endif %}Strictness applies to meaning rules. See <a href="/help/bundles">Help → Building an aggRSSive</a>.</p>
 
 <h2>Preview: included <span class="muted">({{ included|length }})</span></h2>
 <ul class="items compact">
@@ -73,6 +40,28 @@
 {% endfor %}
 </ul>
 
+<h2>Rules</h2>
+<p class="keytip">{{ key_tip("rules") }}</p>
+{% if semantic_on %}<p class="keytip">{{ key_tip("strictness") }}</p>{% endif %}
+<p class="muted small">Exclude rules always win. {% if bundle.match_mode == 'all' %}An item must match <strong>all</strong> include rules.{% else %}An item must match <strong>any</strong> include rule.{% endif %} No include rules means everything gets in.</p>
+<ul class="rules">
+{% for r in rules %}
+  <li><span class="pill {{ r.kind }}">{{ r.kind }}</span> {{ describe(r) }}
+    <form method="post" action="/rules/{{ r.id }}/delete" class="inline"><button class="link">×</button></form></li>
+{% else %}
+  <li class="muted">No rules. Everything from these sources is included.</li>
+{% endfor %}
+</ul>
+<form method="post" action="/bundles/{{ bundle.slug }}/rules" class="row wrap">
+  <select name="kind"><option value="include">include</option><option value="exclude">exclude</option></select>
+  <select name="field">{% for f in fields %}{% if (f != 'semantic' or semantic_on) and (f != 'ai' or ai_on) %}<option value="{{ f }}">{{ field_labels[f] }}</option>{% endif %}{% endfor %}</select>
+  <input name="pattern" placeholder="word, phrase, regex, or a description for a meaning or plain-language rule" required>
+  <label class="check"><input type="checkbox" name="is_regex" value="true"> regular expression <span class="muted">(pattern matching, for the fussy)</span></label>
+  <label class="check">strictness <select name="strictness" title="loose / normal / strict">{% for s in strictness %}<option value="{{ s }}" {% if s == 'normal' %}selected{% endif %}>{{ s }}</option>{% endfor %}</select></label>
+  <button class="btn small">Add rule</button>
+</form>
+<p class="muted small">{% if semantic_on %}<strong>Meaning</strong> rules compare each item to a description ("assessment and grading practices in higher education") with a model that runs on this server, and take a few minutes to catch up with new items. {% endif %}{% if ai_on %}<strong>Plain-language</strong> rules ask aggRSSive's GenAI once per item ("only posts about open pedagogy; drop job ads and event announcements") and cost a fraction of a cent each. {% endif %}Strictness applies to meaning rules. See <a href="/help/bundles">Help → Building a bundle</a>.</p>
+
 {% if excluded %}
 <h2>Preview: kept out <span class="muted">(latest {{ excluded|length }})</span></h2>
 <p class="keytip">{{ key_tip("pending") }}</p>
@@ -90,6 +79,18 @@
 {% endfor %}
 </ul>
 {% endif %}
+{% if similar %}
+<h3>Feeds like these</h3>
+<p class="muted small">Not in this bundle, but writing about the same things as the items it includes. Tick to add.</p>
+<form method="post" action="/bundles/{{ bundle.slug }}/sources">
+<ul class="plain">
+{% for s, score, hits in similar %}
+<li><label><input type="checkbox" name="source_ids" value="{{ s.id }}"> <a href="/sources/{{ s.id }}">{{ s.title or s.feed_url }}</a> <span class="muted small">{{ hits }} similar post{{ 's' if hits != 1 }}</span></label></li>
+{% endfor %}
+</ul>
+<button class="btn small">Add ticked feeds</button>
+</form>
+{% endif %}
 </div>
 
 <aside>
@@ -102,12 +103,12 @@
     <label>Only items newer than <input name="max_age_days" value="{{ bundle.max_age_days or '' }}" placeholder="days" size="4"> days</label>
     <label>Max items <input name="max_items" type="number" value="{{ bundle.max_items }}" min="1" max="500"></label>
     <label class="check"><input type="checkbox" name="dedupe" value="true" {% if bundle.dedupe %}checked{% endif %}> remove duplicates (same URL or title)</label>
-    <label class="check"><input type="checkbox" name="all_sources" value="true" {% if bundle.all_sources %}checked{% endif %}> topic aggRSSive: draw on every source in the collection, not just the ones listed <span class="muted">(needs at least one include rule)</span></label>
+    <label class="check"><input type="checkbox" name="all_sources" value="true" {% if bundle.all_sources %}checked{% endif %}> topic bundle: draw on every source in the collection, not just the ones listed <span class="muted">(needs at least one include rule)</span></label>
     <button class="btn small">Save</button>
   </form>
   <h3>Outputs</h3>
   <p class="small"><a href="/bundles/{{ bundle.slug }}">Public page</a> with embed code and feeds.</p>
-  <form method="post" action="/bundles/{{ bundle.slug }}/delete" onsubmit="return confirm('Delete this aggRSSive? Its embed code and feeds stop working.')"><button class="link danger">Delete aggRSSive</button></form>
+  <form method="post" action="/bundles/{{ bundle.slug }}/delete" onsubmit="return confirm('Delete this bundle? Its embed code and feeds stop working.')"><button class="link danger">Delete bundle</button></form>
 </aside>
 </div>
 {% endblock %}

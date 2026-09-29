@@ -33,7 +33,7 @@ details.related{margin-top:4px;font-size:.85em}details.related summary{color:var
   {% if img and bi.item.image_url %}<a href="{{ bi.item.url }}"><img class="th" src="{{ bi.item.image_url }}" alt="" loading="lazy"></a>{% else %}<span class="noimg"></span>{% endif %}
   <div>
     {% if bi.pinned %}<span class="pin">pinned</span> {% endif %}<a class="t" href="{{ bi.item.url }}">{{ bi.item.title or bi.item.url }}</a>
-    <div class="m">{{ bi.item.source.title }} · {{ bi.item.published_at|datefmt }}{% if bi.item.author %} · {{ bi.item.author }}{% endif %}</div>
+    <div class="m">{{ bi.item.source.title }} · {{ bi.item.published_at|datefmt }}{% if bi.item.author and bi.item.author|lower != (bi.item.source.title or '')|lower %} · {{ bi.item.author }}{% endif %}</div>
     {% if bi.note %}<p class="note">{{ bi.note }}</p>{% endif %}
     {% if bi.item.enclosure_url %}{% from "_feeds.html" import player %}{{ player(bi.item) }}{% endif %}
     {% if desc == 'full' and bi.item.summary %}<div class="d">{{ bi.item.summary|safe_html }}</div>{% elif desc == 'excerpt' and bi.item.text %}<div class="d">{{ bi.item.text[:280] }}{% if bi.item.text|length > 280 %}…{% endif %}</div>{% endif %}
@@ -41,7 +41,7 @@ details.related{margin-top:4px;font-size:.85em}details.related summary{color:var
   </div>
 </li>
 {% else %}
-<li><span></span><span class="m">Nothing passes this aggRSSive's filters yet.</span></li>
+<li><span></span><span class="m">Nothing passes this bundle's filters yet.</span></li>
 {% endfor %}
 </ul>
 <div class="foot"><a href="{{ base_url }}/bundles/{{ bundle.slug }}">{{ bundle.title }}</a> · via aggRSSive · <a href="{{ base_url }}/b/{{ bundle.slug }}/feed.rss">RSS</a>{% if items and items[0].item.enclosure_url %} · <a href="{{ base_url }}/b/{{ bundle.slug }}/feed.rss">subscribe in a podcast app</a>{% endif %}</div>

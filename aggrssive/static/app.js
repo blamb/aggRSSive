@@ -16,7 +16,9 @@
   function render() {
     if (!box) return;
     var ids = Object.keys(cart);
-    box.hidden = ids.length === 0;
+    var empty = document.getElementById("cart-empty");
+    box.hidden = ids.length === 0 && !empty;  // visitors: hidden until a tick; signed in: a one-line introduction
+    box.classList.toggle("is-empty", ids.length === 0);
     count.textContent = ids.length;
     list.innerHTML = "";
     ids.forEach(function (id) {

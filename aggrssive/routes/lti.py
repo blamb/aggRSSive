@@ -141,7 +141,7 @@ def _resource(request: Request, db: Session, platform: Platform, claims: dict):
             slug = target.split("bundle=", 1)[1].split("&", 1)[0]
     b = db.execute(select(Bundle).where(Bundle.slug == slug).options(selectinload(Bundle.sources), selectinload(Bundle.overrides), selectinload(Bundle.owner))).scalar_one_or_none() if slug else None
     if b is None or not b.is_public:
-        return _err(request, "This aggRSSive no longer exists or has been made private.", 404)
+        return _err(request, "This bundle no longer exists or has been made private.", 404)
     opts = service.platform_options(platform)
     try:
         n = max(1, min(int(custom.get("n", opts["default_n"])), 100))

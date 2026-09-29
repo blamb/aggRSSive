@@ -56,7 +56,7 @@
 <form method="post" action="/sources/{{ source.id }}/categories" class="row">
   <input name="category" list="category-list" placeholder="a code or a subject: LB, 0111, open education" required>
   <datalist id="category-list">{% for c in all_categories %}<option value="{{ c.framework }}:{{ c.code }} — {{ c.label }}"></option>{% endfor %}</datalist>
-  <button class="btn small">File it</button>
+  <button class="btn small">Add heading</button>
 </form>
 <div class="suggestions">
   <div class="row" style="justify-content:space-between">
@@ -143,12 +143,12 @@
     <button class="btn small">Save</button>
   </form>
   {% if user.is_site_admin or source.added_by_id == user.id %}
-  <form method="post" action="/sources/{{ source.id }}/delete" onsubmit="return confirm('Delete this source and its items? aggRSSives using it lose it.')"><button class="link danger">Delete source</button></form>
+  <form method="post" action="/sources/{{ source.id }}/delete" onsubmit="return confirm('Delete this source and its items? bundles using it lose it.')"><button class="link danger">Delete source</button></form>
   {% endif %}
   {% endif %}
 
   {% if in_bundles %}
-  <h3>In aggRSSives</h3>
+  <h3>In bundles</h3>
   <ul>{% for b in in_bundles %}<li><a href="/bundles/{{ b.slug }}">{{ b.title }}</a></li>{% endfor %}</ul>
   {% endif %}
 </aside>

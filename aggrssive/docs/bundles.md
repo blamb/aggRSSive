@@ -1,23 +1,23 @@
 ---
-title: Building an aggRSSive
+title: Building a bundle
 order: 5
 ---
 
-# Building an aggRSSive
+# Building a bundle
 
 An **aggRSSive** is a bundle: a set of sources, rules that decide which of their items get through, and your own curation on top. It updates itself as the feeds do.
 
 ## Create one
 
-Tick sources anywhere — *Find feeds*, a tag page, a classification heading, a source's own page, the *Bookmarks* page — and they collect in the **♥ Heart-Cart** at the bottom right. Give it a name and click **Create**, or choose one of your existing aggRSSives and click **Add**. Tag and heading pages also offer **Make an aggRSSive from these** to bundle everything listed.
+Tick sources anywhere — *Find feeds*, a tag page, a classification heading, a source's own page, the *Bookmarks* page — and they collect in the **♥ Heart-Cart** at the bottom right. Give it a name and click **Create**, or choose one of your existing bundles and click **Add**. Tag and heading pages also offer **Make a bundle from these** to bundle everything listed.
 
 You land on the bundle's *edit* page.
 
-## Topic aggRSSives
+## Topic bundles
 
-Most aggRSSives are a chosen set of sources. A **topic aggRSSive** has no list: it draws on every active source in the collection and is defined by its rules alone. "Everything here about assessment" is one include rule, and it stays true as sources come and go, including sources nobody has added yet.
+Most bundles are a chosen set of sources. A **topic bundle** has no list: it draws on every active source in the collection and is defined by its rules alone. "Everything here about assessment" is one include rule, and it stays true as sources come and go, including sources nobody has added yet.
 
-The quickest way to make one is from a search: on *Find feeds*, search for the topic and click **Make a topic aggRSSive from this search**. It starts with a meaning rule made from your words (a keyword rule when meaning rules are off); tighten it on the edit page, add exclude rules, pin and hide as usual. Any aggRSSive can be switched to or from a topic aggRSSive under *Settings*. A topic aggRSSive with no include rule shows nothing, on purpose; it would otherwise be the whole collection.
+The quickest way to make one is from a search: on *Find feeds*, search for the topic and click **Make a topic bundle from this search**. It starts with a meaning rule made from your words (a keyword rule when meaning rules are off); tighten it on the edit page, add exclude rules, pin and hide as usual. Any aggRSSive can be switched to or from a topic bundle under *Settings*. A topic bundle with no include rule shows nothing, on purpose; it would otherwise be the whole collection.
 
 Because it sifts everything, a topic aggRSSive looks further back for candidates than an ordinary one, and a plain-language (GenAI) rule on it judges more items. Meaning and keyword rules cost nothing either way.
 
@@ -53,17 +53,17 @@ Both kinds work as *include* or *exclude*, and combine with keyword rules under 
 
 ## Start from someone else's
 
-On any public aggRSSive's page, **Copy to my aggRSSives** makes you a private copy with the same sources, rules and settings. Change it however you like; the original is untouched. It's how a curated list travels: someone builds it, others take it and adapt it.
+On any public bundle's page, **Copy to my bundles** makes you a private copy with the same sources, rules and settings. Change it however you like; the original is untouched. It's how a curated list travels: someone builds it, others take it and adapt it.
 
 ## Take it elsewhere
 
-Every aggRSSive's page has **Export this aggRSSive**: one JSON file with its settings, its sources (with their tags and classification headings), its rules, and its curation (pins, hides and notes). Under your name → Account, **Export all of mine** does the same for everything you own, in one file. Keep it as a backup, or take it to any other aggRSSive install.
+Every bundle's page has **Export this bundle**: one JSON file with its settings, its sources (with their tags and classification headings), its rules, and its curation (pins, hides and notes). Under your name → Account, **Export all of mine** does the same for everything you own, in one file. Keep it as a backup, or take it to any other aggRSSive install.
 
 **Importing** is on the Account page: choose the file and the aggRSSive is re-created for you, private until you publish it. Sources the site already has are re-used; new ones are added and fetched. A bookmark list comes with its bookmarks. Pins, hides and notes are matched to items by address as the feeds are fetched, so they appear over the first few minutes rather than instantly.
 
 ## Public and private
 
-Public aggRSSives appear on the *aggRSSives* page, can be embedded and subscribed to by anyone, and can be chosen by instructors inside an LMS. Private ones are yours alone: their embed code and feeds return nothing to anyone else.
+Public bundles appear on the *bundles* page, can be embedded and subscribed to by anyone, and can be chosen by instructors inside an LMS. Private ones are yours alone: their embed code and feeds return nothing to anyone else.
 
 ## Rules on sources vs rules on bundles
 

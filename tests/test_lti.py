@@ -213,4 +213,4 @@ def test_instructor_launch_creates_linked_account_and_signed_in_edit_link(client
     # The picker shows their list first with "yours" and offers to make a new one.
     state, nonce = start_login(client)
     r = client.post("/lti/launch", data={"id_token": id_token(nonce, service.MSG_DEEPLINK, {DL_CLAIM + "deep_linking_settings": {"deep_link_return_url": "https://moodle.test/return"}, "sub": "teacher-1"}), "state": state})
-    assert "· yours" in r.text and "Make a new aggRSSive" in r.text
+    assert "· yours" in r.text and "Make a new bundle" in r.text

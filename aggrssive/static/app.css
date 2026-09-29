@@ -83,3 +83,6 @@ ul.items details.related{margin-top:.3rem}ul.items details.related summary{font-
 .episode{display:block;width:100%;max-width:32rem;margin:.3rem 0}
 
 ul.suggested li{padding:.3rem 0;border-bottom:1px solid var(--line)}ul.suggested li:last-child{border:0}ul.suggested form button{font-size:1rem;padding:0 .2rem}
+
+.cart.is-empty #cart-new,.cart.is-empty #cart-add,.cart.is-empty #cart-clear{display:none}.cart:not(.is-empty) #cart-empty{display:none}.cart.is-empty{opacity:.85}
+.help-nav h4{margin:.9rem 0 .2rem;text-transform:uppercase;letter-spacing:.05em;font-size:.7rem}.help-nav h4:first-child{margin-top:0}

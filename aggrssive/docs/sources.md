@@ -56,7 +56,7 @@ Starter collections curated for education are available to site admins under *Ad
 
 ## Taking feeds out again
 
-Every list of sources can leave as OPML: **OPML of everything** on *Find feeds* and *Sources*, **OPML of these sources** on any tag page or classification heading, and the OPML of an aggRSSive's sources on its page. The copy button beside each address puts it on your clipboard. Feed readers import OPML directly, and another aggRSSive install imports it with its tags.
+Every list of sources can leave as OPML: **OPML of everything** on *Find feeds* and *Sources*, **OPML of these sources** on any tag page or classification heading, and the OPML of a bundle's sources on its page. The copy button beside each address puts it on your clipboard. Feed readers import OPML directly, and another aggRSSive install imports it with its tags.
 
 ## What happens after adding
 

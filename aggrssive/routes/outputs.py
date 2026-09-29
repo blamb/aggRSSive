@@ -32,7 +32,7 @@ EMBED_JS = (Path(__file__).parent.parent / "static" / "embed.js").read_text()
 def _public_bundle(db: Session, slug: str, user: User | None) -> Bundle:
     b = load_bundle(db, slug)
     if not can_view(b, user):
-        raise HTTPException(404, "No such aggRSSive")
+        raise HTTPException(404, "No such bundle")
     return b
 
 
@@ -46,7 +46,7 @@ def _item_dict(bi: BundleItem, with_content: bool) -> dict:
         "id": i.id,
         "url": i.url,
         "title": i.title,
-        "author": i.author,
+        "author": i.author if i.author.lower() != (i.source.title or "").lower() else "",
         "summary": i.summary,
         "excerpt": (i.text[:280].rsplit(" ", 1)[0] + "…") if len(i.text) > 280 else i.text,
         "image": i.image_url,

@@ -64,7 +64,7 @@ def test_source_feed_serves_a_bookmark_list_as_rss(client):
 def test_pages_show_feed_links_with_copy_buttons(client):
     r = client.get("/tags/exports%20tag")
     assert "OPML of these sources" in r.text and 'class="copy" data-copy="' in r.text and ".opml" in r.text
-    assert "OPML of everything" in client.get("/find").text
+    assert "OPML of every feed here" in client.get("/find").text
 
 
 def test_feeds_and_pages_carry_enclosures(client):

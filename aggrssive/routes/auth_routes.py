@@ -111,7 +111,7 @@ def anonymous_page(request: Request, user: User | None = Depends(current_user), 
 
 
 @router.post("/anonymous")
-def anonymous_create(request: Request, acknowledge: bool = Form(False), db: Session = Depends(get_db)):
+def anonymous_create(request: Request, acknowledge: bool = Form(False), display_name: str = Form(""), db: Session = Depends(get_db)):
     if not anonymous_open(db):
         raise HTTPException(403, "Anonymous accounts are switched off here.")
     if not acknowledge:
@@ -122,7 +122,7 @@ def anonymous_create(request: Request, acknowledge: bool = Form(False), db: Sess
     import secrets
 
     token = secrets.token_urlsafe(24)
-    u = User(email=f"anon-{token[:12].lower()}@anonymous.invalid", display_name=f"Anonymous {token[:4]}", password_hash=None, role="user", is_anonymous=True, login_token=token)
+    u = User(email=f"anon-{token[:12].lower()}@anonymous.invalid", display_name=display_name.strip()[:120] or "Anonymous", password_hash=None, role="user", is_anonymous=True, login_token=token)
     db.add(u)
     db.commit()
     resp = RedirectResponse("/account?m=welcome", status_code=303)
@@ -143,7 +143,7 @@ def anonymous_enter(token: str, db: Session = Depends(get_db)):
 
 @router.post("/account/claim")
 def anonymous_claim(request: Request, email: str = Form(...), password: str = Form(...), user: User = Depends(current_user), db: Session = Depends(get_db)):
-    """Turn an anonymous account into a regular one: same aggRSSives, now with an email and password."""
+    """Turn an anonymous account into a regular one: same bundles, now with an email and password."""
     if not user or not user.is_anonymous:
         raise HTTPException(400, "Only an anonymous account can be claimed.")
     email = email.strip().lower()
@@ -153,7 +153,7 @@ def anonymous_claim(request: Request, email: str = Form(...), password: str = Fo
         return RedirectResponse("/account?error=That+email+already+has+an+account", status_code=303)
     u = db.get(User, user.id)
     u.email, u.password_hash, u.is_anonymous, u.login_token = email, hash_password(password), False, None
-    if u.display_name.startswith("Anonymous "):
+    if u.display_name == "Anonymous":
         u.display_name = email.split("@")[0][:120]
     db.commit()
     return RedirectResponse("/account?m=claimed", status_code=303)

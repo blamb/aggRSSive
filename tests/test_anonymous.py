@@ -46,7 +46,7 @@ def test_create_needs_acknowledgement_then_shows_link(admin):
     assert "Your way back in" in page and "/enter/" in page and "Change password" not in page
     with SessionLocal() as db:
         u = db.query(User).filter_by(is_anonymous=True).one()
-        assert u.email.endswith("@anonymous.invalid") and u.login_token and u.display_name.startswith("Anonymous ")
+        assert u.email.endswith("@anonymous.invalid") and u.login_token and u.display_name == "Anonymous"
         token = u.login_token
         db.add(Bundle(owner_id=u.id, title="Anon list", slug="anonlist1"))
         db.commit()

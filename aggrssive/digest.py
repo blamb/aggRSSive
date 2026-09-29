@@ -1,4 +1,4 @@
-"""Email digests: new items from an aggRSSive, daily or weekly, to people who asked.
+"""Email digests: new items from a bundle, daily or weekly, to people who asked.
 
 Off until SMTP is configured (see config). A digest is sent only when there is something new since the last
 one, so quiet lists stay quiet. Every mail carries a one-click unsubscribe link that needs no sign-in.

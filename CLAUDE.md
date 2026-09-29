@@ -18,4 +18,5 @@
 - Deployment: push to `main` builds and smoke-tests the image, then publishes to GHCR; a Reclaim Cloud *Redeploy* pulls it. Batch changes; each redeploy is ~2 minutes of downtime.
 - Base image is pinned to Debian 12 because Reclaim rejects newer ones.
 - The "ask aggRSSive (GenAI)" wording is deliberate; don't rename it to the model's name.
+- The thing people make is a **bundle** (nav: Bundles; topic bundle; Copy to my bundles). *aggRSSive* is the site's name, never the noun for a list; Getting started mentions the nickname once.
 - Roles: `user` / `site_admin` / `admin` (see `docs/roles.md`). Permission checks live in `auth.py`.

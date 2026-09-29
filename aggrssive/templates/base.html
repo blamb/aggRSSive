@@ -12,7 +12,7 @@
   <a class="brand" href="/">agg<span>RSS</span>ive</a>
   <nav>
     <a href="/find">Find feeds</a>
-    <a href="/bundles">aggRSSives</a>
+    <a href="/bundles">Bundles</a>
     <a href="/help">Help</a>
     {% if user %}
       {% if user.is_site_admin %}<a href="/admin">Admin</a>{% endif %}
@@ -22,6 +22,7 @@
       <form method="post" action="/logout" class="inline"><button class="link">Sign out</button></form>
     {% else %}
       <a href="/login">Sign in</a>
+      {% if anonymous_open_now() %}<a href="/anonymous">Try it</a>{% endif %}
     {% endif %}
   </nav>
 </header>
@@ -38,6 +39,7 @@
 (function(){var bar=document.getElementById('tipbar');if(!bar)return;var key='tips-hidden:'+location.pathname.split('/')[1];
 try{var until=localStorage.getItem(key);if(until&&Date.now()<+until)return;}catch(e){}
 var tips=JSON.parse(bar.dataset.tips),links=JSON.parse(bar.dataset.links),i=0,t=bar.querySelector('.tip-text'),m=bar.querySelector('.tip-more');
+var hero=document.querySelector('main .hero'),h1=document.querySelector('main h1');var anchor=hero||h1;if(anchor){(anchor.closest('.with-side, .find-grid')?anchor:anchor).insertAdjacentElement('afterend',bar);}
 function show(){t.innerHTML=tips[i];if(links[i]){m.href=links[i];m.hidden=false;}else{m.hidden=true;}}
 show();bar.hidden=false;
 document.getElementById('tip-next').onclick=function(){i=(i+1)%tips.length;show();};
@@ -50,9 +52,10 @@ document.getElementById('tip-hide').onclick=function(){try{localStorage.setItem(
 <div id="cart" class="cart" hidden>
   <div class="cart-head"><span>♥ Heart-Cart</span> <span id="cart-count">0</span> <button class="link" id="cart-clear">clear</button></div>
   <ul id="cart-list"></ul>
+  {% if user %}<p class="muted small" id="cart-empty">Tick feeds anywhere and they collect here. Name them, and you have a bundle.</p>{% endif %}
   {% if user %}
   <form method="post" action="/bundles" id="cart-new">
-    <input name="title" placeholder="Name this aggRSSive" required>
+    <input name="title" placeholder="Name this bundle" required>
     <button class="btn small">Create</button>
   </form>
   <form method="post" id="cart-add">
@@ -60,7 +63,7 @@ document.getElementById('tip-hide').onclick=function(){try{localStorage.setItem(
     <button class="btn small">Add</button>
   </form>
   {% else %}
-  <p class="muted"><a href="/login">Sign in</a> to turn the cart into an aggRSSive.</p>
+  <p class="muted"><a href="/login">Sign in</a> to turn the cart into a bundle.</p>
   {% endif %}
 </div>
 <script src="/static/app.js"></script>

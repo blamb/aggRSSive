@@ -5,7 +5,7 @@ order: 9
 
 # Connecting aggRSSive to a learning platform
 
-aggRSSive is an **LTI 1.3 Advantage** tool with Deep Linking. Register it once per platform; instructors then add any public aggRSSive to their courses with the platform's content picker. Registration is done by a site admin at **Admin → LTI platforms**.
+aggRSSive is an **LTI 1.3 Advantage** tool with Deep Linking. Register it once per platform; instructors then add any public bundle to their courses with the platform's content picker. Registration is done by a site admin at **Admin → LTI platforms**.
 
 ## Moodle (dynamic registration)
 
@@ -53,7 +53,7 @@ Changes apply to the next launch; nothing already placed in a course needs re-ad
 
 ## Privacy
 
-aggRSSive receives from the platform a user identifier, name and email (when the platform shares them) and the user's role. Students are not recorded at all. For **instructors**, the first launch creates an aggRSSive account tied to their platform identity, so *edit in aggRSSive* and *make a new aggRSSive* open aggRSSive already signed in as them; it stores the identifier, and the name and email if the platform sent them. Those accounts appear on *Admin → Users* like any other and can be deactivated there.
+aggRSSive receives from the platform a user identifier, name and email (when the platform shares them) and the user's role. Students are not recorded at all. For **instructors**, the first launch creates an aggRSSive account tied to their platform identity, so *edit in aggRSSive* and *make a new bundle* open aggRSSive already signed in as them; it stores the identifier, and the name and email if the platform sent them. Those accounts appear on *Admin → Users* like any other and can be deactivated there.
 
 ## Removing a platform
 

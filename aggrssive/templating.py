@@ -64,4 +64,18 @@ templates.env.globals["KIND_LABELS"] = {**ADAPTER_KINDS, **PAGE_KINDS}
 from . import tips as _tips  # noqa: E402
 
 templates.env.globals["tips_for"] = _tips.tips_for
+
+
+def _anon_open() -> bool:
+    from .auth import anonymous_open
+    from .db import SessionLocal
+
+    try:
+        with SessionLocal() as db:
+            return anonymous_open(db)
+    except Exception:
+        return False
+
+
+templates.env.globals["anonymous_open_now"] = _anon_open
 templates.env.globals["key_tip"] = lambda slug: Markup(_tips.key_tip(slug))

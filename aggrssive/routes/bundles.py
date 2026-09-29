@@ -16,7 +16,7 @@ router = APIRouter()
 def load_bundle(db: Session, slug: str) -> Bundle:
     b = db.execute(select(Bundle).where(Bundle.slug == slug).options(selectinload(Bundle.sources), selectinload(Bundle.overrides), selectinload(Bundle.owner))).scalar_one_or_none()
     if not b:
-        raise HTTPException(404, "No such aggRSSive")
+        raise HTTPException(404, "No such bundle")
     return b
 
 
@@ -41,7 +41,7 @@ def list_bundles(request: Request, db: Session = Depends(get_db), user: User | N
 
 @router.post("/bundles")
 def create_bundle(title: str = Form(...), source_ids: list[int] = Form([]), description: str = Form(""), user: User = Depends(require_user), db: Session = Depends(get_db)):
-    b = Bundle(owner_id=user.id, title=title.strip()[:300] or "Untitled aggRSSive", description=description.strip())
+    b = Bundle(owner_id=user.id, title=title.strip()[:300] or "Untitled bundle", description=description.strip())
     db.add(b)
     db.flush()
     _set_sources(db, b, source_ids)
@@ -51,7 +51,7 @@ def create_bundle(title: str = Form(...), source_ids: list[int] = Form([]), desc
 
 @router.post("/bundles/topic")
 def create_topic(q: str = Form(...), user: User = Depends(require_user), db: Session = Depends(get_db)):
-    """One click from a search: a topic aggRSSive over every source, defined by a rule made from the words."""
+    """One click from a search: a topic bundle over every source, defined by a rule made from the words."""
     q = q.strip()[:500]
     if not q:
         raise HTTPException(400, "Say what the topic is")
@@ -68,7 +68,7 @@ def create_topic(q: str = Form(...), user: User = Depends(require_user), db: Ses
 
 @router.post("/bundles/from")
 def create_from(tag: str = Form(""), cat: str = Form(""), user: User = Depends(require_user), db: Session = Depends(get_db)):
-    """One click: an aggRSSive from everything under a tag or a classification heading."""
+    """One click: a bundle from everything under a tag or a classification heading."""
     from .. import classification
     from ..models import Tag
 
@@ -129,10 +129,10 @@ def remove_source(slug: str, source_id: int, user: User = Depends(require_user),
 
 @router.post("/bundles/{slug}/fork")
 def fork_bundle(slug: str, user: User = Depends(require_user), db: Session = Depends(get_db)):
-    """Copy a public aggRSSive (sources, rules, settings) into one of your own. Curation stays with the original."""
+    """Copy a public bundle (sources, rules, settings) into one of your own. Curation stays with the original."""
     src = load_bundle(db, slug)
     if not can_view(src, user):
-        raise HTTPException(404, "No such aggRSSive")
+        raise HTTPException(404, "No such bundle")
     b = Bundle(
         owner_id=user.id,
         title=f"{src.title} (copy)"[:300],
@@ -154,12 +154,12 @@ def fork_bundle(slug: str, user: User = Depends(require_user), db: Session = Dep
 
 @router.get("/bundles/{slug}/export.json")
 def export_bundle(slug: str, db: Session = Depends(get_db), user: User | None = Depends(current_user)):
-    """The aggRSSive as a portable file: settings, sources with tags and headings, rules, curation."""
+    """The bundle as a portable file: settings, sources with tags and headings, rules, curation."""
     from .. import portable
 
     b = load_bundle(db, slug)
     if not can_view(b, user):
-        raise HTTPException(404, "No such aggRSSive")
+        raise HTTPException(404, "No such bundle")
     return JSONResponse(portable.export_bundle(db, b), headers={"Content-Disposition": f'attachment; filename="aggrssive-{b.slug}.json"'})
 
 
@@ -187,7 +187,7 @@ async def import_bundles(file: UploadFile = File(...), user: User = Depends(requ
 def show_bundle(request: Request, slug: str, db: Session = Depends(get_db), user: User | None = Depends(current_user)):
     b = load_bundle(db, slug)
     if not can_view(b, user):
-        raise HTTPException(404, "No such aggRSSive")
+        raise HTTPException(404, "No such bundle")
     items = bundle_items(db, b)
     from .. import digest
     from ..models import Digest

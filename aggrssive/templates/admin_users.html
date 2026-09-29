@@ -24,13 +24,13 @@
   <td class="small muted">{{ u.created_at|datefmt }}</td>
   <td>{% if u.id != user.id %}<form method="post" action="/admin/users/{{ u.id }}" class="inline">
     {% if u.is_active %}<button class="link muted" name="action" value="deactivate">deactivate</button>{% else %}<button class="link" name="action" value="activate">reactivate</button>{% endif %}
-    {% if u.is_anonymous %} · <button class="link danger" name="action" value="delete" onclick="return confirm('Remove this anonymous account and its aggRSSives? Sources it added stay.')">remove</button>{% endif %}
+    {% if u.is_anonymous %} · <button class="link danger" name="action" value="delete" onclick="return confirm('Remove this anonymous account and its bundles? Sources it added stay.')">remove</button>{% endif %}
   </form>{% endif %}</td>
 </tr>
 {% endfor %}
 </tbody>
 </table>
-<p class="muted small">Deactivated people can't sign in. Everything they added stays with the collection. Anonymous accounts can be removed outright; their aggRSSives go with them, the sources they added stay. Roles are explained in <a href="/help/roles">Help → Roles</a>.</p>
+<p class="muted small">Deactivated people can't sign in. Everything they added stays with the collection. Anonymous accounts can be removed outright; their bundles go with them, the sources they added stay. Roles are explained in <a href="/help/roles">Help → Roles</a>.</p>
 </div>
 <aside>
   <h3>Create an account</h3>

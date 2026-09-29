@@ -56,7 +56,7 @@ function aggrssive_embed_html( $atts ) {
 	$a = aggrssive_embed_args( $atts );
 	if ( ! $a['site'] || ! $a['slug'] ) {
 		return current_user_can( 'edit_posts' )
-			? '<p><em>' . esc_html__( 'aggRSSive: choose an aggRSSive (its code) and make sure the site address is set under Settings → aggRSSive.', 'aggrssive-embed' ) . '</em></p>'
+			? '<p><em>' . esc_html__( 'aggRSSive: choose a bundle (its code) and make sure the site address is set under Settings → aggRSSive.', 'aggrssive-embed' ) . '</em></p>'
 			: '';
 	}
 	if ( 'iframe' === $a['mode'] ) {
@@ -126,7 +126,7 @@ function aggrssive_embed_register_block() {
 }
 add_action( 'init', 'aggrssive_embed_register_block' );
 
-/** Settings → aggRSSive: the site address, so editors only need an aggRSSive's code. */
+/** Settings → aggRSSive: the site address, so editors only need a bundle's code. */
 function aggrssive_embed_settings_init() {
 	register_setting( 'aggrssive_embed', 'aggrssive_site', array( 'type' => 'string', 'sanitize_callback' => 'esc_url_raw', 'default' => '' ) );
 	add_settings_section( 'aggrssive_embed_main', __( 'aggRSSive site', 'aggrssive-embed' ), '__return_false', 'aggrssive_embed' );
@@ -135,7 +135,7 @@ function aggrssive_embed_settings_init() {
 		__( 'Site address', 'aggrssive-embed' ),
 		function () {
 			printf( '<input type="url" name="aggrssive_site" value="%s" class="regular-text" placeholder="https://aggrssive.example.edu">', esc_attr( get_option( 'aggrssive_site', '' ) ) );
-			echo '<p class="description">' . esc_html__( 'The aggRSSive install your lists live on. Each block or shortcode then only needs the aggRSSive\'s code (the part after /bundles/ in its address).', 'aggrssive-embed' ) . '</p>';
+			echo '<p class="description">' . esc_html__( 'The aggRSSive install your lists live on. Each block or shortcode then only needs the bundle\'s code (the part after /bundles/ in its address).', 'aggrssive-embed' ) . '</p>';
 		},
 		'aggrssive_embed',
 		'aggrssive_embed_main'

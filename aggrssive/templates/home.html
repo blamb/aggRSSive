@@ -5,7 +5,7 @@
   <p>Feeds from anywhere, tagged by everyone here, filtered to what matters, and handed back as a bundle: embed it, subscribe to it, or drop it into a course.</p>
   <p class="muted small">A rebuild of the 2005 UBC original: Novak Rogic's architecture, Magpie RSS, Alan Levine's Feed2JS, Freetag, and two co-op students, Tyler P and Enej B, who have since gone on to more respectable careers.</p>
   <p class="muted small">Podcasters: a bundle of shows is itself a show, with episodes that play wherever you embed the list. <a href="/help/podcasters">How that works</a>.</p>
-  <p class="stats">{{ stats['sources'] }} sources · {{ stats['items'] }} items · {{ stats['bundles'] }} aggRSSives</p>
+  <p class="stats">{{ "{:,}".format(stats['sources']) }} feeds · {{ "{:,}".format(stats['items']) }} posts · {{ stats['bundles'] }} bundle{{ 's' if stats['bundles'] != 1 }}</p>
   {% if not user %}<p><a class="btn" href="/signup">Create an account</a> <a class="btn ghost" href="/anonymous">Try it without one</a> <a class="btn ghost" href="/find">Find feeds</a></p>{% else %}<p><a class="btn" href="/find">Find feeds</a> <a class="btn ghost" href="/sources/add">Add a feed</a></p>{% endif %}
 </section>
 
@@ -20,7 +20,7 @@
 
 {% if bundles %}
 <section>
-  <h2>Recent aggRSSives</h2>
+  <h2>Recent bundles</h2>
   <ul class="cards">
   {% for b in bundles %}
     <li><a href="/bundles/{{ b.slug }}"><strong>{{ b.title }}</strong></a><br><span class="muted">{{ b.sources|length }} sources · by {{ b.owner.display_name }} · {{ b.updated_at|ago }}</span>{% if b.description %}<p>{{ b.description[:160] }}</p>{% endif %}</li>

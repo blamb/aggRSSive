@@ -24,7 +24,7 @@ Try whole phrases rather than single words: *students using generative AI to wri
 
 ## Finding feeds by either
 
-*Find feeds* shows the tag cloud and both classification trees side by side. Click any tag or heading to see its sources and their latest items, tick sources into the Heart-Cart, or use **Make an aggRSSive from these** to bundle everything under it in one click. A heading includes everything filed beneath it: *L Education* covers LA, LB, LC and so on.
+*Find feeds* shows the tag cloud and both classification trees side by side. Click any tag or heading to see its sources and their latest items, tick sources into the Heart-Cart, or use **Make a bundle from these** to bundle everything under it in one click. A heading includes everything filed beneath it: *L Education* covers LA, LB, LC and so on.
 
 ## Growing a tag
 
