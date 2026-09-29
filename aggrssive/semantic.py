@@ -164,7 +164,8 @@ def search(db: Session, query: str, limit: int = 12, source_limit: int = 10, flo
     qv = rule_vector(query)
     if qv is None:
         return None
-    floor = STRICTNESS["loose"] if floor is None else floor
+    if floor is None:  # short queries make vague vectors: ask more of them
+        floor = STRICTNESS["normal"] if len(query.split()) <= 2 else STRICTNESS["loose"]
     scores = idx["matrix"] @ qv
     order = np.argsort(-scores)
     top_items = [(int(idx["ids"][i]), float(scores[i])) for i in order[:limit] if scores[i] >= floor]

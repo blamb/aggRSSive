@@ -162,12 +162,26 @@ def sources_for_tag(db: Session, tag: Tag, limit: int = 10) -> list[dict]:
     for src in db.execute(select(Source).where(Source.is_active.is_(True), or_(Source.title.ilike(like), Source.description.ilike(like)))).scalars():
         add(src, "the name or description mentions it", 2.0)
 
-    hit = semantic.search(db, name, limit=1, source_limit=40)
+    # Posts that use the words. A tag is usually a name or a short phrase, and for those the words
+    # themselves are the reliable signal; meaning similarity on two words is vague.
+    from sqlalchemy import func
+
+    mentions = db.execute(
+        select(Item.source_id, func.count(Item.id)).where(or_(Item.title.ilike(like), Item.text.ilike(like))).group_by(Item.source_id)
+    ).all()
+    for sid, n in mentions:
+        if n >= 2:
+            src = db.get(Source, sid)
+            if src is not None and src.is_active:
+                add(src, f"{n} post{'s' if n != 1 else ''} mention it", 1.0 + min(n, 30) / 10)
+
+    # Meaning, only when it is unambiguous: strict threshold and several posts.
+    hit = semantic.search(db, name, limit=1, source_limit=40, floor=semantic.STRICTNESS["strict"])
     if hit:
         for sid, score, hits in hit["sources"]:
             src = db.get(Source, sid)
-            if src is not None:
-                add(src, f"{hits} post{'s' if hits != 1 else ''} about it", min(hits, 10) / 10 * 2.0 + (score - 0.5))
+            if src is not None and hits >= 3:
+                add(src, f"{hits} posts close in meaning", 0.5 + min(hits, 10) / 10)
 
     # Company: other tags the tagged sources carry, and who else carries several of them.
     company: Counter[str] = Counter(t.name for s in tagged for t in s.tags if t.id != tag.id)

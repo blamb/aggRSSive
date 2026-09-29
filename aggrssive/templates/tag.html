@@ -6,7 +6,7 @@
 <h1><span class="tag big">{{ tag.name }}</span></h1>
 {% if suggested %}
 <h2>Feeds that might belong here</h2>
-<p class="muted small">Not tagged <em>{{ tag.name }}</em> yet, but named for it, writing about it, or keeping the same company. ✓ tags it; ✕ says no and it stays off this list.</p>
+<p class="muted small">Not tagged <em>{{ tag.name }}</em> yet, but named for it, using the words in their posts, or keeping the same company. ✓ tags it; ✕ says no and it stays off this list.</p>
 <ul class="plain suggested">
 {% for r in suggested %}
 <li><form method="post" action="/tags/{{ tag.name }}/decide" class="inline"><input type="hidden" name="source_id" value="{{ r.source.id }}"><button class="link" name="decision" value="accept" title="tag it {{ tag.name }}">✓</button> <button class="link" name="decision" value="reject" title="not this one">✕</button></form>

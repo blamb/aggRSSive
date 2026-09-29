@@ -28,7 +28,7 @@ Try whole phrases rather than single words: *students using generative AI to wri
 
 ## Growing a tag
 
-A tag page, signed in, opens with **Feeds that might belong here**: sources not yet carrying the tag that are named for it, whose posts are about it, or that share several other tags with the sources already tagged. Each line says why. ✓ puts the tag on that source; ✕ says it does not belong, and it stays off the list for good. It is the quickest way to fill out a tag like *british columbia* or *podcast* once a handful of sources carry it, and it gets better as the collection is tagged.
+A tag page, signed in, opens with **Feeds that might belong here**: sources not yet carrying the tag that are named for it, whose posts use the words (at least two posts), whose posts are close in meaning (only when the match is strict and repeated), or that share several other tags with the sources already tagged. Each line says why. ✓ puts the tag on that source; ✕ says it does not belong, and it stays off the list for good. It is the quickest way to fill out a tag like *british columbia* or *podcast* once a handful of sources carry it, and it gets better as the collection is tagged.
 
 ## Tagging a source
 
