@@ -8,6 +8,10 @@
 - **Everything persistent goes under `/data`.** The database and the LTI signing key both live there (set via `ENV` in the Dockerfile); anything written elsewhere in the container is lost on redeploy.
 - **One container, one volume.** Keep SQLite and the in-process scheduler unless there's a concrete reason. New files the app needs at runtime go under `aggrssive/` and must be listed in `[tool.setuptools.package-data]` — and never under a path that `.gitignore` swallows (`/data/` is the local database folder; `aggrssive/data/` is shipped framework data).
 
+## Voice
+
+- Any change to the site's own prose (home page, help pages, empty states, hints, messages, tips) follows Brian's writing style guide at `private/style-guide.md`, which is gitignored and lives only on Brian's machine. Register for site text is work memo / short message. `docs/copy-review.md` records the pass already applied and the rules used.
+
 ## Conventions
 
 - Tests: `.venv/bin/pytest`. Add a test for behaviour, not for wiring.

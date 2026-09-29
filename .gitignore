@@ -9,3 +9,6 @@ __pycache__/
 *.db-shm
 .DS_Store
 aggrssive-sources.opml
+
+# Personal, not for the public repo: the style guide and anything else under private/
+/private/
