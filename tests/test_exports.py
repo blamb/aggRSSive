@@ -65,3 +65,15 @@ def test_pages_show_feed_links_with_copy_buttons(client):
     r = client.get("/tags/exports%20tag")
     assert "OPML of these sources" in r.text and 'class="copy" data-copy="' in r.text and ".opml" in r.text
     assert "OPML of everything" in client.get("/find").text
+
+
+def test_feeds_and_pages_carry_enclosures(client):
+    with SessionLocal() as db:
+        lst = db.query(Source).filter_by(kind="bookmarks", title="Readings").one()
+        db.add(Item(source_id=lst.id, guid="ep", url="https://ex.test/ep", title="An episode", text="", enclosure_url="https://cdn.ex.test/ep.mp3", enclosure_type="audio/mpeg", enclosure_length=100))
+        db.commit()
+        sid = lst.id
+    r = client.get(f"/sources/{sid}/feed.rss")
+    assert '<enclosure url="https://cdn.ex.test/ep.mp3" type="audio/mpeg" length="100"/>' in r.text
+    r = client.get(f"/sources/{sid}")
+    assert '<audio class="episode" controls preload="none" src="https://cdn.ex.test/ep.mp3"></audio>' in r.text

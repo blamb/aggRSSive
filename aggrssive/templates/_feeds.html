@@ -1,3 +1,12 @@
+{#- A player for an item that carries an audio or video file. Nothing is downloaded by aggRSSive; the browser streams from the feed's host. -#}
+{% macro player(item) -%}
+{%- if item.enclosure_url and item.enclosure_type and item.enclosure_type.startswith('video/') -%}
+<video class="episode" controls preload="none" src="{{ item.enclosure_url }}"{% if item.image_url %} poster="{{ item.image_url }}"{% endif %}></video>
+{%- elif item.enclosure_url -%}
+<audio class="episode" controls preload="none" src="{{ item.enclosure_url }}"></audio>
+{%- endif -%}
+{%- endmacro %}
+
 {#- One feed or OPML address: an icon, the link, and a copy button that puts the absolute address on the clipboard. -#}
 {% macro feedlink(label, path, kind='rss') -%}
 <span class="feedlink">

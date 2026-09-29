@@ -1,6 +1,6 @@
 ---
 title: What's new
-order: 12
+order: 13
 ---
 
 # What's new
@@ -9,6 +9,7 @@ Newest first.
 
 ## September 2026
 
+- **Podcasts**: episodes keep their audio; players on aggRSSive pages, in embeds and in courses; a bundle's RSS carries the enclosures, so a bundle of shows subscribes as one show. A help page for podcasters.
 - **Feeds and OPML everywhere**: OPML for any tag, heading or the whole collection; RSS for bookmark lists and watched pages; a copy button with an icon beside every feed address.
 - **WordPress block**: a small plugin (block + shortcode), downloadable from any aggRSSive's page, for sites that would rather not paste script tags.
 - **Email digests**: new items from any aggRSSive, daily or weekly, chosen per person on its page, with one-click unsubscribe. Needs outgoing mail configured by a site admin.

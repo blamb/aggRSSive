@@ -155,6 +155,10 @@ class Item(Base):
     content: Mapped[str] = mapped_column(Text, default="")  # sanitized HTML, may be empty
     text: Mapped[str] = mapped_column(Text, default="")  # plain text for filtering
     image_url: Mapped[str | None] = mapped_column(String(2048))
+    # Podcast and video episodes: the media file the feed pointed at. Never downloaded; played from its host.
+    enclosure_url: Mapped[str | None] = mapped_column(String(2048))
+    enclosure_type: Mapped[str | None] = mapped_column(String(100))
+    enclosure_length: Mapped[int | None] = mapped_column(Integer)
     categories: Mapped[str] = mapped_column(Text, default="")  # newline separated
     published_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, index=True)
     fetched_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)

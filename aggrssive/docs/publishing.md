@@ -50,6 +50,10 @@ Beside every feed and OPML address on the site there is a small copy button. Cli
 
 OPML is available for more than bundles. Any tag page and any classification heading offers **OPML of these sources**, *Find feeds* and *Sources* offer **OPML of everything**, and a bookmark list or a watched page has an **RSS** of its own, since it has no feed elsewhere. In OPML exports, sources that have no feed of their own are listed by their aggRSSive feed address, so the file works in any reader.
 
+## Podcasts
+
+Episodes keep their audio. On the aggRSSive's page, in embeds and in courses each episode has a player, and the bundle's RSS carries the enclosures, so a podcast app can subscribe to a bundle of shows as one show. See [For podcasters](podcasters).
+
 ## By email
 
 Signed in, any aggRSSive's page offers **By email**: choose *every day* or *every week* and new items arrive at your account's address, with each item's source, your notes, and a short excerpt. Nothing is sent for a period with no new items, so a quiet list is a quiet inbox. Daily digests go out in the morning (UTC), weekly ones on Mondays; every mail has a one-click unsubscribe link, and the choice can be changed on the aggRSSive's page any time. The feature appears once a site admin has set up outgoing mail (see [Hosting](hosting)).

@@ -33,6 +33,10 @@ TIPS: tuple[Tip, ...] = (
     Tip("Import an OPML file from your feed reader and its folders become tags. Importing the same file again is safe: nothing is duplicated.", ("sources", "find"), "/help/sources"),
     Tip("For a feed that mixes what you want with what you don't, put an <em>exclude</em> rule on the source itself. It applies everywhere that feed is used.", ("sources",), "/help/bundles"),
     Tip("Suggested tags are proposals: ✓ adds, ✎ lets you edit first, ✕ rejects for good. Nothing is applied until you click.", ("sources",), "/help/tags-and-classification"),
+    # Podcasts
+    Tip("A bundle of podcasts is itself a show: copy its RSS address into any podcast app and the episodes arrive with their audio.", ("bundles", "any"), "/help/podcasters"),
+    Tip("Podcast episodes get a player wherever an aggRSSive is embedded, including inside a course. Rules work on episodes too: drop the trailers, keep the interviews.", ("bundles", "sources"), "/help/podcasters"),
+    Tip("Searching <em>Find feeds</em> for a subject finds podcast episodes about it, not just shows named after it.", ("find",), "/help/podcasters"),
     # Bookmarks
     Tip("Drag <em>♥ aggRSSive this</em> from the Bookmarks page to your browser's bookmarks bar. One click on any article and it is described and ready to save.", ("bookmarks", "any"), "/help/bookmarks"),
     Tip("A bookmark list is a source like any other: put it in an aggRSSive next to feeds. Pin your hand-picked readings at the top and let the feeds fill in below.", ("bookmarks", "bundles"), "/help/bookmarks"),

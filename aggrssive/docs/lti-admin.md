@@ -1,6 +1,6 @@
 ---
 title: "Moodle and other LMSs: for admins"
-order: 8
+order: 9
 ---
 
 # Connecting aggRSSive to a learning platform

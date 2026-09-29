@@ -74,3 +74,18 @@ def test_headline_for_untitled_posts():
     long = "I've just added a reviews plugin to the site. It works on every page and " + "x" * 80
     assert headline(long) == "I've just added a reviews plugin to the site."
     assert headline("word " * 40).endswith("…") and len(headline("word " * 40)) <= 101
+
+
+def test_enclosures_are_kept_for_podcast_episodes():
+    podcast = b"""<rss version="2.0"><channel><title>Show</title>
+<item><title>Ep 1</title><link>https://show.example/1</link><guid>1</guid><enclosure url="https://cdn.example/ep1.mp3" type="audio/mpeg" length="12345"/></item>
+<item><title>Ep 2</title><link>https://show.example/2</link><guid>2</guid><enclosure url="https://cdn.example/ep2.m4a" length="9"/></item>
+<item><title>Notes</title><link>https://show.example/n</link><guid>3</guid><enclosure url="https://cdn.example/cover.jpg" type="image/jpeg"/></item>
+</channel></rss>"""
+    pf = parse_body(podcast, "application/rss+xml")
+    e1, e2, e3 = pf.entries
+    assert (e1.enclosure_url, e1.enclosure_type, e1.enclosure_length) == ("https://cdn.example/ep1.mp3", "audio/mpeg", 12345)
+    assert e2.enclosure_type == "audio/mp4"  # typed by extension
+    assert e3.enclosure_url is None and e3.image_url == "https://cdn.example/cover.jpg"
+    jf = b'{"version":"https://jsonfeed.org/version/1.1","title":"JF","items":[{"id":"a","url":"https://j.example/a","title":"A","attachments":[{"url":"https://j.example/a.mp3","mime_type":"audio/mpeg","size_in_bytes":5}]}]}'
+    assert parse_body(jf, "application/feed+json").entries[0].enclosure_length == 5

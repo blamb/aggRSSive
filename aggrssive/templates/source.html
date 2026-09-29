@@ -97,6 +97,7 @@
 {% for i in items %}
 <li>
   <a href="{{ i.url }}" class="item-title">{{ i.title or i.url }}</a>
+  {% if i.enclosure_url %}{% from "_feeds.html" import player %}{{ player(i) }}{% endif %}
   <span class="muted small">{{ i.published_at|datefmt }}{% if i.author %} · {{ i.author }}{% endif %}{% if is_bookmarks and i.categories %} · {{ i.categories.replace('\n', ', ') }}{% endif %}{% if is_bookmarks and owns %} · <form method="post" action="/bookmarks/items/{{ i.id }}/delete" class="inline"><button class="link" title="remove bookmark">×</button></form>{% endif %}</span>
   {% if i.summary %}<div class="summary">{{ i.summary|safe_html }}</div>{% endif %}
 </li>

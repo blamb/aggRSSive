@@ -18,6 +18,7 @@
   <a href="{{ bi.item.url }}" class="item-title">{{ bi.item.title or bi.item.url }}</a>
   <span class="muted small">{{ bi.item.source.title }} · {{ bi.item.published_at|datefmt }}{% if bi.item.author %} · {{ bi.item.author }}{% endif %}</span>
   {% if bi.note %}<p class="note">{{ bi.note }}</p>{% endif %}
+  {% if bi.item.enclosure_url %}{% from "_feeds.html" import player %}{{ player(bi.item) }}{% endif %}
   {% if bi.item.summary %}<div class="summary">{{ bi.item.summary|safe_html }}</div>{% endif %}
   {% if semantic_on %}<details class="related small" data-url="/items/{{ bi.item.id }}/related"><summary class="muted">related posts</summary><div class="related-body"></div></details>{% endif %}
 </li>

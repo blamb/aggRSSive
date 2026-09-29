@@ -62,6 +62,9 @@ class ParsedEntry:
     image_url: str | None = None
     categories: list[str] = field(default_factory=list)
     published_at: datetime | None = None
+    enclosure_url: str | None = None  # audio or video file (podcasts, video feeds)
+    enclosure_type: str | None = None
+    enclosure_length: int | None = None
 
 
 @dataclass
@@ -94,6 +97,29 @@ def _first_image(entry, html: str) -> str | None:
     return m.group(1) if m else None
 
 
+MEDIA_EXT = (".mp3", ".m4a", ".aac", ".ogg", ".oga", ".opus", ".wav", ".flac", ".mp4", ".m4v", ".webm", ".mov")
+
+
+def _media(entry) -> tuple[str | None, str | None, int | None]:
+    """The first audio or video enclosure on a feed entry: (url, mime type, length in bytes)."""
+    candidates = list(entry.get("enclosures", []) or []) + [m for m in (entry.get("media_content", []) or []) if m.get("url")]
+    for enc in candidates:
+        url = enc.get("href") or enc.get("url")
+        mime = str(enc.get("type", "") or "").lower()
+        if not url:
+            continue
+        if mime.startswith(("audio/", "video/")) or (not mime and url.lower().split("?")[0].endswith(MEDIA_EXT)):
+            if not mime:
+                ext = url.lower().split("?")[0].rsplit(".", 1)[-1]
+                mime = {"mp3": "audio/mpeg", "m4a": "audio/mp4", "aac": "audio/aac", "ogg": "audio/ogg", "oga": "audio/ogg", "opus": "audio/ogg", "wav": "audio/wav", "flac": "audio/flac", "mp4": "video/mp4", "m4v": "video/mp4", "webm": "video/webm", "mov": "video/quicktime"}.get(ext, "application/octet-stream")
+            try:
+                length = int(enc.get("length") or enc.get("filesize") or 0) or None
+            except (TypeError, ValueError):
+                length = None
+            return url, mime, length
+    return None, None, None
+
+
 def parse_feedparser(body: bytes) -> ParsedFeed:
     p = feedparser.parse(body)
     pf = ParsedFeed(title=p.feed.get("title", ""), description=p.feed.get("subtitle", "") or p.feed.get("description", ""), site_url=p.feed.get("link"))
@@ -104,6 +130,7 @@ def parse_feedparser(body: bytes) -> ParsedFeed:
             content_html = e.content[0].get("value", "")
         summary_html = e.get("summary", "") or ""
         guid = e.get("id") or link or hashlib.sha1((e.get("title", "") + summary_html).encode()).hexdigest()
+        enc_url, enc_type, enc_len = _media(e)
         pf.entries.append(
             ParsedEntry(
                 guid=guid,
@@ -115,6 +142,9 @@ def parse_feedparser(body: bytes) -> ParsedFeed:
                 image_url=_first_image(e, content_html or summary_html),
                 categories=[t.get("term", "") for t in e.get("tags", []) or [] if t.get("term")],
                 published_at=_dt(e.get("published_parsed") or e.get("updated_parsed")),
+                enclosure_url=enc_url,
+                enclosure_type=enc_type,
+                enclosure_length=enc_len,
             )
         )
     return pf
@@ -135,6 +165,7 @@ def parse_jsonfeed(body: bytes) -> ParsedFeed:
             except ValueError:
                 dt = None
         authors = e.get("authors") or ([e["author"]] if e.get("author") else [])
+        att = next((a for a in e.get("attachments", []) or [] if str(a.get("mime_type", "")).startswith(("audio/", "video/"))), None)
         pf.entries.append(
             ParsedEntry(
                 guid=str(e.get("id") or e.get("url")),
@@ -146,6 +177,9 @@ def parse_jsonfeed(body: bytes) -> ParsedFeed:
                 image_url=e.get("image") or e.get("banner_image"),
                 categories=list(e.get("tags", []) or []),
                 published_at=dt,
+                enclosure_url=att.get("url") if att else None,
+                enclosure_type=att.get("mime_type") if att else None,
+                enclosure_length=att.get("size_in_bytes") if att else None,
             )
         )
     return pf
@@ -202,9 +236,14 @@ def fetch_source(db: Session, source: Source) -> int:
         source.site_url = parsed.site_url
 
     existing = {g for (g,) in db.execute(select(Item.guid).where(Item.source_id == source.id))}
+    # Items fetched before enclosures were kept: fill the media in on the next full read of the feed.
+    missing_media = {i.guid: i for i in db.execute(select(Item).where(Item.source_id == source.id, Item.enclosure_url.is_(None))).scalars()} if any(e.enclosure_url for e in parsed.entries) else {}
     new = 0
     for e in parsed.entries:
         if e.guid in existing:
+            item = missing_media.get(e.guid)
+            if item is not None and e.enclosure_url:
+                item.enclosure_url, item.enclosure_type, item.enclosure_length = e.enclosure_url[:2048], (e.enclosure_type or None) and e.enclosure_type[:100], e.enclosure_length
             continue
         existing.add(e.guid)
         html_for_text = e.content or e.summary
@@ -220,6 +259,9 @@ def fetch_source(db: Session, source: Source) -> int:
                 content=e.content,
                 text=to_text(html_for_text)[:20000],
                 image_url=(e.image_url or None) and e.image_url[:2048],
+                enclosure_url=(e.enclosure_url or None) and e.enclosure_url[:2048],
+                enclosure_type=(e.enclosure_type or None) and e.enclosure_type[:100],
+                enclosure_length=e.enclosure_length,
                 categories="\n".join(c[:100] for c in e.categories),
                 published_at=e.published_at or utcnow(),
             )

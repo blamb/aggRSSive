@@ -16,6 +16,7 @@ img.th{width:72px;height:72px;object-fit:cover;border-radius:6px}.noimg{display:
 .note{font-style:italic;color:var(--muted);font-size:.9em;margin:2px 0}
 .pin{font-size:.7em;text-transform:uppercase;letter-spacing:.04em;background:#fff1c9;color:#7a5a00;padding:0 .4em;border-radius:3px;vertical-align:middle}
 .foot{margin-top:8px;font-size:.75em;color:var(--muted)}
+.episode{display:block;width:100%;max-width:32rem;margin:4px 0}
 details.related{margin-top:4px;font-size:.85em}details.related summary{color:var(--muted);cursor:pointer}details.related ul{margin:4px 0 0 1em;list-style:disc}details.related li{display:list-item;padding:2px 0;border:0}
 </style>
 </head>
@@ -33,6 +34,7 @@ details.related{margin-top:4px;font-size:.85em}details.related summary{color:var
     {% if bi.pinned %}<span class="pin">pinned</span> {% endif %}<a class="t" href="{{ bi.item.url }}">{{ bi.item.title or bi.item.url }}</a>
     <div class="m">{{ bi.item.source.title }} · {{ bi.item.published_at|datefmt }}{% if bi.item.author %} · {{ bi.item.author }}{% endif %}</div>
     {% if bi.note %}<p class="note">{{ bi.note }}</p>{% endif %}
+    {% if bi.item.enclosure_url %}{% from "_feeds.html" import player %}{{ player(bi.item) }}{% endif %}
     {% if desc == 'full' and bi.item.summary %}<div class="d">{{ bi.item.summary|safe_html }}</div>{% elif desc == 'excerpt' and bi.item.text %}<div class="d">{{ bi.item.text[:280] }}{% if bi.item.text|length > 280 %}…{% endif %}</div>{% endif %}
     {% if opts.related %}<details class="related" data-url="{{ base_url }}/items/{{ bi.item.id }}/related"><summary>related posts</summary><div class="related-body"></div></details>{% endif %}
   </div>
