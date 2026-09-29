@@ -21,7 +21,7 @@ Three ways in:
 
 aggRSSive reads the page and fills in what it says about itself: title, description, author, date, image and site name, taken from the page's Open Graph and Twitter cards, its structured data, and its ordinary meta tags. Everything is editable before you save. If a page can't be read (paywalls, sites that block robots), the form is blank and you fill it in yourself.
 
-Add **your note**: a line on why this matters. It is shown with the bookmark wherever the list is published. **Tags** on a bookmark join the shared vocabulary and travel with the item into aggRSSives, where a keyword or category rule can pick them up.
+Add **your note**: a line on why this matters. It is shown with the bookmark wherever the list is published, so write it for readers. It is never sent to the GenAI and rules do not match on it. **Tags** on a bookmark join the shared vocabulary and travel with the item into aggRSSives, where a keyword or category rule can pick them up.
 
 ## Using lists in aggRSSives
 

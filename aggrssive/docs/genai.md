@@ -24,7 +24,7 @@ Each click or on-add run is one short request, a fraction of a cent with the def
 
 ## What is sent
 
-For tag and classification proposals: the feed's title, description, site address, its current tags, and the titles of its most recent items. For plain-language rules: the rule's text and, for each item judged, its title and a short excerpt. Nothing about users, and nothing from private aggRSSives. Responses aren't stored beyond the proposals you see and the yes/no verdicts a rule keeps.
+For tag and classification proposals: the feed's title, description, site address, its current tags, and the titles of its most recent items. For plain-language rules: the rule's text and, for each item judged, its title and a short excerpt. Nothing about users, nothing from private aggRSSives, and never the personal note on a bookmark. See [Privacy](privacy). Responses aren't stored beyond the proposals you see and the yes/no verdicts a rule keeps.
 
 ## Enabling it
 

@@ -112,7 +112,7 @@ def save_bookmark(
         author=author.strip()[:255],
         summary=desc_html + note_html,
         content="",
-        text=" ".join(x for x in (title.strip(), description.strip(), note.strip()) if x)[:20000],
+        text=" ".join(x for x in (title.strip(), description.strip()) if x)[:20000],  # the note is shown, but never sent to GenAI or matched by rules
         image_url=image_url.strip()[:2048] or None,
         categories="\n".join(names),
         published_at=when or utcnow(),

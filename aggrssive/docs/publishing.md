@@ -33,6 +33,8 @@ The list renders where the tag sits and updates itself. Attributes on the tag ad
 
 If a site strips scripts, use the **iframe** version shown under *Options* instead.
 
+Either way the reader's browser fetches the list from this site, so the request appears in this site's server log like any page view; nothing else is recorded and nothing is set in the reader's browser. See [Privacy](privacy).
+
 ## WordPress
 
 Download the **aggRSSive block plugin** (the link is under *Options* on any aggRSSive's page, or at `/wordpress/aggrssive-embed.zip`), upload it under *Plugins → Add New → Upload Plugin*, and set your aggRSSive site's address once under *Settings → aggRSSive*. After that:

@@ -28,7 +28,10 @@ Paste the ordinary page address; aggRSSive knows where each platform keeps its f
 | A **Mastodon** account (`https://instance/@name`) or hashtag page (`https://instance/tags/topic`) | Public posts. Works on any Mastodon-compatible server |
 | A **Bluesky** profile (`bsky.app/profile/name`) | Public posts |
 | A public **Zotero** group (`zotero.org/groups/…`) or a person's public library (`zotero.org/username`) | Newest items with a formatted citation. Private groups and libraries can't be read |
+| An **Apple Podcasts** page (`podcasts.apple.com/…/id…`) | The show's own feed, episodes with audio |
 | A **Hypothesis** user (`hypothes.is/users/name`), group, or tag search (`hypothes.is/search?q=tag:topic`) | Public annotations, with the quoted passage and the note |
+
+**Podcasts by name.** Below the address box on *+ Add feed* there is a second box: type a show's name or a subject and aggRSSive searches Apple's podcast directory, which lists most shows with their feeds. Each result adds with one click, tagged *podcast*. Spotify pages can't be used: Spotify publishes no feeds, and a Spotify-only show has none anywhere; nearly every other show is in the directory.
 
 The source page shows a small badge naming the platform. Because these are public feeds, only public content ever appears; nothing needs an account or a key.
 

@@ -36,6 +36,7 @@ TIPS: tuple[Tip, ...] = (
     Tip("Suggested tags are proposals: ✓ adds, ✎ lets you edit first, ✕ rejects for good. Nothing is applied until you click.", ("sources",), "/help/tags-and-classification"),
     # Podcasts
     Tip("Search <em>Find feeds</em>, then <em>Make a topic aggRSSive from this search</em>: a live list of everything in the collection about it, from every source, including ones added next year.", ("find", "bundles", "any"), "/help/bundles"),
+    Tip("Adding a podcast: on <em>+ Add feed</em>, type the show's name under <em>Find a podcast by name</em>. No feed address needed.", ("sources", "any"), "/help/podcasters"),
     Tip("A bundle of podcasts is itself a show: copy its RSS address into any podcast app and the episodes arrive with their audio.", ("bundles", "any"), "/help/podcasters"),
     Tip("Podcast episodes get a player wherever an aggRSSive is embedded, including inside a course. Rules work on episodes too: drop the trailers, keep the interviews.", ("bundles", "sources"), "/help/podcasters"),
     Tip("Searching <em>Find feeds</em> for a subject finds podcast episodes about it, not just shows named after it.", ("find",), "/help/podcasters"),

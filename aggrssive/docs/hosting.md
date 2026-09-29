@@ -1,6 +1,6 @@
 ---
 title: Hosting
-order: 12
+order: 13
 ---
 
 # Hosting aggRSSive
@@ -35,6 +35,10 @@ Set `SMTP_HOST`, `SMTP_FROM` and, if the relay needs them, `SMTP_USER` and `SMTP
 ## Same-cloud LMS
 
 If your Moodle (or other LMS) is on the same Reclaim account, add `DNS_OVERRIDES=<lms-host>=http://<lms node's private IP>` to the variables. Inside the platform, sibling environments resolve to private addresses without HTTPS, and the public load balancer isn't reachable, so this routes aggRSSive's calls over the private network. Find the private IP in the LMS node's `MASTER_IP` variable. The reverse direction needs the LMS to hold aggRSSive's public key directly — see [the LTI admin guide](lti-admin).
+
+## Logs
+
+The container writes an access log (client address, path, time, status) to its standard output, which Reclaim shows under the layer's *Log* and rotates on its own schedule. Reclaim's load balancer keeps a separate log. Neither is joined to accounts. To keep no access log at all, add `--no-access-log` to the `uvicorn` command in the Dockerfile.
 
 ## Anywhere else
 

@@ -36,4 +36,4 @@ A dashed box near the top of most pages, marked with a small feed icon, offers a
 
 Anyone with an account can add sources, tag and classify them, and build and publish aggRSSives. No email to spare: *try it without an account* gives you an anonymous one with a secret link, claimable later. Sources, tags and classification belong to the collection, not to one person. Your aggRSSives are yours to edit; others can see and copy the public ones.
 
-See [Roles](roles) for what site admins and full admins can do.
+See [Roles](roles) for what site admins and full admins can do, and [Privacy](privacy) for exactly what the site keeps about you, which is little.

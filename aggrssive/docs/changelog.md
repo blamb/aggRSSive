@@ -1,6 +1,6 @@
 ---
 title: What's new
-order: 13
+order: 14
 ---
 
 # What's new
@@ -9,6 +9,8 @@ Newest first.
 
 ## September 2026
 
+- **Privacy page**: exactly what the site keeps and what leaves the server, in the footer and Help. Bookmark notes are no longer part of the text rules and the GenAI see.
+- **Podcasts by name**: search Apple's podcast directory from + Add feed and add a show in one click; Apple Podcasts page addresses work; Spotify addresses get a plain explanation.
 - **Topic aggRSSives**: an aggRSSive over every source in the collection, defined by its rules alone; one click from any search on Find feeds.
 - **Inside the course**: instructors get an aggRSSive account tied to their LMS identity, so *edit* and *make a new aggRSSive* open aggRSSive signed in; the picker lists your own aggRSSives first; students get a filter box on longer lists and a podcast-app link where there is audio. The instructor help page now covers what you can do from the course.
 - **Anonymous accounts**: a secret link instead of an email and password, claimable later; removable without notice if abused; a switch on the Admin page.

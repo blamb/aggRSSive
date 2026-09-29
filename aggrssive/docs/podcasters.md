@@ -23,7 +23,7 @@ If you make a show, add it as a source and tag it. From then on it can be found 
 
 ## Finding shows
 
-*Find feeds* searches episode content as well as titles and tags, so "interviews about open textbooks" finds episodes, not just shows named after the subject. A YouTube channel added as a source behaves much the same way for video.
+On *+ Add feed*, **Find a podcast by name** searches Apple's directory and adds a show in one click, feed and all; an Apple Podcasts page address works too. Spotify addresses don't, because Spotify publishes no feeds. *Find feeds* searches episode content as well as titles and tags, so "interviews about open textbooks" finds episodes, not just shows named after the subject. A YouTube channel added as a source behaves much the same way for video.
 
 ## What to know
 
