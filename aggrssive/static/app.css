@@ -81,3 +81,5 @@ ul.items details.related{margin-top:.3rem}ul.items details.related summary{font-
 .feedlist{line-height:1.9}
 
 .episode{display:block;width:100%;max-width:32rem;margin:.3rem 0}
+
+ul.suggested li{padding:.3rem 0;border-bottom:1px solid var(--line)}ul.suggested li:last-child{border:0}ul.suggested form button{font-size:1rem;padding:0 .2rem}

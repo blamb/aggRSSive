@@ -98,3 +98,21 @@ def test_search_page_shows_feeds_writing_about_this(client, monkeypatch):
     monkeypatch.setattr(semantic, "search", lambda db, q, **kw: {"posts": [(db.query(Item).filter_by(guid="m1").one(), 0.7)], "sources": [(sid, 0.7, 1)], "analysed": 1, "pending": 0})
     r = client.get("/find", params={"q": "library collections"})
     assert "Feeds writing about this" in r.text and "1 post about this" in r.text and "Weeding the reference collection" in r.text
+
+
+def test_tag_page_offers_suggestions_with_decide_buttons(client, monkeypatch):
+    from aggrssive import semantic
+
+    monkeypatch.setattr(semantic, "search", lambda db, q, **kw: None)
+    with SessionLocal() as db:
+        u = db.query(User).first()
+        s = Source(feed_url="https://crit.test/feed", title="Critical Pedagogy Weekly", added_by_id=u.id)
+        db.add(s)
+        db.commit()
+        sid = s.id
+    r = client.get("/tags/critical%20pedagogy")
+    assert "Feeds that might belong here" in r.text and "Critical Pedagogy Weekly" in r.text
+    r = client.post("/tags/critical%20pedagogy/decide", data={"source_id": sid, "decision": "accept"}, follow_redirects=False)
+    assert r.status_code == 303
+    r = client.get("/tags/critical%20pedagogy")
+    assert "Feeds that might belong here" not in r.text and r.text.count("Critical Pedagogy Weekly") >= 1

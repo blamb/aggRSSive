@@ -89,3 +89,31 @@ def test_ai_layer_off_without_key(db, monkeypatch):
 
     monkeypatch.setattr(get_settings(), "anthropic_api_key", "")
     assert tagging.ai_suggestions(db, source(db)) == []
+
+
+def test_sources_for_tag_by_name_and_company(db, monkeypatch):
+    from aggrssive import semantic
+
+    monkeypatch.setattr(semantic, "search", lambda db, q, **kw: None)  # no embeddings in this test
+    u = db.query(User).first()
+    bc = Tag(name="british columbia")
+    edu = db.query(Tag).filter_by(name="open education").one()
+    tech = db.query(Tag).filter_by(name="edtech").one()
+    a = Source(feed_url="https://a.bc/feed", title="BCcampus", added_by_id=u.id)
+    b = Source(feed_url="https://b.bc/feed", title="TRU blog", added_by_id=u.id)
+    c = Source(feed_url="https://c.bc/feed", title="British Columbia Teachers", added_by_id=u.id)
+    d = Source(feed_url="https://d.bc/feed", title="Also keeps company", added_by_id=u.id)
+    e = Source(feed_url="https://e.bc/feed", title="Rejected BC site", added_by_id=u.id, rejected_tags="british columbia")
+    for s in (a, b):
+        s.tags += [bc, edu, tech]
+    d.tags += [edu, tech]
+    db.add_all([a, b, c, d, e])
+    db.commit()
+    rows = {r["source"].title: r for r in tagging.sources_for_tag(db, bc)}
+    assert "British Columbia Teachers" in rows and "mentions it" in rows["British Columbia Teachers"]["reasons"][0]
+    assert "Also keeps company" in rows and rows["Also keeps company"]["reasons"][0].startswith("shares tags")
+    assert "BCcampus" not in rows and "Rejected BC site" not in rows
+    tagging.decide(db, c, "british columbia", accept=True)
+    tagging.decide(db, d, "british columbia", accept=False)
+    titles = {r["source"].title for r in tagging.sources_for_tag(db, bc)}
+    assert "British Columbia Teachers" not in titles and "Also keeps company" not in titles

@@ -26,6 +26,10 @@ Try whole phrases rather than single words: *students using generative AI to wri
 
 *Find feeds* shows the tag cloud and both classification trees side by side. Click any tag or heading to see its sources and their latest items, tick sources into the Heart-Cart, or use **Make an aggRSSive from these** to bundle everything under it in one click. A heading includes everything filed beneath it: *L Education* covers LA, LB, LC and so on.
 
+## Growing a tag
+
+A tag page, signed in, opens with **Feeds that might belong here**: sources not yet carrying the tag that are named for it, whose posts are about it, or that share several other tags with the sources already tagged. Each line says why. ✓ puts the tag on that source; ✕ says it does not belong, and it stays off the list for good. It is the quickest way to fill out a tag like *british columbia* or *podcast* once a handful of sources carry it, and it gets better as the collection is tagged.
+
 ## Tagging a source
 
 On the source page, type tags into the box (commas between them) or click one from the suggestions below it. Remove a tag with its ×.

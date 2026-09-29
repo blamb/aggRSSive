@@ -24,6 +24,7 @@ TIPS: tuple[Tip, ...] = (
     Tip("<em>Feeds writing about this</em> ranks sources by what they publish, not by their name or tags. It is the quickest way to find a feed you did not know existed.", ("find",), "/help/tags-and-classification"),
     Tip("A classification heading includes everything filed beneath it: pick <em>L Education</em> and you get LB, LC and the rest. <em>Make an aggRSSive from these</em> bundles the lot in one click.", ("find", "classification"), "/help/tags-and-classification"),
     Tip("Tags say what people call a feed; classification says where it belongs. Use both: a teaching-of-chemistry blog deserves an Education heading and a Chemistry one.", ("find", "sources", "classification"), "/help/tags-and-classification"),
+    Tip("A tag page suggests feeds that probably belong under it, by name, by what they publish and by the company they keep. ✓ tags one; ✕ keeps it off the list.", ("find", "sources"), "/help/tags-and-classification"),
     Tip("Tag clouds are alphabetical by default. Prefer the busiest tags first? Change it under your name → Account.", ("find", "tags"), "/help/roles"),
     # Adding sources
     Tip("Paste the page you would normally look at: a YouTube channel, a Mastodon or Bluesky account, a Zotero group or a Hypothesis user. aggRSSive knows where each platform hides its feed.", ("sources", "any"), "/help/sources"),

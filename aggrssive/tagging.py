@@ -134,3 +134,52 @@ def decide(db: Session, source: Source, name: str, accept: bool) -> None:
         if name not in rejected:
             source.rejected_tags = "\n".join(rejected + [name])
     db.commit()
+
+
+def sources_for_tag(db: Session, tag: Tag, limit: int = 10) -> list[dict]:
+    """Sources not yet carrying this tag that probably should: by name, by what they publish, by company they keep.
+
+    Each result is {"source", "reasons", "score"}. Sources whose owner rejected this tag are left out for good.
+    """
+    from sqlalchemy import or_
+
+    from . import semantic
+    from .models import source_tags
+
+    name = tag.name
+    tagged = db.execute(select(Source).join(source_tags, Source.id == source_tags.c.source_id).where(source_tags.c.tag_id == tag.id)).scalars().all()
+    tagged_ids = {s.id for s in tagged}
+    found: dict[int, dict] = {}
+
+    def add(src: Source, reason: str, score: float) -> None:
+        if src.id in tagged_ids or name in _lines(src.rejected_tags):
+            return
+        row = found.setdefault(src.id, {"source": src, "reasons": [], "score": 0.0})
+        row["reasons"].append(reason)
+        row["score"] += score
+
+    like = f"%{name}%"
+    for src in db.execute(select(Source).where(Source.is_active.is_(True), or_(Source.title.ilike(like), Source.description.ilike(like)))).scalars():
+        add(src, "the name or description mentions it", 2.0)
+
+    hit = semantic.search(db, name, limit=1, source_limit=40)
+    if hit:
+        for sid, score, hits in hit["sources"]:
+            src = db.get(Source, sid)
+            if src is not None:
+                add(src, f"{hits} post{'s' if hits != 1 else ''} about it", min(hits, 10) / 10 * 2.0 + (score - 0.5))
+
+    # Company: other tags the tagged sources carry, and who else carries several of them.
+    company: Counter[str] = Counter(t.name for s in tagged for t in s.tags if t.id != tag.id)
+    if company and len(tagged) >= 2:
+        names = [n for n, c in company.most_common(12) if c >= max(2, len(tagged) // 4)]
+        if names:
+            shared: dict[int, list[str]] = {}
+            for src in db.execute(select(Source).join(source_tags, Source.id == source_tags.c.source_id).join(Tag, Tag.id == source_tags.c.tag_id).where(Tag.name.in_(names), Source.is_active.is_(True))).scalars().unique():
+                mine = [t.name for t in src.tags if t.name in names]
+                if len(mine) >= 2:
+                    shared[src.id] = mine
+            for sid, mine in shared.items():
+                add(db.get(Source, sid), "shares tags: " + ", ".join(sorted(mine)[:4]), 0.6 * len(mine))
+
+    return sorted(found.values(), key=lambda r: -r["score"])[:limit]
