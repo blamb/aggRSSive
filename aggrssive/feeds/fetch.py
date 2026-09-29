@@ -163,6 +163,10 @@ def parse_body(body: bytes, content_type: str) -> ParsedFeed:
 
 def fetch_source(db: Session, source: Source) -> int:
     """Fetch one source and upsert its items. Returns the number of new items."""
+    if source.kind in ("page", "pagediff"):
+        from .watch import fetch_page  # pages without a feed take a different route
+
+        return fetch_page(db, source)
     settings = get_settings()
     headers = {}
     if source.etag:

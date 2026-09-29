@@ -105,6 +105,7 @@
 <aside>
   {% if user %}
   <p><label class="check"><input type="checkbox" class="cart-check" data-id="{{ source.id }}" data-title="{{ source.title or source.feed_url }}"> ♥ Heart-Cart</label></p>
+  {% if source.kind in ("page", "pagediff") %}<p class="muted small">A watched page ({{ "new links" if source.kind == "page" else "changes" }}), checked on the normal schedule.</p>{% endif %}
   {% if not is_bookmarks %}
   <form method="post" action="/sources/{{ source.id }}/refresh"><button class="btn small ghost">Fetch now</button></form>
   <p class="muted small">Last fetched {{ source.last_fetched_at|ago }} · last success {{ source.last_success_at|ago }}</p>

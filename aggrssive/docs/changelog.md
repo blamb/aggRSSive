@@ -9,6 +9,7 @@ Newest first. Dates are when the change reached the main site.
 
 ## September 2026
 
+- **Watched pages**: a page with no feed can be a source, reporting either its new links or changes to its text.
 - **Tips**: a rotating, dismissible tip on each page, fitted to where you are, and always-on key tips beside the forms people ask about most; off/on under Account.
 - **Bookmarks**: hand-picked pages in lists that bundle, embed and launch like feeds; the page's title, description, author, date and image are read for you; a bookmarklet for one-click saving; your own note on each.
 - **Platform adapters**: paste a YouTube channel or playlist, a Mastodon account or hashtag, a Bluesky profile, a public Zotero group or library, or a Hypothesis user, group or tag search, and aggRSSive finds the feed.

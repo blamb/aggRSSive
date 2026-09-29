@@ -57,7 +57,9 @@ def order_tags(rows, user=None):
 templates.env.globals["TAG_ORDERS"] = TAG_ORDERS
 
 
-templates.env.globals["KIND_LABELS"] = ADAPTER_KINDS
+from .feeds.watch import PAGE_KINDS  # noqa: E402
+
+templates.env.globals["KIND_LABELS"] = {**ADAPTER_KINDS, **PAGE_KINDS}
 
 from . import tips as _tips  # noqa: E402
 

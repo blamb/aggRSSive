@@ -36,6 +36,15 @@ If several feeds are found (a site's posts and its comments, say), pick the one 
 
 If **✨ Suggest tags and classification (GenAI)** is ticked, aggRSSive proposes tags and classification headings once the feed has been fetched. Nothing is applied until you accept each proposal on the source's page. The option only appears when your site has GenAI enabled — see [GenAI features](genai).
 
+## Pages without a feed
+
+Some pages worth following have no feed at all: a department's news page, a journal's "latest articles" list, a policy that changes quietly. When **+ Add feed** finds no feed, it offers to **watch the page instead**, in one of two ways:
+
+- **New links** treats the page as a list. Each article-like link (a real title, not a menu entry) becomes an item the first time it is seen; menus, footers and sidebars are ignored. Right for news pages, publication lists and event listings.
+- **Changes** keeps the page's own text and, whenever it changes, adds one item saying what was added and what was removed. Right for policies, syllabi, calls for papers and anything else where the page *is* the content.
+
+Watched pages are checked on the same schedule as feeds, show a badge on their source page, and behave like any source afterwards. The first check only takes a snapshot; items start with the next change. Pages that need a login, or that build their content with scripts after loading, can't be watched.
+
 ## Import many at once (OPML)
 
 Feed readers export subscriptions as an OPML file. On *Find feeds*, use **Import OPML** in the sidebar. Folders in the file become tags if you leave *Turn folders into tags* ticked. Importing the same file again is safe: feeds you already have are skipped, new tags are added.

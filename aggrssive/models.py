@@ -126,6 +126,8 @@ class Source(Base):
     # Classification proposals awaiting a decision, as "framework:code" lines; rejected ones remembered.
     suggested_categories: Mapped[str] = mapped_column(Text, default="")
     rejected_categories: Mapped[str] = mapped_column(Text, default="")
+    # Watched pages (kind "pagediff"): the last text seen, so the next fetch can say what changed.
+    snapshot: Mapped[str | None] = mapped_column(Text)
     # Set when the person adding the source asked for GenAI suggestions; consumed after the first fetch.
     ai_pending: Mapped[bool] = mapped_column(Boolean, default=False)
 

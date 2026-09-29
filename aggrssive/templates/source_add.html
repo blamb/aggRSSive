@@ -10,6 +10,18 @@
 </form>
 {% if error %}<p class="error">{{ error }}</p>{% endif %}
 <p class="keytip">{{ key_tip("platforms") }}</p>
+{% if error and url and not candidates %}
+<h2>Watch the page instead</h2>
+<p class="keytip">{{ key_tip("watch") }}</p>
+<form method="post" action="/sources" class="card stack">
+  <input type="hidden" name="feed_url" value="{{ url }}">
+  <label class="check"><input type="radio" name="kind" value="page" checked> <strong>New links</strong> — each article-like link on the page becomes an item the first time it appears (news pages, publication lists, event listings)</label>
+  <label class="check"><input type="radio" name="kind" value="pagediff"> <strong>Changes</strong> — one item each time the page's text changes, saying what was added and removed (policies, syllabi, calls for papers)</label>
+  <label>Title <input name="title" placeholder="leave blank to use the page's own"></label>
+  <label>Tags <input name="tags" placeholder="comma, separated" class="tag-input"></label>
+  <button class="btn">Watch this page</button>
+</form>
+{% endif %}
 <p class="muted small">Just one page, not a whole site? <a href="/bookmarks/add?url={{ url|urlencode }}">Bookmark it</a> instead.</p>
 
 {% if candidates %}

@@ -29,14 +29,14 @@ def get_or_create_tag(db: Session, name: str) -> Tag | None:
     return t
 
 
-def add_source(db: Session, feed_url: str, user: User, title: str = "", site_url: str | None = None) -> tuple[Source, bool]:
+def add_source(db: Session, feed_url: str, user: User, title: str = "", site_url: str | None = None, kind: str = "") -> tuple[Source, bool]:
     """Return (source, created)."""
     existing = db.execute(select(Source).where(Source.feed_url == feed_url)).scalar_one_or_none()
     if existing:
         return existing, False
     from ..feeds.adapters import kind_for_feed_url
 
-    s = Source(feed_url=feed_url[:2048], title=title[:500], site_url=site_url, added_by_id=user.id, kind=kind_for_feed_url(feed_url))
+    s = Source(feed_url=feed_url[:2048], title=title[:500], site_url=site_url, added_by_id=user.id, kind=kind if kind in ("page", "pagediff") else kind_for_feed_url(feed_url))
     db.add(s)
     db.flush()
     return s, True
@@ -76,15 +76,15 @@ def add_page(request: Request, user: User = Depends(require_user), db: Session =
 def do_discover(request: Request, url: str = Form(...), user: User = Depends(require_user), db: Session = Depends(get_db)):
     try:
         candidates = discover(url)
-        error = None if candidates else "No feed found at that address. Try pasting the feed URL directly."
+        error = None if candidates else "No feed found at that address. You can paste the feed URL directly, or watch the page itself (below)."
     except ValueError as e:
         candidates, error = [], str(e)
     return templates.TemplateResponse(request, "source_add.html", {"user": user, "candidates": candidates, "url": normalize_url(url), "error": error, "tags": all_tags(db), "ai": get_settings().ai_enabled})
 
 
 @router.post("/sources")
-def create_source(feed_url: str = Form(...), title: str = Form(""), tags: str = Form(""), ai_suggest: bool = Form(False), user: User = Depends(require_user), db: Session = Depends(get_db)):
-    s, created = add_source(db, normalize_url(feed_url), user, title=title)
+def create_source(feed_url: str = Form(...), title: str = Form(""), tags: str = Form(""), ai_suggest: bool = Form(False), kind: str = Form(""), user: User = Depends(require_user), db: Session = Depends(get_db)):
+    s, created = add_source(db, normalize_url(feed_url), user, title=title, kind=kind)
     if ai_suggest and get_settings().ai_enabled:
         s.ai_pending = True
     for name in tags.replace(";", ",").split(","):

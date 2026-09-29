@@ -27,6 +27,7 @@ TIPS: tuple[Tip, ...] = (
     Tip("Tag clouds are alphabetical by default. Prefer the busiest tags first? Change it under your name → Account.", ("find", "tags"), "/help/roles"),
     # Adding sources
     Tip("Paste the page you would normally look at: a YouTube channel, a Mastodon or Bluesky account, a Zotero group or a Hypothesis user. aggRSSive knows where each platform hides its feed.", ("sources", "any"), "/help/sources"),
+    Tip("A page with no feed can still be a source: when discovery finds nothing, <em>Watch the page instead</em> reports new links on it, or changes to its text.", ("sources", "any"), "/help/sources"),
     Tip("A Mastodon hashtag page (<code>https://instance/tags/opened</code>) works as a source: every public post with that tag, from that server.", ("sources",), "/help/sources"),
     Tip("Import an OPML file from your feed reader and its folders become tags. Importing the same file again is safe: nothing is duplicated.", ("sources", "find"), "/help/sources"),
     Tip("A feed that mixes what you want with what you don't? Put an <em>exclude</em> rule on the source itself and it applies everywhere that feed is used.", ("sources",), "/help/bundles"),
@@ -75,6 +76,7 @@ KEY_TIPS: dict[str, str] = {
     "picker": "<strong>What you pick stays live:</strong> the course shows the aggRSSive as it is now and as it changes. To show something else later, edit the activity and pick again; to change what's in it, edit the aggRSSive.",
     "embed": "<strong>Embed options go on the script tag:</strong> <code>data-n</code> items, <code>data-desc</code> (<code>0</code>, <code>full</code>), <code>data-img</code>, <code>data-src</code>, <code>data-date</code>, <code>data-theme</code>, <code>data-target</code>. Sites that strip scripts (many LMS editors) take the iframe instead.",
     "opml": "<strong>Folders become tags</strong> when the box is ticked; the file's <code>category</code> attributes become classification headings. Re-importing is safe: existing feeds are skipped, new tags are added.",
+    "watch": "<strong>No feed? Watch the page.</strong> <em>New links</em> treats the page as a list and reports each article-like link once, when it first appears. <em>Changes</em> reports what was added or removed in the page's own text. Both are checked on the normal schedule; the first check only takes a snapshot.",
     "heart-cart": "<strong>Tick sources anywhere</strong> (Find feeds, a tag, a heading, a source page, Bookmarks) and they collect in the ♥ Heart-Cart at the bottom right. Name the cart to create an aggRSSive, or add it to one you already have.",
 }
 
