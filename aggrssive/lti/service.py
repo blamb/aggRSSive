@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import secrets
 import time
@@ -125,6 +126,35 @@ def is_instructor(claims: dict) -> bool:
     return any(any(m in r for m in ROLE_INSTRUCTOR_MARKERS) for r in claims.get(CLAIM + "roles", []) or [])
 
 
+def lti_user(db: Session, platform: Platform, claims: dict):
+    """The aggRSSive account for this platform user, created on first instructor launch.
+
+    Keyed by platform + subject, so the same person is the same account across courses. Email and name
+    come from the platform when it shares them; otherwise the account is nameless and claimable later.
+    """
+    from ..models import User
+
+    sub = str(claims.get("sub", ""))
+    if not sub:
+        return None
+    key = f"{platform.id}:{sub}"[:300]
+    u = db.execute(select(User).where(User.lti_key == key)).scalar_one_or_none()
+    if u is None:
+        email = (claims.get("email") or "").strip().lower()
+        if not email or db.execute(select(User).where(User.email == email)).scalar_one_or_none():
+            email = f"lti-{platform.id}-{hashlib.sha1(sub.encode()).hexdigest()[:12]}@lti.invalid"
+        name = (claims.get("name") or "").strip()[:120] or f"{platform.name} instructor"
+        u = User(email=email, display_name=name, password_hash=None, role="user", lti_key=key)
+        db.add(u)
+        db.commit()
+    return u if u.is_active else None
+
+
+def enter_url(base_url: str, user, next_path: str = "/") -> str:
+    """A short-lived link that signs this LTI-linked account in at top level (outside the platform's frame)."""
+    return f"{base_url}/lti/enter/{sign({'purpose': 'enter', 'uid': user.id, 'next': next_path[:500]}, ttl_seconds=3600)}"
+
+
 # --- Tool-signed tokens -----------------------------------------------------
 
 
@@ -176,6 +206,7 @@ OPTION_DEFAULTS = {
     "frame_height": 600,  # iframe height the platform is asked for
     "default_n": 10,  # items per launch when the resource link doesn't say
     "default_desc": "excerpt",  # excerpt | full | none
+    "search_box": True,  # a filter box above the list in launches with more than a few items
 }
 
 

@@ -28,7 +28,7 @@ button{font:inherit;padding:.55rem 1.1rem;border-radius:6px;border:0;background:
 {% for b in bundles %}
 <label class="b" data-text="{{ (b.title ~ ' ' ~ b.description ~ ' ' ~ b.owner.display_name)|lower }}">
   <input type="radio" name="bundle" value="{{ b.slug }}" required>
-  <div><strong>{{ b.title }}</strong><span>{{ b.sources|length }} sources · by {{ b.owner.display_name }}</span>{% if b.description %}<p>{{ b.description[:180] }}</p>{% endif %}</div>
+  <div><strong>{{ b.title }}</strong><span>{{ b.sources|length }} sources · by {{ b.owner.display_name }}{% if me and b.owner_id == me.id %} · yours{% endif %}</span>{% if b.description %}<p>{{ b.description[:180] }}</p>{% endif %}</div>
 </label>
 {% else %}
 <p class="muted">No public aggRSSives yet. Make one at <a href="{{ settings.base_url }}" target="_blank">{{ settings.base_url }}</a>, then come back.</p>
@@ -43,7 +43,7 @@ button{font:inherit;padding:.55rem 1.1rem;border-radius:6px;border:0;background:
   <button type="submit">Add to course</button>
 </div>
 </form>
-<p class="foot">To offer your own list here, create it at <a href="{{ settings.base_url }}" target="_blank">aggRSSive</a> and mark it public.</p>
+<p class="foot">{% if make_url %}Nothing that fits? <a href="{{ make_url }}" target="_blank">Make a new aggRSSive</a> (opens aggRSSive signed in as you), mark it public, then come back here and pick it.{% else %}To offer your own list here, create it at <a href="{{ settings.base_url }}" target="_blank">aggRSSive</a> and mark it public.{% endif %}</p>
 <script>
 document.getElementById("q").addEventListener("input", function(){ var q=this.value.toLowerCase(); document.querySelectorAll("#list label.b").forEach(function(l){ l.style.display = l.dataset.text.indexOf(q)>=0 ? "" : "none"; }); });
 </script>

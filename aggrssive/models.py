@@ -53,6 +53,8 @@ class User(Base):
     # Anonymous accounts: no email or password, just a secret link. Removable without notice if abused.
     is_anonymous: Mapped[bool] = mapped_column(Boolean, default=False)
     login_token: Mapped[str | None] = mapped_column(String(64), unique=True, index=True)
+    # Instructors arriving through LTI get an account tied to their platform identity: "<platform id>:<subject>".
+    lti_key: Mapped[str | None] = mapped_column(String(300), unique=True, index=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
     @property

@@ -59,6 +59,7 @@ TIPS: tuple[Tip, ...] = (
     Tip("On WordPress, install the aggRSSive block plugin once (link under <em>Options</em> on any aggRSSive) and editors add lists by code, with a live preview.", ("bundles",), "/help/publishing"),
     Tip("The embed's script tag takes attributes: <code>data-n=\"8\"</code>, <code>data-desc=\"0\"</code>, <code>data-theme=\"dark\"</code>. Sites that strip scripts can use the iframe version.", ("bundles",), "/help/publishing"),
     Tip("In Moodle, add an aggRSSive with <em>External tool → Select content</em>. The course shows the live list; edit the aggRSSive and the course follows.", ("bundles", "any"), "/help/lti-instructors"),
+    Tip("Instructors: the <em>edit in aggRSSive</em> link in a course opens aggRSSive already signed in as you. No separate account needed.", ("lti", "bundles"), "/help/lti-instructors"),
     Tip("A platform without a content picker can still launch an aggRSSive from a plain URL: <code>…/lti/launch?bundle=CODE</code>.", ("lti",), "/help/lti-instructors"),
     Tip("When Moodle shares a cloud with aggRSSive, paste the public key into the tool settings (<em>Public key type: RSA key</em>) instead of relying on the keyset URL.", ("lti",), "/help/lti-admin"),
     Tip("Platform quirks are settings, not code: under each registered platform, <em>Settings for this platform</em> controls related posts, link targets, frame height and picker defaults.", ("lti", "admin"), "/help/lti-admin"),

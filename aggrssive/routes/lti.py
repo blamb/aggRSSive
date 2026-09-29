@@ -95,7 +95,14 @@ def _picker(request: Request, db: Session, platform: Platform, claims: dict):
         ttl_seconds=1800,
     )
     bundles = db.execute(select(Bundle).where(Bundle.is_public.is_(True)).options(selectinload(Bundle.owner), selectinload(Bundle.sources)).order_by(Bundle.title)).scalars().all()
-    return templates.TemplateResponse(request, "lti_pick.html", {"bundles": bundles, "token": token, "platform": platform, "name": claims.get("name", ""), "opts": service.platform_options(platform)})
+    me = service.lti_user(db, platform, claims)
+    if me:  # the launching instructor's own lists first
+        bundles.sort(key=lambda b: (b.owner_id != me.id, b.title.lower()))
+    return templates.TemplateResponse(
+        request,
+        "lti_pick.html",
+        {"bundles": bundles, "token": token, "platform": platform, "name": claims.get("name", ""), "opts": service.platform_options(platform), "me": me, "make_url": service.enter_url(settings.base_url, me, "/find") if me else None, "base_url": settings.base_url},
+    )
 
 
 @router.post("/lti/deeplink")
@@ -143,11 +150,38 @@ def _resource(request: Request, db: Session, platform: Platform, claims: dict):
     desc = custom.get("desc", opts["default_desc"])
     img = str(custom.get("img", "1")) == "1"
     items = bundle_items(db, b, limit=n)
+    instructor = service.is_instructor(claims)
+    edit_url, can_edit_it = None, False
+    if instructor:
+        me = service.lti_user(db, platform, claims)
+        if me:
+            can_edit_it = me.id == b.owner_id or me.is_site_admin
+            edit_url = service.enter_url(settings.base_url, me, f"/bundles/{b.slug}/edit" if can_edit_it else f"/bundles/{b.slug}")
     return templates.TemplateResponse(
         request,
         "lti_resource.html",
-        {"bundle": b, "items": items, "desc": desc, "img": img, "instructor": service.is_instructor(claims), "base_url": settings.base_url, "opts": opts},
+        {"bundle": b, "items": items, "desc": desc, "img": img, "instructor": instructor, "edit_url": edit_url, "can_edit_it": can_edit_it, "base_url": settings.base_url, "opts": opts},
     )
+
+
+@router.get("/lti/enter/{token}")
+def lti_enter(token: str, db: Session = Depends(get_db)):
+    """Sign an LTI-linked account in at top level, then go where the link pointed."""
+    from ..auth import set_session
+
+    try:
+        t = service.unsign(token)
+        if t.get("purpose") != "enter":
+            raise LtiError("Wrong token")
+    except LtiError:
+        raise HTTPException(400, "That link has expired. Open the activity in your course again.")
+    u = db.get(User, t.get("uid"))
+    if not u or not u.is_active:
+        raise HTTPException(404, "No such account")
+    nxt = t.get("next") or "/"
+    resp = RedirectResponse(nxt if nxt.startswith("/") else "/", status_code=303)
+    set_session(resp, u)
+    return resp
 
 
 @router.get("/lti/register")

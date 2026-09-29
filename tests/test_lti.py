@@ -115,7 +115,7 @@ def test_resource_launch_renders_bundle_with_instructor_link(client):
     tok = id_token(nonce, service.MSG_RESOURCE, {CLAIM + "custom": {"bundle": "picked1", "n": "3", "desc": "none", "img": "0"}})
     r = client.post("/lti/launch", data={"id_token": tok, "state": state})
     assert r.status_code == 200
-    assert "Picked Bundle" in r.text and "edit in aggRSSive" in r.text
+    assert "Picked Bundle" in r.text and "open in aggRSSive" in r.text and "/lti/enter/" in r.text  # an instructor who is not the owner opens the page, signed in
 
 
 def test_wrong_nonce_and_wrong_audience_rejected(client):
@@ -157,7 +157,7 @@ def test_platform_options_change_launches(client):
         service.set_platform_options(p, {"frame_height": "900", "default_n": "7", "default_desc": "none"})
         db.commit()
         o = service.platform_options(p)
-        assert o == {"related": False, "links_new_tab": False, "jwt_in_url": False, "frame_height": 900, "default_n": 7, "default_desc": "none"}
+        assert o == {"related": False, "links_new_tab": False, "jwt_in_url": False, "frame_height": 900, "default_n": 7, "default_desc": "none", "search_box": False}
     state, nonce = start_login(client)
     r = client.post("/lti/launch", data={"id_token": id_token(nonce, service.MSG_RESOURCE, {CLAIM + "custom": {"bundle": "picked1"}}), "state": state})
     assert "addEventListener('toggle'" not in r.text and "<base " not in r.text
@@ -175,3 +175,42 @@ def test_platform_options_change_launches(client):
         p = db.get(Platform, pid)
         p.options = "{}"
         db.commit()
+
+
+def test_instructor_launch_creates_linked_account_and_signed_in_edit_link(client):
+    from aggrssive.models import Bundle as B
+
+    # A student launch creates nothing.
+    with SessionLocal() as db:
+        linked_before = db.query(User).filter(User.lti_key.isnot(None)).count()
+    state, nonce = start_login(client)
+    student = {CLAIM + "custom": {"bundle": "picked1"}, CLAIM + "roles": ["http://purl.imsglobal.org/vocab/lis/v2/membership#Learner"], "sub": "student-1", "name": "Stu"}
+    r = client.post("/lti/launch", data={"id_token": id_token(nonce, service.MSG_RESOURCE, student), "state": state})
+    assert r.status_code == 200 and "edit in aggRSSive" not in r.text and "open in aggRSSive" not in r.text
+    with SessionLocal() as db:
+        assert db.query(User).filter(User.lti_key.isnot(None)).count() == linked_before
+    # An instructor launch creates an account tied to platform + subject and links to a signed-in edit.
+    state, nonce = start_login(client)
+    r = client.post("/lti/launch", data={"id_token": id_token(nonce, service.MSG_RESOURCE, {CLAIM + "custom": {"bundle": "picked1"}, "sub": "teacher-1", "name": "Prof Example", "email": "prof@moodle.test"}), "state": state})
+    assert r.status_code == 200 and "/lti/enter/" in r.text and "open in aggRSSive" in r.text  # not the owner: opens the page
+    with SessionLocal() as db:
+        me = db.query(User).filter(User.email == "prof@moodle.test").one()
+        assert me.lti_key and me.email == "prof@moodle.test" and me.display_name == "Prof Example"
+        b = db.query(B).filter_by(slug="picked1").one()
+        b.owner_id = me.id  # now it is theirs
+        db.commit()
+    state, nonce = start_login(client)
+    r = client.post("/lti/launch", data={"id_token": id_token(nonce, service.MSG_RESOURCE, {CLAIM + "custom": {"bundle": "picked1"}, "sub": "teacher-1", "name": "Prof Example"}), "state": state})
+    assert "edit in aggRSSive" in r.text
+    enter = r.text.split('href="')[1].split('"')[0] if "/lti/enter/" in r.text.split('href="')[1] else [h for h in r.text.split('href="') if "/lti/enter/" in h][0].split('"')[0]
+    path = enter.split(BASE)[-1]
+    c2 = TestClient(app)
+    rr = c2.get(path, follow_redirects=False)
+    assert rr.status_code == 303 and rr.headers["location"] == "/bundles/picked1/edit"
+    assert c2.get("/account").status_code == 200 and "Prof Example" in c2.get("/account").text
+    with SessionLocal() as db:
+        assert db.query(User).filter(User.lti_key.like("%:teacher-1")).count() == 1  # same person, same account
+    # The picker shows their list first with "yours" and offers to make a new one.
+    state, nonce = start_login(client)
+    r = client.post("/lti/launch", data={"id_token": id_token(nonce, service.MSG_DEEPLINK, {DL_CLAIM + "deep_linking_settings": {"deep_link_return_url": "https://moodle.test/return"}, "sub": "teacher-1"}), "state": state})
+    assert "· yours" in r.text and "Make a new aggRSSive" in r.text

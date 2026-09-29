@@ -23,10 +23,11 @@ details.related{margin-top:4px;font-size:.85em}details.related summary{color:var
 <body>
 <header>
   <h1>{{ bundle.title }}</h1>
-  <span class="m">{{ bundle.sources|length }} sources{% if instructor %} · <a href="{{ base_url }}/bundles/{{ bundle.slug }}/edit">edit in aggRSSive</a>{% endif %}</span>
+  <span class="m">{{ bundle.sources|length }} sources{% if edit_url %} · <a href="{{ edit_url }}">{{ 'edit in aggRSSive' if can_edit_it else 'open in aggRSSive' }}</a>{% elif instructor %} · <a href="{{ base_url }}/bundles/{{ bundle.slug }}">open in aggRSSive</a>{% endif %}</span>
 </header>
 {% if bundle.description %}<p class="m">{{ bundle.description }}</p>{% endif %}
-<ul>
+{% if opts.search_box and items|length > 6 %}<input type="search" id="filter" placeholder="Filter this list" aria-label="Filter this list" style="width:100%;box-sizing:border-box;padding:.4rem .6rem;border:1px solid var(--line);border-radius:6px;font:inherit;margin:.2rem 0 .4rem">{% endif %}
+<ul id="items">
 {% for bi in items %}
 <li>
   {% if img and bi.item.image_url %}<a href="{{ bi.item.url }}"><img class="th" src="{{ bi.item.image_url }}" alt="" loading="lazy"></a>{% else %}<span class="noimg"></span>{% endif %}
@@ -43,7 +44,11 @@ details.related{margin-top:4px;font-size:.85em}details.related summary{color:var
 <li><span></span><span class="m">Nothing passes this aggRSSive's filters yet.</span></li>
 {% endfor %}
 </ul>
-<div class="foot"><a href="{{ base_url }}/bundles/{{ bundle.slug }}">{{ bundle.title }}</a> · via aggRSSive · <a href="{{ base_url }}/b/{{ bundle.slug }}/feed.rss">RSS</a></div>
+<div class="foot"><a href="{{ base_url }}/bundles/{{ bundle.slug }}">{{ bundle.title }}</a> · via aggRSSive · <a href="{{ base_url }}/b/{{ bundle.slug }}/feed.rss">RSS</a>{% if items and items[0].item.enclosure_url %} · <a href="{{ base_url }}/b/{{ bundle.slug }}/feed.rss">subscribe in a podcast app</a>{% endif %}</div>
+<script>
+(function(){var f=document.getElementById('filter');if(!f)return;var rows=[].slice.call(document.querySelectorAll('#items > li'));
+f.addEventListener('input',function(){var q=f.value.trim().toLowerCase();rows.forEach(function(li){li.style.display=!q||li.textContent.toLowerCase().indexOf(q)>=0?'':'none';});});})();
+</script>
 {% if opts.related %}<script>
 document.addEventListener('toggle', function (e) {
   var d = e.target; if (!d.matches || !d.matches('details.related') || !d.open || d.dataset.loaded) return;
